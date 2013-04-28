@@ -12,6 +12,7 @@ import vooga.towerdefense.controller.Controller;
 import vooga.towerdefense.view.gamescreens.GameElementInformationScreen;
 import vooga.towerdefense.view.gamescreens.GameStatsScreen;
 import vooga.towerdefense.view.gamescreens.MapScreen;
+import vooga.towerdefense.view.gamescreens.NextWaveScreen;
 import vooga.towerdefense.view.gamescreens.ShopScreen;
 import vooga.towerdefense.view.introscreens.MapsSelectorScreen;
 import vooga.towerdefense.view.introscreens.ImageScreen;
@@ -41,6 +42,7 @@ public class TDView {
     private ShopScreen myShopScreen;
     private JFrame myFrame;
     private MapScreen myMapScreen;
+    private NextWaveScreen myNextWaveScreen;
     private ImageScreen mySplashScreen;
     private ImageScreen myWinScreen;
     private ImageScreen myLoseScreen;
@@ -159,6 +161,22 @@ public class TDView {
      */
     public MapScreen getMapScreen () {
         return myMapScreen;
+    }
+    
+    /**
+     * sets the next wave screen for this view.
+     * @param screen is the next wave screen
+     */
+    public void setNextWaveScreen(NextWaveScreen screen) {
+        myNextWaveScreen = screen;
+    }
+
+    /**
+     * gets the next wave screen for this view.
+     * @return the NextWaveScreen
+     */
+    public NextWaveScreen getNextWaveScreen () {
+        return myNextWaveScreen;
     }
 
     /**

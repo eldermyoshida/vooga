@@ -10,7 +10,7 @@
 			<location>South</location>
 			<ShopScreen>
 				<dimension>600, 100</dimension>
-				<location>North</location>
+				<location>Center</location>
 			</ShopScreen>
 			<NextWaveScreen>
 				<dimension>200, 100</dimension>
@@ -21,11 +21,11 @@
 			<dimension>200, 600</dimension>
 			<location>East</location>
 			<GameStatsScreen>
-				<dimension>200, 300</dimension>
+				<dimension>200, 200</dimension>
 				<location>North</location>
 			</GameStatsScreen>
 			<GameElementInformationScreen>
-				<dimension>200, 300</dimension>
+				<dimension>200, 200</dimension>
 				<location>South</location>
 			</GameElementInformationScreen>
 		</MultipleScreenPanel>

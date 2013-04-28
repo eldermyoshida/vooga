@@ -1,11 +1,14 @@
 package vooga.towerdefense.view.gamescreens;
 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 import vooga.towerdefense.controller.Controller;
 
@@ -27,9 +30,17 @@ public class NextWaveScreen extends JPanel {
      */
     public static final String WAVE_SCREEN_BUTTON_KEYWORD = "NextWaveButtonName";
     /**
+     * constant for the wave timer. 
+     */
+    private static final String NEXT_WAVE_TEXT = "Time Until Next Wave: ";
+    /**
      * controller associated with this screen.
      */
     private Controller myController;
+    /**
+     * jLabel to display the time until the next wave.
+     */
+    private JLabel myNextWaveTimerDisplay;
     /**
      * button to start the next wave.
      */
@@ -47,13 +58,25 @@ public class NextWaveScreen extends JPanel {
      */
     public NextWaveScreen (Dimension size, Controller controller) {
         setPreferredSize(size);
+        setLayout(new BorderLayout());
         myController = controller;
         nextWaveButton =
                 new JButton(myController.getStringFromResources(WAVE_SCREEN_BUTTON_KEYWORD));
-        add(nextWaveButton);
+        add(nextWaveButton, BorderLayout.NORTH);
+        myNextWaveTimerDisplay = new JLabel(NEXT_WAVE_TEXT);
+        add(myNextWaveTimerDisplay, BorderLayout.CENTER);
         makeMouseAdapter();
         nextWaveButton.addMouseListener(myMouseAdapter);
         setVisible(true);
+    }
+    
+    /**
+     * updates the timer display with the time left.
+     * @param timeLeft
+     */
+    public void updateTimerDisplay(String timeLeft) {
+        myNextWaveTimerDisplay = new JLabel(NEXT_WAVE_TEXT + timeLeft);
+        add(myNextWaveTimerDisplay, BorderLayout.CENTER);
     }
 
     /**
