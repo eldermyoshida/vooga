@@ -5,14 +5,30 @@
 			<dimension>800, 600</dimension>
 			<location>North</location>
 		</MapScreen>
-		<ShopScreen>
-			<dimension>800, 200</dimension>
+		<MultipleScreenPanel>
+			<dimension>1000, 200</dimension>
 			<location>South</location>
-		</ShopScreen>
-		<GameStatsScreen>
-			<dimension>200, 200</dimension>
+			<ShopScreen>
+				<dimension>600, 100</dimension>
+				<location>Center</location>
+			</ShopScreen>
+			<NextWaveScreen>
+				<dimension>200, 100</dimension>
+				<location>East</location>
+			</NextWaveScreen>
+		</MultipleScreenPanel>
+		<MultipleScreenPanel>
+			<dimension>200, 600</dimension>
 			<location>East</location>
-		</GameStatsScreen>
+			<GameStatsScreen>
+				<dimension>200, 300</dimension>
+				<location>North</location>
+			</GameStatsScreen>
+			<GameElementInformationScreen>
+				<dimension>200, 300</dimension>
+				<location>South</location>
+			</GameElementInformationScreen>
+		</MultipleScreenPanel>
 	</view>
 	<map>
 		<Map1>

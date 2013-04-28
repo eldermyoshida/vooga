@@ -50,14 +50,13 @@ public class ViewXMLLoader {
                 JPanel screen = getScreen(view, element, controller);
                 Element locationElement = myXMLTool.getChildrenElementMap(element).get(LOCATION_TAG);
                 String location = myXMLTool.getContent(locationElement);
-
                 view.addScreen(screen, location);
             }
             else {
                 Element multiplePanelScreen = subElements.get(MULTIPLE_SCREEN_PANEL_TAG);
                 JPanel multipleScreenPanel = getScreen(view, multiplePanelScreen, controller);
-                Element locationElement = subElements.get(LOCATION_TAG);
-                String location = BORDER_LAYOUT_ADDITION + myXMLTool.getContent(locationElement);
+                Element locationElement = myXMLTool.getChildrenElementMap(multiplePanelScreen).get(LOCATION_TAG);
+                String location = myXMLTool.getContent(locationElement);
                 multipleScreenPanel = createMultipleScreenPanel(view, multipleScreenPanel, multiplePanelScreen, controller);
                 view.addScreen(multipleScreenPanel, location);
             }
@@ -68,11 +67,13 @@ public class ViewXMLLoader {
     private JPanel createMultipleScreenPanel(TDView view, JPanel panel, Element element, Controller controller) throws IllegalArgumentException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException {
         Map<String, Element> subMultiples = myXMLTool.getChildrenElementMap(element);
         for (String s : subMultiples.keySet()) {
-            Element subScreenElement = subMultiples.get(s);
-            JPanel subScreen = getScreen(view, subScreenElement, controller);
-            Element locElement = myXMLTool.getElement(LOCATION_TAG);
-            String location = BORDER_LAYOUT_ADDITION + myXMLTool.getContent(locElement);
-            ((MultipleScreenPanel) panel).addScreen(subScreen, location);
+            if (!((s.equals("dimension")) || s.equals("location"))) {
+                Element subScreenElement = subMultiples.get(s);
+                JPanel subScreen = getScreen(view, subScreenElement, controller);
+                Element locElement = myXMLTool.getElement(LOCATION_TAG);
+                String location = myXMLTool.getContent(locElement);
+                ((MultipleScreenPanel) panel).addScreen(subScreen, location);
+            }
         }
         return (MultipleScreenPanel) panel;
     }
@@ -96,7 +97,13 @@ public class ViewXMLLoader {
         Class c = Class.forName("vooga.towerdefense.view.gamescreens." + myXMLTool.getTagName(element));
         Constructor[] constructors = c.getConstructors();
         Constructor cons = constructors[0];
-        JPanel screen = (JPanel) cons.newInstance(dimension, controller);
+        JPanel screen;
+        //if (myXMLTool.getTagName(element).equals(MULTIPLE_SCREEN_PANEL_TAG)) {
+            
+        //}
+        //else {
+            screen = (JPanel) cons.newInstance(dimension, controller);
+        //}
         if (myXMLTool.getTagName(element).equals(MAPSCREEN_TAG)) {
             view.setMapScreen((MapScreen)screen);
         }
