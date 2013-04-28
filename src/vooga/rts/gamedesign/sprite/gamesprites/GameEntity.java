@@ -74,6 +74,7 @@ public class GameEntity extends GameSprite {
         if (isDead()) {
             setChanged();
             notifyObservers();
+            setVisible(true);
         }
         Vector v = getWorldLocation().difference(myGoal.to2D());
         if (reachedGoal(elapsedTime)) {
