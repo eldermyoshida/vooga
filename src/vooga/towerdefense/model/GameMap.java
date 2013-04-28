@@ -50,7 +50,7 @@ public class GameMap {
 	 *            the destination point of all units
 	 */
 	public GameMap(Tile[][] grid, Pixmap background, Dimension mapDimensions,
-			Dimension tileSize) {
+			Dimension tileSize, Location spawnLocation, Location endLocation) {
 		myBackgroundImage = background;
 		myDimensions = mapDimensions;
 		myGameElements = new ArrayList<GameElement>();
@@ -59,8 +59,10 @@ public class GameMap {
 		myTileSize = tileSize;
 
 		// TODO: pull these from file
-		myEndLocation = myGrid[myGrid.length-1][myGrid[0].length/2].getCenter();
-		mySpawnLocation = myGrid[0][myGrid[0].length/2].getCenter();
+//		myEndLocation = myGrid[myGrid.length-1][myGrid[0].length/2].getCenter();
+//		mySpawnLocation = myGrid[0][myGrid[0].length/2].getCenter();
+		mySpawnLocation = spawnLocation;
+		myEndLocation = endLocation;
 		updatePaths();
 	}
 

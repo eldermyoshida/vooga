@@ -16,7 +16,6 @@ public abstract class Tile extends Sprite {
     private GameElement myElement;
     private boolean myIsWalkable;
     private boolean myIsBuildable;
-    private int myId;
     private Pixmap myPixmap;
     
     /**
@@ -26,9 +25,8 @@ public abstract class Tile extends Sprite {
      * @param center the center of this tile
      * @param size the size of the tile
      */
-    public Tile (int id, Pixmap image, Location center, Dimension size) {
+    public Tile (Pixmap image, Location center, Dimension size) {
         super(image, center, size);
-        myId = id;
         myPixmap = image;
     }
 
@@ -39,14 +37,6 @@ public abstract class Tile extends Sprite {
      */
     public boolean isBuildable() {
         return myIsBuildable;
-    }
-    
-    /**
-     * 
-     * @return the tile id
-     */
-    public int getTileId() {
-        return myId;
     }
     
     /**
