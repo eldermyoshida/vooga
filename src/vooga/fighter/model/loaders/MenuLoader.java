@@ -56,6 +56,8 @@ public class MenuLoader extends ObjectLoader {
                     for (int k = 0; k < frames.getLength(); k++) {
                         Element node1 = (Element) frames.item(k);
                         String imagepathway = getAttributeValue(node1, ModelConstants.IMAGE_PROPERTY);
+                        System.out.println(pathHiearchy);
+                        System.out.println(imagepathway);
                         Pixmap image = new Pixmap(imagepathway);
                         newState.populateImage(image, k);
                     }

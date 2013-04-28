@@ -2,11 +2,11 @@
 <objects>
     <menuobject menuobjectname="StartGame">
     	<state name = "Unselected">
-            <frame image="fighter/images/StartGame.gif" />
+            <frame image="fighter/JerryJackExample/images/StartGame.gif" />
          </state>
          <state name = "Selected">
-            <frame image="fighter/images/StartGame.gif" />
-            <frame image="fighter/images/fire.png" />           
+            <frame image="fighter/JerryJackExample/images/StartGame.gif" />
+            <frame image="fighter/JerryJackExample/images/fire.png" />           
         </state>
     </menuobject>
     <menuobject menuobjectname="1v1">
