@@ -11,6 +11,7 @@ import java.util.Map;
  * and add to a resource.
  * 
  * @author Jonathan Schmidt
+ * @modified Francesco Agosti
  * 
  */
 public class IndividualResourceManager {
@@ -64,6 +65,35 @@ public class IndividualResourceManager {
      */
     public void charge (String type, int amount) {
         setAmount(type, getAmount(type) - amount);
+    }
+    
+    /**
+     * Charges the resource manager by the amounts determined in the cost map. 
+     * @param costMap
+     */
+    public void charge(Map<String, Integer> costMap){
+        for(String key: costMap.keySet()){
+            int newValue = myResources.get(key) - costMap.get(key);
+            myResources.put(key, newValue);
+        }
+    }
+    
+    /**
+     * Tells the caller whether the player has these resources. 
+     * @param type
+     * @param amount
+     * @return
+     */
+    public boolean has (Map<String, Integer> costMap){
+        for(String key : costMap.keySet()){
+            if(myResources.containsKey(key)){
+                if(myResources.get(key) < costMap.get(key)){
+                    return false;
+                }
+            }
+        }
+        return true;
+        
     }
     
     /**

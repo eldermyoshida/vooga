@@ -55,9 +55,7 @@ public class GameState extends SubState implements Controller, Observer {
     private static final Location3D DEFAULT_PRODUCTION_RELATIVE_LOCATION = new Location3D(000, 500,
                                                                                           0);
 
-
     private static final Location3D DEFAULT_OCCUPY_RELATIVE_LOCATION = new Location3D(300, 300, 0);
-
 
     private static GameMap myMap;
     private static PlayerManager myPlayers;
@@ -118,8 +116,8 @@ public class GameState extends SubState implements Controller, Observer {
     public void paint (Graphics2D pen) {
         Scale.unscalePen(pen);
         pen.setBackground(Color.BLACK);
-        myMap.paint(pen);                
-        myMiniMap.paint(pen);        
+        myMap.paint(pen);
+        myMiniMap.paint(pen);
 
         if (myDrag != null) {
             pen.draw(myDrag);
@@ -174,15 +172,17 @@ public class GameState extends SubState implements Controller, Observer {
 
         getPlayers().getPlayer(playerID).add(soldierOne);
 
-        Building startProduction = (Building) RTSGame.getFactory().getEntitiesMap().get("home").copy();
+        Building startProduction =
+                (Building) RTSGame.getFactory().getEntitiesMap().get("home").copy();
         startProduction =
                 (Building) setLocation(startProduction, baseLocation,
                                        DEFAULT_PRODUCTION_RELATIVE_LOCATION);
         getPlayers().getPlayer(playerID).add(startProduction);
 
-        Building startOccupy = (Building) RTSGame.getFactory().getEntitiesMap().get("garrison").copy();
+        Building startOccupy =
+                (Building) RTSGame.getFactory().getEntitiesMap().get("garrison").copy();
         startOccupy = (Building) setLocation(startOccupy, baseLocation,
-                                       DEFAULT_OCCUPY_RELATIVE_LOCATION);
+                                             DEFAULT_OCCUPY_RELATIVE_LOCATION);
         getPlayers().getPlayer(playerID).add(startOccupy);
 
     }

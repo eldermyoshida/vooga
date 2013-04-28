@@ -8,11 +8,14 @@ import vooga.rts.gamedesign.state.GatherState;
 import vooga.rts.gamedesign.state.ProducingState;
 import vooga.rts.gamedesign.strategy.Strategy;
 import vooga.rts.gamedesign.strategy.attackstrategy.CanAttack;
+import vooga.rts.manager.IndividualResourceManager;
+import vooga.rts.state.GameState;
 import vooga.rts.util.DelayedTask;
 import vooga.rts.util.Location3D;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * This class implements ProductionStrategy and is used as an instance in
@@ -74,6 +77,8 @@ public class CanProduce implements ProductionStrategy {
 	public void createProductionActions(final InteractiveEntity producer) {
 		for (final InteractiveEntity producable : myProducables) {
 			String commandName = "make " + producable.getInfo().getName();
+			final IndividualResourceManager playerResources = GameState.getPlayers().getPlayer(producer.getPlayerID()).getResources();
+			final Map<String, Integer> costMap = producer.getInfo().getCost();
 			producer.addAction(commandName, new InteractiveAction(producer) {
 
 				@Override
@@ -82,28 +87,31 @@ public class CanProduce implements ProductionStrategy {
 
 				@Override
 				public void apply() {
-					// check for resources
-					final InteractiveEntity unit = producable;
+				    if(playerResources.has(costMap)){
+				        playerResources.charge(costMap);
+	                                    final InteractiveEntity unit = producable;
 
-					myProduceState = ProducingState.PRODUCING;
-					DelayedTask dt = new DelayedTask(unit.getBuildTime(),
-							new Runnable() {
-								@Override
-								public void run() {
-									InteractiveEntity f = unit.copy();
-									f.setWorldLocation(producer
-											.getWorldLocation());
-									producer.setChanged();
-									producer.notifyObservers(f);
+	                                        myProduceState = ProducingState.PRODUCING;
+	                                        DelayedTask dt = new DelayedTask(unit.getBuildTime(),
+	                                                        new Runnable() {
+	                                                                @Override
+	                                                                public void run() {
+	                                                                        InteractiveEntity f = unit.copy();
+	                                                                        f.setWorldLocation(producer
+	                                                                                        .getWorldLocation());
+	                                                                        producer.setChanged();
+	                                                                        producer.notifyObservers(f);
 
-									myProduceState = ProducingState.NOT_PRODUCING;
-									f.move(myRallyPoint);
+	                                                                        myProduceState = ProducingState.NOT_PRODUCING;
+	                                                                        f.move(myRallyPoint);
 
-								}
-							});
+	                                                                }
+	                                                        });
 
-					System.out.println("added");
-					producer.addQueueableTask(dt);
+	                                        producer.addQueueableTask(dt);
+				        
+				    }
+
 				}
 			});
 			producer.addInfo(commandName, producable.getInfo());
