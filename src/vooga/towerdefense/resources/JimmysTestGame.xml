@@ -37,7 +37,25 @@
 		</Map1>
 	</map>
 	<gameelements>
-		<TestUnit>
+		<Dog>
+			<dimension>50, 50</dimension>
+			<image>dog.gif</image>
+			<type>Unit</type>
+			<attributes>
+				<HEALTH>100</HEALTH>
+				<MOVE_SPEED>50</MOVE_SPEED>
+				<DIRECTION>0</DIRECTION>
+			</attributes>
+			<actions>
+				<FollowPath>
+				</FollowPath>
+				<Move>
+					<parameter1>MOVE_SPEED</parameter1>
+					<parameter2>DIRECTION</parameter2>
+				</Move>
+			</actions>			
+		</Dog>
+		<Bear>
 			<dimension>50, 50</dimension>
 			<image>bear.gif</image>
 			<type>Unit</type>
@@ -54,7 +72,7 @@
 					<parameter2>DIRECTION</parameter2>
 				</Move>
 			</actions>			
-		</TestUnit>
+		</Bear>
 		<TestTower>
 			<dimension>50, 50</dimension>
 			<image>tower.gif</image>
@@ -68,6 +86,7 @@
 	</gameelements>
 	<rules>
 		<EnemyReachedEndRule/>
+		<NextLevelRule/>
 	</rules>
 	<levels>
 		<Level1>
@@ -75,11 +94,22 @@
 			</rules>
 			<actions>
 				<WaveAction>
-					<parameter1>15</parameter1>
-					<parameter2>2000</parameter2>
-					<parameter3>TestUnit</parameter3>
+					<parameter1>10</parameter1>
+					<parameter2>1000</parameter2>
+					<parameter3>Dog</parameter3>
 				</WaveAction>
 			</actions>
 		</Level1>
+		<Level2>
+				<rules>
+				</rules>
+				<actions>
+				<WaveAction>
+					<parameter1>10</parameter1>
+					<parameter2>1000</parameter2>
+					<parameter3>Bear</parameter3>
+				</WaveAction>
+				</actions>
+			</Level2>
 	</levels>
 </Game>

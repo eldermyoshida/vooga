@@ -6,6 +6,7 @@ import java.util.List;
 import vooga.towerdefense.action.Action;
 import vooga.towerdefense.gameelements.GameElement;
 import vooga.towerdefense.model.GameMap;
+import vooga.towerdefense.model.Player;
 
 
 /**
@@ -18,6 +19,7 @@ import vooga.towerdefense.model.GameMap;
 public abstract class ActionFactory {
 
     private GameMap myMap;
+    private Player myPlayer;
     private List<ActionFactory> myFollowUpActions;
 
     public ActionFactory () {
@@ -28,8 +30,12 @@ public abstract class ActionFactory {
      * Places in all of the objects that the factory could need to function
      * Cannot create actions until initialized
      */
-    public void initialize (GameMap map) {
+    public void initialize (GameMap map, Player player) {
         myMap = map;
+        myPlayer = player;
+        for (ActionFactory a : myFollowUpActions) {
+            a.initialize(map, player);
+        }
     }
     
     public GameMap getMap() {

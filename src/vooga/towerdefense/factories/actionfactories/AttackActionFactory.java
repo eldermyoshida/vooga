@@ -4,6 +4,7 @@ import vooga.towerdefense.action.Action;
 import vooga.towerdefense.factories.ActionAnnotation;
 import vooga.towerdefense.gameelements.GameElement;
 import vooga.towerdefense.model.GameMap;
+import vooga.towerdefense.model.Player;
 
 /**
  * A bundle of action factories to make implementing game elements easier
@@ -38,13 +39,13 @@ public class AttackActionFactory extends ActionFactory {
         myProjectileType = projectileFactory;
     }
     
-    public void initialize (GameMap map) {
-        super.initialize(map);
+    public void initialize (GameMap map, Player player) {
+        super.initialize(map, player);
         makeComboFactories();
-        myFinder.initialize(map);
-        myFilter.initialize(map);
-        mySpeed.initialize(map);
-        myProjectiles.initialize(map);
+        myFinder.initialize(map, player);
+        myFilter.initialize(map, player);
+        mySpeed.initialize(map, player);
+        myProjectiles.initialize(map, player);
     }
     
     

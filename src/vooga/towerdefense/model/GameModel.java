@@ -42,12 +42,11 @@ public class GameModel {
         myController = controller;
         myLevels = new ArrayList<Level>();
         myRules = new ArrayList<Rule>();
+        myPlayer = new Player(controller);
         myGameMap = gameMap;
         myShop = shop;
-        myCurrentLevel = 0;
-       // myPlayer = new Player(controller);
-        myPlayer = new Player(controller);
         myActiveActions = new ArrayList<Action>();
+        myCurrentLevel = 0;
     }
     
     /**
@@ -85,7 +84,7 @@ public class GameModel {
     }
     
     /**
-     * Applys each of the current applicable rules in play
+     * Applies each of the current applicable rules in play
      */
     private void checkRules() {
     	for(Rule rule : myRules)
@@ -109,8 +108,8 @@ public class GameModel {
      */
     public void startNextLevel () {
     	if (myLevels.size()>myCurrentLevel) {
+    		myLevels.get(myCurrentLevel).start(this);
             myCurrentLevel++;
-            addActions(myLevels.get(myCurrentLevel-1).getActions());
         }
         else {
             win();
@@ -171,6 +170,6 @@ public class GameModel {
 	}
 
 	public Level getActiveLevel() {
-		return myLevels.get(myCurrentLevel);
+		return myLevels.get(myCurrentLevel-1);
 	}
 }
