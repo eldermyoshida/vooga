@@ -507,7 +507,7 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
      */
     public boolean select (boolean selected) {
 
-        if (selected && getState().canSelect()) {
+        if (selected && getEntityState().canSelect()) {
             isSelected = selected;
         }
         if (!selected) {
