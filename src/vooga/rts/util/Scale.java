@@ -27,4 +27,10 @@ public class Scale {
         float y = ((float) Window.SCREEN_SIZE.getHeight() / (float) Window.D_Y);
         pen.scale(x, y);
     }
+
+    public static void unscalePen (Graphics2D pen) {
+        float x = ((float) Window.D_X) / ((float) Window.SCREEN_SIZE.getWidth());
+        float y = ((float) Window.D_Y) / ((float) Window.SCREEN_SIZE.getHeight());
+        pen.scale(x, y);
+    }
 }

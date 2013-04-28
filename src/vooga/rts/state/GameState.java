@@ -29,6 +29,7 @@ import vooga.rts.util.FrameCounter;
 import vooga.rts.util.Information;
 import vooga.rts.util.Location3D;
 import vooga.rts.util.Pixmap;
+import vooga.rts.util.Scale;
 
 
 /**
@@ -122,11 +123,9 @@ public class GameState extends SubState implements Controller, Observer {
 
     @Override
     public void paint (Graphics2D pen) {
-        pen.scale(1.0, 1.0);
+        Scale.unscalePen(pen);
         pen.setBackground(Color.BLACK);
         myMap.paint(pen);
-        myMiniMap.paint(pen);
-        getPlayers().getHuman().paint(pen);
 
         if (myDrag != null) {
             pen.draw(myDrag);
@@ -134,6 +133,8 @@ public class GameState extends SubState implements Controller, Observer {
 
         Camera.instance().paint(pen);
         myFrames.paint(pen);
+        Scale.scalePen(pen);
+        myPlayers.getHuman().paint(pen);
     }
 
     @Override
@@ -190,16 +191,6 @@ public class GameState extends SubState implements Controller, Observer {
                 (Building) setLocation(startOccupy, baseLocation,
                                        DEFAULT_OCCUPY_RELATIVE_LOCATION);
         getPlayers().getPlayer(playerID).add(startOccupy);
-
-        // this is for testing
-        final Building f = startProduction;
-        myTasks.add(new DelayedTask(2, new Runnable() {
-
-            @Override
-            public void run () {
-                f.getAction((new Command("make Marine"))).apply();
-            }
-        }, true));
 
         // This is for testing
         final Building testGarrison = startOccupy;
