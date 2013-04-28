@@ -122,7 +122,7 @@ public class Projectile extends GameEntity {
 	 *            is the target of the projectile
 	 */
 	public void attack(InteractiveEntity interactiveEntity) {
-		interactiveEntity.changeHealth(myDamage);
+		interactiveEntity.calculateDamage(myDamage);
 	}
 
 	/**

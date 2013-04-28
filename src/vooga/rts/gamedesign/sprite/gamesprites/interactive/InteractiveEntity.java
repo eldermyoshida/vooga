@@ -72,6 +72,7 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
     private static final int LOCATION_OFFSET = 20;
     private static int DEFAULT_INTERACTIVEENTITY_SPEED = 150;
     public static final double DEFAULT_BUILD_TIME = 5;
+    public static final int DEFAULT_ARMOR = 10;
     private boolean isSelected;
     private Sound mySound;
     private AttackStrategy myAttackStrategy;
@@ -131,6 +132,7 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
         myCurQueueTask = new DelayedTask(0, null);
         myFinder = new AstarFinder();
         myTargetEntity = this;
+        myArmor = DEFAULT_ARMOR;
         setSpeed(DEFAULT_INTERACTIVEENTITY_SPEED);
     }
 
@@ -263,8 +265,9 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
                                   ((InteractiveEntity) attackable).getWorldLocation().getY(), 2));
     }
 
-    public int calculateDamage (int damage) {
-        return damage * (1 - (myArmor / (myArmor + 100)));
+    public void calculateDamage (int damage) {
+        int healthLost = damage * (1 - (myArmor / (myArmor + 100)));
+        changeHealth(healthLost);
     }
 
     public boolean containsInput (Command command) {
@@ -316,9 +319,7 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
             }
 
         }
-        if (infoCommands.isEmpty()) {
-            return null;
-        }
+        if (infoCommands.isEmpty()) { return null; }
         return infoCommands;
     }
 
@@ -429,9 +430,7 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
 
     @Override
     public void paint (Graphics2D pen) {
-        if (!isVisible()) {
-            return;
-        }
+        if (!isVisible()) { return; }
         // pen.rotate(getVelocity().getAngle());
 
         // should probably use the getBottom, getHeight etc...implement them
@@ -481,13 +480,12 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
         if (isEnemy((InteractiveEntity) other)) {
             getEntityState().setUnitState(UnitState.ATTACK);
         }
-        else
-            if (other instanceof Building) {
-                getEntityState().setUnitState(UnitState.OCCUPY);
-            }
-            else {
-                getEntityState().setUnitState(UnitState.NO_STATE);
-            }
+        else if (other instanceof Building) {
+            getEntityState().setUnitState(UnitState.OCCUPY);
+        }
+        else {
+            getEntityState().setUnitState(UnitState.NO_STATE);
+        }
         move(other.getWorldLocation());
     }
 
@@ -711,6 +709,14 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
      */
     public void setTargetEntity (GameEntity entity) {
         myTargetEntity = entity;
+    }
+    
+    /**
+     * Sets the armor of the entity.
+     * @param armor is the amount of armor the entity will have
+     */
+    public void setArmor(int armor) {
+        myArmor = armor;
     }
 
 }
