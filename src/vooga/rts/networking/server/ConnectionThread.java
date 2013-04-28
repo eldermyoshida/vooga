@@ -131,6 +131,9 @@ public class ConnectionThread extends Thread {
             myLogger.log(Level.FINER,
                          NetworkBundle.getString("ClosingConnectionsFailed"));
         }
+        myLogger.log(Level.FINER,
+                     NetworkBundle.getString("ClosedConnection") +
+                            myID);
     }
 
     /**
