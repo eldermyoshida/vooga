@@ -6,7 +6,7 @@ import vooga.scroller.extra_resources.sprite_interfaces.ICollectible;
 import vooga.scroller.extra_resources.sprite_interfaces.IEnemy;
 import vooga.scroller.extra_resources.sprite_interfaces.IPlatform;
 import vooga.scroller.kirbyGame.spritesDefinitions.players.Kirby;
-import vooga.scroller.kirbyGame.spritesDefinitions.players.states.FloatState;
+import vooga.scroller.kirbyGame.spritesDefinitions.players.states.FloatLeftState;
 import vooga.scroller.marioGame.spritesDefinitions.players.Mario;
 import vooga.scroller.sprites.Sprite;
 import vooga.scroller.sprites.interfaces.IDoor;
@@ -35,7 +35,7 @@ public class KirbyCollisions {
     protected void kirbyAndPlatformCollision (Kirby player, IPlatform platform) {
 
         
-        player.stopJump();
+        player.stopFloat();
         
         Direction collisionType = direction.collisionDirection(player, platform);
 

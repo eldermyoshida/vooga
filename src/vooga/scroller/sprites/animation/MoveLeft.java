@@ -35,4 +35,3 @@ public class MoveLeft extends AnimationState<Sprite> {
     }
 }
 
-

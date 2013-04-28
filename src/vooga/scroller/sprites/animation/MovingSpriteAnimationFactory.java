@@ -1,5 +1,6 @@
 package vooga.scroller.sprites.animation;
 
+
 import vooga.scroller.sprites.Sprite;
 import vooga.scroller.util.Pixmap;
 
@@ -98,4 +99,5 @@ public class MovingSpriteAnimationFactory {
         result.setDefaultView(myDefaultView);        
         return result;
     }
+
 }

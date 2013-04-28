@@ -8,7 +8,7 @@ import vooga.scroller.sprites.Sprite;
 import vooga.scroller.sprites.state.SpriteState;
 import vooga.scroller.util.ISpriteView;
 
-public class FloatState extends SpriteState<Sprite>{
+public class FloatLeftState extends SpriteState<Sprite>{
 
     private static final String DEFAULT_IMG = "kirbyfloatL.gif";
     
@@ -16,7 +16,7 @@ public class FloatState extends SpriteState<Sprite>{
     private Kirby myKirby;
     
     
-    public FloatState (Sprite unit) {
+    public FloatLeftState (Sprite unit) {
         super(unit);
         myKirby = (Kirby) unit;
         // TODO Auto-generated constructor stub

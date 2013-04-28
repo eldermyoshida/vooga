@@ -324,5 +324,7 @@ public class KirbyLib extends EncapsulatedSpriteLibrary {
         Animation<Sprite> playerAnimation = msaf.generateAnimation(player);
         player.setView(playerAnimation);
     }
+    
+
 
 }
