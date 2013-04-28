@@ -341,7 +341,6 @@ public class Controller {
 
 	public Location getPointSnappedToGrid(Location location) {
 		return myModel.getMap().getTile(location).getCenter();
-
 	}
 
 	/**
@@ -459,7 +458,6 @@ public class Controller {
 	 * The function called when the model reaches losing conditions
 	 */
 	public void lose() {
-	    System.out.println("You lose");
 	    myView.showLoseScreen();
 		
 	}
