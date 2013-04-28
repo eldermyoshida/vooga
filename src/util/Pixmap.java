@@ -21,7 +21,6 @@ import javax.swing.ImageIcon;
 public class Pixmap {
     private java.awt.Image myImage;
     private String myFileName;
-    private static final String RESOURCE_LOCATION = "/vooga/";
     
     /**
      * Create an image from the given path including filename.
@@ -52,7 +51,7 @@ public class Pixmap {
      *        Example: filePath = "/" + "car.png" will look for an image car.png in the src folder.
      */
     public void setImage (String fileName) {
-        myImage = new ImageIcon(getClass().getResource(RESOURCE_LOCATION + fileName)).getImage();
+        myImage = new ImageIcon(getClass().getResource(fileName)).getImage();
         myFileName = fileName;
     }
     
@@ -125,5 +124,4 @@ public class Pixmap {
         int height = myImage.getHeight(null);
         return new Dimension(width, height);
     }
-    
 }

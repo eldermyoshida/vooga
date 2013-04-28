@@ -5,6 +5,7 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.geom.Point2D;
 import java.util.Observable;
+
 import vooga.rts.IGameLoop;
 import vooga.rts.util.Camera;
 import vooga.rts.util.Location3D;
@@ -120,7 +121,8 @@ public abstract class GameSprite extends Observable implements IGameLoop {
         if (Camera.instance().issVisible(getWorldLocation())) {
             myScreenLocation = Camera.instance().worldToView(myWorldLocation);
             // if (Camera.instance().isVisible(myScreenLocation)) {
-            myPixmap.paint(pen, myScreenLocation, mySize);
+            if(myPixmap != null)
+            	myPixmap.paint(pen, myScreenLocation, mySize);
             // }
         }
         // pen.draw(myWorldBounds);
