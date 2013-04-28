@@ -107,6 +107,7 @@ public class GameState extends SubState implements Controller, Observer {
     @Override
     public void update (double elapsedTime) {
         if (isGameOver) {
+            System.out.println("gamestate update game over");
             setChanged();
             notifyObservers();
         }

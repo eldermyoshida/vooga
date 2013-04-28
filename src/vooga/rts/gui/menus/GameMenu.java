@@ -1,19 +1,11 @@
 package vooga.rts.gui.menus;
 
-import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Observable;
-import java.util.Observer;
-import javax.imageio.ImageIO;
+import util.Location;
 import vooga.rts.commands.ClickCommand;
 import vooga.rts.commands.Command;
 import vooga.rts.commands.InformationCommand;
@@ -22,16 +14,12 @@ import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
 import vooga.rts.gui.Button;
 import vooga.rts.gui.Menu;
 import vooga.rts.gui.Window;
-import vooga.rts.gui.buttons.*;
+import vooga.rts.gui.buttons.ImageButton;
 import vooga.rts.gui.menus.gamesubmenus.ActionsSubMenu;
-import vooga.rts.gui.menus.gamesubmenus.SubMenu;
 import vooga.rts.gui.menus.gamesubmenus.InfoSubMenu;
 import vooga.rts.gui.menus.gamesubmenus.MiniMapSubMenu;
+import vooga.rts.gui.menus.gamesubmenus.SubMenu;
 import vooga.rts.manager.Manager;
-import vooga.rts.resourcemanager.ResourceManager;
-import vooga.rts.util.Information;
-import vooga.rts.util.Scale;
-import util.Location;
 
 
 public class GameMenu extends Menu {
@@ -110,17 +98,14 @@ public class GameMenu extends Menu {
             ClickCommand c = (ClickCommand) command;
             l = c.getPosition();
         }
-        else
-            if (command instanceof PositionCommand) {
-                PositionCommand c = (PositionCommand) command;
-                l = c.getPosition();
-            }
+        else if (command instanceof PositionCommand) {
+            PositionCommand c = (PositionCommand) command;
+            l = c.getPosition();
+        }
         if (l == null)
             return false;
         for (SubMenu s : mySubMenus) {
-            if (s.checkWithinBounds(l)) {
-                return true;
-            }
+            if (s.checkWithinBounds(l)) { return true; }
         }
         for (Button b : myButtons) {
             if (b.checkWithinBounds(l)) { return true; }
@@ -161,16 +146,10 @@ public class GameMenu extends Menu {
         }
 
         if (o.equals(myExitButton)) {
-            setChanged();
-            notifyObservers();
+            System.exit(0);
+            // setChanged();
+            // notifyObservers();
         }
-        // if (o instanceof ActionButton) {
-        // ActionButton a = (ActionButton) o;
-        // Integer id = a.getID();
-        //
-        // setChanged();
-        // notifyObservers(id);
-        // }
     }
 
     private void setDeselected () {
