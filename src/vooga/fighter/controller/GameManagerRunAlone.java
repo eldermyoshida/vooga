@@ -22,71 +22,79 @@ import arcade.games.UserGameData;
  */
 
 public class GameManagerRunAlone{
-    	public static final Dimension SIZE = new Dimension(800, 600);
-    	    public static final String TITLE = "Fighter!";
-    	    private static final String PATHWAY = "vooga.fighter.";
-    	    public static final int THREE_TOP_HIGH_SCORES = 3;
-    	    private Canvas myCanvas;
-    	    private ControllerManager myControllerManager;
-    	    private GameInfo myGameInfo;
-    	    private String myHardFilePathway;
+    public static final Dimension SIZE = new Dimension(800, 600);
 
-    	    public GameManagerRunAlone() {
-    	    	setFilePathway();
-    	        setCanvas();
-    	        setInfo();
-    	        ControllerFactory factory = makeFactory(myCanvas,myHardFilePathway);
-    	        ControlProgressionManager progressionmanager = makeProgression(factory.getMap());
-    	        myControllerManager = makeManager(myCanvas, myGameInfo, factory, progressionmanager,myHardFilePathway);
-    	        JFrame frame = makeFrame();
-    	        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    	        frame.getContentPane().add(myCanvas, BorderLayout.CENTER);
-    	        frame.pack();
-    	        frame.setVisible(true);
-    	    }
+    public static final String TITLE = "Fighter!";
+    public static final int THREE_TOP_HIGH_SCORES = 3;
+    private static final String FILE_PATH = "vooga.fighter.";
+    private Canvas myCanvas;
+    private ControllerManager myControllerManager;
+    private GameInfo myGameInfo;
+    private String myHardFilePathway;
 
-    	    public void run (){
-    	        myControllerManager.run();
-    	    }
+    public GameManagerRunAlone () {
+        setup();
+        ControllerFactory factory = new ControllerFactory(myCanvas, myHardFilePathway);
+        ControlProgressionManager progressionmanager = makeProgression(factory.getMap());
+        myControllerManager =
+                new ControllerManager(myCanvas, myGameInfo, factory, progressionmanager, myHardFilePathway);
+        JFrame frame = makeFrame();
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.getContentPane().add(myCanvas, BorderLayout.CENTER);
+        frame.pack();
+        frame.setVisible(true);
+    }
+    
+    /**
+    * Runs the entire engine
+    */
+    public void run() {
+        myControllerManager.run();
+    }
 
-    	    protected ControllerFactory makeFactory(Canvas canvas, String pathway){
-    	        return new ControllerFactory(canvas, pathway);
-    	    }
+    /**
+    * Allows one to subclass and use own progression manager, which handles switching
+    * levels
+    */
+    protected ControlProgressionManager makeProgression(Map<String, Controller> map){
+        return new ControlProgressionManager(map);
+    }
 
-    	    protected ControllerManager makeManager(Canvas canvas, GameInfo info, ControllerFactory factory,
-    	                                            ControlProgressionManager progression, String myFilePathway){
-    	        return new ControllerManager(canvas, info, factory, progression, myFilePathway);
-    	    }
+    /**
+    * Sets the File Pathway
+    */
+    protected void setFilePathway (String pathway) {
+        myHardFilePathway = pathway;
+    }
 
-    	    protected ControlProgressionManager makeProgression(Map<String, Controller> map){
-    	        return new ControlProgressionManager(map);
-    	    }
-
-
-    	    public UserGameData generateNewProfile(){
-    	        return myGameInfo;
-    	    }
-
-    	    protected void setFilePathway(){
-    	        myHardFilePathway = PATHWAY;
-    	    }
-    		 
-    		 
-    		 protected GameInfo getGameInfo(){
-    			 return myGameInfo;
-    		 }
-
-    		protected void setInfo(){
-    			myGameInfo = new GameInfo(new MapLoader(myHardFilePathway).getMapNames());
-    		}
-    		
-    		protected void setCanvas(Canvas canvas){
-    			myCanvas = canvas;
-    		}
-    		
-    		protected JFrame makeFrame(){
-    			return new JFrame(TITLE);
-    		}
-
+    protected GameInfo getGameInfo () {
+        return myGameInfo;
+    }
+    /**
+    * Allows subclassing of gameInfo to includ new scores/functionality
+    */
+    protected void setInfo (GameInfo info) {
+        myGameInfo = info;
+    }
+    /**
+    * Allows subclassing of canvas to include new view functionality
+    */
+    protected void setCanvas (Canvas canvas) {
+        myCanvas = canvas;
+    }
+    /**
+    * Allows for new frame Title
+    */
+    protected JFrame makeFrame () {
+        return new JFrame(TITLE);
+    }
+    /**
+    * The one method NEEDED to be overwritten by game developer
+    */
+    protected void setup(){
+        setFilePathway(FILE_PATH);
+        setCanvas(new Canvas(SIZE));
+        setInfo(new GameInfo(new MapLoader(myHardFilePathway).getMapNames()));
+    }
 
 }

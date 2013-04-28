@@ -31,6 +31,7 @@ public class GameManager extends Game {
 
     public static final String TITLE = "Fighter!";
     public static final int THREE_TOP_HIGH_SCORES = 3;
+    private static final String FILE_PATH = "vooga.fighter.";
     private Canvas myCanvas;
     private ControllerManager myControllerManager;
     private GameInfo myGameInfo;
@@ -38,13 +39,11 @@ public class GameManager extends Game {
 
     public GameManager (ArcadeInteraction arcade) {
         super(arcade);
-        setFilePathway();
-        setCanvas();
-        setInfo();
+        setup();
         ControllerFactory factory = new ControllerFactory(myCanvas, myHardFilePathway);
         ControlProgressionManager progressionmanager = makeProgression(factory.getMap());
         myControllerManager =
-        		new ControllerManager(myCanvas, myGameInfo, factory, progressionmanager, myHardFilePathway);
+            	new ControllerManager(myCanvas, myGameInfo, factory, progressionmanager, myHardFilePathway);
         JFrame frame = makeFrame();
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.getContentPane().add(myCanvas, BorderLayout.CENTER);
@@ -75,8 +74,8 @@ public class GameManager extends Game {
     /**
     * Sets the File Pathway
     */
-    protected void setFilePathway () {
-        myHardFilePathway = "vooga.fighter.";
+    protected void setFilePathway (String pathway) {
+        myHardFilePathway = pathway;
     }
 
     protected GameInfo getGameInfo () {
@@ -90,20 +89,28 @@ public class GameManager extends Game {
     /**
     * Allows subclassing of gameInfo to includ new scores/functionality
     */
-    protected void setInfo () {
-        myGameInfo = new GameInfo(new MapLoader(myHardFilePathway).getMapNames());
+    protected void setInfo (GameInfo info) {
+        myGameInfo = info;
     }
     /**
     * Allows subclassing of canvas to include new view functionality
     */
-    protected void setCanvas () {
-        myCanvas = new Canvas(SIZE);
+    protected void setCanvas (Canvas canvas) {
+        myCanvas = canvas;
     }
     /**
     * Allows for new frame Title
     */
     protected JFrame makeFrame () {
         return new JFrame(TITLE);
+    }
+    /**
+    * The one method NEEDED to be overwritten by game developer
+    */
+    protected void setup(){
+        setFilePathway(FILE_PATH);
+        setCanvas(new Canvas(SIZE));
+        setInfo(new GameInfo(new MapLoader(myHardFilePathway).getMapNames()));
     }
 
 }

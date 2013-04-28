@@ -4,7 +4,7 @@ import java.awt.Dimension;
 
 import vooga.towerdefense.factories.attributefactories.AttributeManagerFactory;
 import util.Location;
-import util.Pixmap;
+import vooga.towerdefense.util.Pixmap;
 
 
 /**

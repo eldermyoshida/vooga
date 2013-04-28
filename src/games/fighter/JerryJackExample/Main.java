@@ -20,7 +20,7 @@ public class Main extends JFrame
     public static void main (String args[])
     {
 
-        GameManagerRunAlone control = new SuperFighterRunAlone();
+        SuperFighterRunAlone control = new SuperFighterRunAlone();
         control.run();
     }
 }
