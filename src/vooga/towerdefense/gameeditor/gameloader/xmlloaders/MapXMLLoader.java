@@ -77,6 +77,7 @@ import vooga.towerdefense.model.tiles.factories.TileFactory;
  */
 public class MapXMLLoader {
     private static final String IMAGE_PATH = "/vooga/towerdefense/images/";
+    private static final String TILE_FACTORIES_CLASSPATH = "vooga.towerdefense.model.tiles.factories";
     
     // map_loadfile.xml tags
     private static final String MAP_TAG = "map";
@@ -189,7 +190,7 @@ public class MapXMLLoader {
     private Map<String, TileFactory> getTileIdMap() {
         Map<String, TileFactory> tileIdMap = new HashMap<String, TileFactory>();
         List<Class> tileFactoryClasses = GameEditorController.
-                getClassesInPackage("vooga.towerdefense.model.tiles.factories");
+                getClassesInPackage(TILE_FACTORIES_CLASSPATH);
         for (Class c : tileFactoryClasses) {
             Object tileFactory;
             try {

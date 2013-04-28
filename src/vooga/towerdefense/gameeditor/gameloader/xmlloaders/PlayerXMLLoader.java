@@ -1,6 +1,5 @@
 package vooga.towerdefense.gameeditor.gameloader.xmlloaders;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import org.w3c.dom.Element;
