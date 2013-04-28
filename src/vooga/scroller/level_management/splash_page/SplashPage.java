@@ -59,6 +59,11 @@ public abstract class SplashPage implements IInputListener, IGameComponent{
         myDoor = door;
     }
     
+    @Override
+    public void addSprite(Sprite sprite){
+        mySprites.add(sprite);
+    }
+    
    
     @Override
     public void update(double elapsedTime, Dimension bounds, GameView gameView) {

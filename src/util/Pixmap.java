@@ -16,11 +16,11 @@ import javax.swing.ImageIcon;
  * 
  * @author Robert C. Duvall, Dagbedji F, edited by @author Yoshida, @author Xu Rui, @author
  *         Bill Muensterman and @author Wayne You added paintReverse
+ *         @author James Wei added getSize()
  */
 public class Pixmap {
     private java.awt.Image myImage;
     private String myFileName;
-    private static final String RESOURCE_LOCATION = "/vooga/";
     
     /**
      * Create an image from the given path including filename.
@@ -51,7 +51,7 @@ public class Pixmap {
      *        Example: filePath = "/" + "car.png" will look for an image car.png in the src folder.
      */
     public void setImage (String fileName) {
-        myImage = new ImageIcon(getClass().getResource(RESOURCE_LOCATION + fileName)).getImage();
+        myImage = new ImageIcon(getClass().getResource(fileName)).getImage();
         myFileName = fileName;
     }
     
@@ -115,4 +115,17 @@ public class Pixmap {
         return myImage;
     }
     
+    /**
+     * Returns a Dimension representing the size of the pixmap.
+     * @return
+     */
+    public Dimension getSize() {
+        int width = myImage.getWidth(null);
+        int height = myImage.getHeight(null);
+        return new Dimension(width, height);
+    }
+    
+    public String getFilePath() {
+        return myFileName;
+    }
 }
