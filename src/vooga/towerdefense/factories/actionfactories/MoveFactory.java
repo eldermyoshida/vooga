@@ -27,6 +27,7 @@ public class MoveFactory extends ActionFactory {
 	public MoveFactory(
 			@ActionAnnotation(name = "move speed", value = "attribute") String moveSpeedReference,
 			@ActionAnnotation(name = "move direction", value = "direction") String directionReference) {
+		super();
 		myMoveSpeedReference = moveSpeedReference;
 		myDirectionReference = directionReference;
 	}

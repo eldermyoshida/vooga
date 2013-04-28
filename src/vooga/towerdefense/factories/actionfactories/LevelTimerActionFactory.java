@@ -8,7 +8,9 @@ import vooga.towerdefense.gameelements.GameElement;
 public class LevelTimerActionFactory extends ActionFactory {
 	
 	private int myDuration;
-	public LevelTimerActionFactory(@ActionAnnotation(name = "duration", value = "int") String duration) {
+	
+	public LevelTimerActionFactory(@ActionAnnotation(name = "duration", value = "int") String duration){
+		super();
 		myDuration = Integer.parseInt(duration);
 	}
 

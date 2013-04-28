@@ -261,8 +261,7 @@ public class GameEditorController extends JFrame {
      * @throws ClassNotFoundException
      */
     @SuppressWarnings("rawtypes")
-    public List<Class> getClassesInPackage (String packageName) throws IOException,
-                                                               ClassNotFoundException {
+    public static List<Class> getClassesInPackage (String packageName) {
         List<Class> classes = new ArrayList<Class>();
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         String path = packageName.replace(".", "/");
@@ -272,14 +271,18 @@ public class GameEditorController extends JFrame {
             File[] files = directory.listFiles();
             for (File file : files) {
                 if (file.getName().endsWith(CLASS_INDICATOR_STRING)) {
-                    classes.add(Class
-                            .forName(packageName +
-                                     "." +
-                                     file.getName().subSequence(0,
-                                                                file.getName().length()
-                                                                        -
-                                                                        CLASS_INDICATOR_STRING
-                                                                                .length())));
+                    try {
+                        classes.add(Class
+                                .forName(packageName +
+                                         "." +
+                                         file.getName().subSequence(0,
+                                                                    file.getName().length()
+                                                                            -
+                                                                            CLASS_INDICATOR_STRING
+                                                                                    .length())));
+                    }
+                    catch (ClassNotFoundException e) {
+                    }
                 }
             }
         }

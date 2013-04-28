@@ -18,6 +18,7 @@ public class PeriodicActionFactory extends ActionFactory{
 	private String myCooldownReference;
 
 	public PeriodicActionFactory( @ActionAnnotation(name = "cool down", value = "attribute") String cooldownReference){
+		super();
 		myCooldownReference=cooldownReference;
 		
 	}

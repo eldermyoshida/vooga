@@ -122,7 +122,6 @@ public class GameModel {
      */
     public void win() {
     	myController.win();
-    	System.out.println("YOU WIN");
     }
     
     /**
@@ -130,7 +129,6 @@ public class GameModel {
      */
     public void lose() {
     	myController.lose();
-    	System.out.println("YOU LOSE IDIOT");
     }
 
     /**

@@ -341,7 +341,6 @@ public class Controller {
 
 	public Location getPointSnappedToGrid(Location location) {
 		return myModel.getMap().getTile(location).getCenter();
-
 	}
 
 	/**
