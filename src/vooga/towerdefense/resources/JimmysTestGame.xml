@@ -71,8 +71,8 @@
 				<FollowPath>
 				</FollowPath>
 				<Move>
-					<parameter1>MOVE_SPEED</parameter1>
-					<parameter2>DIRECTION</parameter2>
+					<parameter>MOVE_SPEED</parameter>
+					<parameter>DIRECTION</parameter>
 				</Move>
 			</actions>			
 		</Dog>
@@ -89,8 +89,8 @@
 				<FollowPath>
 				</FollowPath>
 				<Move>
-					<parameter1>MOVE_SPEED</parameter1>
-					<parameter2>DIRECTION</parameter2>
+					<parameter>MOVE_SPEED</parameter>
+					<parameter>DIRECTION</parameter>
 				</Move>
 			</actions>			
 		</Bear>
@@ -107,8 +107,8 @@
 				<FollowPath>
 				</FollowPath>
 				<Move>
-					<parameter1>MOVE_SPEED</parameter1>
-					<parameter2>DIRECTION</parameter2>
+					<parameter>MOVE_SPEED</parameter>
+					<parameter>DIRECTION</parameter>
 				</Move>
 			</actions>			
 		</Elephant>
@@ -134,7 +134,7 @@
 			</rules>
 			<actions>
 				<LevelTimerAction>
-					<parameter1>10000</parameter1>
+					<parameter>10000</parameter>
 				</LevelTimerAction>
 			</actions>
 		</Level0>
@@ -143,12 +143,12 @@
 			</rules>
 			<actions>
 				<WaveAction>
-					<parameter1>10</parameter1>
-					<parameter2>1000</parameter2>
-					<parameter3>Elephant</parameter3>
+					<parameter>10</parameter>
+					<parameter>1000</parameter>
+					<parameter>Elephant</parameter>
 				</WaveAction>
 				<LevelTimerAction>
-					<parameter1>60000</parameter1>
+					<parameter>60000</parameter>
 				</LevelTimerAction>
 			</actions>
 		</Level1>
@@ -157,12 +157,12 @@
 				</rules>
 				<actions>
 				<WaveAction>
-					<parameter1>10</parameter1>
-					<parameter2>1000</parameter2>
-					<parameter3>Bear</parameter3>
+					<parameter>10</parameter>
+					<parameter>1000</parameter>
+					<parameter>Bear</parameter>
 				</WaveAction>
 				<LevelTimerAction>
-					<parameter1>60000</parameter1>
+					<parameter>60000</parameter>
 				</LevelTimerAction>
 				</actions>
 			</Level2>
