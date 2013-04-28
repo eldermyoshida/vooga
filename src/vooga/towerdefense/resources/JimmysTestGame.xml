@@ -16,27 +16,27 @@
 	</view>
 	<map>
 		<Map1>
-			<image>tower.gif</image>
+			<image>grass_tile.gif</image>
 			<tile_size>50</tile_size>
 			<dimension>
 				<width>500</width>
 				<height>500</height>
 			</dimension>
-			<grid>1 1 1 1 1 1 1 1 1 1
-			1 1 1 1 2 2 2 1 1 1
-			1 2 2 2 2 1 2 1 1 1
-			1 2 1 1 1 1 2 1 1 1
-			1 2 1 2 2 2 2 1 1 1
-			s 2 1 2 1 1 1 2 2 e
-			1 1 1 2 1 1 1 2 1 1
-			1 1 1 2 2 2 2 2 1 1
-			1 1 1 1 1 1 1 1 1 1
-			1 1 1 1 1 1 1 1 1 1</grid>
+			<grid>0 0 0 0 0 0 0 0 0 0
+			0 0 0 0 0 0 0 0 0 0
+			s 0 0 0 0 0 0 0 0 0
+			0 0 0 0 0 0 0 0 0 0
+			0 0 0 0 0 0 0 0 0 0
+			0 0 0 0 0 0 0 0 0 0
+			0 0 0 0 0 0 0 0 0 0
+			0 0 0 0 0 0 0 0 0 0
+			0 0 0 0 0 0 0 0 0 e
+			0 0 0 0 0 0 0 0 0 0</grid>
 		</Map1>
 	</map>
 	<player>
 		<attributes>
-			<Health>100.0</Health>
+			<Health>10.0</Health>
 			<Score>0.0</Score>
 			<Money>1000.0</Money>
 		</attributes>
@@ -110,6 +110,7 @@
 	<rules>
 		<EnemyReachedEndRule/>
 		<NextLevelRule/>
+		<LoseAtZeroHealthRule/>
 	</rules>
 	<levels>
 		<Level1>
@@ -121,9 +122,9 @@
 					<parameter2>1000</parameter2>
 					<parameter3>Elephant</parameter3>
 				</WaveAction>
-				<TimerAction>
+				<LevelTimerAction>
 					<parameter1>60000</parameter1>
-				</TimerAction>
+				</LevelTimerAction>
 			</actions>
 		</Level1>
 		<Level2>
@@ -135,9 +136,9 @@
 					<parameter2>1000</parameter2>
 					<parameter3>Bear</parameter3>
 				</WaveAction>
-				<TimerAction>
+				<LevelTimerAction>
 					<parameter1>60000</parameter1>
-				</TimerAction>
+				</LevelTimerAction>
 				</actions>
 			</Level2>
 	</levels>
