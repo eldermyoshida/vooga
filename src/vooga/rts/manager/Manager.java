@@ -107,7 +107,6 @@ public class Manager extends Observable implements State, IActOn, Observer {
     @Override
     public void addAction (String input, Action action) {
         myActions.put(input, action);
-
     }
 
     /**
@@ -150,12 +149,12 @@ public class Manager extends Observable implements State, IActOn, Observer {
         else {
             myEntities.remove(entity);
         }
-        entity.deleteObserver(this);
+        entity.deleteObservers();
         mySelectedEntities.remove(entity);
     }
 
     /**
-     * Deselects the topmost unit at the given location.s
+     * Deselects the topmost unit at the given location.
      * 
      * @param location at which to deselect the unit.
      */
@@ -171,8 +170,8 @@ public class Manager extends Observable implements State, IActOn, Observer {
     }
 
     private void notifyDeselect () {
-        setChanged();
-        notifyObservers(false);
+        // setChanged();
+        // notifyObservers(false);
     }
 
     /**
@@ -192,7 +191,6 @@ public class Manager extends Observable implements State, IActOn, Observer {
      */
     public void deselectAll () {
         notifyDeselect();
-
         if (myMultiSelect) {
             return;
         }
@@ -257,8 +255,8 @@ public class Manager extends Observable implements State, IActOn, Observer {
     }
 
     public void notifySelect () {
-        setChanged();
-        notifyObservers(true);
+        // setChanged();
+        // notifyObservers(true);
     }
 
     /**

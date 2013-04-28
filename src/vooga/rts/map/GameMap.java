@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import util.Location;
 import vooga.rts.IGameLoop;
 import vooga.rts.ai.Path;
 import vooga.rts.ai.PathFinder;
@@ -18,7 +19,6 @@ import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
 import vooga.rts.gamedesign.sprite.map.Terrain;
 import vooga.rts.resourcemanager.ResourceManager;
 import vooga.rts.util.Camera;
-import vooga.rts.util.Location;
 import vooga.rts.util.Location3D;
 
 
@@ -84,8 +84,7 @@ public class GameMap implements IGameLoop {
     }
 
     public Path getPath (PathFinder finder, Location3D start, Location3D finish) {
-        return finder.calculatePath(getNodeMap().getNode(start), getNodeMap().getNode(finish),
-                                    myNodeMap);
+        return finder.calculatePath(getNodeMap().getNode(start), getNodeMap().getNode(finish), myNodeMap);
     }
 
     public NodeMap getNodeMap () {
@@ -111,15 +110,16 @@ public class GameMap implements IGameLoop {
         List<T> inRange = new ArrayList<T>();
         List<Node> nodesinArea = myNodeMap.getNodesinArea(loc, radius);
         for (Node n : nodesinArea) {
-            // TODO: team id
-            // TODO: whether same or different
-            inRange.addAll(n.<T> filterGameSprites(n.getContents(), type, teamID, same));
+            inRange.addAll(n.<T>filterGameSprites(n.getContents(), type, teamID, same));
         }
 
         final Location3D loca = loc;
         Collections.sort(inRange, new Comparator<T>() {
             @Override
             public int compare (T o1, T o2) {
+                if (o1 != null && o2 != null) {
+                    return 0;
+                }
                 double value1 = o1.getWorldLocation().getDistance(loca);
                 double value2 = o2.getWorldLocation().getDistance(loca);
                 return (int) (value1 - value2);
@@ -128,16 +128,10 @@ public class GameMap implements IGameLoop {
         return inRange;
     }
 
-    /*
-     * public <T extends GameSprite> List<T> getInArea (Location3D loc, double radius, T type, int
-     * teamID, boolean same) {
-     * 
-     * }
-     */
-
     @Override
     public void update (double elapsedTime) {
-        // myTiles.update(elapsedTime);
+        myTerrain.update(elapsedTime);
+        myResources.update(elapsedTime);
     }
 
     @Override
@@ -147,17 +141,17 @@ public class GameMap implements IGameLoop {
     }
 
     /**
-     * Returns an Interactive Entity that is at the specified location.
+     * Returns a Game Entity that is at the specified location.
      * 
      * @param loc The location to search for an interactive entity.
-     * @return The Interactive Entity if it exists, otherwise null.
+     * @return The Game Entity if it exists, otherwise null.
      */
-    public InteractiveEntity getEntity (Location3D loc) {
+    public GameEntity getEntity (Location3D loc) {
         Node n = myNodeMap.getNode(loc);
         for (GameSprite gs : n.getContents()) {
-            if (gs instanceof InteractiveEntity) {
+            if (gs instanceof GameEntity) {
                 if (gs.intersects(loc)) {
-                    return (InteractiveEntity) gs;
+                    return (GameEntity) gs;
                 }
             }
         }

@@ -10,8 +10,8 @@ import vooga.rts.gui.Menu;
 import vooga.rts.gui.Window;
 import vooga.rts.gui.buttons.MainMenuButton;
 import vooga.rts.resourcemanager.ResourceManager;
-import vooga.rts.util.Location;
 import vooga.rts.util.Scale;
+import util.Location;
 
 
 public class MainMenu extends Menu {

@@ -30,8 +30,8 @@ import vooga.rts.gui.menus.gamesubmenus.MiniMapSubMenu;
 import vooga.rts.manager.Manager;
 import vooga.rts.resourcemanager.ResourceManager;
 import vooga.rts.util.Information;
-import vooga.rts.util.Location;
 import vooga.rts.util.Scale;
+import util.Location;
 
 
 public class GameMenu extends Menu {
@@ -81,8 +81,7 @@ public class GameMenu extends Menu {
         // BufferedImage.class);
         // setBGImage(myBGImage);
 
-        myExitButton =
-                new ImageButton(EXIT_IMAGE_URL, EXIT_BUTTON_DIMENSION, EXIT_BUTTON_LOCATION);
+        myExitButton = new ImageButton(EXIT_IMAGE_URL, EXIT_BUTTON_DIMENSION, EXIT_BUTTON_LOCATION);
         addButton(myExitButton);
 
         mySubMenus = new ArrayList<SubMenu>();
@@ -111,13 +110,17 @@ public class GameMenu extends Menu {
             ClickCommand c = (ClickCommand) command;
             l = c.getPosition();
         }
-        else if (command instanceof PositionCommand) {
-            PositionCommand c = (PositionCommand) command;
-            l = c.getPosition();
-        }
-        if (l == null) return false;
+        else
+            if (command instanceof PositionCommand) {
+                PositionCommand c = (PositionCommand) command;
+                l = c.getPosition();
+            }
+        if (l == null)
+            return false;
         for (SubMenu s : mySubMenus) {
-            if (s.checkWithinBounds(l)) { return true; }
+            if (s.checkWithinBounds(l)) {
+                return true;
+            }
         }
         for (Button b : myButtons) {
             if (b.checkWithinBounds(l)) { return true; }

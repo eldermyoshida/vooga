@@ -17,4 +17,9 @@ public interface IMessageReceiver {
      * @param message
      */
     public void getMessage (Message message);
+
+    /**
+     * Notifies the message receiver that the connection has been closed.
+     */
+    public void connectionClosed ();
 }
