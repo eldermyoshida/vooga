@@ -3,11 +3,9 @@ package vooga.rts.state;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.Queue;
 import java.util.Timer;
 import java.util.TimerTask;
 import util.input.Input;
@@ -103,6 +101,7 @@ public class MainState implements State, Observer {
         Graphics2D graphics = myWindow.getCanvas().getGraphics();
         graphics.setColor(Color.BLACK);
         graphics.fillRect(0, 0, myWindow.getCanvas().getWidth(), myWindow.getCanvas().getHeight());
+        
         if (myActiveState instanceof MenuState) {
             MenuState m = (MenuState) myActiveState;
             if (m.getCurrentMenu() instanceof MultiMenu) {
@@ -142,7 +141,6 @@ public class MainState implements State, Observer {
                 long curNano = System.nanoTime();
                 double change = curNano - lastNano;
                 change /= 1000000000;
-                // System.out.println(change);
                 update(change);
                 if (myWindow.hasFocus()) {
                     render();
