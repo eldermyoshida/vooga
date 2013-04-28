@@ -6,7 +6,7 @@ import vooga.fighter.controller.interfaces.ViewDataSource;
 import vooga.fighter.model.Mode;
 import vooga.fighter.model.utils.ImageDataObject;
 import vooga.fighter.util.HUDFactory;
-import vooga.fighter.util.Paintable;
+import util.Paintable;
 
 import vooga.fighter.view.HUDElement;
 

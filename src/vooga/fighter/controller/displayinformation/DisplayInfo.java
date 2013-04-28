@@ -7,7 +7,7 @@ import java.util.Observable;
 
 import util.Location;
 import vooga.fighter.controller.interfaces.ViewDataSource;
-import vooga.fighter.util.Paintable;
+import util.Paintable;
 
 
 /**
