@@ -45,12 +45,12 @@
             <frame image="fighter/JerryJackExample/images/fire.png" />   
         </state>
     </menuobject>
-    <menuobject menuobjectname = "BlueMap">
+    <menuobject menuobjectname = "StreetMap">
     	<state name = "Unselected">
-    		<frame image = "fighter/JerryJackExample/images/FinalDestination.jpg" />
+    		<frame image = "fighter/JerryJackExample/images/Streets.jpg" />
     	</state>
     	<state name = "Selected">
-            <frame image="fighter/JerryJackExample/images/FinalDestination.jpg" />
+            <frame image="fighter/JerryJackExample/images/Streets.jpg" />
             <frame image="fighter/JerryJackExample/images/fire.png" />   
         </state>
    	</menuobject>
