@@ -4,14 +4,10 @@ import java.util.HashMap;
 import java.util.Map;
 import vooga.scroller.level_editor.ILevelEditor;
 import vooga.scroller.level_editor.StartPoint;
-import vooga.scroller.level_editor.library.BackgroundLib;
 import vooga.scroller.level_editor.library.IBackgroundLibrary;
 import vooga.scroller.level_editor.library.ISpriteLibrary;
-import vooga.scroller.level_editor.view.LEView;
 import vooga.scroller.sprites.Sprite;
 import vooga.scroller.sprites.interfaces.IDoor;
-import vooga.scroller.util.mvc.IWindow;
-import vooga.scroller.util.mvc.vcFramework.Window;
 
 
 public class ToolsManager {

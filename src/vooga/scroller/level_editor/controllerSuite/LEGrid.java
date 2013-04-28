@@ -280,6 +280,7 @@ public class LEGrid implements Editable, Renderable<LevelEditing>, Scrollable {
         addSpriteWithCoor(xcoor, ycoor, sprite);
     }
 
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
     public Renderer<LevelEditing> initializeRenderer (IView parent) {
         return new LEGridView(parent, this);
@@ -311,7 +312,7 @@ public class LEGrid implements Editable, Renderable<LevelEditing>, Scrollable {
                 }
             }
         }
-       return newGrid;
+        return newGrid;
     }
 
     private void checkStartPoint () {
