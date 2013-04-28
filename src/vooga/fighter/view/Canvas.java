@@ -30,8 +30,6 @@ public class Canvas extends JComponent {
 	// current layout of the game
 	private CanvasLayout myLayout = null;
 
-	private PaletteSwap myPaletteSwap;
-
 	/**
 	 * Create a panel so that it knows its size
 	 */

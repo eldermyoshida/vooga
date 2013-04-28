@@ -3,10 +3,7 @@ package vooga.fighter.view;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
-import java.awt.image.RescaleOp;
-
 import sun.awt.image.ToolkitImage;
-import util.Pixmap;
 import vooga.fighter.util.Paintable;
 
 public class PaletteSwap {
