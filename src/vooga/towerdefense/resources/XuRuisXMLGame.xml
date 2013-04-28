@@ -26,16 +26,16 @@
 				<width>500</width>
 				<height>500</height>
 			</dimension>
-			<grid>0 0 0 0 0 0 0 0 0 0
-			0 0 0 0 0 0 0 0 0 0
-			s 0 0 0 0 0 0 0 0 0
-			0 0 0 0 0 0 0 0 0 0
-			0 0 0 0 0 0 0 0 0 0
-			0 0 0 0 0 0 0 0 0 0
-			0 0 0 0 0 0 0 0 0 0
-			0 0 0 0 0 0 0 0 0 0
-			0 0 0 0 0 0 0 0 0 d
-			0 0 0 0 0 0 0 0 0 0</grid>
+			<grid>1 1 1 1 1 1 1 1 1 1
+			1 1 1 1 1 1 1 1 1 1
+			s 2 2 1 1 1 1 1 1 1
+			1 1 2 1 1 1 1 1 1 1
+			1 1 2 1 1 1 1 1 1 1
+			1 1 2 1 1 1 1 1 1 1
+			1 1 2 1 1 1 1 1 1 1
+			1 1 2 1 1 1 1 1 1 1
+			1 1 2 2 2 2 2 2 2 d
+			1 1 1 1 1 1 1 1 1 1</grid>
 		</Map1>
 	</map>
 	<player>
@@ -79,6 +79,10 @@
 				<Move>
 					<parameter>MOVE_SPEED</parameter>
 					<parameter>DIRECTION</parameter>
+						<Move>
+							<parameter>FLY_SPEED</parameter>
+							<parameter>DIRECTION</parameter>
+						</Move>
 				</Move>
 			</actions>			
 		</Bear>
@@ -89,6 +93,7 @@
 			<attributes>
 				<HEALTH>100</HEALTH>
 				<MOVE_SPEED>50</MOVE_SPEED>
+				<FLY_SPEED>1000</FLY_SPEED>
 				<DIRECTION>0</DIRECTION>
 			</attributes>
 			<actions>
@@ -97,6 +102,10 @@
 				<Move>
 					<parameter>MOVE_SPEED</parameter>
 					<parameter>DIRECTION</parameter>
+						<Move>
+							<parameter>FLY_SPEED</parameter>
+							<parameter>DIRECTION</parameter>
+						</Move>
 				</Move>
 			</actions>			
 		</Elephant>
@@ -105,7 +114,11 @@
 			<image>tower.gif</image>
 			<type>Tower</type>
 			<attributes>
+				<MOVE_SPEED>50</MOVE_SPEED>
+			</attributes>
+			<attributes>
 				<HEALTH>100</HEALTH>
+				<Cost>10</Cost>
 			</attributes>
 			<actions>
 			</actions>			
@@ -122,7 +135,7 @@
 			</rules>
 			<actions>
 				<LevelTimerAction>
-					<parameter>10000</parameter>
+					<parameter>10</parameter>
 				</LevelTimerAction>
 			</actions>
 		</Level0>
