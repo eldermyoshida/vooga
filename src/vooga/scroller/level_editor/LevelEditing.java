@@ -11,6 +11,7 @@ import vooga.scroller.util.mvc.vcFramework.Window;
 public class LevelEditing implements IDomainDescriptor {
 
     public static final String UPDATE_GRID_SIZE = "Update Grid Size";
+    public static final String SIMULATION_ERROR_MESSAGE = "All levels need a start point and a portal";
 
     @Override
     public String getDomainName () {
@@ -28,7 +29,6 @@ public class LevelEditing implements IDomainDescriptor {
         public static final double DEFAULT_GRIDVIEW_WIDTH_RATIO = .7;
         public static final double DEFAULT_TOOLSVIEW_HEIGHT_RATIO = .9;
         public static final double DEFAULT_TOOLSVIEW_WIDTH_RATIO = .25;
-        public static final String SIMULATION_ERROR_MESSAGE = "SimulationError";
         public static final String DOMAIN_NAME = "Level Editor";
     }
 

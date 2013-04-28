@@ -27,7 +27,7 @@ public class LEView extends Window<LEWorkspaceView, LevelEditing, LEGridView, LE
 
     private static final long serialVersionUID = 1L;
     private static final String SIMULATION_ERROR_MESSAGE = 
-            LevelEditing.VIEW_CONSTANTS.SIMULATION_ERROR_MESSAGE;
+            LevelEditing.SIMULATION_ERROR_MESSAGE;
     private static final String TITLE = 
             LevelEditing.VIEW_CONSTANTS.DOMAIN_NAME;
     private static final String UPDATE_GRID_SIZE = 
