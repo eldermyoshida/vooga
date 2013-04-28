@@ -8,7 +8,7 @@ import vooga.towerdefense.action.actionlist.FollowPath;
 import vooga.towerdefense.action.actionlist.Move;
 import vooga.towerdefense.action.actionlist.OnDeath;
 import vooga.towerdefense.action.actionlist.RemoveGameElement;
-import vooga.towerdefense.attributes.AttributeConstants;
+import vooga.towerdefense.attributes.AttributeConstantsEnum;
 import vooga.towerdefense.attributes.DefaultAttributeManager;
 import vooga.towerdefense.factories.definitions.GameElementDefinition;
 import vooga.towerdefense.factories.definitions.UnitDefinition;
@@ -46,7 +46,7 @@ public class ExampleUnitFactory extends GameElementFactory {
     public GameElement createElement (Location putHere, UnitDefinition myDef) {
         UnitDefinition myDefinition = myDef;
         DefaultAttributeManager AM = new DefaultAttributeManager();
-        AM.replaceAttributeValue(AttributeConstants.MOVE_SPEED, 100);
+        AM.replaceAttributeValue(AttributeConstantsEnum.MOVE_SPEED.getStatusCode(), 100);
 
         GameElement myGameElement;
         if (putHere != null) {
@@ -72,9 +72,9 @@ public class ExampleUnitFactory extends GameElementFactory {
     	ArrayList<Action> actions = new ArrayList<Action>();
         actions.add(new FollowPath(element, path));
         actions.add(new Move(element.getCenter(), element.getAttributeManager()
-                .getAttribute(AttributeConstants.MOVE_SPEED), element
+                .getAttribute(AttributeConstantsEnum.MOVE_SPEED.getStatusCode()), element
                 .getAttributeManager().getAttribute(
-                                                    AttributeConstants.DIRECTION)));
+                                                    AttributeConstantsEnum.DIRECTION.getStatusCode())));
         Action myDeath = new OnDeath(element);
         myDeath.addFollowUpAction(new RemoveGameElement(myGameMap, element));
         actions.add(myDeath);
