@@ -149,16 +149,21 @@ public class Unit extends InteractiveEntity {
 		if (getEntityState().getUnitState() == UnitState.OCCUPY) {
 			this.occupy((InteractiveEntity) getTargetEntity());
 		}
-		if (getEntityState().getUnitState() == UnitState.GATHER) {
-			this.gather((IGatherable) getTargetEntity());
-			removeState();
-		} else {
-			List<Resource> resources = GameState.getMap().getResources()
-					.getInArea(getWorldLocation(), DEFUALT_GATHER_RADIUS);
-			if (!resources.isEmpty()) {
-				Resource resource= resources.get(0);
-				move(resource.getWorldLocation());
-				this.gather(resource);
+		//TODO: this check isnt needed
+		if (getGatherStrategy() instanceof CanGather) {
+			if (getEntityState().getUnitState() == UnitState.GATHER) {
+				this.gather((IGatherable) getTargetEntity());
+				//System.err.println("IM GONNA GATHER SOME SHIT");
+				removeState();
+			} else {
+				//System.out.println("I WANNA MOVE!!!");
+				List<Resource> resources = GameState.getMap().getResources()
+						.getInArea(getWorldLocation(), DEFUALT_GATHER_RADIUS);
+				if (!resources.isEmpty()) {
+					Resource resource = resources.get(0);
+					move(resource.getWorldLocation());
+					this.gather(resource);
+				}
 			}
 		}
 		super.update(elapsedTime);

@@ -587,7 +587,7 @@ public abstract class InteractiveEntity extends GameEntity implements
 	}
 
 	public void removeState() {
-		if(getTargetEntity().isDead()) {
+		if(myTargetEntity.isDead()) {
 			getEntityState().setUnitState(UnitState.NO_STATE);
 		}
 	}

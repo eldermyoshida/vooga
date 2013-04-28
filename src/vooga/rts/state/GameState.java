@@ -29,7 +29,6 @@ import vooga.rts.util.Information;
 import vooga.rts.util.Location3D;
 import vooga.rts.util.Pixmap;
 
-
 /**
  * The main model of the game. This keeps track of all the players, the
  * humanplayer associated with the local game, plus the map.
@@ -39,223 +38,223 @@ import vooga.rts.util.Pixmap;
  */
 
 public class GameState extends SubState implements Controller {
-    private static final Location3D DEFAULT_SOLDIER_ONE_RELATIVE_LOCATION = new Location3D(300,
-                                                                                           300, 0);
-    private static final Location3D DEFAULT_SOLDIER_TWO_RELATIVE_LOCATION = new Location3D(0, 500,
-                                                                                           0);
-    private static final Location3D DEFAULT_SOLDIER_THREE_RELATIVE_LOCATION = new Location3D(300,
-                                                                                             0, 0);
-    private static final Information DEFAULT_SOLDIER_INFO =
-            new Information("Marine", "I am a soldier of Nunu.", null, "buttons/marine.png");
-    private static final Location3D DEFAULT_WORKER_RELATIVE_LOCATION = new Location3D(200, 200, 0);
-    private static final Information DEFAULT_WORKER_INFO =
-            new Information("Worker",
-                            "I am a worker. I am sent down from Denethor, son of Ecthelion ", null,
-                            "images/scv.png");
-    private static final Location3D DEFAULT_PRODUCTION_RELATIVE_LOCATION = new Location3D(000, 500,
-                                                                                          0);
-    private static final Information DEFAULT_PRODUCTION_INFO =
-            new Information("Barracks", "This is a barracks that can make awesome pies", null,
-                            "buttons/marine.png");
-    private static final Location3D DEFAULT_OCCUPY_RELATIVE_LOCATION = new Location3D(300, 100, 0);
-    private static final Information DEFAULT_OCCUPY_INFO =
-            new Information("Garrison", "This is a garrison that soldiers can occupy", null,
-                            "buttons/marine.png");
+	private static final Location3D DEFAULT_SOLDIER_ONE_RELATIVE_LOCATION = new Location3D(
+			300, 300, 0);
+	private static final Location3D DEFAULT_SOLDIER_TWO_RELATIVE_LOCATION = new Location3D(
+			0, 500, 0);
+	private static final Location3D DEFAULT_SOLDIER_THREE_RELATIVE_LOCATION = new Location3D(
+			300, 0, 0);
+	private static final Information DEFAULT_SOLDIER_INFO = new Information(
+			"Marine", "I am a soldier of Nunu.", null, "buttons/marine.png");
+	private static final Location3D DEFAULT_WORKER_RELATIVE_LOCATION = new Location3D(
+			200, 200, 0);
+	private static final Information DEFAULT_WORKER_INFO = new Information(
+			"Worker",
+			"I am a worker. I am sent down from Denethor, son of Ecthelion ",
+			null, "images/scv.png");
+	private static final Location3D DEFAULT_PRODUCTION_RELATIVE_LOCATION = new Location3D(
+			000, 500, 0);
+	private static final Information DEFAULT_PRODUCTION_INFO = new Information(
+			"Barracks", "This is a barracks that can make awesome pies", null,
+			"buttons/marine.png");
+	private static final Location3D DEFAULT_OCCUPY_RELATIVE_LOCATION = new Location3D(
+			300, 100, 0);
+	private static final Information DEFAULT_OCCUPY_INFO = new Information(
+			"Garrison", "This is a garrison that soldiers can occupy", null,
+			"buttons/marine.png");
 
-    private static GameMap myMap;
-    private static PlayerManager myPlayers;
+	private static GameMap myMap;
+	private static PlayerManager myPlayers;
 
-    private List<DelayedTask> myTasks;
-    private FrameCounter myFrames;
+	private List<DelayedTask> myTasks;
+	private FrameCounter myFrames;
 
-    private Rectangle2D myDrag;
-    private Factory myFactory;
-    
-    private MiniMap myMiniMap;
+	private Rectangle2D myDrag;
+	private Factory myFactory;
 
-    public GameState (Observer observer) {
-        super(observer);
-        myFactory = new Factory();
-        myFactory.loadXMLFile("Factory.xml");
+	private MiniMap myMiniMap;
 
-        MapLoader ml = null;
-        try {
-            ml = new MapLoader();
-            ml.loadMapFile("/vooga/rts/tests/maps/testmap/testmap.xml");
-        }
-        catch (ParserConfigurationException e) {
-        }
-        catch (Exception e1) {
-        }
-        setMap(ml.getMyMap());
-        myMiniMap = new MiniMap(getMap(), new Location(50, 500), new Dimension(150, 200));
+	public GameState(Observer observer) {
+		super(observer);
+		myFactory = new Factory();
+		myFactory.loadXMLFile("Factory.xml");
 
-        // myMap = new GameMap(new Dimension(4000, 2000), true);
-        myPlayers = new PlayerManager();
-        // myMap = new GameMap(8, new Dimension(512, 512));
+		MapLoader ml = null;
+		try {
+			ml = new MapLoader();
+			ml.loadMapFile("/vooga/rts/tests/maps/testmap/testmap.xml");
+		} catch (ParserConfigurationException e) {
+		} catch (Exception e1) {
+		}
+		setMap(ml.getMyMap());
+		myMiniMap = new MiniMap(getMap(), new Location(50, 500), new Dimension(
+				150, 200));
 
-        myFrames = new FrameCounter(new Location(100, 20));
-        myTasks = new ArrayList<DelayedTask>();
-        setupGame();
-    }
+		// myMap = new GameMap(new Dimension(4000, 2000), true);
+		myPlayers = new PlayerManager();
+		// myMap = new GameMap(8, new Dimension(512, 512));
 
-    @Override
-    public void update (double elapsedTime) {
-        myMap.update(elapsedTime);
-        getPlayers().update(elapsedTime);
+		myFrames = new FrameCounter(new Location(100, 20));
+		myTasks = new ArrayList<DelayedTask>();
+		setupGame();
+	}
 
-        for (DelayedTask dt : myTasks) {
-            dt.update(elapsedTime);
-        }
+	@Override
+	public void update(double elapsedTime) {
+		myMap.update(elapsedTime);
+		getPlayers().update(elapsedTime);
 
-        yuckyUnitUpdate(elapsedTime);
-        myFrames.update(elapsedTime);
-    }
+		for (DelayedTask dt : myTasks) {
+			dt.update(elapsedTime);
+		}
 
-    @Override
-    public void paint (Graphics2D pen) {
-        pen.setBackground(Color.BLACK);
-        myMap.paint(pen);
-        myMiniMap.paint(pen);
-        getPlayers().getHuman().paint(pen);
+		yuckyUnitUpdate(elapsedTime);
+		myFrames.update(elapsedTime);
+	}
 
-        if (myDrag != null) {
-            pen.draw(myDrag);
-        }
+	@Override
+	public void paint(Graphics2D pen) {
+		pen.setBackground(Color.BLACK);
+		myMap.paint(pen);
+		myMiniMap.paint(pen);
+		getPlayers().getHuman().paint(pen);
 
-        Camera.instance().paint(pen);
-        myFrames.paint(pen);
-    }
+		if (myDrag != null) {
+			pen.draw(myDrag);
+		}
 
-    @Override
-    public void receiveCommand (Command command) {
-        // If it's a drag, we need to do some extra checking.
-        if (command instanceof DragCommand) {
-            myDrag = ((DragCommand) command).getScreenRectangle();
-            if (myDrag == null) {
-                return;
-            }
-        }
-        sendCommand(command);
-    }
+		Camera.instance().paint(pen);
+		myFrames.paint(pen);
+	}
 
-    @Override
-    public void sendCommand (Command command) {
-        getPlayers().getHuman().sendCommand(command);
-    }
+	@Override
+	public void receiveCommand(Command command) {
+		// If it's a drag, we need to do some extra checking.
+		if (command instanceof DragCommand) {
+			myDrag = ((DragCommand) command).getScreenRectangle();
+			if (myDrag == null) {
+				return;
+			}
+		}
+		sendCommand(command);
+	}
 
-    public void setupGame () {
-        getPlayers().addPlayer(1);
-        Location3D playerOneBase = getPlayers().getHuman().getBase();
-        generateInitialSprites(0, playerOneBase);
+	@Override
+	public void sendCommand(Command command) {
+		getPlayers().getHuman().sendCommand(command);
+	}
 
-        getPlayers().addPlayer(2);
-        Location3D playerEnemyBase = getPlayers().getPlayer(1).getEnemyBase();
-        generateInitialSprites(1, playerEnemyBase);
+	public void setupGame() {
+		getPlayers().addPlayer(1);
+		Location3D playerOneBase = getPlayers().getHuman().getBase();
+		generateInitialSprites(0, playerOneBase);
 
-        generateResources();
-    }
+		getPlayers().addPlayer(2);
+		Location3D playerEnemyBase = getPlayers().getPlayer(1).getEnemyBase();
+		generateInitialSprites(1, playerEnemyBase);
 
-    private void generateInitialSprites (int playerID, Location3D baseLocation) {
-        Unit worker = (Unit) myFactory.getEntitiesMap().get("worker").copy();
-        worker =
-                (Unit) setLocationAndInfo(worker, baseLocation, DEFAULT_WORKER_RELATIVE_LOCATION,
-                                          DEFAULT_WORKER_INFO);
-        getPlayers().getPlayer(playerID).add(worker);
+		generateResources();
+	}
 
-        Unit soldierOne = (Unit) myFactory.getEntitiesMap().get("combat").copy();
-        soldierOne =
-                (Unit) setLocationAndInfo(soldierOne, baseLocation,
-                                          DEFAULT_SOLDIER_ONE_RELATIVE_LOCATION,
-                                          DEFAULT_SOLDIER_INFO);
-        getPlayers().getPlayer(playerID).add(soldierOne);
+	private void generateInitialSprites(int playerID, Location3D baseLocation) {
+		if (playerID == 0) {
+			Unit worker = (Unit) myFactory.getEntitiesMap().get("worker")
+					.copy();
+			worker = (Unit) setLocationAndInfo(worker, baseLocation,
+					DEFAULT_WORKER_RELATIVE_LOCATION, DEFAULT_WORKER_INFO);
+			getPlayers().getPlayer(playerID).add(worker);
+		}
+		Unit soldierOne = (Unit) myFactory.getEntitiesMap().get("combat")
+				.copy();
+		soldierOne = (Unit) setLocationAndInfo(soldierOne, baseLocation,
+				DEFAULT_SOLDIER_ONE_RELATIVE_LOCATION, DEFAULT_SOLDIER_INFO);
+		getPlayers().getPlayer(playerID).add(soldierOne);
 
-        Building startProduction = (Building) myFactory.getEntitiesMap().get("home").copy();
-        startProduction =
-                (Building) setLocationAndInfo(startProduction, baseLocation,
-                                              DEFAULT_PRODUCTION_RELATIVE_LOCATION,
-                                              DEFAULT_PRODUCTION_INFO);
-        getPlayers().getPlayer(playerID).add(startProduction);
+		Building startProduction = (Building) myFactory.getEntitiesMap()
+				.get("home").copy();
+		startProduction = (Building) setLocationAndInfo(startProduction,
+				baseLocation, DEFAULT_PRODUCTION_RELATIVE_LOCATION,
+				DEFAULT_PRODUCTION_INFO);
+		getPlayers().getPlayer(playerID).add(startProduction);
 
-        Building startOccupy = (Building) myFactory.getEntitiesMap().get("garrison").copy();
-        startOccupy =
-                (Building) setLocationAndInfo(startOccupy, baseLocation,
-                                              DEFAULT_OCCUPY_RELATIVE_LOCATION, DEFAULT_OCCUPY_INFO);
-        getPlayers().getPlayer(playerID).add(startOccupy);
+		Building startOccupy = (Building) myFactory.getEntitiesMap()
+				.get("garrison").copy();
+		startOccupy = (Building) setLocationAndInfo(startOccupy, baseLocation,
+				DEFAULT_OCCUPY_RELATIVE_LOCATION, DEFAULT_OCCUPY_INFO);
+		getPlayers().getPlayer(playerID).add(startOccupy);
 
-        // this is for testing
-        final Building f = startProduction;
-        myTasks.add(new DelayedTask(2, new Runnable() {
-            @Override
-            public void run () {
-                f.getAction((new Command("make Marine"))).apply();
-            }
-        }, true));
+		// this is for testing
+		final Building f = startProduction;
+		myTasks.add(new DelayedTask(2, new Runnable() {
+			@Override
+			public void run() {
+				f.getAction((new Command("make Marine"))).apply();
+			}
+		}, true));
 
-        // This is for testing
-        final Building testGarrison = startOccupy;
+		// This is for testing
+		final Building testGarrison = startOccupy;
 
-        myTasks.add(new DelayedTask(10, new Runnable() {
-            @Override
-            public void run () {
-                if (testGarrison.getOccupyStrategy().getOccupiers().size() > 0) {
-                    System.out.println("will puke!");
-                    testGarrison.getAction(new Command("deoccupy")).apply();
-                }
-            }
-        }));
-    }
+		myTasks.add(new DelayedTask(10, new Runnable() {
+			@Override
+			public void run() {
+				if (testGarrison.getOccupyStrategy().getOccupiers().size() > 0) {
+					System.out.println("will puke!");
+					testGarrison.getAction(new Command("deoccupy")).apply();
+				}
+			}
+		}));
+	}
 
-    private InteractiveEntity setLocationAndInfo (InteractiveEntity subject,
-                                                  Location3D base,
-                                                  Location3D reference,
-                                                  Information info) {
-        subject.setWorldLocation(new Location3D(base.getX() + reference.getX(), base.getY() +
-                                                                                reference.getY(),
-                                                base.getZ() + reference.getZ()));
-        subject.move(subject.getWorldLocation());
-        subject.setInfo(info);
-        return subject;
-    }
+	private InteractiveEntity setLocationAndInfo(InteractiveEntity subject,
+			Location3D base, Location3D reference, Information info) {
+		subject.setWorldLocation(new Location3D(base.getX() + reference.getX(),
+				base.getY() + reference.getY(), base.getZ() + reference.getZ()));
+		subject.move(subject.getWorldLocation());
+		subject.setInfo(info);
+		return subject;
+	}
 
-    private void generateResources () {
-        for (int j = 0; j < 10; j++) {
-            getMap().getResources().add(new Resource(new Pixmap("images/mineral.gif"),
-                                                     new Location3D(600 + j * 30, 600 - j * 20, 0),
-                                                     new Dimension(50, 50), 0, 200, "mineral"));
-        }
+	private void generateResources() {
+		for (int j = 0; j < 10; j++) {
+			getMap().getResources().add(
+					new Resource(new Pixmap("images/mineral.gif"),
+							new Location3D(600 + j * 30, 600 - j * 20, 0),
+							new Dimension(50, 50), 0, 200, "mineral"));
+		}
 
-        for (int j = 0; j < 4; j++) {
-            for (int k = 0; k < 8; k++) {
-                getMap().getTerrain().add(new Terrain(new Pixmap("images/gold.png"),
-                                                      new Location3D(100 + k * 25, 100, j * 25),
-                                                      new Dimension(50, 50)));
-            }
-        }
-    }
+		for (int j = 0; j < 4; j++) {
+			for (int k = 0; k < 8; k++) {
+				getMap().getTerrain().add(
+						new Terrain(new Pixmap("images/gold.png"),
+								new Location3D(100 + k * 25, 100, j * 25),
+								new Dimension(50, 50)));
+			}
+		}
+	}
 
-    private void yuckyUnitUpdate (double elapsedTime) {
+	private void yuckyUnitUpdate(double elapsedTime) {
 
-        List<InteractiveEntity> p1 = getPlayers().getTeam(1).getUnits();
-        List<InteractiveEntity> p2 = getPlayers().getTeam(2).getUnits();
+		List<InteractiveEntity> p1 = getPlayers().getTeam(1).getUnits();
+		List<InteractiveEntity> p2 = getPlayers().getTeam(2).getUnits();
 
-    }
+	}
 
-    public static PlayerManager getPlayers () {
-        return myPlayers;
-    }
+	public static PlayerManager getPlayers() {
+		return myPlayers;
+	}
 
-    public static GameMap getMap () {
-        return myMap;
-    }
+	public static GameMap getMap() {
+		return myMap;
+	}
 
-    public static void setMap (GameMap map) {
-        myMap = map;       
-    }
+	public static void setMap(GameMap map) {
+		myMap = map;
+	}
 
-    @Override
-    public void activate () {
-        // TODO Auto-generated method stub
+	@Override
+	public void activate() {
+		// TODO Auto-generated method stub
 
-    }
+	}
 }

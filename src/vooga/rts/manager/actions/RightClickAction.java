@@ -36,6 +36,7 @@ public class RightClickAction extends ManagerAction {
 					ie.recognize(enemy);
 				} else {
 					ie.move(myLocation);
+				
 				}
 			}
 		}
