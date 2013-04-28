@@ -3,6 +3,7 @@ package vooga.towerdefense.factories.actionfactories;
 import java.util.ArrayList;
 import java.util.List;
 import vooga.towerdefense.action.Action;
+import vooga.towerdefense.action.TargetedAction;
 import vooga.towerdefense.gameelements.GameElement;
 import vooga.towerdefense.model.GameMap;
 import vooga.towerdefense.model.Player;
@@ -45,20 +46,11 @@ public abstract class ActionFactory {
         return myPlayer;
     }
 
-    // TODO: Not sure if this is the best way to implement this. There needs to be a way to give in
-    // a list of followup actions to the action
     public void addFollowUpActionsFactories (ActionFactory addToList) {
-        if (myFollowUpActions == null) {
-            myFollowUpActions = new ArrayList<ActionFactory>();
-        }
         myFollowUpActions.add(addToList);
     }
 
-    // a list of followup actions to the action
     public void addFollowUpActionsFactories (List<ActionFactory> addToList) {
-        if (myFollowUpActions == null) {
-            myFollowUpActions = new ArrayList<ActionFactory>();
-        }
         myFollowUpActions.addAll(addToList);
     }
 
@@ -67,7 +59,7 @@ public abstract class ActionFactory {
     }
 
     /**
-     * THIS IS HOW YOU MAKE A NEW INSTANTIATION OF ACTION
+     * Create an action by calling buildAction on specific action factory.
      * 
      * @param e
      * @return
@@ -79,19 +71,19 @@ public abstract class ActionFactory {
     }
 
     /**
-     * 
+     * Creates a targeted action, which 
      * @param e
      * @param target
      * @return
      */
-    public Action createTargetedAction (GameElement e, GameElement target) {
+    public TargetedAction createTargetedAction (GameElement e, GameElement target) {
         Action myAction = buildTargetedAction(e, target);
         myAction.addFollowUpActions(createFollowUpActions(e, target));
-        return myAction;
+        return (TargetedAction) myAction;
     }
 
     /**
-     * Used to just create the single action
+     * Builds an action, overridden by action factory.
      * 
      * @param e
      * @return
@@ -99,15 +91,16 @@ public abstract class ActionFactory {
     protected abstract Action buildAction (GameElement e);
 
     /**
-     * calls buildAction(e) on default, needs to be override to work
+     * Builds a targeted action, overridden by action factory.
+     * Returns buildAction by default.
      * 
      * @param e
      * @return
      */
-    protected Action buildTargetedAction (GameElement e, GameElement target) {
-        return buildAction(e);
+    protected Action buildTargetedAction (GameElement e, GameElement target){
+    	return buildAction(e);
     }
-
+    
     /**
      * Used to create the following actions
      * 
