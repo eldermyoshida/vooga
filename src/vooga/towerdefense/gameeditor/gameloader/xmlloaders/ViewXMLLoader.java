@@ -1,6 +1,5 @@
 package vooga.towerdefense.gameeditor.gameloader.xmlloaders;
 
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -40,6 +39,17 @@ public class ViewXMLLoader {
         myXMLTool = xmlTool;
     }
     
+    /**
+     * makes the view from the XML file.
+     * @param view
+     * @param controller
+     * @return the updated TDView
+     * @throws InvocationTargetException 
+     * @throws IllegalAccessException 
+     * @throws InstantiationException 
+     * @throws ClassNotFoundException 
+     * @throws IllegalArgumentException 
+     */
     public TDView makeView(TDView view, Controller controller) throws IllegalArgumentException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException {
         Element viewElement = myXMLTool.getElement(VIEW_TAG);
         List<Element> subElements = myXMLTool.getChildrenList(viewElement);
@@ -53,7 +63,8 @@ public class ViewXMLLoader {
             }
             else if (!(myXMLTool.getTagName(subElements.get(i)).equals(MULTIPLE_SCREEN_PANEL_TAG))) {
                 Element element = subElements.get(i);
-                JPanel screen = getScreen(view, element, controller);
+                JPanel screen;
+                screen = getScreen(view, element, controller);
                 Element locationElement = myXMLTool.getChildrenElementMap(element).get(LOCATION_TAG);
                 String location = myXMLTool.getContent(locationElement);
                 view.addScreen(screen, location);
@@ -98,11 +109,11 @@ public class ViewXMLLoader {
      * @throws IllegalAccessException
      * @throws InvocationTargetException
      */
+    @SuppressWarnings("rawtypes")
     private JPanel getScreen(TDView view, Element element, Controller controller) throws ClassNotFoundException, IllegalArgumentException, InstantiationException, IllegalAccessException, InvocationTargetException {
         Map<String, Element> subElements = myXMLTool.getChildrenElementMap(element);
         Element dimensionElement = subElements.get(DIMENSION_TAG);
         Dimension dimension = makeDimensionFrom(myXMLTool.getContent(dimensionElement));
-        //TODO: fix magic path
         Class c = Class.forName(VIEWSCREENS_PATH + myXMLTool.getTagName(element));
         Constructor[] constructors = c.getConstructors();
         Constructor cons = constructors[0];

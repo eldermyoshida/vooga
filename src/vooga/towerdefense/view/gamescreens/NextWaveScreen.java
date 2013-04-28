@@ -23,7 +23,6 @@ public class NextWaveScreen extends JPanel {
      * default serialized id.
      */
     private static final long serialVersionUID = 1L;
-    // TODO: get this name from resources
     /**
      * string to display on the button.
      */
@@ -74,8 +73,7 @@ public class NextWaveScreen extends JPanel {
      * @param timeLeft
      */
     public void updateTimerDisplay(String timeLeft) {
-        myNextWaveTimerDisplay = new JLabel(NEXT_WAVE_TEXT + timeLeft);
-        add(myNextWaveTimerDisplay, BorderLayout.CENTER);
+        myNextWaveTimerDisplay.setText(NEXT_WAVE_TEXT + timeLeft);
     }
 
     /**
