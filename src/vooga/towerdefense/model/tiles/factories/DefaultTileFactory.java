@@ -1,9 +1,9 @@
 package vooga.towerdefense.model.tiles.factories;
 
+import util.Location;
 import vooga.towerdefense.model.GameMap;
 import vooga.towerdefense.model.Tile;
 import vooga.towerdefense.model.tiles.DefaultTile;
-import util.Location;
 
 /**
  * A tile factory that creates DefaultTile objects.
@@ -13,7 +13,7 @@ import util.Location;
  */
 public class DefaultTileFactory extends TileFactory {
     
-    public static final String ID = "2";
+    public static final String ID = "0";
     
     public DefaultTileFactory() {
         super();

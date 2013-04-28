@@ -1,9 +1,9 @@
 package vooga.towerdefense.model.tiles.factories;
 
+import util.Location;
 import vooga.towerdefense.model.GameMap;
 import vooga.towerdefense.model.Tile;
 import vooga.towerdefense.model.tiles.GrassTile;
-import util.Location;
 
 /**
  * A tile factory that creates GrassTile objects.
@@ -12,7 +12,7 @@ import util.Location;
  * @author Leonard K. Ng'eno
  */
 public class GrassTileFactory extends TileFactory {
-    public static final String ID = "0";
+    public static final String ID = "1";
     public GrassTileFactory() {
         super();
     }

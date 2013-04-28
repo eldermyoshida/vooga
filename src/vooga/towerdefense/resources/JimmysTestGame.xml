@@ -135,7 +135,7 @@
 			</rules>
 			<actions>
 				<LevelTimerAction>
-					<parameter>10000</parameter>
+					<parameter>1000</parameter>
 				</LevelTimerAction>
 			</actions>
 		</Level0>
