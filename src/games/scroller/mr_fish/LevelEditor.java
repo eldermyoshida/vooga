@@ -1,10 +1,8 @@
-package vooga.scroller.level_editor;
+package games.scroller.mr_fish;
 
-import java.awt.Dimension;
-import games.scroller.marioGame.spritesDefinitions.MarioLib;
-import games.scroller.marioGame.spritesDefinitions.players.Mario;
 import games.scroller.mr_fish.sprites.FishLib;
-import util.Location;
+import games.scroller.mr_fish.sprites.player.MrFish;
+import java.awt.Dimension;
 import vooga.scroller.level_editor.controllerSuite.LEController;
 import vooga.scroller.level_editor.library.BackgroundLib;
 import vooga.scroller.scrollingmanager.OmniScrollingManager;
@@ -14,14 +12,14 @@ import vooga.scroller.util.PlatformerConstants;
 import vooga.scroller.view.GameView;
 
 
-public class Main {
+public class LevelEditor {
 
     /**
      * @param args
      */
     public static void main (String[] args) {
 
-        String backgroundPath = "/games/scroller/mrFish/images/";
+        String backgroundPath = "/games/scroller/mr_fish/images/";
         String[] filenames = new String[] { "underwater1.jpg",
                                            "underwater2.jpg",
                                            "underwater3.jpg",
@@ -29,12 +27,10 @@ public class Main {
         ScrollingManager sm = new OmniScrollingManager();
         GameView display = new GameView(PlatformerConstants.DEFAULT_WINDOW_SIZE, sm);
         sm.initView(display);
-        Player sample = new Mario(new Dimension(20, 32),
-                                  display, sm);
-
-        LEController.runLevelEditor(new MarioLib(),
+        Player fish = new MrFish(display, sm);
+        LEController.runLevelEditor(new FishLib(),
                                     new BackgroundLib(backgroundPath, filenames),
-                                    sample);
+                                    fish);
 
     }
 }

@@ -6,22 +6,18 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.swing.ImageIcon;
-import javax.swing.JMenuBar;
 import vooga.scroller.extra_resources.sprite_interfaces.ICollectible;
 import vooga.scroller.extra_resources.sprite_interfaces.IEnemy;
 import vooga.scroller.extra_resources.sprite_interfaces.IPlatform;
 import vooga.scroller.level_editor.LevelEditing;
 import vooga.scroller.level_editor.StartPoint;
 import vooga.scroller.level_editor.commands.CommandConstants;
-import vooga.scroller.level_editor.view.LEView;
 import vooga.scroller.sprites.Sprite;
 import vooga.scroller.sprites.interfaces.IDoor;
 import vooga.scroller.util.IBackgroundView;
 import vooga.scroller.util.Renderer;
 import vooga.scroller.util.mvc.IView;
 import vooga.scroller.util.mvc.vcFramework.Tools;
-import vooga.scroller.util.mvc.vcFramework.Window;
 
 
 /**
@@ -34,7 +30,6 @@ import vooga.scroller.util.mvc.vcFramework.Window;
  */
 public class LETools extends Tools<LevelEditing> {
 
-    private static final int DEFAULT_SIZE = 40;
     private static final int PLATFORMS = 0;
     private static final int ENEMIES = 1;
     private static final int COLLECTIBLES = 2;
@@ -69,14 +64,6 @@ public class LETools extends Tools<LevelEditing> {
         return s.getDefaultImg();
     }
 
-
-    private ImageIcon getIcon (Sprite s) {
-        return new ImageIcon(s.getDefaultImg().getScaledInstance(
-                                             DEFAULT_SIZE, DEFAULT_SIZE,
-                                             Image.SCALE_SMOOTH));
-    }
-    
-    
 
     /**
      * Add a Sprite option, and organize the sprites based off their behavior.

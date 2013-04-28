@@ -13,7 +13,7 @@ import javax.swing.Scrollable;
 import util.Location;
 import vooga.scroller.level_editor.LevelEditing;
 import vooga.scroller.level_editor.StartPoint;
-import vooga.scroller.level_editor.model.Editable;
+import vooga.scroller.level_editor.model.EditableGrid;
 import vooga.scroller.level_editor.model.SpriteBox;
 import vooga.scroller.level_editor.view.LEGridView;
 import vooga.scroller.level_management.LevelPortal;
@@ -31,7 +31,7 @@ import vooga.scroller.util.mvc.IView;
  * @author Danny Goodman, Deo Fagnisse
  * 
  */
-public class LEGrid implements Editable, Renderable<LevelEditing>, Scrollable {
+public class LEGrid implements EditableGrid, Renderable<LevelEditing>, Scrollable {
 
     /**
      * Called by LevelEditor

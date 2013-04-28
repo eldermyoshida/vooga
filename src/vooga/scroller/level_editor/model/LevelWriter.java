@@ -23,6 +23,8 @@ import vooga.scroller.util.mvc.IController;
  */
 public class LevelWriter {
 
+    private static final String WRITING_ERROR = "WRITING_ERROR";
+    private static final String EQUALS = "EQUALS";
     private static final String RESOURCE_PATH = "vooga.scroller.level_editor.model.SaveLoad";
     private static final char SPACE = ' ';
     private static final String NEW_LINE = System.getProperty("line.separator");
@@ -34,6 +36,11 @@ public class LevelWriter {
     private Location myStartPoint;
     private IController<LevelEditing> myController;
 
+    /**
+     * Constructor sets given controller as instance variable.
+     * 
+     * @param leController - Controller to set
+     */
     public LevelWriter (LEController leController) {
         myController = leController;
     }
@@ -41,9 +48,9 @@ public class LevelWriter {
     /**
      * Creates a save file from a LEGrid
      * 
-     * @param file
-     * @param levelGrid
-     * @param libPath
+     * @param file - file to be saved
+     * @param levelGrid - Grid to be saved
+     * @param libPath - file name path of sprite library
      */
     public void createFile (File file, LEGrid levelGrid, String libPath) {
         myGrid = levelGrid;
@@ -87,9 +94,8 @@ public class LevelWriter {
             myFileWriter.write(NEW_LINE);
         }
         catch (IOException e) {
-            myController.showErrorMsg(myResources.getString("WRITING_ERROR"));
+            myController.showErrorMsg(myResources.getString(WRITING_ERROR));
         }
-
     }
 
     private void writeLib (String libPath) {
@@ -100,7 +106,7 @@ public class LevelWriter {
             myFileWriter.write(NEW_LINE);
         }
         catch (IOException e) {
-            myController.showErrorMsg(myResources.getString("WRITING_ERROR"));
+            myController.showErrorMsg(myResources.getString(WRITING_ERROR));
         }
     }
 
@@ -110,12 +116,12 @@ public class LevelWriter {
             myFileWriter.write(myResources.getString("BEGIN_KEY"));
             for (String key : keySet) {
                 myFileWriter.write(NEW_LINE);
-                myFileWriter.write("" + myMap.get(key) + myResources.getString("EQUALS") + key);
+                myFileWriter.write("" + myMap.get(key) + myResources.getString(EQUALS) + key);
             }
             myFileWriter.write(NEW_LINE);
         }
         catch (IOException e) {
-            myController.showErrorMsg(myResources.getString("WRITING_ERROR"));
+            myController.showErrorMsg(myResources.getString(WRITING_ERROR));
         }
 
     }
@@ -125,16 +131,16 @@ public class LevelWriter {
             myFileWriter.write(myResources.getString("BEGIN_SETTINGS"));
             myFileWriter.write(NEW_LINE);
             myFileWriter.write(myResources.getString("START_POINT") +
-                               myResources.getString("EQUALS") +
+                               myResources.getString(EQUALS) +
                                (int) myStartPoint.getX() + SPACE + (int) myStartPoint.getY());
             myFileWriter.write(NEW_LINE);
             myFileWriter.write(myResources.getString("BACKGROUND") +
-                               myResources.getString("EQUALS") +
+                               myResources.getString(EQUALS) +
                                myGrid.getBackground().getFileName());
             myFileWriter.close();
         }
         catch (IOException e) {
-            myController.showErrorMsg(myResources.getString("WRITING_ERROR"));
+            myController.showErrorMsg(myResources.getString(WRITING_ERROR));
         }
     }
 }

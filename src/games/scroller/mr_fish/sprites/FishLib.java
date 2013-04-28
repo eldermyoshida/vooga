@@ -251,7 +251,7 @@ public class FishLib extends EncapsulatedSpriteLibrary {
 
         private static final Dimension DEFAULT_SIZE = new Dimension(32, 320);
 
-        public Coral1 (Location center) {
+        public Coral1 () {
             super(DEFAULT_IMAGES[RANDOM.nextInt(DEFAULT_IMAGES.length)], DEFAULT_SIZE);
         }
 

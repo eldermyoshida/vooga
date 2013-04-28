@@ -12,7 +12,7 @@ import vooga.scroller.level_editor.Level;
 import vooga.scroller.level_editor.LevelEditing;
 import vooga.scroller.level_editor.library.IBackgroundLibrary;
 import vooga.scroller.level_editor.library.ISpriteLibrary;
-import vooga.scroller.level_editor.model.Editable;
+import vooga.scroller.level_editor.model.EditableGrid;
 import vooga.scroller.level_editor.model.LevelEditor;
 import vooga.scroller.level_editor.model.LevelParser;
 import vooga.scroller.level_editor.model.LevelWriter;
@@ -61,11 +61,11 @@ public class LEController implements IController<LevelEditing> {
     private LevelParser myLevelReader;
     private LevelWriter myLevelWriter;
     private ILevelEditor myModel;
-    private Map<WorkspaceView<LevelEditing>, Editable> myTab2Workspace;
+    private Map<WorkspaceView<LevelEditing>, EditableGrid> myTab2Workspace;
     private LETools myTools;
     private ToolsManager myToolsManager;
     private IWindow<LEWorkspaceView, LevelEditing, LEGridView, LETools> myView;
-    private Map<Editable, WorkspaceView<LevelEditing>> myWorkspace2Tab;
+    private Map<EditableGrid, WorkspaceView<LevelEditing>> myWorkspace2Tab;
     private GridSpinner myGridSpinner;
     public static final int MIN_SPRITE_GRID_SIZE = 20;
     public static final int MAX_SPRITE_GRID_SIZE = 1000;
@@ -86,8 +86,8 @@ public class LEController implements IController<LevelEditing> {
         myModel.setSpriteMap(myToolsManager.getSpriteMap());
         myModel.setBackgroundMap(bgLib.getBackgrounds());
         // myView.setDefaultWorkspaceTools(myTools);
-        myWorkspace2Tab = new HashMap<Editable, WorkspaceView<LevelEditing>>();
-        myTab2Workspace = new HashMap<WorkspaceView<LevelEditing>, Editable>();
+        myWorkspace2Tab = new HashMap<EditableGrid, WorkspaceView<LevelEditing>>();
+        myTab2Workspace = new HashMap<WorkspaceView<LevelEditing>, EditableGrid>();
         myLevelWriter = new LevelWriter(this);
         myLevelReader = new LevelParser(this);
         myGridSpinner = new GridSpinner();
@@ -135,7 +135,7 @@ public class LEController implements IController<LevelEditing> {
      * @param t
      * @return
      */
-    private Editable getModelForWorkspace (WorkspaceView<LevelEditing> v) {
+    private EditableGrid getModelForWorkspace (WorkspaceView<LevelEditing> v) {
         return myTab2Workspace.get(v);
     }
 
