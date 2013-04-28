@@ -5,18 +5,10 @@
 			<dimension>800, 600</dimension>
 			<location>North</location>
 		</MapScreen>
-		<MultipleScreenPanel>
-			<dimension>1000, 200</dimension>
-			<location>South</location>
-			<ShopScreen>
+		<ShopScreen>
 				<dimension>600, 100</dimension>
 				<location>Center</location>
-			</ShopScreen>
-			<NextWaveScreen>
-				<dimension>200, 100</dimension>
-				<location>East</location>
-			</NextWaveScreen>
-		</MultipleScreenPanel>
+		</ShopScreen>
 		<MultipleScreenPanel>
 			<dimension>200, 600</dimension>
 			<location>East</location>
@@ -52,7 +44,7 @@
 	</map>
 	<player>
 		<attributes>
-			<Health>10.0</Health>
+			<Health>25.0</Health>
 			<Score>0.0</Score>
 			<Money>1000.0</Money>
 		</attributes>
@@ -95,7 +87,7 @@
 			</actions>			
 		</Bear>
 		<Elephant>
-			<dimension>80, 80</dimension>
+			<dimension>50, 50</dimension>
 			<image>dancing_elephant.gif</image>
 			<type>Unit</type>
 			<attributes>
