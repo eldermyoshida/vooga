@@ -74,7 +74,7 @@ public class LEController implements IController<LevelEditing> {
         myTab2Workspace = new HashMap<WorkspaceView<LevelEditing>, Editable>();
         myLevelWriter = new LevelWriter(this);
         myLevelReader = new LevelParser(this);
-        myGridSpinner = new GridSpinner(MIN_SPRITE_GRID_SIZE, MAX_SPRITE_GRID_SIZE);
+        myGridSpinner = new GridSpinner();
     }
 
     /**
@@ -131,9 +131,7 @@ public class LEController implements IController<LevelEditing> {
     private int[] getNumBlocks () {
         int[] res = new int[2];
         
-        int a = (int) JOptionPane.showConfirmDialog(null, new GridSpinner(
-                                                    MIN_SPRITE_GRID_SIZE,
-                                                    MAX_SPRITE_GRID_SIZE), 
+        int a = (int) JOptionPane.showConfirmDialog(null, myGridSpinner, 
                                                    "Grid Height and Width", 
                                                     JOptionPane.OK_CANCEL_OPTION);
         if (a == 0) {

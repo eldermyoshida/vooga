@@ -16,28 +16,32 @@ public class GridSpinner extends JPanel implements ChangeListener {
      * 
      */
     private static final long serialVersionUID = -4816807088612765588L;
-        private int gridHeight = LEController.DEFAULT_SPRITE_GRID_SIZE;
-        private int gridWidth = LEController.DEFAULT_SPRITE_GRID_SIZE;
+        private int gridHeight;
+        private int gridWidth;
+        private static int ourMin = LEController.MIN_SPRITE_GRID_SIZE;
+        private static int ourMax = LEController.MAX_SPRITE_GRID_SIZE;
         private JSpinner hspinner;
         private JSpinner wspinner;
         int step = 5;
         
         public GridSpinner() {
-            this(LEController.MIN_SPRITE_GRID_SIZE,
-                 LEController.MAX_SPRITE_GRID_SIZE);
+            this(LEController.DEFAULT_SPRITE_GRID_SIZE,
+                 LEController.DEFAULT_SPRITE_GRID_SIZE);
         }
-        public GridSpinner(int min, int max) {
+        public GridSpinner(int width, int height) {
             this.setBorder(ViewConstants.DEFAULT_BORDER);
             this.setLayout(new GridLayout(0, 2));
-            SpinnerModel model =
+            gridHeight = height;
+            gridWidth = width;
+            SpinnerModel hmodel =
                     new SpinnerNumberModel(gridHeight, 
-                                           min, max,
+                                           ourMin, ourMax,
                                            step);
             SpinnerModel wmodel =
                     new SpinnerNumberModel(gridWidth,
-                                           min, max,
+                                           ourMin, ourMax,
                                            step);
-            hspinner = new JSpinner(model);
+            hspinner = new JSpinner(hmodel);
             JLabel l = new JLabel("Height");
             wspinner= new JSpinner(wmodel);
             JLabel l2 = new JLabel("Width");
@@ -61,5 +65,5 @@ public class GridSpinner extends JPanel implements ChangeListener {
         public int getGridHeight () {
             return gridHeight;
         }
-
+        
     }
