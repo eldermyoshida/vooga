@@ -48,7 +48,6 @@ public class RulesXMLLoader {
         List<String> constructorParams = getRuleFactoryConstructorParameters(ruleNameElement);
         
         try {
-        	System.out.println("vooga.towerdefense.factories.rulefactories." + myXMLTool.getTagName(ruleNameElement));
             Class ruleFactoryClass = Class.forName("vooga.towerdefense.factories.rulefactories." + myXMLTool.getTagName(ruleNameElement)+ "Factory");
             // There only exists one rule constructor
             Constructor c = ruleFactoryClass.getConstructors()[0];

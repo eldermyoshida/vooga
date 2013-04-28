@@ -50,9 +50,7 @@ public class Pathfinder {
 	 * @return the shortest path between (x1,y1) and (x2,y2)
 	 */
 	public Path getShortestPath(Location start, Location finish) {
-		
-		System.out.println("start: " + start +  "  finish: " + finish);
-		
+
 		int startX = (int) start.getX();
 		int startY = (int) start.getY();
 		int goalX = (int) finish.getX();

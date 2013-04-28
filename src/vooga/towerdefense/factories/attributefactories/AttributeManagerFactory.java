@@ -40,6 +40,10 @@ public class AttributeManagerFactory {
     public AttributeManagerFactory () {
         myInputAttributes = new ArrayList<AttributeFactory>();
     }
+    
+    public void addAttributeFactory(AttributeFactory attribute) {
+        myInputAttributes.add(attribute);
+    }
 
     /**
      * Creates attributes at default values

@@ -17,12 +17,12 @@ public class Player {
 	private AttributeManager myAttributeManager;
 	private Controller myController;
 	
-	public Player(Controller controller) {
+	public Player(Controller controller, AttributeManager attributeManager) {
 		myController = controller;
-		myAttributeManager = new AttributeManager();
-		myAttributeManager.addAttribute(new Attribute(AttributeConstants.HEALTH, 100D));
-		myAttributeManager.addAttribute(new Attribute(AttributeConstants.SCORE, 0D));
-		myAttributeManager.addAttribute(new Attribute(AttributeConstants.MONEY, 1000D));
+		myAttributeManager = attributeManager;
+//		myAttributeManager.addAttribute(new Attribute(AttributeConstants.HEALTH, 100D));
+//		myAttributeManager.addAttribute(new Attribute(AttributeConstants.SCORE, 0D));
+//		myAttributeManager.addAttribute(new Attribute(AttributeConstants.MONEY, 1000D));
 	}
 
 	public Player(HashSet<Attribute> attributes) {
@@ -39,9 +39,6 @@ public class Player {
 		for(String attr : myAttributeManager.getAttributesInfo()) {
 			playerInfo.append(" "+attr+"\n");
 		}
-		
-		
-//		System.out.println(playerInfo.toString());
 		return playerInfo.toString();
 	}
 

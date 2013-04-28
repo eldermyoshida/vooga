@@ -5,6 +5,11 @@ import vooga.towerdefense.factories.elementfactories.GameElementFactory;
 import vooga.towerdefense.gameelements.GameElement;
 import vooga.towerdefense.model.GameMap;
 
+/**
+ * Spawns a wave of units on an interval.
+ * @author JLongley
+ *
+ */
 public class WaveAction extends Action {
 
 	private int myUnitsRemaining;
@@ -15,7 +20,7 @@ public class WaveAction extends Action {
 
 	public WaveAction(int numUnits, int cooldown, GameElementFactory factory,
 			GameMap gameMap) {
-		System.out.println(numUnits);
+		super();
 		myUnitsRemaining = numUnits;
 		myCooldown = cooldown;
 		myFactory = factory;
@@ -33,6 +38,10 @@ public class WaveAction extends Action {
 
 		}
 		myClock += elapsedTime;
+		
+		if(myUnitsRemaining <= 0) {
+			setEnabled(false);
+		}
 	}
 
 	private void spawnUnit() {

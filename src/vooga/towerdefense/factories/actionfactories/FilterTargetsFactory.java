@@ -2,6 +2,7 @@ package vooga.towerdefense.factories.actionfactories;
 
 import vooga.towerdefense.action.Action;
 import vooga.towerdefense.action.FilterTargets;
+import vooga.towerdefense.factories.ActionAnnotation;
 import vooga.towerdefense.gameelements.GameElement;
 
 /**
@@ -17,7 +18,8 @@ public class FilterTargetsFactory extends ActionFactory{
      * @param affiliationReference
      * @param numTargetsReference
      */
-	public FilterTargetsFactory(String affiliationReference, String numTargetsReference){
+	public FilterTargetsFactory( @ActionAnnotation(name = "target affiliation", value = "attribute") String affiliationReference,
+			 @ActionAnnotation(name = "num targets", value = "attribute") String numTargetsReference){
 		myAffiliationReference=affiliationReference;
 		myNumTargetsReference=numTargetsReference;
 		
