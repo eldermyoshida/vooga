@@ -69,7 +69,7 @@ public class MapMakerScreen extends JPanel {
         for (Grid g : myGrids) {
             g.paint((Graphics2D) pen);
         }
-       // getMapString();
+        getMapString();
     }
 
     /**
@@ -87,7 +87,7 @@ public class MapMakerScreen extends JPanel {
     private void paintGridLines (Graphics pen) {
         if (myTileSize > MINIMUM_TILE_SIZE) {
             myGrids.removeAll(myGrids);
-            myMap = new String[(mySize.width / myTileSize)+1][(mySize.height / myTileSize)+1];
+            myMap = new String[mySize.width / myTileSize][mySize.height / myTileSize];
             for (int i = 0; i < mySize.width; i += myTileSize) {
                 for (int j = 0; j < mySize.height; j += myTileSize) {
                     pen.drawLine(i, 0, i, mySize.height);
@@ -138,7 +138,7 @@ public class MapMakerScreen extends JPanel {
         myMapString = "";
         for (int j = 0; j < myMap.length; j++) {
             for (String[] element : myMap) {
-                myMapString += element[j] + " "; 
+                myMapString += element[j]; 
             }
         }
         return myMapString;
