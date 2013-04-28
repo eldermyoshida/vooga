@@ -23,13 +23,13 @@
 				<height>500</height>
 			</dimension>
 			<grid>1 1 1 1 1 1 1 1 1 1
-			1 1 1 1 1 1 1 1 1 1
-			1 1 1 1 1 1 1 1 1 1
-			1 1 1 1 1 1 1 1 1 1
-			1 2 2 2 1 1 1 1 1 1
-			s 2 1 2 1 2 2 2 2 e
-			1 1 1 2 1 2 1 1 1 1
-			1 1 1 2 2 2 1 1 1 1
+			1 1 1 1 2 2 2 1 1 1
+			1 2 2 2 2 1 2 1 1 1
+			1 2 1 1 1 1 2 1 1 1
+			1 2 1 2 2 2 2 1 1 1
+			s 2 1 2 1 1 1 2 2 e
+			1 1 1 2 1 1 1 2 1 1
+			1 1 1 2 2 2 2 2 1 1
 			1 1 1 1 1 1 1 1 1 1
 			1 1 1 1 1 1 1 1 1 1</grid>
 		</Map1>
@@ -97,7 +97,7 @@
 					<parameter3>Dog</parameter3>
 				</WaveAction>
 				<TimerAction>
-					<parameter1>60</parameter1>
+					<parameter1>60000</parameter1>
 				</TimerAction>
 			</actions>
 		</Level1>
@@ -111,7 +111,7 @@
 					<parameter3>Bear</parameter3>
 				</WaveAction>
 				<TimerAction>
-					<parameter1>60</parameter1>
+					<parameter1>60000</parameter1>
 				</TimerAction>
 				</actions>
 			</Level2>
