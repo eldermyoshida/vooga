@@ -96,6 +96,9 @@
 					<parameter2>1000</parameter2>
 					<parameter3>Dog</parameter3>
 				</WaveAction>
+				<TimerAction>
+					<parameter1>60</parameter1>
+				</TimerAction>
 			</actions>
 		</Level1>
 		<Level2>
@@ -107,6 +110,9 @@
 					<parameter2>1000</parameter2>
 					<parameter3>Bear</parameter3>
 				</WaveAction>
+				<TimerAction>
+					<parameter1>60</parameter1>
+				</TimerAction>
 				</actions>
 			</Level2>
 	</levels>

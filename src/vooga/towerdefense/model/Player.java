@@ -8,6 +8,7 @@ import vooga.towerdefense.attributes.AttributeManager;
 import vooga.towerdefense.controller.Controller;
 
 /**
+ * A player object, which holds things like score and lives.
  * 
  * @author JLongley
  *
