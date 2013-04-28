@@ -88,29 +88,54 @@ public class GameMap {
 	 * @return
 	 */
 	public boolean isTower(GameElement e) {
-	        int i = (int)e.getAttributeManager().getAttribute(AttributeConstantsEnum.AFFILIATION.getStatusCode()).getValue();
-	        double remainder = e.getAttributeManager().getAttribute(AttributeConstantsEnum.AFFILIATION.getStatusCode()).getValue() - 1; 
+		int i = (int) e
+				.getAttributeManager()
+				.getAttribute(
+						AttributeConstantsEnum.AFFILIATION.getStatusCode())
+				.getValue();
+		double remainder = e
+				.getAttributeManager()
+				.getAttribute(
+						AttributeConstantsEnum.AFFILIATION.getStatusCode())
+				.getValue()
+				- i;
 		return remainder == .1;
 	}
 
 	/**
-	 * Makes tiles covered by this game element neither buildable or walkable, and sets their element.
+	 * tests if a GameElement is an enemy.
+	 * 
+	 * @param e
+	 * @return
+	 */
+	public boolean isEnemy(GameElement e) {
+		return (Math.floor(e
+				.getAttributeManager()
+				.getAttribute(
+						AttributeConstantsEnum.AFFILIATION.getStatusCode())
+				.getValue()) == 1);
+
+	}
+
+	/**
+	 * Makes tiles covered by this game element neither buildable or walkable,
+	 * and sets their element.
 	 * 
 	 * @param e
 	 */
 	public void blockTiles(GameElement e) {
+
 		int tilesWide = (int) Math.ceil(e.getSize().getWidth()
 				/ myTileSize.getWidth());
 		int tilesTall = (int) Math.ceil(e.getSize().getHeight()
 				/ myTileSize.getHeight());
 
-		
 		for (int i = 0; i < tilesWide; i++) {
 			for (int j = 0; j < tilesTall; j++) {
 				Location location = new Location(e.getCenter().getX() + i
 						* myTileSize.getWidth(), e.getCenter().getY() + j
 						* myTileSize.getHeight());
-				
+
 				Tile t = getTile(location);
 				t.setTower(e);
 				t.setWalkable(false);

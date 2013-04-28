@@ -1,6 +1,8 @@
 package vooga.towerdefense.action.waveactions;
 
 import vooga.towerdefense.action.Action;
+import vooga.towerdefense.attributes.Attribute;
+import vooga.towerdefense.attributes.AttributeConstantsEnum;
 import vooga.towerdefense.factories.elementfactories.GameElementFactory;
 import vooga.towerdefense.gameelements.GameElement;
 import vooga.towerdefense.model.GameMap;
@@ -46,6 +48,11 @@ public class WaveAction extends Action {
 
 	private void spawnUnit() {
 		GameElement unit = myFactory.createElement(myMap.getSpawnLocation());
+		
+		//obfuscated way to make a unit an enemy
+		Attribute affiliation = unit.getAttributeManager().getAttribute(AttributeConstantsEnum.AFFILIATION.getStatusCode());
+		affiliation.modifyValue(AttributeConstantsEnum.Enemy.getValue());
+		
 		myMap.addGameElement(unit);
 		--myUnitsRemaining;
 	}

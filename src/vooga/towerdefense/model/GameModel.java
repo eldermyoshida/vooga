@@ -45,7 +45,6 @@ public class GameModel {
         myGameMap = gameMap;
         myShop = shop;
         myCurrentLevel = 0;
-       // myPlayer = new Player(controller);
         myPlayer = player;
         myActiveActions = new ArrayList<Action>();
         myCurrentLevel = 0;
@@ -122,8 +121,14 @@ public class GameModel {
      * The function called when the winning conditions are met.
      */
     public void win() {
-    	//TODO: implement
-    	System.out.println("YOU WIN");
+    	myController.win();
+    }
+    
+    /**
+     * The function called when the losing conditions are met.
+     */
+    public void lose() {
+    	myController.lose();
     }
 
     /**

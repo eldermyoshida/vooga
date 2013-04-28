@@ -14,7 +14,6 @@ import util.Pixmap;
 import util.XMLTool;
 import vooga.towerdefense.model.GameMap;
 import vooga.towerdefense.model.Tile;
-import vooga.towerdefense.model.tiles.SpawnTile;
 import vooga.towerdefense.model.tiles.factories.DefaultTileFactory;
 import vooga.towerdefense.model.tiles.factories.DestinationTileFactory;
 import vooga.towerdefense.model.tiles.factories.GrassTileFactory;

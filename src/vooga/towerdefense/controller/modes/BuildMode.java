@@ -60,9 +60,14 @@ public class BuildMode extends ControlMode {
 	 */
 	@Override
 	public void handleMapMouseDrag(Point p, Controller controller) {
-		Location snappedLocation = controller
+		Location snappedLocation;
+		try {
+		snappedLocation = controller
 				.getPointSnappedToGrid(new Location(p.getX(), p.getY()));
-
+		}
+		catch( NullPointerException e) {
+			snappedLocation = new Location();
+		}
 		Dimension tileSize = controller.getTileSize();
 		int tilesWide = (int) Math.ceil(myItemToBuild.getSize().getWidth()
 				/ tileSize.getWidth());
