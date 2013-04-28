@@ -675,10 +675,10 @@ public abstract class InteractiveEntity extends GameEntity implements
     }
 
     private void findpath (Location3D destination) {
-        System.out.println("Finding path");
+        // System.out.println("Finding path");
         myPath = GameState.getMap().getPath(myFinder, getWorldLocation(),
                                             destination);
-        System.out.println("Found path");
+        // System.out.println("Found path");
         if (myPath != null) {
             myProductionStrategy.setRallyPoint(this);
         }
@@ -702,6 +702,10 @@ public abstract class InteractiveEntity extends GameEntity implements
      */
     public GameEntity getTargetEntity () {
         return myTargetEntity;
+    }
+    
+    public void setTargetEntity(GameEntity entity) {
+        myTargetEntity = entity;
     }
 
 }

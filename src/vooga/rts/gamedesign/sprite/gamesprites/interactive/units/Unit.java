@@ -33,13 +33,13 @@ public class Unit extends InteractiveEntity {
 
     // default values
     public static final Pixmap DEFAULT_IMAGE = new Pixmap(
-                                                          "images/sprites/soldier.png");
+            "images/sprites/soldier.png");
     public static final Location3D DEFAULT_LOCATION = new Location3D();
     public static final Dimension DEFAULT_SIZE = new Dimension(90, 90);
     public static final Sound DEFAULT_SOUND = null;
     public static final int DEFAULT_PLAYERID = 1;
     public static final int DEFAULT_HEALTH = 100;
-    public static final int DEFUALT_GATHER_RADIUS = 100;
+    public static final int DEFUALT_GATHER_RADIUS = 500;
 
     public Unit () {
         this(DEFAULT_IMAGE, DEFAULT_LOCATION, DEFAULT_SIZE, DEFAULT_SOUND, DEFAULT_PLAYERID,
@@ -131,25 +131,20 @@ public class Unit extends InteractiveEntity {
         if (getEntityState().getUnitState() == UnitState.OCCUPY) {
             this.occupy((InteractiveEntity) getTargetEntity());
         }
-        // TODO: this check isnt needed
-        if (getGatherStrategy() instanceof CanGather) {
+        if(getGatherStrategy() instanceof CanGather) {
             if (getEntityState().getUnitState() == UnitState.GATHER) {
                 this.gather((IGatherable) getTargetEntity());
-                // System.err.println("IM GONNA GATHER SOME SHIT");
-                removeState();
-            }
-            else {
-                // System.out.println("I WANNA MOVE!!!");
-                List<Resource> resources = GameState.getMap().getResources()
-                        .getInArea(getWorldLocation(), DEFUALT_GATHER_RADIUS);
-                if (!resources.isEmpty()) {
-                    Resource resource = resources.get(0);
-                    move(resource.getWorldLocation());
-                    this.gather(resource);
+                if(getTargetEntity().isDead()) {
+                    List<Resource> resources = GameState.getMap().getResources()
+                            .getInArea(getWorldLocation(), DEFUALT_GATHER_RADIUS);
+                    if (!resources.isEmpty()) {
+                        Resource resource = resources.get(0);
+                        setGoalLocation(resource.getWorldLocation());
+                        setTargetEntity(resource);
+                    }
                 }
             }
         }
         super.update(elapsedTime);
     }
-
 }

@@ -265,4 +265,8 @@ public class GameEntity extends GameSprite {
             myGoal = new Location3D(getWorldLocation());
         }
     }
+    
+    public void setGoalLocation(Location3D goal) {
+        myGoal = goal;
+    }
 }

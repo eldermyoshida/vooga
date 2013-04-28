@@ -59,7 +59,7 @@ public class CanGather implements GatherStrategy {
 		final int id = playerID;
 		if(myGatherState == GatherState.WAITING) {
 			myGatherState = GatherState.GATHERING;
-			System.out.println("I gathered!!!");
+			//System.out.println("I gathered!!!");
 			myGatherDelay = new DelayedTask(myCooldown, new Runnable() {
 				@Override
 				public void run() {
