@@ -40,7 +40,7 @@ public class SpriteManager {
         myLevel = level;
         mySprites = new ArrayList<Sprite>();
         initFrames();
-        myCollisionManager = new CollisionManager(level);
+        myCollisionManager = new CollisionManager();
     }
 
     private void initFrames () {
