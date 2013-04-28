@@ -130,7 +130,7 @@ public class CanAttack implements AttackStrategy {
     public boolean hasWeapon () {
         return true;
     }
-
+    
     public void affect (InteractiveEntity other) {
         CanAttack toAdd = new CanAttack();
         toAdd.setWeaponIndex(0);
