@@ -34,7 +34,7 @@ public class LaunchProjectile extends TargetedAction {
     @Override
     public void executeAction (double elapsedTime) {
     	for (GameElement target : getTargets()) {
-            GameElement projectile = myProjectileFactory.createElement(myStart);
+            GameElement projectile = myProjectileFactory.createElement(myStart, target);
             myMap.addGameElement(projectile);
         }
     }
