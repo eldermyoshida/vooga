@@ -53,6 +53,7 @@ public class GameElement extends Sprite {
      * @param elapsedTime
      */
     public void update (double elapsedTime) {
+    	
         for (Action a : myActions) {
             a.update(elapsedTime);
         }

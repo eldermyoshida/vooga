@@ -21,6 +21,12 @@ import vooga.towerdefense.model.Player;
  */
 public class ActionXMLLoader {
     private static final String PARAMETERS_TAG = "parameter";
+    private static final String WAVE_ACTION_FACTORIES_CLASSPATH = 
+            "vooga.towerdefense.factories.waveactionfactories.";
+    private static final String ACTION_FACTORIES_CLASSPATH = 
+            "vooga.towerdefense.factories.actionfactories.";
+    private static final String WAVE = "Wave";
+    private static final String FACTORY = "Factory";
     private XMLTool myXMLTool;
 
     /**
@@ -110,14 +116,14 @@ public class ActionXMLLoader {
         }
         
         try {
-            //TODO: need to fix this shit
-            String thing = "";
-            if (actionName.contains("Wave")) {
-                thing = "vooga.towerdefense.factories.waveactionfactories.";
-            } else {
-                thing = "vooga.towerdefense.factories.actionfactories.";
+            String classPath = "";
+            if (actionName.contains(WAVE)) {
+                classPath = WAVE_ACTION_FACTORIES_CLASSPATH;
+            } 
+            else {
+                classPath = ACTION_FACTORIES_CLASSPATH;
             }
-            String classPath = thing + actionName + "Factory";
+            classPath += actionName + FACTORY;
             Class actionFactoryClass = Class.forName(classPath);
 
             Constructor[] constructors = actionFactoryClass.getDeclaredConstructors();

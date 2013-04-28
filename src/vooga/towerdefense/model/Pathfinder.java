@@ -89,18 +89,4 @@ public class Pathfinder {
 
 		return obstacleMap;
 	}
-
-	private void printMap() {
-		System.out.println("obstacleMap:");
-		int[][] obstacleMap = convertMap(myGrid);
-		for (int i = 0; i < obstacleMap.length; i++) {
-			for (int j = 0; j < obstacleMap[0].length; j++) {
-				System.out.print(obstacleMap[i][j] + " ");
-			}
-			System.out.println();
-		}
-
-		System.out.println("\n\n\n");
-	}
-
 }

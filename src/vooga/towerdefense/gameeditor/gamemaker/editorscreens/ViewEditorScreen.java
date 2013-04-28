@@ -201,10 +201,6 @@ public class ViewEditorScreen extends GameEditorScreen {
                 else if (e.getSource().equals(myMultiButtonDONE)){
                     doneAddingMultiplePanels();
                     mySelectedJC.setSelectedItem("");
-                    //mySouthernPanelScreen.setVisible(true);
-                    //revalidate();
-                  //  repaint();
-                  //  setVisibility(true);
                 }
                 checkItemSelected(e);
             }
@@ -214,12 +210,8 @@ public class ViewEditorScreen extends GameEditorScreen {
 
     private void doneAddingMultiplePanels () {
         myMultiScreenMap.put(myKey, myScreens);
-        for (String key: myMultiScreenMap.keySet()) {
-            System.out.println(myMultiScreenMap.get(key));  
-        }
         myKey = "";
         myScreens.removeAll(myScreens);
-     //   setVisibility (false);
     }
 
     private void setVisibility (boolean vis) {
