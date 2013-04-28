@@ -12,7 +12,7 @@ import vooga.fighter.model.utils.Effect;
 /**
  * Loads the resources necessary for AttackObjects. Reads the data from the file designated
  * in the path ModelConstants.ATTACKLOADER_PATH_TAG.
- * @author David Le, Alan Ni
+ * @author David Le, alanni
  *
  */
 public class AttackObjectLoader extends ObjectLoader {

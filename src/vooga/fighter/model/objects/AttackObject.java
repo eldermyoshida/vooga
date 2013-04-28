@@ -79,13 +79,6 @@ public class AttackObject extends GameObject {
             addState(key, newState);
         }
     }
-        
-    /**
-     * Currently empty because of a bug in state, will change later 
-     */
-    public void updateState() {
-    
-    }
 
     /**
      * Move the attack object to the position of its owner.

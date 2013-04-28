@@ -29,9 +29,10 @@ public class CharacterObject extends GameObject {
     private Vector myForcesApplied;
     private List<Effect> myActiveEffects;
     private Health myHealth; 
+
     private List<AttackObject> myCurrentAttacks; 
-    private boolean myFacingRight;  
     private int myMovingDirection; 
+
     private Vector myVelocity;  
     
     /**
@@ -230,27 +231,7 @@ public class CharacterObject extends GameObject {
         getLocation().addAcceleration(new Vector(ModelConstants.UP, getProperty("jumpfactor")));
     } 
     
-    /**
-     * Checks to see if character is facing right
-     */
-    public boolean isFacingRight() {
-        return myFacingRight; 
-    }
-    
-    /**
-     * Sets the character to face left 
-     */
-    public void faceLeft() {
-        myFacingRight = false; 
-    }
-    
-    /**
-     * Sets the character to face right 
-     */
-    public void faceRight() {
-        myFacingRight = true; 
-    }
-    
+
     /**
      * Returns list of all attackObjects
      */

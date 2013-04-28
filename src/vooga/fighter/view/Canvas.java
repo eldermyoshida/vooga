@@ -10,7 +10,8 @@ import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import vooga.fighter.controller.ViewDataSource;
+
+import vooga.fighter.controller.interfaces.ViewDataSource;
 
 /**
  * Creates an area of the screen in which the game will be drawn that supports:
