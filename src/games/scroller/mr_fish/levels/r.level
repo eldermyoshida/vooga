@@ -8,11 +8,11 @@
                               
    a                          
                  f            
-                              
+       g                      
                               
                           f   
                               
-                              
+        a                     
                               
                               
                               
@@ -32,6 +32,7 @@
 /lib
 games.scroller.mr_fish.sprites.FishLib
 /key
+g=JamesCameron
 f=Baracuda
 d=Shark
 c=TreasureChest

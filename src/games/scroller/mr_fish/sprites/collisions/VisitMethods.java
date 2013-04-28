@@ -1,5 +1,6 @@
 package games.scroller.mr_fish.sprites.collisions;
 
+import games.scroller.mr_fish.sprites.FishLib.Baracuda;
 import games.scroller.mr_fish.sprites.FishLib.Fireball;
 import games.scroller.mr_fish.sprites.FishLib.Shark;
 import games.scroller.mr_fish.sprites.player.MrFish;
@@ -74,12 +75,14 @@ public class VisitMethods {
     }
         
     public void visit (MrFish fish, Shark enemy) {
-            //enemy.takeHit(fish.getHit());
             fish.takeHit(enemy.getHit());
-            fish.setCenter(enemy.getCenter().x + enemy.getWidth(), enemy.getCenter().y + enemy.getHeight());
-            
-        
+            fish.setCenter(enemy.getCenter().x + enemy.getWidth(), enemy.getCenter().y + enemy.getHeight());    
     }
+    
+    public void visit (MrFish fish, Baracuda enemy) {
+        fish.takeHit(enemy.getHit());
+        fish.setCenter(enemy.getCenter().x + enemy.getWidth(), enemy.getCenter().y + enemy.getHeight());    
+}
     
     public void visit (Player player, IDoor levelPortal) {
         levelPortal.goToNextLevel();
