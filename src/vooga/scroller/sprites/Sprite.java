@@ -388,6 +388,11 @@ public class Sprite {
     public void deactivateState(int stateID){
         myStateManager.deactivateState(stateID);
     }
+    
+    
+    public int getCurrentStateID() {
+        return myStateManager.getCurrentState().STATE_ID;
+    }
 
     public void updateLastLocation () {
         myLastLocation2 = new Location(myLastLocation.x, myLastLocation.y);

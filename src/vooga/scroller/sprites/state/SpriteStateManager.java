@@ -120,4 +120,10 @@ public class SpriteStateManager {
     public void removeState(int stateID){
         myStates.remove(stateID);
     }
+    
+    
+    public SpriteState getCurrentState() {
+        return myActiveStates.poll();
+        
+    }
 }

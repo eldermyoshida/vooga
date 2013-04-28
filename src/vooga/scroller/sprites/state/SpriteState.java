@@ -27,6 +27,8 @@ import java.awt.Graphics2D;
 
 public abstract class SpriteState<T> implements Comparable<SpriteState<T>>{
     
+    public static final int STATE_ID = 0;
+    
     private T myUnit;
     
     public SpriteState (T unit){

@@ -2,13 +2,17 @@ package vooga.scroller.kirbyGame.spritesDefinitions.players.states;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import vooga.scroller.kirbyGame.spritesDefinitions.KirbyLib;
 import vooga.scroller.sprites.Sprite;
 import vooga.scroller.sprites.state.SpriteState;
 
-public class InhaleState extends SpriteState<Sprite>{
+public class InhaleLeftState extends SpriteState<Sprite>{
+
+    private static final String DEFAULT_IMG = "kirbyinhaleL.gif";
+    public static int STATE_ID = 6;
 
 
-    public InhaleState (Sprite unit) {
+    public InhaleLeftState (Sprite unit) {
         super(unit);
         // TODO Auto-generated constructor stub
     }
@@ -21,8 +25,8 @@ public class InhaleState extends SpriteState<Sprite>{
 
     @Override
     public void paint (Graphics2D pen, double angle) {
-        // TODO Auto-generated method stub
-        
+        getUnit().setView(KirbyLib.makePixmap(DEFAULT_IMG));
+        getUnit().getView().paint(pen, getUnit().getCenter(), getUnit().getSize());            
     }
 
     @Override

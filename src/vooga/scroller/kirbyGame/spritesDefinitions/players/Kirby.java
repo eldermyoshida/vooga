@@ -9,6 +9,7 @@ import util.input.InputMethodTarget;
 import vooga.scroller.kirbyGame.spritesDefinitions.KirbyLib;
 import vooga.scroller.kirbyGame.spritesDefinitions.players.states.FloatLeftState;
 import vooga.scroller.kirbyGame.spritesDefinitions.players.states.FloatRightState;
+import vooga.scroller.kirbyGame.spritesDefinitions.players.states.InhaleLeftState;
 import vooga.scroller.level_editor.Level;
 import vooga.scroller.level_management.IInputListener;
 import vooga.scroller.marioGame.spritesDefinitions.MarioLib;
@@ -108,6 +109,8 @@ public class Kirby extends Player implements IInputListener{
         
         
     }
+    
+
 
     public Player getPlayer () {
         return this;
@@ -153,6 +156,22 @@ public class Kirby extends Player implements IInputListener{
     }
     
     
+    @InputMethodTarget(name = "inhalestart")
+    public void startLeftInhale() {
+        this.activateState(InhaleLeftState.STATE_ID);
+    }
+        
+    @InputMethodTarget(name = "inhalestart")
+    public void startRightInhale() {
+        
+    }
+    
+    
+    @InputMethodTarget(name = "inhalestop")
+    public void stopInhale() {
+            
+    }
+    
    // @InputMethodTarget(name = "leftstart")
     public void startFloatLeft() {
         this.activateState(FloatLeftState.STATE_ID);
@@ -165,6 +184,7 @@ public class Kirby extends Player implements IInputListener{
     }
    
     public void stopFloatLeft() {
+        
         this.deactivateState(FloatLeftState.STATE_ID);
 
     }
@@ -179,6 +199,8 @@ public class Kirby extends Player implements IInputListener{
         this.deactivateState(FloatRightState.STATE_ID);
     }
 
+
+    
     
     public void incrementScore (int increment) {
         // TODO Auto-generated method stub
