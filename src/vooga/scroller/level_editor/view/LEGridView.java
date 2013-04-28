@@ -162,12 +162,6 @@ public class LEGridView extends WindowComponent<LevelEditing>
     }
 
 
-    /**
-     * Launch a simulation of the active tab
-     */
-    public void simulate () {
-        myGrid.simulate();
-    }
 
     /**
      * Update the size of the grid in the active tab

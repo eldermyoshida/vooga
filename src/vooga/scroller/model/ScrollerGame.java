@@ -91,9 +91,9 @@ public abstract class ScrollerGame extends Game {
         myDisplay.start();
     }
     
-    public static void runLevelEditor(ISpriteLibrary lib, String...filenames){
+    public static void runLevelEditor(ISpriteLibrary lib, Player p, String...filenames){
         BackgroundLib bgLib = new BackgroundLib(filenames);
-        LEController con = new LEController(lib,bgLib);
+        LEController con = new LEController(lib, bgLib, p);
         con.start();
     }
     

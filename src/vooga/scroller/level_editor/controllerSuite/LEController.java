@@ -1,10 +1,14 @@
 package vooga.scroller.level_editor.controllerSuite;
 
+import games.scroller.marioGame.spritesDefinitions.players.Mario;
+import java.awt.Dimension;
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JOptionPane;
+import util.Location;
 import vooga.scroller.level_editor.ILevelEditor;
+import vooga.scroller.level_editor.Level;
 import vooga.scroller.level_editor.LevelEditing;
 import vooga.scroller.level_editor.library.IBackgroundLibrary;
 import vooga.scroller.level_editor.library.ISpriteLibrary;
@@ -15,10 +19,21 @@ import vooga.scroller.level_editor.model.LevelWriter;
 import vooga.scroller.level_editor.view.LEGridView;
 import vooga.scroller.level_editor.view.LEView;
 import vooga.scroller.level_editor.view.LEWorkspaceView;
+import vooga.scroller.level_management.splash_page.SplashPage;
+import vooga.scroller.level_management.splash_page.TestSplashPage;
+import vooga.scroller.model.Model;
+import vooga.scroller.scrollingmanager.OmniScrollingManager;
+import vooga.scroller.scrollingmanager.ScrollingManager;
+import vooga.scroller.sprites.superclasses.Player;
+import vooga.scroller.util.PlatformerConstants;
 import vooga.scroller.util.Renderable;
+import vooga.scroller.util.Renderer;
+import vooga.scroller.util.mvc.Gaming;
 import vooga.scroller.util.mvc.IController;
 import vooga.scroller.util.mvc.IWindow;
+import vooga.scroller.util.mvc.SimpleView;
 import vooga.scroller.util.mvc.vcFramework.WorkspaceView;
+import vooga.scroller.view.GameView;
 
 
 /**
@@ -36,8 +51,8 @@ public class LEController implements IController<LevelEditing> {
 
     private static final String SAVE_ERROR = "All levels need a StartPoint, Portal, and Background";
 
-    public static void runLevelEditor (ISpriteLibrary lib, IBackgroundLibrary bgLib) {
-        LEController con = new LEController(lib, bgLib);
+    public static void runLevelEditor (ISpriteLibrary lib, IBackgroundLibrary bgLib, Player samp) {
+        LEController con = new LEController(lib, bgLib, samp);
         con.start();
     }
 
@@ -54,6 +69,7 @@ public class LEController implements IController<LevelEditing> {
     private GridSpinner myGridSpinner;
     public static final int MIN_SPRITE_GRID_SIZE = 20;
     public static final int MAX_SPRITE_GRID_SIZE = 1000;
+    private Player mySamplePlayer;
 
     /**
      * Preferred constructor, specifies sprites and background to be availed in the
@@ -62,7 +78,7 @@ public class LEController implements IController<LevelEditing> {
      * @param lib - A sprite Library for the editor
      * @param bgLib - A background Library to be used in the editor
      */
-    public LEController (ISpriteLibrary lib, IBackgroundLibrary bgLib) {
+    public LEController (ISpriteLibrary lib, IBackgroundLibrary bgLib, Player samp) {
         myDomainInfo = new LevelEditing();
         myToolsManager = new ToolsManager(lib, bgLib);
         myTools = myToolsManager.getViewTools();
@@ -75,6 +91,7 @@ public class LEController implements IController<LevelEditing> {
         myLevelWriter = new LevelWriter(this);
         myLevelReader = new LevelParser(this);
         myGridSpinner = new GridSpinner();
+        mySamplePlayer = samp;
     }
 
     /**
@@ -210,6 +227,27 @@ public class LEController implements IController<LevelEditing> {
     @Override
     public void showErrorMsg (String copyError) {
         myView.showMessageDialog(copyError);
+    }
+
+    public Player getSamplePlayer () {
+        return mySamplePlayer;
+    }
+    
+    public void simulate (LEGrid grid) {
+        SimpleView simContainer = new SimpleView("Level Simulation");
+        ScrollingManager sm = new OmniScrollingManager();
+        GameView display = new GameView(PlatformerConstants.DEFAULT_WINDOW_SIZE, sm);
+        sm.initView(display);
+        mySamplePlayer = new Mario(new Location(), new Dimension(20, 32), display, sm);
+        Level sim = new Level(1, sm, grid);
+        SplashPage sp = new TestSplashPage(display, sm);
+        Model m = new Model(display, sm, mySamplePlayer, sp, sim);
+        m.start();
+        display.setModel(m);
+        sim.addPlayer(mySamplePlayer);
+        display.start();
+        simContainer.add((GameView)display);
+        simContainer.start();
     }
 
 }

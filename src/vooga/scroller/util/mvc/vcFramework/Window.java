@@ -293,4 +293,8 @@ public abstract class Window<W extends WorkspaceView<D>,
     public void registerMenu (JMenu jMenu) {
         myMenuBar.addCustomMenu(jMenu);
     }
+
+    public IController<D> getController () {
+        return myController;
+    }
 }
