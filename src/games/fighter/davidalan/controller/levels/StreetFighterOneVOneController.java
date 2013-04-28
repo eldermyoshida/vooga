@@ -18,6 +18,11 @@ import vooga.fighter.controller.levels.OneVOneController;
 public class StreetFighterOneVOneController extends OneVOneController{
     
 	private CollisionDetector myDetector; 
+	
+	public StreetFighterOneVOneController(){
+		super();
+	}
+	
 	public StreetFighterOneVOneController(String name, Canvas frame, ControllerDelegate manager, 
     		GameInfo gameinfo, String filepath) {
     	super(name, frame, manager, gameinfo, filepath);
