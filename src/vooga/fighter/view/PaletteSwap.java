@@ -3,7 +3,7 @@ package vooga.fighter.view;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import sun.awt.image.ToolkitImage;
-import vooga.fighter.util.Paintable;
+import util.Paintable;
 
 /**
  * This class is to be used for changing the colors of images. Currently,
