@@ -685,8 +685,8 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
     }
 
     public void addWeapon (Weapon toAdd) {
+        toAdd.setCenter(getWorldLocation());
         myAttackStrategy.addWeapon(toAdd);
-
     }
 
     public void setUpgradeStrategy (UpgradeStrategy upgradeStrategy) {
