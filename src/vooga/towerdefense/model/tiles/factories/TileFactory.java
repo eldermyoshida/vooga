@@ -10,12 +10,6 @@ import util.Location;
  * @author Leonard K. Ng'eno
  */
 public abstract class TileFactory {
-    
-    /**
-     * The size of a tile
-     */
-//    public static final Dimension DEFAULT_TILE_DIMENSIONS = new Dimension(50, 50);
-    
     /**
      * 
      * @param id a tile id.
