@@ -167,8 +167,8 @@ public class LEGridView extends WindowComponent<LevelEditing>
      */
     public void updateGridSize () {
 
-        myGridSpinner = new GridSpinner(myGrid.getWidthInBlocks(),
-                                        myGrid.getHeightInBlocks());
+        myGridSpinner = new GridSpinner(myGrid.getSize().width,
+                                        myGrid.getSize().height);
         int a = (int) JOptionPane.showConfirmDialog(
                                                     null, myGridSpinner, 
                                                     "Update Grid Height and Width", 

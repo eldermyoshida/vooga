@@ -1,4 +1,3 @@
-
 package vooga.scroller.level_editor;
 
 import java.awt.Dimension;
@@ -21,21 +20,20 @@ public class Main {
      * @param args
      */
     public static void main (String[] args) {
-        
-        String[] filenames = new String[]{"underwater1.jpg",
-                                          "underwater2.jpg",
-                                          "underwater3.jpg",
-                                          "bikini_bottom.jpg"};
+
+        String[] filenames = new String[] { "underwater1.jpg",
+                                           "underwater2.jpg",
+                                           "underwater3.jpg",
+                                           "bikini_bottom.jpg" };
         ScrollingManager sm = new OmniScrollingManager();
         GameView display = new GameView(PlatformerConstants.DEFAULT_WINDOW_SIZE, sm);
         sm.initView(display);
-        Player sample = new Mario(new Location(), 
-                                  new Dimension(20, 32),
+        Player sample = new Mario(new Dimension(20, 32),
                                   display, sm);
-        
-        LEController.runLevelEditor(new MarioLib(), 
-                                    new BackgroundLib(filenames), 
+
+        LEController.runLevelEditor(new MarioLib(),
+                                    new BackgroundLib(filenames),
                                     sample);
-        
+
     }
 }

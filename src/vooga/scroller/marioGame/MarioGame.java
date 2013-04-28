@@ -1,10 +1,9 @@
-
 package vooga.scroller.marioGame;
+
 import java.awt.Dimension;
 import arcade.games.ArcadeInteraction;
 import arcade.games.GameData;
 import arcade.games.UserGameData;
-import util.Location;
 import vooga.scroller.collision_manager.VisitLibrary;
 import vooga.scroller.level_management.splash_page.SplashPage;
 import vooga.scroller.marioGame.splash_page.MarioSplashPage;
@@ -12,7 +11,6 @@ import vooga.scroller.marioGame.spritesDefinitions.MarioLib;
 import vooga.scroller.marioGame.spritesDefinitions.collisions.MarioVisitMethods;
 import vooga.scroller.marioGame.spritesDefinitions.players.Mario;
 import vooga.scroller.model.ScrollerGame;
-import vooga.scroller.scrollingmanager.OmniScrollingManager;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.scrollingmanager.UniScrollingManager;
 import vooga.scroller.sprites.superclasses.Player;
@@ -22,7 +20,8 @@ import vooga.scroller.view.GameView;
 
 /**
  * A sample scroller game. By implementing the methods required by ScrollerGame,
- * the designer defines the components of the game. Most important, is the get LevelFileNames method.
+ * the designer defines the components of the game. Most important, is the get LevelFileNames
+ * method.
  */
 
 public class MarioGame extends ScrollerGame {
@@ -32,9 +31,9 @@ public class MarioGame extends ScrollerGame {
     public static final String LEVELS_DIR = "src/vooga/scroller/marioGame/sampleLevels/";
     public static final String SPLASH_DIR = "MARIO SPLASH.png";
 
-
     /**
      * main --- where the program starts
+     * 
      * @param args
      */
     public static void main (String args[]) {
@@ -43,37 +42,30 @@ public class MarioGame extends ScrollerGame {
         test.run();
     }
 
-
     public MarioGame (ArcadeInteraction arcade) {
         super(arcade);
-    } 
+    }
 
     @Override
     protected String[] setLevelFileNames () {
-        String[] levelsFiles = {"longlevel.level"};
+        String[] levelsFiles = { "longlevel.level" };
         return levelsFiles;
     }
-
-
 
     @Override
     protected String setTitle () {
         return TITLE;
     }
 
-
     @Override
     protected ScrollingManager setScrollingManager () {
         return new UniScrollingManager(Direction.LEFT);
     }
 
-
-
     @Override
     protected Player setPlayer (ScrollingManager sm, GameView gameView) {
-        return new Mario(new Location(), new Dimension(20, 32), gameView, sm);
+        return new Mario(new Dimension(20, 32), gameView, sm);
     }
-
 
     @Override
     protected String setLevelsDirPath () {
@@ -93,12 +85,11 @@ public class MarioGame extends ScrollerGame {
         return null;
     }
 
-
     @Override
     protected SplashPage setSplashPage () {
-        return new MarioSplashPage(MarioLib.makePixmap("MARIO SPLASH.png"), 0, getDisplay(), getScrollingManager());
+        return new MarioSplashPage(MarioLib.makePixmap("MARIO SPLASH.png"), 0, getDisplay(),
+                                   getScrollingManager());
     }
-
 
     @Override
     protected VisitLibrary setVisitLibrary () {

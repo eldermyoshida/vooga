@@ -34,13 +34,12 @@ public abstract class GameCharacter extends Sprite implements Locatable{
      * Builds a new GameCharacter that interacts with other game characters in the game.
      * 
      * @param image is the view of the character.
-     * @param center is the initial location of the character.
      * @param size is the dimensions of the character.
      * @param health is the initial health of the character.
      * @param damage is the initial damage of the character.
      */
-    public GameCharacter (ISpriteView image, Location center, Dimension size, int health, int damage) {
-        super(image, center, size);
+    public GameCharacter (ISpriteView image, Dimension size, int health, int damage) {
+        super(image, size);
         myHealth = health;
         myDamage = damage;
     }
