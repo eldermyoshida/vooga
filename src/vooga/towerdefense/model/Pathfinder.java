@@ -83,9 +83,6 @@ public class Pathfinder {
 
 		for (int i = 0; i < myGrid.length; i++) {
 			for (int j = 0; j < myGrid[0].length; j++) {
-				System.out.print(myGrid[i][j].getClass());
-				System.out.println(myGrid[i][j].isWalkable());
-				
 				obstacleMap[i][j] = myGrid[i][j].isWalkable() ? 0 : 1;
 			}
 		}
