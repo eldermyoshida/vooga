@@ -67,7 +67,10 @@ public class Building extends InteractiveEntity {
     	this(image, InteractiveEntity.DEFAULT_LOCATION, DEFAULT_SIZE, sound, InteractiveEntity.DEFAULT_PLAYERID, health, buildTime);
     }
 
-    @Override
+    /**
+     * Makes a copy of this Building. Copies both game status and the
+     * actions and information.
+     */
     public InteractiveEntity copy () {
         Building copyBuilding = new Building(getImage(), getWorldLocation(), getSize(), getSound(), getPlayerID(),
                 getHealth(), getBuildTime());
@@ -75,7 +78,6 @@ public class Building extends InteractiveEntity {
         transmitProperties(copyBuilding);
     	return copyBuilding;
     }
-
 
     /**
      * Returns the rally point of the production building.
@@ -95,21 +97,5 @@ public class Building extends InteractiveEntity {
      */
     public void setRallyPoint (Location3D rallyPoint) {
         myRallyPoint = rallyPoint;
-    }
-
-    @Override
-    public int getSpeed() {
-    	return 0;
-    }
-    
-    @Override
-    public void addActions() {		
-		
-    }
-
-    @Override
-    public void updateAction (Command command) {
-        // TODO Auto-generated method stub
-        
     }
 }
