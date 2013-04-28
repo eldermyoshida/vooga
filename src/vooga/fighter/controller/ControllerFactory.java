@@ -69,7 +69,9 @@ public class ControllerFactory {
             Class<?> controllerClass = null;
             String filePath = myPackageName + controllerName;
             controllerClass = Class.forName(filePath);
+            System.out.println(filePath);
             controllerObject = controllerClass.newInstance();
+            System.out.println(controllerObject.getClass().getSimpleName());
             controller = (Controller) controllerObject;
             controller.initializeName(myResources.getString(controllerName));
         }
