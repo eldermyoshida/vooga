@@ -1,7 +1,6 @@
 package vooga.scroller.sprites.interfaces;
 
 import vooga.scroller.level_management.LevelManager;
-import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.util.IGameComponent;
 
 /**
