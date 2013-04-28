@@ -20,7 +20,7 @@ import java.util.Set;
 import javax.swing.JButton;
 import util.Location;
 import vooga.towerdefense.controller.Controller;
-import vooga.towerdefense.util.Pixmap;
+import util.Pixmap;
 import vooga.towerdefense.view.TDView;
 
 

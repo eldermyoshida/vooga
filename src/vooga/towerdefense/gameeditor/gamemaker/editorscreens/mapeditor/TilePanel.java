@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Map;
 import javax.swing.JPanel;
 import util.Location;
-import vooga.towerdefense.util.Pixmap;
+import util.Pixmap;
 
 
 /**
