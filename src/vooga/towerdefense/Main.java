@@ -10,6 +10,6 @@ public class Main {
     }
     
     public static void main(String[] args) throws IllegalArgumentException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException {
-        new Controller("English", "/src/vooga/towerdefense/resources/JimmysTestGame.xml");
+        new Controller("English", "/src/vooga/towerdefense/resources/MatthewGame.xml");
     }
 }
