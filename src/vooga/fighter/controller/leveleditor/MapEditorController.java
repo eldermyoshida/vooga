@@ -11,7 +11,7 @@ import util.input.PositionObject;
 import vooga.fighter.controller.Controller;
 import vooga.fighter.controller.gameinformation.GameInfo;
 import vooga.fighter.controller.interfaces.ControllerDelegate;
-import vooga.fighter.controller.menus.MainMenuController;
+import vooga.fighter.controller.levels.MainMenuController;
 import vooga.fighter.model.mode.MapEditorMode;
 import vooga.fighter.model.mode.Mode;
 import vooga.fighter.model.objects.EnvironmentObject;

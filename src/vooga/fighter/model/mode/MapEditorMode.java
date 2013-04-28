@@ -18,6 +18,12 @@ import vooga.fighter.util.CollisionManager;
 
 
 /**
+ * Mode class for a map editor. Contains all state information 
+ * for the editor and methods to affect state.
+ * Either loads an existing maps into the MapObject using the MapLoader,
+ * or loads a blank map. New objects and starting positions are loaded into
+ * the MapObject, while background image and sound filepaths are saved as strings.
+ * 
  * 
  * @author matthewparides, james wei
  * 
@@ -60,6 +66,10 @@ public class MapEditorMode extends Mode {
         loadMap(myMapName);
     }
     
+    /**
+     * sets the target mapobject of this mapEditorController
+     * @param map
+     */
     public void setMap(MapObject map){
     	myMap = map;
     	addObject(map);

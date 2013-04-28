@@ -1,5 +1,7 @@
 package vooga.fighter.controller;
 
+import vooga.fighter.controller.levels.MapSelectController;
+
 /**
  * Map select screen for the map editor.
  * this class exists so that different data will be read from the xml

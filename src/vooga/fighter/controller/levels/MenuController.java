@@ -1,4 +1,4 @@
-package vooga.fighter.controller.menus;
+package vooga.fighter.controller.levels;
 
 import java.util.ArrayList;
 import java.util.List;

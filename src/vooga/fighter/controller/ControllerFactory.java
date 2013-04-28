@@ -21,7 +21,7 @@ import vooga.fighter.view.Canvas;
 public class ControllerFactory {
 
     private String DEFAULT_RESOURCE_PACKAGE = "config.FightingManifesto";
-    private static final String PACKAGE_NAME = "controller.";
+    private static final String PACKAGE_NAME = "controller.levels.";
 
     private Map<String, Controller> myControllerMap;
     private List<Controller> myControllerList;
