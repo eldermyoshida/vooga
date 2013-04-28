@@ -3,6 +3,7 @@ package vooga.rts.manager.actions;
 import vooga.rts.action.ManagerAction;
 import vooga.rts.commands.ClickCommand;
 import vooga.rts.commands.Command;
+import vooga.rts.gamedesign.sprite.gamesprites.GameEntity;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
 import vooga.rts.manager.Manager;
 import vooga.rts.state.GameState;
@@ -29,7 +30,7 @@ public class RightClickAction extends ManagerAction {
 	public void apply() {
 		if (myLocation != null) {
 			for (InteractiveEntity ie : getManager().getSelected()) {
-				InteractiveEntity enemy = GameState.getMap().getEntity(
+				GameEntity enemy = GameState.getMap().getEntity(
 						myLocation);
 				if (enemy != null) {
 					ie.recognize(enemy);

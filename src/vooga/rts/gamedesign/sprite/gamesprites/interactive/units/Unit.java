@@ -145,7 +145,7 @@ public class Unit extends InteractiveEntity {
 	@Override
 	public void update(double elapsedTime) {
 		if (getEntityState().getUnitState() == UnitState.OCCUPY) {
-			this.occupy(getTargetEntity());
+			this.occupy((InteractiveEntity)getTargetEntity());
 		}
 		super.update(elapsedTime);
 	}

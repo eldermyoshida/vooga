@@ -14,6 +14,9 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+
+import javax.annotation.Resource;
+
 import vooga.rts.action.Action;
 import vooga.rts.action.IActOn;
 import vooga.rts.ai.AstarFinder;
@@ -87,7 +90,7 @@ public abstract class InteractiveEntity extends GameEntity implements
 	private Information myInfo;
 	private PathFinder myFinder;
 	private Path myPath;
-	private InteractiveEntity myTargetEntity;
+	private GameEntity myTargetEntity;
 
 	/**
 	 * Creates a new interactive entity.
@@ -474,9 +477,12 @@ public abstract class InteractiveEntity extends GameEntity implements
 	 * @param other
 	 *            - the other InteractiveEntity
 	 */
-	public void recognize(InteractiveEntity other) {
+	public void recognize(GameEntity other) {
 		myTargetEntity = other;
-		if (isEnemy(other)) {
+		if(other instanceof Resource) {
+			getEntityState().setUnitState(UnitState.GATHER);
+		}
+		else if (isEnemy((InteractiveEntity)other)) {
 			getEntityState().setUnitState(UnitState.ATTACK);
 		} else if (other instanceof Building) {
 			getEntityState().setUnitState(UnitState.OCCUPY);
@@ -564,7 +570,7 @@ public abstract class InteractiveEntity extends GameEntity implements
 		if (myAttackStrategy.hasWeapon()) {
 			Weapon weapon = myAttackStrategy.getCurrentWeapon();
 			if (getEntityState().inAttackMode()) {
-				myTargetEntity.getAttacked(this);
+				((InteractiveEntity)myTargetEntity).getAttacked(this);
 			} else {
 				List<InteractiveEntity> enemies = findEnemies(weapon);
 				if (!enemies.isEmpty()) {
@@ -688,7 +694,7 @@ public abstract class InteractiveEntity extends GameEntity implements
 	 * 
 	 * @return the target interactive entity
 	 */
-	public InteractiveEntity getTargetEntity() {
+	public GameEntity getTargetEntity() {
 		return myTargetEntity;
 	}
 
