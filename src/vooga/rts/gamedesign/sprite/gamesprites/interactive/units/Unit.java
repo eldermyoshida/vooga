@@ -47,15 +47,14 @@ import vooga.rts.util.Sound;
  */
 public class Unit extends InteractiveEntity {
 
-	// default values
-	public static Pixmap DEFAULT_IMAGE = new Pixmap(
-			"images/sprites/soldier.png");
-	public static Location3D DEFAULT_LOCATION = new Location3D();
-	public static Dimension DEFAULT_SIZE = new Dimension(90, 90);
-	public static Sound DEFAULT_SOUND = null;
-	public static int DEFAULT_PLAYERID = 1;
-	public static int DEFAULT_HEALTH = 100;
 
+        
+    public Unit () {
+        this(DEFAULT_IMAGE, DEFAULT_LOCATION, DEFAULT_SIZE, DEFAULT_SOUND, DEFAULT_PLAYERID, DEFAULT_HEALTH, InteractiveEntity.DEFAULT_BUILD_TIME, InteractiveEntity.DEFAULT_SPEED);
+        Information i = new Information("Marine", "I fear no darkness. I was born in it", "buttons/marine.png");
+        setInfo(i);
+
+    }
 	public Unit() {
 		this(DEFAULT_IMAGE, DEFAULT_LOCATION, DEFAULT_SIZE, DEFAULT_SOUND,
 				DEFAULT_PLAYERID, DEFAULT_HEALTH,

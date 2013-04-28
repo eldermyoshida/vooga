@@ -19,7 +19,6 @@ import vooga.rts.action.IActOn;
 import vooga.rts.ai.AstarFinder;
 import vooga.rts.ai.Path;
 import vooga.rts.ai.PathFinder;
-import vooga.rts.commands.ClickCommand;
 import vooga.rts.commands.Command;
 import vooga.rts.commands.InformationCommand;
 import vooga.rts.gamedesign.sprite.gamesprites.GameEntity;
@@ -84,7 +83,6 @@ public abstract class InteractiveEntity extends GameEntity implements
 	private Map<String, Information> myInfos;
 	private List<DelayedTask> myTasks;
 	private double myBuildTime;
-	private List<InteractiveEntity> myProducables;
 	private Information myInfo;
 	private PathFinder myFinder;
 	private Path myPath;
@@ -119,8 +117,7 @@ public abstract class InteractiveEntity extends GameEntity implements
 		isSelected = false;
 		myTasks = new ArrayList<DelayedTask>();
 		myBuildTime = buildTime;
-		myOccupyStrategy = new CannotBeOccupied();
-		myProducables = new ArrayList<InteractiveEntity>();
+		myOccupyStrategy = new CannotBeOccupied();		
 		myPath = new Path();
 		myFinder = new AstarFinder();
 		myTargetEntity = this;
@@ -184,13 +181,6 @@ public abstract class InteractiveEntity extends GameEntity implements
 		all[3] = myProductionStrategy;
 		all[4] = myUpgradeStrategy;
 		return all;
-	}
-
-	/**
-	 * returns the list of producables
-	 */
-	public List<InteractiveEntity> getProducables() {
-		return myProducables;
 	}
 
 	/**
@@ -598,8 +588,8 @@ public abstract class InteractiveEntity extends GameEntity implements
 	/*
 	 * Test method to add an interactive entity to
 	 */
-	public void addProducable(InteractiveEntity i) {
-		myProducables.add(i);
+	public void addProducable(InteractiveEntity producable) {
+	    myProductionStrategy.addProducable(producable);
 	}
 
 	@Override

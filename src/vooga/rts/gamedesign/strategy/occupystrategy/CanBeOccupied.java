@@ -11,7 +11,6 @@ import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit;
 import vooga.rts.gamedesign.state.DetectableState;
 import vooga.rts.gamedesign.state.MovementState;
 import vooga.rts.gamedesign.state.OccupyState;
-import vooga.rts.util.Information;
 import vooga.rts.gamedesign.strategy.Strategy;
 import vooga.rts.util.Location3D;
 
@@ -71,8 +70,7 @@ public class CanBeOccupied implements OccupyStrategy {
      * @param entity the object that is occupied.
      */
     private void addDeoccupyAction (final InteractiveEntity entity) {
-        String commandName = "decoccupy";
-        entity.addAction(commandName, new InteractiveAction(entity) {
+        entity.addAction("deoccupy", new InteractiveAction(entity) {
             @Override
             public void update (Command command) {
             }
@@ -89,8 +87,6 @@ public class CanBeOccupied implements OccupyStrategy {
                 }
             }
         });
-        entity.addInfo(commandName, new Information("Deoccupy", "Removes all units currently occupied", null, ""));
-        
     }
 
     /**

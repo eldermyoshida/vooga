@@ -33,10 +33,10 @@ public class CanProduce implements ProductionStrategy {
      * it can produce and a rally point (where all the units created by this
      * entity will go).
      */
-    public CanProduce (Building building) {
+    public CanProduce (InteractiveEntity entity) {
         myProducables = new ArrayList<InteractiveEntity>();
         myRallyPoint = new Location3D();
-        setRallyPoint(building);
+        setRallyPoint(entity);
     }
 
     /**
@@ -50,21 +50,9 @@ public class CanProduce implements ProductionStrategy {
         myRallyPoint = rallyPoint;
     }
 
-    public void setRallyPoint (Building building) {
-        myRallyPoint = new Location3D(building.getWorldLocation().getX(),
-                                      building.getWorldLocation().getY() + 50, 0);
-    }
-
-    /**
-     * Creates a new production strategy that represents an entity that can
-     * produce other entities. It is created with a list of entities that
-     * it can produce and a rally point (where all the units created by this
-     * entity will go).
-     */
-    public CanProduce (InteractiveEntity entity) {
-        myProducables = new ArrayList<InteractiveEntity>();
-        myRallyPoint = new Location3D();
-        setRallyPoint(entity);
+    public void setRallyPoint (InteractiveEntity entity) {
+        myRallyPoint = new Location3D(entity.getWorldLocation().getX(),
+                                      entity.getWorldLocation().getY() + 50, 0);
     }
 
     /**
@@ -75,6 +63,7 @@ public class CanProduce implements ProductionStrategy {
      */
     public void addProducable (InteractiveEntity producable) {
         myProducables.add(producable);
+
     }
 
     @Override
@@ -82,6 +71,7 @@ public class CanProduce implements ProductionStrategy {
         for (final InteractiveEntity producable : myProducables) {
             String commandName = "make " + producable.getInfo().getName();
             producer.addAction(commandName, new InteractiveAction(producer) {
+
                 @Override
                 public void update (Command command) {
                 }
@@ -90,23 +80,18 @@ public class CanProduce implements ProductionStrategy {
                 public void apply () {
                     // check for resources
                     final InteractiveEntity unit = producable;
-                    // producer.getEntityState().setProducingState(PR);
-                    DelayedTask dt = new DelayedTask(5, new Runnable() {
+                    DelayedTask dt = new DelayedTask(unit.getBuildTime(), new Runnable() {
                         @Override
                         public void run () {
-
-                            InteractiveEntity f = ((InteractiveEntity) unit)
-                                    .copy();
+                            InteractiveEntity f = unit.copy();
                             f.setWorldLocation(producer.getWorldLocation());
-                            f.setAttackStrategy(new CanAttack(f.getWorldLocation(), f.getPlayerID()));
                             producer.setChanged();
                             producer.notifyObservers(f);
                             f.move(myRallyPoint);
-                            // producer.getEntityState()
+
                         }
                     });
                     producer.addTask(dt);
-
                 }
             });
             producer.addInfo(commandName, producable.getInfo());
@@ -138,11 +123,5 @@ public class CanProduce implements ProductionStrategy {
         newProduction.setProducables(getProducables());
         newProduction.createProductionActions(entity);
         entity.setProductionStrategy(newProduction);
-    }
-
-    @Override
-    public void setRallyPoint (InteractiveEntity entity) {
-        // TODO Auto-generated method stub
-        
     }
 }
