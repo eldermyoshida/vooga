@@ -114,7 +114,7 @@ public class MarioLib extends EncapsulatedSpriteLibrary {
 
         private static final String DEFAULT_IMG = "block.png";
 
-        public Platform (Location center) {
+        public Platform () {
             this(DEFAULT_IMG, DEFAULT_SIZE);
         }
 
@@ -177,7 +177,7 @@ public class MarioLib extends EncapsulatedSpriteLibrary {
         private static final String DEFAULT_IMG = "leveltwoblock2.png";
         private static final Dimension DEFAULT_SIZE = new Dimension(96, 32);
 
-        public LevelTwoBlockTwo (Location center) {
+        public LevelTwoBlockTwo () {
             super(DEFAULT_IMG, DEFAULT_SIZE);
         }
 
@@ -190,7 +190,7 @@ public class MarioLib extends EncapsulatedSpriteLibrary {
         private static final String DEFAULT_IMG = "leveltwoblock3.png";
         private static final Dimension DEFAULT_SIZE = new Dimension(768, 192);
 
-        public LevelTwoBlockThree (Location center) {
+        public LevelTwoBlockThree () {
             super(DEFAULT_IMG, DEFAULT_SIZE);
         }
 
