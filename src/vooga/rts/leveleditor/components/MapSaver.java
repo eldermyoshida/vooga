@@ -170,8 +170,7 @@ public class MapSaver {
             }
             catch (IOException e) {
                 e.printStackTrace();
-            }
-            
+            }            
         }
     }
     
