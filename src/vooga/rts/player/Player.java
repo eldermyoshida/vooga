@@ -8,13 +8,17 @@ import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
 import vooga.rts.manager.IndividualResourceManager;
 import vooga.rts.manager.Manager;
 import vooga.rts.resourcemanager.ResourceManager;
+import vooga.rts.util.Location3D;
 
 
 /**
  * Sends commands to its unit manager from either the human input, the network
- * input or the ai input.]
+ * input or the ai input.
+ * Also stores information about a player, such as its team id, player id, base,
+ * available resources, etc.
  * 
  * @author challenherzberg-brovold
+ * @author Jonathan Schmidt
  * 
  */
 public class Player implements Controller, IGameLoop {
@@ -25,17 +29,38 @@ public class Player implements Controller, IGameLoop {
     private int myPlayerID;
     private int myTeamID;
 
+    private Location3D myBase;
+    
     public Player (int playerid, int teamID) {
         myManager = new Manager(playerid);
         myPlayerID = playerid;
         myTeamID = teamID;
         myResources = new IndividualResourceManager();
+        myBase = new Location3D();
     }
-
+    
+    public void setBase(Location3D loc) {
+        myBase = new Location3D(loc);
+    }
+    
+    /* 
+     * @return the location of where the Player starts the game.
+     */
+    public Location3D getBase() {
+    	return myBase;
+    }
+    
+    /*
+     * JUST TO RETURN A VALUE
+     */
+    public Location3D getEnemyBase() {
+    	return new Location3D(700, 700, 0);
+    }
+    
     /**
      * @return the resources of the player
      */
-    public IndividualResourceManager getResouces () {
+    public IndividualResourceManager getResources () {
         return myResources;
     }
 
@@ -54,8 +79,7 @@ public class Player implements Controller, IGameLoop {
     }
 
     @Override
-    public void paint (Graphics2D pen) {
-        // myManager.paint(pen);
+    public void paint (Graphics2D pen) {        
     }
 
     @Override
@@ -76,5 +100,4 @@ public class Player implements Controller, IGameLoop {
     public int getTeamID () {
         return myTeamID;
     }
-
 }

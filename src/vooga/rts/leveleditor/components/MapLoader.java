@@ -3,6 +3,7 @@ package vooga.rts.leveleditor.components;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
 import java.util.HashMap;
 import java.util.Map;
 import javax.imageio.ImageIO;
@@ -14,6 +15,7 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import vooga.rts.util.Location3D;
 import vooga.rts.util.Pixmap;
 
 
@@ -55,6 +57,7 @@ public class MapLoader {
         myFactory = DocumentBuilderFactory.newInstance();
         myBuilder = myFactory.newDocumentBuilder();
         
+        // yolo
         myTileName = new HashMap<Integer, String>();
         myTerrainName = new HashMap<Integer, String>();
         myResourceName = new HashMap<Integer, String>();
@@ -69,6 +72,12 @@ public class MapLoader {
         myResourceAmount = new HashMap<Integer, String>();
       
     }
+    
+    
+    public void loadMapFile(String mapfile) throws Exception {
+        URI f = getClass().getResource(mapfile).toURI();
+        loadMapFile(new File(f));
+    }
 
     
     /**
@@ -78,12 +87,9 @@ public class MapLoader {
      */
     public void loadMapFile(File resourceFile) throws Exception {
         
-        System.out.println("start loading");
-        
         String xmlPath = resourceFile.getPath();
         String xmlFileName = resourceFile.getName();
         String path = xmlPath.substring(0, xmlPath.indexOf(xmlFileName));
-        System.out.println("path created");
         
         
         myDocument = myBuilder.parse(resourceFile);
@@ -96,7 +102,6 @@ public class MapLoader {
         loadTerrains(root);
         loadResources(root, path);
         
-        //printEverything();
     }
 
     /**
@@ -243,8 +248,7 @@ public class MapLoader {
                     String terrainImageName = myTerrainImageName.get(terrainID);
                     Pixmap terrainImage = new Pixmap(myTerrainImage.get(terrainID));
                     int terrainWalkAbility = Integer.parseInt(myTerrainWalkAbility.get(terrainID));
-                    myMap.addTerrain(terrainImage, x, y, z, terrainID, terrainName, terrainImageName, 
-                                 terrainWalkAbility);
+                    myMap.addTerrain(terrainImage, new Location3D(x,y,z), terrainID, terrainName, terrainImageName, terrainWalkAbility);
                 }
         }
         
@@ -308,8 +312,7 @@ public class MapLoader {
             String resourceImageName = myResourceImageName.get(resourceID);
             Pixmap resourceImage = new Pixmap(myResourceImage.get(resourceID));
             int resourceAmount = Integer.parseInt(myResourceAmount.get(resourceID));
-            myMap.addResource(resourceImage, x, y, z, resourceID,
-                              resourceName, resourceImageName, resourceAmount);
+            myMap.addResource(resourceImage, new Location3D(x,y,z), resourceID, resourceName, resourceImageName, resourceAmount);
         }
     }  
     

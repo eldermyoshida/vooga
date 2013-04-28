@@ -58,6 +58,10 @@ public class GameEntity extends GameSprite {
      */
     // TODO: make Velocity three dimensional...
     public void update (double elapsedTime) {
+        if (isDead()) {
+            setChanged();
+            notifyObservers();
+        }
         Vector v = getWorldLocation().difference(myGoal.to2D());
         if (reachedGoal()) {
             setVelocity(v.getAngle(), 0);
@@ -251,14 +255,14 @@ public class GameEntity extends GameSprite {
     public EntityState getEntityState () {
         return myEntityState;
     }
-
+    
     /**
      * If the entity is in a stationary state, it stops moving.
      */
     public void stopMoving () {
         if (!myEntityState.canMove()) {
             setVelocity(getVelocity().getAngle(), 0);
-            getEntityState().stop();
+            myGoal = new Location3D(getWorldLocation());
         }
     }
 }

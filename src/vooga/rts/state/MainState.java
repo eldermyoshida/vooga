@@ -3,11 +3,9 @@ package vooga.rts.state;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.util.HashMap;
-import java.util.LinkedList;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.Queue;
 import java.util.Timer;
 import java.util.TimerTask;
 import util.input.Input;
@@ -16,6 +14,7 @@ import vooga.rts.controller.InputController;
 import vooga.rts.game.RTSGame;
 import vooga.rts.gui.Window;
 import vooga.rts.gui.menus.MultiMenu;
+import vooga.rts.util.TimeIt;
 
 
 /**
@@ -31,7 +30,7 @@ public class MainState implements State, Observer {
     private final static String DEFAULT_INPUT_LOCATION = "vooga.rts.resources.properties.Input";
     private Window myWindow;
     private Map<SubState, SubState> myStates;
-    
+
     private SubState myActiveState;
     private Timer myTimer;
     private InputController myController;
@@ -39,19 +38,19 @@ public class MainState implements State, Observer {
 
     public MainState () {
         myReady = false;
-        myStates = new HashMap<SubState, SubState>();       
-        
+        myStates = new HashMap<SubState, SubState>();
+
         myWindow = new Window();
         myWindow.setFullscreen(true);
-        LoadingState loader = new LoadingState(this);        
+        LoadingState loader = new LoadingState(this);
         setActiveState(loader);
         render();
-        
-        MenuState menu = new MenuState(this, getWindow().getJFrame());        
+
+        MenuState menu = new MenuState(this, getWindow().getJFrame());
         myStates.put(loader, menu);
         GameState game = new GameState(this);
         myStates.put(menu, game);
-        myStates.put(game, menu);        
+        myStates.put(game, menu);
 
         Input input = new Input(DEFAULT_INPUT_LOCATION, myWindow.getCanvas());
         myController = new InputController(this);
@@ -65,12 +64,13 @@ public class MainState implements State, Observer {
 
     @Override
     public void update (double elapsedTime) {
+        myController.processCommands();
         myActiveState.update(elapsedTime);
     }
 
     @Override
-    public void paint (Graphics2D pen) {
-        myActiveState.paint(pen);
+    public void paint (Graphics2D pen) {                
+        myActiveState.paint(pen);        
     }
 
     @Override
@@ -92,6 +92,7 @@ public class MainState implements State, Observer {
         Graphics2D graphics = myWindow.getCanvas().getGraphics();
         graphics.setColor(Color.BLACK);
         graphics.fillRect(0, 0, myWindow.getCanvas().getWidth(), myWindow.getCanvas().getHeight());
+        
         if (myActiveState instanceof MenuState) {
             MenuState m = (MenuState) myActiveState;
             if (m.getCurrentMenu() instanceof MultiMenu) {
@@ -131,7 +132,6 @@ public class MainState implements State, Observer {
                 long curNano = System.nanoTime();
                 double change = curNano - lastNano;
                 change /= 1000000000;
-                // System.out.println(change);
                 update(change);
                 if (myWindow.hasFocus()) {
                     render();
