@@ -25,9 +25,11 @@ import vooga.scroller.util.mvc.vcFramework.WindowComponent;
  * 
  * @author Danny Goodman, Deo Fagnisse
  */
-public class LEGridView extends WindowComponent<LevelEditing> 
-                        implements Scrollable, Renderer<LevelEditing> {
+public class LEGridView extends WindowComponent<LevelEditing>
+        implements Scrollable, Renderer<LevelEditing> {
+    
 
+    private static LEGridView D;
 
     /**
      * 
@@ -162,7 +164,6 @@ public class LEGridView extends WindowComponent<LevelEditing>
     }
 
 
-
     /**
      * Update the size of the grid in the active tab
      */
@@ -214,9 +215,5 @@ public class LEGridView extends WindowComponent<LevelEditing>
         }
 
     }
-
-
-
-
 
 }

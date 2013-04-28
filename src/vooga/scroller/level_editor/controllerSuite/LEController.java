@@ -195,7 +195,6 @@ public class LEController implements IController<LevelEditing> {
     @Override
     public void process (WorkspaceView<LevelEditing> t, Object cmd) {
         LEGrid m = (LEGrid) getModelForWorkspace(t);
-        System.out.println("Controller got " + cmd);
         if (cmd instanceof String) {
             myModel.processCommand(m, (String) cmd);
         }
