@@ -1,0 +1,120 @@
+<Game>
+	<view>
+		<dimension>1100, 800</dimension>
+		<MapScreen>
+			<dimension>800, 600</dimension>
+			<location>North</location>
+		</MapScreen>
+		<ShopScreen>
+			<dimension>800, 200</dimension>
+			<location>South</location>
+		</ShopScreen>
+		<GameStatsScreen>
+			<dimension>200, 200</dimension>
+			<location>East</location>
+		</GameStatsScreen>
+	</view>
+	<map>
+		<Map1>
+			<image>tower.gif</image>
+			<tile_size>50</tile_size>
+			<dimension>
+				<width>500</width>
+				<height>500</height>
+			</dimension>
+			<grid>1 1 1 1 1 1 1 1 1 1
+			1 1 1 1 1 1 1 1 1 1
+			1 1 1 1 1 1 1 1 1 1
+			1 1 1 1 1 1 1 1 1 1
+			1 2 2 2 1 1 1 1 1 1
+			s 2 1 2 1 2 2 2 2 e
+			1 1 1 2 1 2 1 1 1 1
+			1 1 1 2 2 2 1 1 1 1
+			1 1 1 1 1 1 1 1 1 1
+			1 1 1 1 1 1 1 1 1 1</grid>
+		</Map1>
+	</map>
+	<player>
+		<attributes>
+			<Health>100.0</Health>
+			<Score>0.0</Score>
+			<Money>1000.0</Money>
+		</attributes>
+	</player>
+	<gameelements>
+		<Dog>
+			<dimension>50, 50</dimension>
+			<image>dog.gif</image>
+			<type>Unit</type>
+			<attributes>
+				<HEALTH>100</HEALTH>
+				<MOVE_SPEED>50</MOVE_SPEED>
+				<DIRECTION>0</DIRECTION>
+			</attributes>
+			<actions>
+				<FollowPath>
+				</FollowPath>
+				<Move>
+					<parameter1>MOVE_SPEED</parameter1>
+					<parameter2>DIRECTION</parameter2>
+				</Move>
+			</actions>			
+		</Dog>
+		<Bear>
+			<dimension>50, 50</dimension>
+			<image>bear.gif</image>
+			<type>Unit</type>
+			<attributes>
+				<HEALTH>100</HEALTH>
+				<MOVE_SPEED>50</MOVE_SPEED>
+				<DIRECTION>0</DIRECTION>
+			</attributes>
+			<actions>
+				<FollowPath>
+				</FollowPath>
+				<Move>
+					<parameter1>MOVE_SPEED</parameter1>
+					<parameter2>DIRECTION</parameter2>
+				</Move>
+			</actions>			
+		</Bear>
+		<TestTower>
+			<dimension>50, 50</dimension>
+			<image>tower.gif</image>
+			<type>Tower</type>
+			<attributes>
+				<HEALTH>100</HEALTH>
+			</attributes>
+			<actions>
+			</actions>			
+		</TestTower>
+	</gameelements>
+	<rules>
+		<EnemyReachedEndRule/>
+		<NextLevelRule/>
+	</rules>
+	<levels>
+		<Level1>
+			<rules>
+			</rules>
+			<actions>
+				<WaveAction>
+					<parameter1>10</parameter1>
+					<parameter2>1000</parameter2>
+					<parameter3>Dog</parameter3>
+				</WaveAction>
+			</actions>
+		</Level1>
+		<Level2>
+				<rules>
+				</rules>
+				<actions>
+				<WaveAction>
+					<parameter1>10</parameter1>
+					<parameter2>1000</parameter2>
+					<parameter3>Bear</parameter3>
+				</WaveAction>
+				</actions>
+			</Level2>
+	</levels>
+</Game>
