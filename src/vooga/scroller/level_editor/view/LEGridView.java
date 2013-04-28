@@ -27,19 +27,11 @@ import vooga.scroller.util.mvc.vcFramework.WindowComponent;
  */
 public class LEGridView extends WindowComponent<LevelEditing>
         implements Scrollable, Renderer<LevelEditing> {
-    
 
-    private static LEGridView D;
-
-    /**
-     * 
-     */
     private static final long serialVersionUID = 8266835201464623542L;
-    
     private LEGrid myGrid;
     private GridSpinner myGridSpinner;
 
-    
     /**
      * Specify a container parent and a width and height ratio.
      * 
@@ -54,6 +46,7 @@ public class LEGridView extends WindowComponent<LevelEditing>
 
     /**
      * Internal getter for Default Height Ratio
+     * 
      * @return - height ratio
      */
     private double getDefaultHeightRatio () {
@@ -62,22 +55,22 @@ public class LEGridView extends WindowComponent<LevelEditing>
 
     /**
      * Internal getter for Default width Ratio
+     * 
      * @return - width ratio
      */
     private double getDefaultWidthRatio () {
         return LevelEditing.VIEW_CONSTANTS.DEFAULT_GRIDVIEW_WIDTH_RATIO;
     }
 
-
     private void createSprite (int x, int y) {
         String cmd = CommandConstants.CREATE_SPRITE + CommandConstants.SPACE
-                + x + CommandConstants.SPACE + y;
+                     + x + CommandConstants.SPACE + y;
         process(cmd);
     }
 
     private void deleteSprite (int x, int y) {
         String cmd = CommandConstants.DELETE_SPRITE + CommandConstants.SPACE
-                + x + CommandConstants.SPACE + y;
+                     + x + CommandConstants.SPACE + y;
         process(cmd);
     }
 
@@ -123,7 +116,6 @@ public class LEGridView extends WindowComponent<LevelEditing>
         return myGrid.isValidForSimulation();
     }
 
-
     /**
      * Paint the contents of the canvas.
      * 
@@ -142,7 +134,6 @@ public class LEGridView extends WindowComponent<LevelEditing>
         }
     }
 
-
     @Override
     public void render (Renderable<LevelEditing> r) {
         if (r instanceof LEGrid) {
@@ -157,12 +148,11 @@ public class LEGridView extends WindowComponent<LevelEditing>
     }
 
     @Override
-    public void setRenderable (Renderable<LevelEditing>  r) {
+    public void setRenderable (Renderable<LevelEditing> r) {
         myGrid = (LEGrid) r;
         setSize(myGrid.getPixelSize());
         repaint();
     }
-
 
     /**
      * Update the size of the grid in the active tab
@@ -172,22 +162,20 @@ public class LEGridView extends WindowComponent<LevelEditing>
         myGridSpinner = new GridSpinner(myGrid.getSize().width,
                                         myGrid.getSize().height);
         int a = (int) JOptionPane.showConfirmDialog(
-                                                    null, myGridSpinner, 
-                                                    "Update Grid Height and Width", 
+                                                    null, myGridSpinner,
+                                                    "Update Grid Height and Width",
                                                     JOptionPane.OK_CANCEL_OPTION);
         if (a == 0) {
-            process(CommandConstants.CHANGE_GRID_SIZE + " " + 
+            process(CommandConstants.CHANGE_GRID_SIZE + " " +
                     myGridSpinner.getGridWidth() + ", " +
                     myGridSpinner.getGridHeight());
         }
     }
 
-
-
     private class GridPositionListener implements MouseListener {
         private static final int LEFT_CLICK = 3;
         private static final int RIGHT_CLICK = 1;
-        
+
         @Override
         public void mouseClicked (MouseEvent e) {
             if (e.getButton() == LEFT_CLICK) {
