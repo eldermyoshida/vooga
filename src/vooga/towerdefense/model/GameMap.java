@@ -13,7 +13,6 @@ import util.Pixmap;
 import vooga.rts.util.Vector;
 import vooga.towerdefense.action.Action;
 import vooga.towerdefense.action.actionlist.FollowPath;
-import vooga.towerdefense.attributes.AttributeConstants;
 import vooga.towerdefense.attributes.AttributeConstantsEnum;
 import vooga.towerdefense.attributes.AttributeManager;
 import vooga.towerdefense.gameelements.GameElement;
@@ -50,20 +49,13 @@ public class GameMap {
 	 * @param destination
 	 *            the destination point of all units
 	 */
-	public GameMap(Tile[][] grid, Pixmap background, Dimension mapDimensions,
-			Dimension tileSize, Location spawnLocation, Location endLocation) {
+	public GameMap(Pixmap background, Dimension mapDimensions,
+			Dimension tileSize) {
 		myBackgroundImage = background;
 		myDimensions = mapDimensions;
 		myGameElements = new ArrayList<GameElement>();
-		myGrid = grid;
-		myPathfinder = new Pathfinder(myGrid, tileSize);
+		
 		myTileSize = tileSize;
-
-		// TODO: pull these from file
-//		myEndLocation = myGrid[myGrid.length-1][myGrid[0].length/2].getCenter();
-//		mySpawnLocation = myGrid[0][myGrid[0].length/2].getCenter();
-		mySpawnLocation = spawnLocation;
-		myEndLocation = endLocation;
 		updatePaths();
 	}
 
@@ -392,5 +384,22 @@ public class GameMap {
 
 	public Dimension getTileSize() {
 		return myTileSize;
+	}
+	
+	public void setSpawnLocation(Location location) {
+	    mySpawnLocation = location;
+	}
+	
+	public void setDestinationLocation(Location location) {
+	    myEndLocation = location;
+	}
+	
+	public void setGrid(Tile[][] grid) {
+	    myPathfinder = new Pathfinder(grid, myTileSize);
+	    myGrid = grid;
+	}
+	
+	public Dimension getSize() {
+	    return myDimensions;
 	}
 }

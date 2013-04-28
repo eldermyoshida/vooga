@@ -1,6 +1,6 @@
 package vooga.towerdefense.model.tiles.factories;
 
-import java.awt.Dimension;
+import vooga.towerdefense.model.GameMap;
 import vooga.towerdefense.model.Tile;
 import util.Location;
 /**
@@ -11,10 +11,11 @@ import util.Location;
  */
 public abstract class TileFactory {
     
-    /**
-     * The size of a tile
-     */
-    public static final Dimension DEFAULT_TILE_DIMENSIONS = new Dimension(50, 50);
+    private String myTileId;
+    
+    public TileFactory(String tileId) {
+        myTileId = tileId;
+    }
     
     /**
      * 
@@ -22,6 +23,10 @@ public abstract class TileFactory {
      * @param center the center of this tile on the map
      * @return the corresponding tile
      */
-    public abstract Tile createTile(Location center);
+    public abstract Tile createTile(Location center, GameMap map);
+    
+    public String getTileId() {
+        return myTileId;
+    }
 
 }
