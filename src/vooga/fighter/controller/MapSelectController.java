@@ -1,20 +1,15 @@
 package vooga.fighter.controller;
 
-import vooga.fighter.controller.Controller;
-import vooga.fighter.controller.ControllerDelegate;
-import vooga.fighter.controller.GameInfo;
 import vooga.fighter.view.Canvas;
-
 
 
 /**
  * Details a map select controller, where you can select maps
  * 
  * 
- * @author Jack Matteucci 
+ * @author Jack Matteucci
  * @author Jerry Li
  */
-
 
 public class MapSelectController extends MenuController {
 
@@ -27,28 +22,34 @@ public class MapSelectController extends MenuController {
 
     /**
      * Concrete constructor, called when level is switched to by controllermanager
-     * @param name      name of controller
-     * @param frame     canvas
-     * @param manager   ControllerManager
-     * @param gameinfo  GameInfo
+     * 
+     * @param name name of controller
+     * @param frame canvas
+     * @param manager ControllerManager
+     * @param gameinfo GameInfo
      */
-    public MapSelectController(String name, Canvas frame, ControllerDelegate manager, 
-                               GameInfo gameinfo, String pathway) {
+    public MapSelectController (String name, Canvas frame, ControllerDelegate manager,
+                                GameInfo gameinfo, String pathway) {
         super(name, frame, manager, gameinfo, pathway);
     }
 
     /**
      * Returns concrete controller, used when level is switched to by controllermanager
      */
-    public Controller getController(String name, Canvas frame, ControllerDelegate manager, GameInfo gameinfo,
-                                    String pathway) {
+    @Override
+    public Controller getController (String name,
+                                     Canvas frame,
+                                     ControllerDelegate manager,
+                                     GameInfo gameinfo,
+                                     String pathway) {
         return new MapSelectController(name, frame, manager, gameinfo, pathway);
     }
 
     /**
      * Notifies the delegate when controller ends
      */
-    public void notifyEndCondition(String choice) {
+    @Override
+    public void notifyEndCondition (String choice) {
         removeListener();
         getMode().resetChoice();
         getGameInfo().setMapName(choice);
@@ -58,7 +59,8 @@ public class MapSelectController extends MenuController {
     /**
      * Removes input
      */
-    public void removeListener(){
+    @Override
+    public void removeListener () {
         super.removeListener();
         getInput().removeListener(this);
     }
@@ -66,10 +68,12 @@ public class MapSelectController extends MenuController {
     /**
      * Checks conditions
      */
-    public void checkConditions(){
-        for(ModeCondition condition: getConditions())
-            if(condition.checkCondition(getMode())) notifyEndCondition(getMode().peekChoice());
+    @Override
+    public void checkConditions () {
+        for (ModeCondition condition : getConditions())
+            if (condition.checkCondition(getMode())) {
+                notifyEndCondition(getMode().peekChoice());
+            }
     }
 
 }
-

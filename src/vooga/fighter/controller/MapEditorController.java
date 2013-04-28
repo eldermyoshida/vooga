@@ -1,29 +1,28 @@
 package vooga.fighter.controller;
 
-import java.util.List; 
-
-
+import java.util.List;
 import util.input.AlertObject;
 import util.input.InputClassTarget;
 import util.input.InputMethodTarget;
 import util.input.PositionObject;
 import vooga.fighter.model.MapEditorMode;
-import vooga.fighter.model.Mode;
 import vooga.fighter.model.objects.EnvironmentObject;
 import vooga.fighter.model.objects.MapObject;
 import vooga.fighter.util.CollisionManager;
 import vooga.fighter.view.Canvas;
 
+
 /**
  * Controller class to handle the creation of an instance of the map editor, as
- * well as handling inputs for the mode. Allows users to edit existing maps or 
+ * well as handling inputs for the mode. Allows users to edit existing maps or
  * create entirely new maps. Map editor allows the addition of environmental objects,
  * and the selection of starting positions, background, and music.
+ * 
  * @author matthewparides, Jack Matteucci, Jerry Li
- *
+ * 
  */
 @InputClassTarget
-public class MapEditorController extends Controller{
+public class MapEditorController extends Controller {
 
     private static final String INPUT_PATHWAY = "MapEditorMapping_en_US";
     private String myInputPathway;
@@ -34,17 +33,18 @@ public class MapEditorController extends Controller{
      */
     public MapEditorController () {
         super();
-    }   
+    }
 
     /**
      * constructor - sets instance variables of the super class and the input
+     * 
      * @param name
      * @param frame
      * @param manager
      * @param gameinfo
      */
-    public MapEditorController(String name, Canvas frame, ControllerDelegate manager, 
-                               GameInfo gameinfo, String pathway) {
+    public MapEditorController (String name, Canvas frame, ControllerDelegate manager,
+                                GameInfo gameinfo, String pathway) {
         super(name, frame, manager, gameinfo, pathway);
         myInputPathway = getHardFilePath() + INPUT_PATHWAY;
         setInput(manager.getInput());
@@ -55,8 +55,12 @@ public class MapEditorController extends Controller{
     /**
      * loads relevant data into this controller and returns it
      */
-    public Controller getController(String name, Canvas frame, ControllerDelegate manager, GameInfo gameinfo,
-                                    String pathway) {
+    @Override
+    public Controller getController (String name,
+                                     Canvas frame,
+                                     ControllerDelegate manager,
+                                     GameInfo gameinfo,
+                                     String pathway) {
         Controller controller = new MainMenuController(name, frame, manager, gameinfo, pathway);
         return controller;
     }
@@ -64,6 +68,7 @@ public class MapEditorController extends Controller{
     /**
      * notifies the manager that this state has completed
      */
+    @Override
     public void notifyEndCondition (String endCondition) {
         removeListener();
         getManager().notifyEndCondition(endCondition);
@@ -72,44 +77,49 @@ public class MapEditorController extends Controller{
     /**
      * returns this controller's mode
      */
-    public MapEditorMode getMode(){
+    @Override
+    public MapEditorMode getMode () {
         return (MapEditorMode) super.getMode();
     }
 
     /**
      * loads the mode for this controller
      */
-    public void loadMode() {
+    @Override
+    public void loadMode () {
         MapEditorMode temp = new MapEditorMode(new CollisionManager(), getHardFilePath());
-        super.setMode((Mode) temp);
+        super.setMode(temp);
     }
 
     /**
-     * loads the user-selected map 
+     * loads the user-selected map
      */
-    public void initializeMode() {
+    @Override
+    public void initializeMode () {
         loadMap(getGameInfo().getMapName());
     }
 
     /**
      * returns this controller
      */
-    public Controller getController() {
+    @Override
+    public Controller getController () {
         return this;
     }
 
     /**
      * sets the edit target of this controller
+     * 
      * @param map
      */
-    public void setEditTarget(MapEditorMode map) {
+    public void setEditTarget (MapEditorMode map) {
         myEditTarget = map;
     }
 
     /**
      * Loads the environment objects for a map using the ObjectLoader.
      */
-    public void loadMap(String mapName) {
+    public void loadMap (String mapName) {
         getMode().setMap(new MapObject(mapName, getHardFilePath()));
         List<EnvironmentObject> mapObjects = getMode().getMap().getEnviroObjects();
         for (EnvironmentObject object : mapObjects) {
@@ -118,7 +128,8 @@ public class MapEditorController extends Controller{
     }
 
     /**
-     * prompts a user for a new 
+     * prompts a user for a new
+     * 
      * @param alObj
      */
     @InputMethodTarget(name = "load")
@@ -130,6 +141,7 @@ public class MapEditorController extends Controller{
 
     /**
      * saves the current edit target map to the maps xml file
+     * 
      * @param alObj
      */
     @InputMethodTarget(name = "save")
@@ -140,6 +152,7 @@ public class MapEditorController extends Controller{
     /**
      * performs appropriate action for the user selecting a location to place an object
      * in the UI.
+     * 
      * @param posObj
      */
     @InputMethodTarget(name = "select")
@@ -150,6 +163,7 @@ public class MapEditorController extends Controller{
     /**
      * performs appropriate action for the user selecting a location to place a starting location
      * in the UI.
+     * 
      * @param posObj
      */
     @InputMethodTarget(name = "startselect")
@@ -159,6 +173,7 @@ public class MapEditorController extends Controller{
 
     /**
      * selects the next player whose starting position is to be placed
+     * 
      * @param alObj
      */
     @InputMethodTarget(name = "nextPlayer")
@@ -168,6 +183,7 @@ public class MapEditorController extends Controller{
 
     /**
      * selects the next player whose starting position is to be placed
+     * 
      * @param alObj
      */
     @InputMethodTarget(name = "prevPlayer")
@@ -176,8 +192,9 @@ public class MapEditorController extends Controller{
     }
 
     /**
-     * selects the next object in the editTarget's collection of 
+     * selects the next object in the editTarget's collection of
      * placeable objects
+     * 
      * @param alObj
      */
     @InputMethodTarget(name = "nextObject")
@@ -188,6 +205,7 @@ public class MapEditorController extends Controller{
     /**
      * selects the previous object in the editTarget's collection of
      * placeable objects
+     * 
      * @param alObj
      */
     @InputMethodTarget(name = "prevObject")
@@ -197,6 +215,7 @@ public class MapEditorController extends Controller{
 
     /**
      * quits the mapEditor and returns to the main menu
+     * 
      * @param alObj
      */
     @InputMethodTarget(name = "quit")
@@ -207,12 +226,13 @@ public class MapEditorController extends Controller{
     /**
      * prompts the user for a filepath for the background image, and sets
      * that path in the edit target.
+     * 
      * @param alObj
      */
     @InputMethodTarget(name = "setBackground")
     public void setBackground (AlertObject alObj) {
         String filePath = getView().chooseFile("Image file", "jpeg", "gif");
-        if(!filePath.equals(null)) {
+        if (!filePath.equals(null)) {
             myEditTarget.setBackground(filePath);
         }
     }
@@ -220,47 +240,51 @@ public class MapEditorController extends Controller{
     /**
      * prompts the user for a filepath for the background image, and sets
      * that path in the edit target.
+     * 
      * @param alObj
      */
     @InputMethodTarget(name = "addBackground")
     public void addBackground (AlertObject alObj) {
         String filePath = getView().chooseFile("Image file", "jpeg", "gif");
-        if(!filePath.equals(null)) {
+        if (!filePath.equals(null)) {
             myEditTarget.addBackground(filePath);
         }
     }
 
     /**
-     * prompts the user for a filepath for the sound file, and sets that path in 
+     * prompts the user for a filepath for the sound file, and sets that path in
      * the edit target.
+     * 
      * @param alObj
      */
     @InputMethodTarget(name = "setSound")
     public void setSound (AlertObject alObj) {
         String filePath = getView().chooseFile("Sound file", "wav");
-        if(!filePath.equals(null)) {
+        if (!filePath.equals(null)) {
             myEditTarget.setSound(filePath);
         }
     }
 
     /**
      * prompts the user for a name for the map
+     * 
      * @param alObj
      */
     @InputMethodTarget(name = "setName")
     public void setName (AlertObject alObj) {
-        String newName = getView().promptForString("New map name","Enter a name for the map");
-        if(!newName.equals(null) & !newName.equals("")) {
+        String newName = getView().promptForString("New map name", "Enter a name for the map");
+        if (!newName.equals(null) & !newName.equals("")) {
             myEditTarget.setName(newName);
         }
     }
 
-    public void checkConditions() {
+    @Override
+    public void checkConditions () {
     }
 
-    public void developerUpdate() {
+    @Override
+    public void developerUpdate () {
 
     }
 
 }
-

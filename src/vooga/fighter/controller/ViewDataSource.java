@@ -2,16 +2,16 @@ package vooga.fighter.controller;
 
 import java.awt.Dimension;
 import java.util.List;
-
 import util.Location;
 import vooga.fighter.util.Paintable;
+
 
 /**
  * Defines what information the View recieves.
  * 
  * @author Jack Matteucci
  * @author Wayne You
- *
+ * 
  */
 public interface ViewDataSource {
 

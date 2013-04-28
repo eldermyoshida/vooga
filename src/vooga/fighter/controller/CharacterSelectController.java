@@ -2,8 +2,6 @@ package vooga.fighter.controller;
 
 import util.input.Input;
 import vooga.fighter.controller.Controller;
-import vooga.fighter.controller.ControllerDelegate;
-import vooga.fighter.controller.GameInfo;
 import vooga.fighter.view.Canvas;
 
 
@@ -42,8 +40,16 @@ public class CharacterSelectController extends MenuController {
         myCharIndex = 0;
     }
 
+  
     /**
      * returns concrete controller
+     * 
+     * @param name      Name of controller
+     * @param frame     Canvas
+     * @param manager   ControllerManager
+     * @param gameinfo  GameInfo
+     * @param filepath  filepath
+     * @return
      */
     public Controller getController(String name, Canvas frame, ControllerDelegate manager, GameInfo gameinfo,
                                     String filepath) {
