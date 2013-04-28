@@ -104,6 +104,10 @@
 				</Move>
 			    <FindTargets>
 					<parameter>Attack_Range</parameter>
+					<ModifyAttributeValue>
+					    <parameter>SlowEffect</parameter>
+					    <parameter>Move_Speed</parameter>
+					</ModifyAttributeValue>
 			    </FindTargets>
 			</actions>			
 		</Elephant>
