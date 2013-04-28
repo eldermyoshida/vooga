@@ -35,6 +35,10 @@ public class ViewXMLLoader {
     private static final String MULTIPLE_SCREEN_PANEL_TAG = "MultipleScreenPanel";
     private static final String VIEWSCREENS_PATH = "vooga.towerdefense.view.gamescreens.";
     
+    /**
+     * Constructor.
+     * @param xmlTool
+     */
     public ViewXMLLoader(XMLTool xmlTool) {
         myXMLTool = xmlTool;
     }
