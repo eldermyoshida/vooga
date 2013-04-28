@@ -1,5 +1,7 @@
 package vooga.towerdefense.action;
 
+import vooga.towerdefense.attributes.Attribute;
+import vooga.towerdefense.attributes.AttributeConstantsEnum;
 import vooga.towerdefense.factories.elementfactories.GameElementFactory;
 import vooga.towerdefense.gameelements.GameElement;
 import vooga.towerdefense.model.GameMap;
@@ -30,6 +32,8 @@ public class CreateElement extends Action {
     @Override
     public void executeAction (double elapsedTime) {
         GameElement element = myFactory.createElement(myCreator.getCenter());
+        Attribute affiliation = element.getAttributeManager().getAttribute(AttributeConstantsEnum.AFFILIATION.getStatusCode());
+        affiliation.modifyValue(element.getAttributeManager().getAttribute(AttributeConstantsEnum.AFFILIATION.getStatusCode()).getValue());
         myMap.addGameElement(element);
     }
 

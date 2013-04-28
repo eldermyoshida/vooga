@@ -21,30 +21,27 @@ public enum AttributeConstantsEnum {
     /**
      * Affiliation value constants
      */
-    Player(0.0),
-    Enemy(1.0),
-    Neutral(2.0),
+    Player("Player", 0.0),
+    Enemy("Enemy", 1.0),
+    Neutral("Neutral", 2.0),
     
-    Tower(0.1),
-    Unit(0.2),
-    Projectile(0.3),
+    Tower("Player", 0.1),
+    Unit("Player", 0.2),
+    Projectile("Player", 0.3),
     
-    ATTACK_DAMAGE("Attack Damage"),
-    ATTACK_RADIUS("Attack Range"),
-    NUM_OF_TARGETS("Number of Targets"),
-    TILES_WIDE("Tiles wide"),
-    TILES_TALL("Tiles tall"),
+    ATTACK_DAMAGE("Attack_Damage"),
+    ATTACK_RADIUS("Attack_Range"),
+    NUM_OF_TARGETS("Number_of_Targets"),
     /**
      * Seconds between attacks
      */
-    ATTACK_INTERVAL("Attack Speed"),
-    ARMOR("Armor"),
-    MOVE_SPEED("Move Speed"),
+    ATTACK_INTERVAL("Attack_Speed"),
+    MOVE_SPEED("Move_Speed"),
     DIRECTION("Direction"),
     UPGRADES("Upgrades"),
     COST("Cost"),
     
-    PROJECTILE_FACTORY("projectile factory"),
+    PROJECTILE_FACTORY("projectile_factory"),
     AURA_EFFECT("Aura");
     
     private String attributeConstant;
@@ -54,8 +51,9 @@ public enum AttributeConstantsEnum {
         attributeConstant = s;
     }
     
-    AttributeConstantsEnum(double s) {
-        attributeValue = s;
+    AttributeConstantsEnum(String s, double v) {
+        attributeConstant = s;
+        attributeValue = v;
     }
     
     public String getStatusCode () {

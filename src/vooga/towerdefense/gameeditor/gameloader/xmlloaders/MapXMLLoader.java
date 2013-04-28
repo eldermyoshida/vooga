@@ -14,7 +14,6 @@ import util.Pixmap;
 import util.XMLTool;
 import vooga.towerdefense.model.GameMap;
 import vooga.towerdefense.model.Tile;
-import vooga.towerdefense.model.tiles.SpawnTile;
 import vooga.towerdefense.model.tiles.factories.DefaultTileFactory;
 import vooga.towerdefense.model.tiles.factories.DestinationTileFactory;
 import vooga.towerdefense.model.tiles.factories.GrassTileFactory;
@@ -105,11 +104,11 @@ public class MapXMLLoader {
     
     private void initTileIdMap() {
         myTileIdMap = new HashMap<String, TileFactory>();
-        myTileIdMap.put("0", new DefaultTileFactory("0"));
-        myTileIdMap.put("1", new GrassTileFactory("1"));
-        myTileIdMap.put("2", new PathTileFactory("2"));
-        myTileIdMap.put("s", new SpawnTileFactory("s"));
-        myTileIdMap.put("d", new DestinationTileFactory("d"));
+        myTileIdMap.put("0", new DefaultTileFactory());
+        myTileIdMap.put("1", new GrassTileFactory());
+        myTileIdMap.put("2", new PathTileFactory());
+        myTileIdMap.put("s", new SpawnTileFactory());
+        myTileIdMap.put("d", new DestinationTileFactory());
     }
     
     /**
