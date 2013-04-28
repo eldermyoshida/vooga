@@ -38,7 +38,7 @@ public class MrFishGame extends ScrollerGame {
 
     @Override
     protected String[] setLevelFileNames () {
-        String[] levelsFiles = {"t.level"};
+        String[] levelsFiles = {"r.level","t.level"};
         return levelsFiles;
     }
 

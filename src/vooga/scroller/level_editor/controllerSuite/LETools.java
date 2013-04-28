@@ -8,27 +8,21 @@ import java.util.List;
 import java.util.Map;
 import javax.swing.ImageIcon;
 import javax.swing.JMenuBar;
-import javax.swing.JToggleButton;
 import vooga.scroller.extra_resources.sprite_interfaces.ICollectible;
 import vooga.scroller.extra_resources.sprite_interfaces.IEnemy;
 import vooga.scroller.extra_resources.sprite_interfaces.IPlatform;
 import vooga.scroller.level_editor.LevelEditing;
 import vooga.scroller.level_editor.StartPoint;
 import vooga.scroller.level_editor.commands.CommandConstants;
-import vooga.scroller.level_editor.view.LEActionLibrary;
 import vooga.scroller.level_editor.view.LEMenuBar;
-import vooga.scroller.level_editor.view.TabbedToolsView;
 import vooga.scroller.level_editor.view.LEView;
-import vooga.scroller.level_management.LevelPortal;
 import vooga.scroller.sprites.Sprite;
 import vooga.scroller.sprites.interfaces.IDoor;
 import vooga.scroller.util.IBackgroundView;
-import vooga.scroller.util.Renderable;
 import vooga.scroller.util.Renderer;
 import vooga.scroller.util.mvc.IView;
 import vooga.scroller.util.mvc.vcFramework.Tools;
 import vooga.scroller.util.mvc.vcFramework.Window;
-import vooga.scroller.util.mvc.vcFramework.WorkspaceView;
 
 
 /**

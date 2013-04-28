@@ -27,6 +27,7 @@ import vooga.scroller.util.Renderer;
 import vooga.scroller.util.mvc.Gaming;
 import vooga.scroller.util.mvc.IView;
 import vooga.scroller.util.mvc.SimpleView;
+import vooga.scroller.view.GameView;
 
 
 public class LEGrid implements Editable, Renderable<LevelEditing>, Scrollable {
@@ -310,6 +311,7 @@ public class LEGrid implements Editable, Renderable<LevelEditing>, Scrollable {
         ScrollingManager sm = new OmniScrollingManager();
         Level sim = new Level(1, sm, this);
         Renderer<Gaming> display = sim.initializeRenderer(simContainer);
+        simContainer.add((GameView)display);
         simContainer.start();
         // container that will work with user's OS
 //        JFrame frame = new JFrame("Level Simulation");
@@ -319,7 +321,15 @@ public class LEGrid implements Editable, Renderable<LevelEditing>, Scrollable {
 //        frame.pack();
 //        frame.setVisible(true);
 //        // start animation
-//        display.start();
+//        ((GameView) display).start();
+    }
+
+    public int getWidthInBlocks () {
+        return myGrid.length;
+    }
+
+    public int getHeightInBlocks () {
+        return myGrid[0].length;
     }
 
 }

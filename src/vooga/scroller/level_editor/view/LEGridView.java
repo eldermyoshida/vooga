@@ -7,9 +7,11 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import javax.swing.JOptionPane;
 import javax.swing.Scrollable;
 import vooga.scroller.level_editor.LevelEditing;
 import vooga.scroller.level_editor.commands.CommandConstants;
+import vooga.scroller.level_editor.controllerSuite.GridSpinner;
 import vooga.scroller.level_editor.controllerSuite.LEGrid;
 import vooga.scroller.level_editor.exceptions.LevelEditorException;
 import vooga.scroller.util.Renderable;
@@ -57,6 +59,7 @@ implements Scrollable, Renderer<LevelEditing>{
 
 
     private static LEGridView D;
+    
     public static double getDefaultHeightRatio () {
         return LevelEditing.VIEW_CONSTANTS.DEFAULT_GRIDVIEW_HEIGHT_RATIO;
     }
@@ -70,6 +73,8 @@ implements Scrollable, Renderer<LevelEditing>{
      */
     private static final long serialVersionUID = 8266835201464623542L;
     private LEGrid myGrid;
+
+    private GridSpinner myGridSpinner;
 
     /**
      * Specify a container parent and a width and height ratio.
@@ -182,6 +187,22 @@ implements Scrollable, Renderer<LevelEditing>{
     public void simulate () {
         myGrid.simulate();
     }
+
+    public void updateGridSize () {
+
+        myGridSpinner = new GridSpinner(myGrid.getWidthInBlocks(),
+                                        myGrid.getHeightInBlocks());
+        int a = (int) JOptionPane.showConfirmDialog(
+                                        null, myGridSpinner, 
+                                        "Update Grid Height and Width", 
+                                        JOptionPane.OK_CANCEL_OPTION);
+            if (a == 0) {
+              process(CommandConstants.CHANGE_GRID_SIZE + " " + 
+                      myGridSpinner.getGridWidth() + ", " +
+                      myGridSpinner.getGridHeight());
+            }
+    }
+    
     
     
 

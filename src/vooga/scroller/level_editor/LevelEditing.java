@@ -10,6 +10,8 @@ import vooga.scroller.util.mvc.vcFramework.Window;
 
 public class LevelEditing implements IDomainDescriptor {
 
+    public static final String UPDATE_GRID_SIZE = "Update Grid Size";
+
     @Override
     public String getDomainName () {
         return VIEW_CONSTANTS.DOMAIN_NAME;

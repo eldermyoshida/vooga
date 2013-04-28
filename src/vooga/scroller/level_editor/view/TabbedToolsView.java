@@ -95,7 +95,7 @@ public class TabbedToolsView<D extends IDomainDescriptor> extends
      * @param comp
      */
     protected void addSpecializedToolUI(JComponent comp) {
-        myTabs.add(comp);
+//        myTabs.add(comp);
     }
     
     @Override
