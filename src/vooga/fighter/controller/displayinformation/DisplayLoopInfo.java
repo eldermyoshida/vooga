@@ -6,6 +6,7 @@ import vooga.fighter.controller.interfaces.ViewDataSource;
 import vooga.fighter.model.Mode;
 import vooga.fighter.model.utils.ImageDataObject;
 import vooga.fighter.util.HUDFactory;
+import vooga.fighter.util.Paintable;
 
 import vooga.fighter.view.HUDElement;
 
@@ -72,7 +73,7 @@ public class DisplayLoopInfo extends DisplayInfo implements ViewDataSource{
     	getImageEffects().clear();
     	myImageData = myMode.getImageData();
     	for(ImageDataObject data : myImageData){
-    		getGameObjects().add(data.getImage());
+    		getGameObjects().add((Paintable) data.getImage());
     		getLocations().add(data.getLocation());
     		getImageSizes().add(data.getSize());
     		getImageEffects().add(data.getImageEffect());

@@ -1,4 +1,4 @@
-package vooga.fighter.controller.menus;
+package vooga.fighter.controller.levels;
 
 import vooga.fighter.controller.Controller;
 import vooga.fighter.controller.gameinformation.GameInfo;
