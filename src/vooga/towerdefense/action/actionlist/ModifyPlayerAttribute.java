@@ -33,7 +33,7 @@ public class ModifyPlayerAttribute extends Action {
     @Override
     public void executeAction (double elapsedTime) {
         Attribute toChange = myPlayer.getAttributeManager().getAttribute(myTargetAttribute);
-        if (toChange != null) {
+        if (toChange != null && myAppliedAttribute != null) {
             toChange.modifyValue(myAppliedAttribute.getValue());
         }
     }

@@ -5,18 +5,30 @@
 			<dimension>800, 600</dimension>
 			<location>Center</location>
 		</MapScreen>
-		<ShopScreen>
-			<dimension>600, 100</dimension>
+		<MultipleScreenPanel>
+			<dimension>1000, 200</dimension>
 			<location>South</location>
-		</ShopScreen>
-		<GameStatsScreen>
-			<dimension>200, 300</dimension>
+			<ShopScreen>
+				<dimension>600, 100</dimension>
+				<location>Center</location>
+			</ShopScreen>
+			<NextWaveScreen>
+				<dimension>200, 100</dimension>
+				<location>East</location>
+			</NextWaveScreen>
+		</MultipleScreenPanel>
+		<MultipleScreenPanel>
+			<dimension>200, 600</dimension>
 			<location>East</location>
-		</GameStatsScreen>
-		<GameElementInformationScreen>
-			<dimension>200, 300</dimension>
-			<location>East</location>
-		</GameElementInformationScreen>
+			<GameStatsScreen>
+				<dimension>200, 200</dimension>
+				<location>North</location>
+			</GameStatsScreen>
+			<GameElementInformationScreen>
+				<dimension>200, 200</dimension>
+				<location>South</location>
+			</GameElementInformationScreen>
+		</MultipleScreenPanel>
 	</view>
 	<map>
 		<Map1>
@@ -51,7 +63,7 @@
 			<image>dog.gif</image>
 			<type>Unit</type>
 			<attributes>
-				<HEALTH>10</HEALTH>
+				<Health>10</Health>
 				<MOVE_SPEED>50</MOVE_SPEED>
 				<DIRECTION>0</DIRECTION>
 			</attributes>
@@ -69,7 +81,7 @@
 			<image>bear.gif</image>
 			<type>Unit</type>
 			<attributes>
-				<HEALTH>100</HEALTH>
+				<Health>100</Health>
 				<MOVE_SPEED>50</MOVE_SPEED>
 				<DIRECTION>0</DIRECTION>
 			</attributes>
@@ -91,10 +103,12 @@
 			<image>dancing_elephant.gif</image>
 			<type>Unit</type>
 			<attributes>
-				<HEALTH>100</HEALTH>
+				<Health>100</Health>
 				<MOVE_SPEED>50</MOVE_SPEED>
 				<FLY_SPEED>50</FLY_SPEED>
-				<Attack_Radius>300</Attack_Radius>
+				<RADIUS>300</RADIUS>
+				<Slow>-10</Slow>
+				<Money>10</Money>
 				<DIRECTION>0</DIRECTION>
 			</attributes>
 			<actions>
@@ -103,14 +117,8 @@
 				<Move>
 					<parameter>MOVE_SPEED</parameter>
 					<parameter>DIRECTION</parameter>
-						<Move>
-							<parameter>FLY_SPEED</parameter>
-							<parameter>DIRECTION</parameter>
-						</Move>
 				</Move>
-			    <FindTargets>
-					<parameter>Attack_Range</parameter>
-			    </FindTargets>
+				<DeathPackage></DeathPackage>
 			</actions>			
 		</Elephant>
 		<TestTower>
@@ -121,10 +129,22 @@
 				<MOVE_SPEED>50</MOVE_SPEED>
 			</attributes>
 			<attributes>
-				<HEALTH>100</HEALTH>
+				<Health>100</Health>
 				<Cost>10</Cost>
+				<MOVE_SPEED>50</MOVE_SPEED>
+				<FLY_SPEED>300</FLY_SPEED>
+				<RADIUS>100</RADIUS>
+				<Slow>-5</Slow>
+				<DIRECTION>0</DIRECTION>
 			</attributes>
 			<actions>
+			    <FindTargets>
+					<parameter>RADIUS</parameter>
+					<ApplyAttributeBuff>
+					    <parameter>Slow</parameter>
+					    <parameter>Health</parameter>
+					</ApplyAttributeBuff>
+			    </FindTargets>
 			</actions>			
 		</TestTower>
 	</gameelements>
