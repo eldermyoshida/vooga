@@ -152,7 +152,7 @@ public class GameElementFactory {
         List<Action> actions = new ArrayList<Action>();
         for (ActionFactory a : myActionsToMake) {
             System.out.println(a);
-            actions.add(a.createAction(element));
+                actions.add(a.createAction(element));
         }
         return actions;
     }
