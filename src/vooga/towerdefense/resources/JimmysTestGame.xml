@@ -113,6 +113,15 @@
 		<LoseAtZeroHealthRule/>
 	</rules>
 	<levels>
+		<Level0>
+			<rules>
+			</rules>
+			<actions>
+				<LevelTimerAction>
+					<parameter1>10000</parameter1>
+				</LevelTimerAction>
+			</actions>
+		</Level0>
 		<Level1>
 			<rules>
 			</rules>
