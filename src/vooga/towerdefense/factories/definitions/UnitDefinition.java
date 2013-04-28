@@ -8,7 +8,7 @@ import util.Pixmap;
 
 
 /**
- * Default UnitDefinition used for testing unit factories; 
+ * TESTING PURPOSES ONLY: Default UnitDefinition used for testing unit factories; 
  * only GameElementDefinition will be made and used at the end.
  * 
  * @author Matthew Roy

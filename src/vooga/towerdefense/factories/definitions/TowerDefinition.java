@@ -6,7 +6,7 @@ import util.Pixmap;
 import util.Location;
 
 /**
- * Default TowerDefinition used for testing tower factories; 
+ * TESTING PURPOSES ONLY: Default TowerDefinition used for testing tower factories; 
  * only GameElementDefinition and GameElement will be made and used at the end.
  * 
  * @author XuRui

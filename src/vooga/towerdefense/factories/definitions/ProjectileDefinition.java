@@ -8,7 +8,7 @@ import util.Pixmap;
 
 
 /**
- * Default ProjectileDefinition used for testing projectiles; 
+ * TESTING PURPOSES ONLY: Default ProjectileDefinition used for testing projectiles; 
  * only GameElementDefinition and GameElement will be made and used at the end.
  * 
  * @author XuRui

@@ -11,7 +11,7 @@ import util.Pixmap;
 
 
 /**
- * Class that defines a game element as created by the designer
+ * TESTING PURPOSES ONLY: Class that defines a game element as created by the designer
  * Used as a replacement for an xml file
  * Functionally, it bundles the states the define an object
  * 
