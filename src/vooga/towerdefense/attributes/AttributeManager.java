@@ -137,10 +137,15 @@ public class AttributeManager {
     	myGameElementFactories.put(name, factory);
     }
 
+    
     public GameElementFactory getGameElementFactory (String name) {
         return myGameElementFactories.get(name);
     }
     
-
+    public void printFactories(){
+    	for (GameElementFactory g: myGameElementFactories.values()){
+    		System.out.println("hihihi");
+    	}
+    }
  
 }
