@@ -113,9 +113,4 @@ public class MenuGridLoader extends ObjectLoader {
         return myObject;
     }
 
-    @Deprecated
-    public void load (int id) {
-        // Using a String
-    }
-
 }

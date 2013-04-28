@@ -1,6 +1,5 @@
 package vooga.fighter.model;
 
-import java.awt.Dimension;
 import java.util.List;
 import vooga.fighter.model.objects.GameObject;
 import vooga.fighter.model.objects.MenuObject;

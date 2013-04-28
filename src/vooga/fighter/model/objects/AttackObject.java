@@ -70,13 +70,6 @@ public class AttackObject extends GameObject{
     		addState(key, newState);
     	}
     }
-        
-    /**
-     * Currently empty because of a bug in state, will change later 
-     */
-    public void updateState(){
-    	
-    }
 
     /**
      * Move the attack object to the position of its owner.
@@ -133,6 +126,15 @@ public class AttackObject extends GameObject{
      */
     public void setOwner(CharacterObject owner){
     	myOwner= owner; 
+    }
+    
+    /**
+     * Sets the owner for effects
+     */
+    public void setOwnerForEffects(CharacterObject owner){
+    	for (Effect effect: myEffects){
+    		effect.setOwner(owner);
+    	}
     }
     /**
      * Inflicts damage upon a target player.

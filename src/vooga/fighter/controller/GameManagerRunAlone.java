@@ -1,44 +1,27 @@
 package vooga.fighter.controller;
 
-import java.awt.BorderLayout; 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.DisplayMode;
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-
+import java.util.Map;
 import javax.swing.JFrame;
-import javax.swing.Timer;
-
-import arcade.games.ArcadeInteraction;
-import arcade.games.Game;
-import arcade.games.GameData;
-import arcade.games.UserGameData;
-import util.Pixmap;
 import vooga.fighter.model.loaders.MapLoader;
-import util.Text;
 import vooga.fighter.view.Canvas;
 import vooga.fighter.controller.ControllerManager;
-import vooga.fighter.controller.GameInfo;
+import vooga.fighter.controller.gameinformation.GameInfo;
 
+import arcade.games.UserGameData;
 
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.List;
-import java.util.Map;
-import java.util.ResourceBundle;
 
 /**
  * 
  * @author Jack Matteucci
- *
+ * 
  */
 
 public class GameManagerRunAlone{
     	public static final Dimension SIZE = new Dimension(800, 600);
     	    public static final String TITLE = "Fighter!";
+    	    private static final String PATHWAY = "vooga.fighter.";
     	    public static final int THREE_TOP_HIGH_SCORES = 3;
     	    private Canvas myCanvas;
     	    private ControllerManager myControllerManager;
@@ -72,7 +55,7 @@ public class GameManagerRunAlone{
     	        return new ControllerManager(canvas, info, factory, progression, myFilePathway);
     	    }
 
-    	    protected ControlProgressionManager makeProgression(Map map){
+    	    protected ControlProgressionManager makeProgression(Map<String, Controller> map){
     	        return new ControlProgressionManager(map);
     	    }
 
@@ -82,7 +65,7 @@ public class GameManagerRunAlone{
     	    }
 
     	    protected void setFilePathway(){
-    	        myHardFilePathway = "vooga.fighter.";
+    	        myHardFilePathway = PATHWAY;
     	    }
     		 
     		 
