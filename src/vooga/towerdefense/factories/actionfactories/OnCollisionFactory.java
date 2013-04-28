@@ -10,6 +10,9 @@ import vooga.towerdefense.gameelements.GameElement;
  *
  */
 public class OnCollisionFactory extends ActionFactory {
+	public OnCollisionFactory(){
+		super();
+	}
 
 	@Override
 	protected Action buildAction(GameElement e) {

@@ -26,6 +26,7 @@ public class FindTargetsFactory extends ActionFactory {
 	 */
 	public FindTargetsFactory(
 			@ActionAnnotation(name = "attack radius", value = "attribute") String AttrRadiusToSearch) {
+		super();
 		myRadiusId = AttrRadiusToSearch;
 	}
 

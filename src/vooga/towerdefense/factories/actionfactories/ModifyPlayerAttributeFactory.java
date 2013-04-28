@@ -12,6 +12,7 @@ public class ModifyPlayerAttributeFactory extends ActionFactory {
 
     
     public ModifyPlayerAttributeFactory(Attribute toModify, String targetAttribute) {
+    	super();
         
     }
     
