@@ -1,0 +1,12 @@
+27/04/2013 16:47:38 util.logger.LoggerTest logEachType
+EXCELENTE: Finest Test Message
+27/04/2013 16:47:38 util.logger.LoggerTest logEachType
+MUITO BOM: Finer Test Message
+27/04/2013 16:47:38 util.logger.LoggerTest logEachType
+BOM: Fine Test Message
+27/04/2013 16:47:38 util.logger.LoggerTest logEachType
+INFO: Info Test Message
+27/04/2013 16:47:38 util.logger.LoggerTest logEachType
+AVISO: Warning Test Message
+27/04/2013 16:47:38 util.logger.LoggerTest logEachType
+GRAVE: Severe Test Message

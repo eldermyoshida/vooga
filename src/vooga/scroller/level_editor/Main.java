@@ -19,7 +19,7 @@ public class Main {
                                           "underwater3.jpg",
                                           "bikini_bottom.jpg"};
         
-        LEController.runLevelEditor(new FishLib(), new BackgroundLib(filenames));
+        LEController.runLevelEditor(new MarioLib(), new BackgroundLib(filenames));
         
     }
 }

@@ -25,11 +25,11 @@ public abstract class Tools<D extends IDomainDescriptor> implements Renderable<D
 
 //    public abstract V initializeRenderer (IView<D> parent);
 
-    public abstract List<Map<Image, String>> EditableDependents ();
+    public abstract List<Map<Image, String>> getEditableDependents ();
 
     public abstract Map<String, Map<Image, String>> getEditableIndependents ();
 
-    public abstract String EditableDependentsTitle ();
+    public abstract String getEditableDependentsTitle ();
 
     public abstract String getEditableIndependentsTitle ();
     

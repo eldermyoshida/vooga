@@ -299,6 +299,17 @@ public class XMLTool {
     }
     
     /**
+     * Get a list of children element nodes from a parent in the order they appear in the XML file.
+     * 
+     * @param parent The parent element from which the children elements are going to be retrieved.
+     * @return A list of children elements from the parent element.
+     */
+    public List<Element> getChildrenList (Element parent) {
+        NodeList nodes = parent.getChildNodes();
+        return convertNodeList(nodes);
+    }
+    
+    /**
      * Creates a map with the child tag (as a map key) and a child element (as a map value) of all
      * the
      * children elements of a particular parent element.
