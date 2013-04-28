@@ -1,6 +1,8 @@
 package vooga.towerdefense.gameeditor.gameloader.xmlloaders;
 
 import java.awt.Dimension;
+import java.io.IOException;
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -12,6 +14,7 @@ import org.w3c.dom.Element;
 import util.Location;
 import util.Pixmap;
 import util.XMLTool;
+import vooga.towerdefense.gameeditor.gamemaker.GameEditorController;
 import vooga.towerdefense.model.GameMap;
 import vooga.towerdefense.model.Tile;
 import vooga.towerdefense.model.tiles.SpawnTile;
@@ -100,16 +103,7 @@ public class MapXMLLoader {
      */
     public MapXMLLoader(XMLTool xmlTool) {
         myXMLTool = xmlTool;        
-        initTileIdMap();
-    }
-    
-    private void initTileIdMap() {
-        myTileIdMap = new HashMap<String, TileFactory>();
-        myTileIdMap.put("0", new DefaultTileFactory());
-        myTileIdMap.put("1", new GrassTileFactory());
-        myTileIdMap.put("2", new PathTileFactory());
-        myTileIdMap.put("s", new SpawnTileFactory());
-        myTileIdMap.put("d", new DestinationTileFactory());
+        myTileIdMap = getTileIdMap();
     }
     
     /**
@@ -197,4 +191,50 @@ public class MapXMLLoader {
     private TileFactory getTileFactory(String tileId) {
         return myTileIdMap.get(tileId);
     }
+    
+    private Map<String, TileFactory> getTileIdMap() {
+        Map<String, TileFactory> tileIdMap = new HashMap<String, TileFactory>();
+        List<Class> tileFactoryClasses = tileFactoryClasses = GameEditorController.getClassesInPackage("vooga.towerdefense.model.tiles.factories");            
+        for (Class c : tileFactoryClasses) {
+            Object tileFactory;
+            try {
+                tileFactory = c.newInstance();
+                Field f = c.getField("ID");
+                Object id = f.get(tileFactory);
+                tileIdMap.put((String) id, (TileFactory) tileFactory);
+            }
+            catch (InstantiationException e) {
+            }
+            catch (IllegalAccessException e) {
+            }
+            catch (NoSuchFieldException e) {
+            }
+            catch (SecurityException e) {
+            }
+             
+        }
+        return tileIdMap;
+    }
+
+//    
+//    
+//    public static void main(String[] args) {
+//        try {
+//            Class c = Class.forName("vooga.towerdefense.model.tiles.factories.GrassTileFactory");
+//            c.newInstance();
+//            Field f = c.getField("ID");
+//            f.get(obj)
+//        }
+//        catch (ClassNotFoundException e) {
+//            e.printStackTrace();
+//        }
+//        catch (NoSuchFieldException e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        }
+//        catch (SecurityException e) {
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        }
+//    }
 }
