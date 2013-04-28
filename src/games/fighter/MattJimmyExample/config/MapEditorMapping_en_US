@@ -1,3 +1,4 @@
+
 save = Keyboard_S_Down
 select = Mouse_Left_Click
 startselect = Mouse_Left_Click|Keyboard_Shift_Down

@@ -27,6 +27,15 @@
             <frame image="fighter/images/fire.png" />   
         </state>
     </menuobject>
+    <menuobject menuobjectname="Ken">
+    	<state name = "Unselected">
+            <frame image="fighter/images/ken_stand1.png" />
+        </state>
+        <state name = "Selected">
+            <frame image="fighter/images/ken_stand1.png" />
+            <frame image="fighter/images/fire.png" />   
+        </state>
+    </menuobject>
     <menuobject menuobjectname="MainMenu">
     	<state name = "Unselected">
             <frame image="fighter/images/MainMenu.jpg" />
