@@ -55,11 +55,6 @@ public class LEGrid implements Editable, Renderable<LevelEditing>, Scrollable {
     }
 
     @Override
-    public Object getState () {
-        return null;
-    }
-
-    @Override
     public void paint (Graphics2D pen) {
         if (myBackground != null) {
             pen.drawImage(myBackground.getImage(), 0, 0, null);

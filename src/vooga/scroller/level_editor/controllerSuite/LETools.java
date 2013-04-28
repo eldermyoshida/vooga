@@ -153,12 +153,6 @@ public class LETools extends Tools<LevelEditing> {
     }
 
     @Override
-    public Object getState () {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
     public Renderer<LevelEditing> initializeRenderer (IView<?> parent) {
         // TODO Auto-generated method stub
         return null;
