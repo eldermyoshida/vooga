@@ -93,7 +93,7 @@
 			<attributes>
 				<HEALTH>100</HEALTH>
 				<MOVE_SPEED>50</MOVE_SPEED>
-				<FLY_SPEED>1000</FLY_SPEED>
+				<FLY_SPEED>10</FLY_SPEED>
 				<DIRECTION>0</DIRECTION>
 			</attributes>
 			<actions>
@@ -114,13 +114,15 @@
 			<image>tower.gif</image>
 			<type>Tower</type>
 			<attributes>
-				<MOVE_SPEED>50</MOVE_SPEED>
-			</attributes>
-			<attributes>
 				<HEALTH>100</HEALTH>
 				<Cost>10</Cost>
+				<MOVE_SPEED>50</MOVE_SPEED>
+				<DIRECTION>0</DIRECTION>
 			</attributes>
 			<actions>
+				<LaunchProjectile>
+					<parameter>Bear</parameter>					
+				</LaunchProjectile>	
 			</actions>			
 		</TestTower>
 	</gameelements>
