@@ -1,22 +1,23 @@
 package vooga.towerdefense.factories.actionfactories;
 
 import vooga.towerdefense.action.Action;
-import vooga.towerdefense.action.actionlist.OnDeath;
+import vooga.towerdefense.action.actionlist.ModifyPlayerAttribute;
+import vooga.towerdefense.attributes.AttributeConstantsEnum;
 import vooga.towerdefense.gameelements.GameElement;
 import vooga.towerdefense.model.GameMap;
 import vooga.towerdefense.model.Player;
 
+
 /**
  * @author Matthew Roy
- *
+ * 
  */
-public class DeathPackageFactory extends ActionFactory{
-    
-       
+public class DeathPackageFactory extends ActionFactory {
+
     ActionFactory myDeath;
     ActionFactory myPlayerValue;
     ActionFactory myRemoveElement;
-    
+
     /**
      * Default unit death
      * USES:
@@ -24,11 +25,10 @@ public class DeathPackageFactory extends ActionFactory{
      * Worth Attribute
      * Remove from map
      */
-    public DeathPackageFactory() {
+    public DeathPackageFactory () {
         super();
     }
-    
-    
+
     public void initialize (GameMap map, Player player) {
         super.initialize(map, player);
         makeComboFactories();
@@ -36,24 +36,26 @@ public class DeathPackageFactory extends ActionFactory{
         myPlayerValue.initialize(map, player);
         myRemoveElement.initialize(map, player);
     }
-    
-    
-    public void makeComboFactories() {
+
+    public void makeComboFactories () {
         myDeath = new OnDeathFactory();
         myRemoveElement = new RemoveElementFactory();
+        myPlayerValue =
+                new ModifyPlayerAttributeFactory(AttributeConstantsEnum.MONEY.getStatusCode(),
+                                                 AttributeConstantsEnum.MONEY.getStatusCode());
     }
-
 
     /**
      * 
      * @param e
-     * @return 
+     * @return
      */
     @Override
     protected Action buildAction (GameElement e) {
-        // TODO Auto-generated method stub
-        return null;
+        Action death = myDeath.createAction(e);
+        death.addFollowUpAction(myPlayerValue.buildAction(e));
+        death.addFollowUpAction(myRemoveElement.buildAction(e));
+        return death;
     }
 
 }
-

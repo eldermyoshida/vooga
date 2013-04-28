@@ -1,13 +1,20 @@
 package vooga.towerdefense.gameeditor.gamemaker.editorscreens.subeditorscreens;
 
-import java.awt.BorderLayout;
 import java.awt.event.MouseEvent;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
+/**
+ * Superclass to make a subcomponent of the editor
+ *      screens. 
+ *
+ * @author Angelica Schwartz
+ */
 public abstract class SubEditorSection extends JPanel {
     
+    /**
+     * default serialized id.
+     */
+    private static final long serialVersionUID = 1L;
     /**
      * constant for text area height.
      */
@@ -20,36 +27,32 @@ public abstract class SubEditorSection extends JPanel {
      * title for this screen.
      */
     private String myTitle;
-    /**
-     * box to enter the name of the game element.
-     */
-    private JTextField myNameBox;
     
+    /**
+     * constructor.
+     * @param title
+     */
     public SubEditorSection(String title) {
         myTitle = title;
-        addCharacteristicsPanel();
     }
     
-    private void addCharacteristicsPanel() {
-        JPanel characteristicsPanel = new JPanel();
-        myNameBox = new JTextField(TEXT_AREA_WIDTH);
-        characteristicsPanel.add(new JLabel("Name: "));
-        characteristicsPanel.add(myNameBox);
-        add(characteristicsPanel, BorderLayout.NORTH);
-    }
-    
+    /**
+     * gets the title for this section.
+     * @return the title as a string
+     */
     public String getTitle() {
         return myTitle;
     }
     
-    public String getName() {
-        return myNameBox.getText();
-    }
+    /**
+     * clears the section.
+     */
+    public abstract void clear();
     
-    public void clear() {
-        myNameBox.setText("");
-    }
-    
+    /**
+     * does any additional mouse behavior for this section.
+     * @param e is the mouseevent
+     */
     public abstract void doAdditionalMouseBehavior(MouseEvent e);
 
 }

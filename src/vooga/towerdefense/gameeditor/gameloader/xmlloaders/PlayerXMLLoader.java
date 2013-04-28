@@ -30,7 +30,7 @@ public class PlayerXMLLoader {
         Element playerElement = myXMLTool.getElement(PLAYER_TAG);
         Element attributeParent = myXMLTool.getElement(ATTRIBUTES_TAG);
         Map<String, Element> attributes = myXMLTool.getChildrenElementMap(attributeParent);
-        AttributeXMLLoader attributeLoader = new AttributeXMLLoader(myXMLTool);
+        AttributeFactoryXMLLoader attributeLoader = new AttributeFactoryXMLLoader(myXMLTool);
         List<AttributeFactory> attributeFactories = 
                 attributeLoader.loadAttributeFactories(attributeParent);        
         AttributeManagerFactory attributeManagerFactory = new AttributeManagerFactory(attributeFactories);

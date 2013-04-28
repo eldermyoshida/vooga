@@ -35,7 +35,7 @@ public class OnDeath extends Action {
 	@Override
 	public void executeAction(double elapseTime) {
 		if (myResponsibleElement.getAttributeManager()
-				.getAttribute(AttributeConstantsEnum.HEALTH.toString())
+				.getAttribute(AttributeConstantsEnum.HEALTH.getStatusCode())
 				.getValue() <= 0) {
 			setEnabled(true);
 		}
