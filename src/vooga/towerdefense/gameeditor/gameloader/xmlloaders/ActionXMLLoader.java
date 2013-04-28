@@ -67,7 +67,6 @@ public class ActionXMLLoader {
     public List<Action> loadActions (GameElement e, Element actionsElement, GameMap gameMap, 
                                      Player player) {
         List<ActionFactory> actionFactories = loadActionFactories(actionsElement, gameMap, player);
-        System.out.println(actionFactories);
 
         List<Action> actions = new ArrayList<Action>();
         for (ActionFactory af : actionFactories) {
@@ -125,7 +124,6 @@ public class ActionXMLLoader {
                 classPath = ACTION_FACTORIES_CLASSPATH;
             }
             classPath += actionName + FACTORY;
-            System.out.println(classPath);
             Class actionFactoryClass = Class.forName(classPath);
 
             Constructor[] constructors = actionFactoryClass.getDeclaredConstructors();

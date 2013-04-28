@@ -9,7 +9,6 @@ import vooga.towerdefense.action.Action;
 import vooga.towerdefense.action.actionlist.MoveToTarget;
 import vooga.towerdefense.attributes.AttributeConstantsEnum;
 import vooga.towerdefense.attributes.AttributeManager;
-import vooga.towerdefense.attributes.DefaultAttributeManager;
 import vooga.towerdefense.factories.actionfactories.ActionFactory;
 import vooga.towerdefense.factories.attributefactories.AttributeFactory;
 import vooga.towerdefense.factories.attributefactories.AttributeManagerFactory;
@@ -27,9 +26,6 @@ import vooga.towerdefense.model.GameMap;
  * @author Zhen Gou
  */
 public class GameElementFactory {
-
-    // private static DefaultAttributeManager DEFAULT_ATTRIBUTE_MANAGER =
-    // new DefaultAttributeManager();
 
     /**
      * Name of the element that is defined in this class. For convenience.
@@ -157,7 +153,6 @@ public class GameElementFactory {
     public List<Action> createActions (GameElement element) {
         List<Action> actions = new ArrayList<Action>();
         for (ActionFactory a : myActionsToMake) {
-            System.out.println(a);
                 actions.add(a.createAction(element));
         }
         return actions;
