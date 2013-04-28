@@ -80,6 +80,24 @@
 				</Move>
 			</actions>			
 		</Bear>
+		<Elephant>
+			<dimension>80, 80</dimension>
+			<image>dancing_elephant.gif</image>
+			<type>Unit</type>
+			<attributes>
+				<HEALTH>100</HEALTH>
+				<MOVE_SPEED>50</MOVE_SPEED>
+				<DIRECTION>0</DIRECTION>
+			</attributes>
+			<actions>
+				<FollowPath>
+				</FollowPath>
+				<Move>
+					<parameter1>MOVE_SPEED</parameter1>
+					<parameter2>DIRECTION</parameter2>
+				</Move>
+			</actions>			
+		</Elephant>
 		<TestTower>
 			<dimension>50, 50</dimension>
 			<image>tower.gif</image>
@@ -103,8 +121,11 @@
 				<WaveAction>
 					<parameter1>10</parameter1>
 					<parameter2>1000</parameter2>
-					<parameter3>Dog</parameter3>
+					<parameter3>Elephant</parameter3>
 				</WaveAction>
+				<TimerAction>
+					<parameter1>60000</parameter1>
+				</TimerAction>
 			</actions>
 		</Level1>
 		<Level2>
@@ -116,6 +137,9 @@
 					<parameter2>1000</parameter2>
 					<parameter3>Bear</parameter3>
 				</WaveAction>
+				<TimerAction>
+					<parameter1>60000</parameter1>
+				</TimerAction>
 				</actions>
 			</Level2>
 	</levels>

@@ -105,11 +105,11 @@ public class MapXMLLoader {
     
     private void initTileIdMap() {
         myTileIdMap = new HashMap<String, TileFactory>();
-        myTileIdMap.put("0", new DefaultTileFactory());
-        myTileIdMap.put("1", new GrassTileFactory());
-        myTileIdMap.put("2", new PathTileFactory());
-        myTileIdMap.put("s", new SpawnTileFactory());
-        myTileIdMap.put("d", new DestinationTileFactory());
+        myTileIdMap.put("0", new DefaultTileFactory("0"));
+        myTileIdMap.put("1", new GrassTileFactory("1"));
+        myTileIdMap.put("2", new PathTileFactory("2"));
+        myTileIdMap.put("s", new SpawnTileFactory("s"));
+        myTileIdMap.put("d", new DestinationTileFactory("d"));
     }
     
     /**

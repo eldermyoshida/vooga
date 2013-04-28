@@ -10,6 +10,13 @@ import util.Location;
  * @author Leonard K. Ng'eno
  */
 public abstract class TileFactory {
+    
+    private String myTileId;
+    
+    public TileFactory(String tileId) {
+        myTileId = tileId;
+    }
+    
     /**
      * 
      * @param id a tile id.
@@ -17,5 +24,9 @@ public abstract class TileFactory {
      * @return the corresponding tile
      */
     public abstract Tile createTile(Location center, GameMap map);
+    
+    public String getTileId() {
+        return myTileId;
+    }
 
 }

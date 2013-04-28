@@ -5,6 +5,10 @@ import vooga.towerdefense.model.GameMap;
 import vooga.towerdefense.model.Tile;
 
 public class DestinationTileFactory extends PathTileFactory {
+    
+    public DestinationTileFactory(String tileId) {
+        super(tileId);
+    }
 
     @Override
     public Tile createTile (Location center, GameMap map) {        

@@ -12,6 +12,10 @@ import util.Location;
  * @author Leonard K. Ng'eno
  */
 public class PathTileFactory extends TileFactory {
+    
+    public PathTileFactory(String tileId) {
+        super(tileId);
+    }
 
     @Override
     public Tile createTile (Location center, GameMap map) {

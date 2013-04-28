@@ -249,16 +249,18 @@ public class Controller {
 	// TODO The item that should be added should be a new instance of the one in
 	// the shop!!!
 	public void fixItemOnMap(GameElement item, Point p) {
-		GameElement newItem = createNewElement(item);
+		//GameElement newItem = createNewElement(item);
 		if (myModel.getMap().isTower(item)) {
 			Location snappedLocation = getPointSnappedToGrid(new Location(p.getX(),
 					p.getY()));
-			newItem.setCenter(snappedLocation.getX(), snappedLocation.getY());
-			
+			//newItem.setCenter(snappedLocation.getX(), snappedLocation.getY());
+			//item.setCenter(snappedLocation.getX(), snappedLocation.getY());
+			item.setCenter(50, 50);
 			myModel.getMap().blockTiles(item);
 		}
 
-		myModel.getMap().addToMap(newItem);
+		
+		myModel.getMap().addToMap(item);
 		displayMap();
 		myControlMode = new SelectMode();
 		setVisibilityOfShopCancelButton(false);
@@ -358,12 +360,14 @@ public class Controller {
 	 */
 	public void handleShopClickOnItem(Point p) {
 		ShopItem itemToBuy = myModel.getShopItem(p);
+		
+		//no item clicked
 		if (itemToBuy == null)
 			return;
 
 		List<Action> actions = new ArrayList<Action>();
 		GameElementFactory factory = itemToBuy.getFactory();
-		GameElement t = factory.createElement(new Location(p.getX(), p.getY()));
+		GameElement t = factory.createElement(new Location());
 		BuildMode myNewMode = new BuildMode();
 		myNewMode.setItemToBuild(t);
 		myControlMode = myNewMode;
@@ -377,7 +381,6 @@ public class Controller {
 	}
 
 	public Location getPointSnappedToGrid(Location location) {
-	    System.out.println(myModel.getMap().getTile(location));
 		return myModel.getMap().getTile(location).getCenter();
 
 	}

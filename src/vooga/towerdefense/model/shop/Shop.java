@@ -34,7 +34,6 @@ public class Shop {
 		
 		int xC = 10;
 		int yC = 10;
-		System.out.println(factories);
 		for (int i = 0; i < factories.size(); ++i) {
 		    // TODO: replace this with parsed file input
 		    //GameElementFactory factory = new GameElementFactory(DefinitionConstants.DEFAULT_TOWER_NAME, 
