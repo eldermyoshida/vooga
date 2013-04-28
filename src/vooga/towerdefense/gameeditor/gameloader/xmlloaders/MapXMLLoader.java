@@ -14,7 +14,9 @@ import util.Pixmap;
 import util.XMLTool;
 import vooga.towerdefense.model.GameMap;
 import vooga.towerdefense.model.Tile;
+import vooga.towerdefense.model.tiles.SpawnTile;
 import vooga.towerdefense.model.tiles.factories.DefaultTileFactory;
+import vooga.towerdefense.model.tiles.factories.DestinationTileFactory;
 import vooga.towerdefense.model.tiles.factories.GrassTileFactory;
 import vooga.towerdefense.model.tiles.factories.PathTileFactory;
 import vooga.towerdefense.model.tiles.factories.SpawnTileFactory;
@@ -91,8 +93,6 @@ public class MapXMLLoader {
     
     private XMLTool myXMLTool;    
     private Map<String, TileFactory> myTileIdMap;
-    private Location spawnLocation;
-    private Location endLocation;
     
     /**
      * 
@@ -109,7 +109,7 @@ public class MapXMLLoader {
         myTileIdMap.put("1", new GrassTileFactory());
         myTileIdMap.put("2", new PathTileFactory());
         myTileIdMap.put("s", new SpawnTileFactory());
-        myTileIdMap.put("e", new PathTileFactory());
+        myTileIdMap.put("d", new DestinationTileFactory());
     }
     
     /**
@@ -135,8 +135,11 @@ public class MapXMLLoader {
         Pixmap mapImage = loadMapImage(subElements.get(IMAGE_TAG));
         Dimension mapDimensions = loadMapDimensions(subElements.get(DIMENSION_TAG));
         Dimension tileSize = loadMapTileSize(subElements.get(TILE_SIZE_TAG));
-        Tile[][] mapGrid = loadTiles(subElements.get(GRID_TAG), mapDimensions, tileSize);
-        return new GameMap(mapGrid, mapImage, mapDimensions, tileSize, spawnLocation, endLocation);
+        
+        
+        GameMap map = new GameMap(mapImage, mapDimensions, tileSize);
+        createAndSetGrid(subElements.get(GRID_TAG), map);
+        return map;
     }
     
     private Pixmap loadMapImage(Element imageElement) {
@@ -165,8 +168,10 @@ public class MapXMLLoader {
         return new Dimension(tileSize, tileSize);
     } 
     
-    private Tile[][] loadTiles(Element tilesElement, Dimension mapDimensions, 
-                               Dimension tileDimensions) {
+    private void createAndSetGrid(Element tilesElement, GameMap map) {
+        Dimension mapDimensions = map.getSize();
+        Dimension tileDimensions = map.getTileSize();
+        
         String gridString = myXMLTool.getContent(tilesElement);
         Scanner reader = new Scanner(gridString);
         
@@ -181,17 +186,12 @@ public class MapXMLLoader {
                         tileDimensions.getWidth() / 2);
                 int yCenter = (int) (i * tileDimensions.getHeight() + 
                         tileDimensions.getHeight() / 2);
-                String tileId = reader.next();
+                String tileId = reader.next();                
                 Location location = new Location(xCenter, yCenter);
-                if (tileId.equals("s")) {
-                    spawnLocation = location;
-                } else if (tileId.equals("e")) {
-                    endLocation = location;
-                }
-                grid[j][i] = getTileFactory(tileId).createTile(location);
+                grid[j][i] = getTileFactory(tileId).createTile(location, map);
             }
         }
-        return grid;
+        map.setGrid(grid);
     }
     
     private TileFactory getTileFactory(String tileId) {
