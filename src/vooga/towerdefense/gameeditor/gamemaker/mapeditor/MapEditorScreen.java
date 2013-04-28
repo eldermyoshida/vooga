@@ -26,6 +26,7 @@ import util.Pixmap;
 import vooga.towerdefense.gameeditor.gamemaker.GameEditorController;
 import vooga.towerdefense.gameeditor.gamemaker.GameEditorScreen;
 import vooga.towerdefense.model.Tile;
+import vooga.towerdefense.model.tiles.factories.TileFactory;
 
 /**
  * The MapEditorScreen is responsible for helping
@@ -57,9 +58,9 @@ public class MapEditorScreen extends GameEditorScreen {
     private MouseAdapter myMouseListener;
     private int myTileSize;
     private TilePanel myTilePainter;
-    private Tile myTileToBuild;
+    private TileFactory myTileToBuild;
     private List<String> myBackgroundImages;
-    private List<Tile> myTiles;
+    private List<TileFactory> myTiles;
     private String myBackgroundImageName;
     private String myMapName;
     private JButton myBackgroundImageButton;
@@ -231,10 +232,10 @@ public class MapEditorScreen extends GameEditorScreen {
      */
     public void makeTileInstances (String s) {
         
-        for (Tile tile: myTiles) {
-           if (tile.getName().equals(s)){
-               myTileToBuild = tile;
-           }
+        for (TileFactory tile: myTiles) {
+//           if (tile.getName().equals(s)){
+//               myTileToBuild = tile;
+//           }
         }
         myMapMakerBox.setTile(myTileToBuild);
     }
@@ -262,28 +263,20 @@ public class MapEditorScreen extends GameEditorScreen {
     @SuppressWarnings({ "rawtypes", "unused", "unchecked" })
     private void initTileClasses() {
         List<Class> classes = new ArrayList<Class>();
-        myTiles = new ArrayList<Tile>();
-        try {
-            classes = getController().getClassesInPackage(TILE_PACKAGE_PATH);
-            for (Class myClass : classes) {
-                Class[] types = {Location.class, Dimension.class };
-                Object[] parameters = {new Location(0,0), new Dimension(50,50)};
-                try {
-                    Constructor constructor = myClass.getConstructor(types);
-                }
-                catch (NoSuchMethodException e) {
-                    e.printStackTrace();
-                }
-                catch (SecurityException e) {
-                    e.printStackTrace();
-                }
+        myTiles = new ArrayList<TileFactory>();
+        classes = getController().getClassesInPackage(TILE_PACKAGE_PATH);
+        for (Class myClass : classes) {
+            Class[] types = {Location.class, Dimension.class };
+            Object[] parameters = {new Location(0,0), new Dimension(50,50)};
+            try {
+                Constructor constructor = myClass.getConstructor(types);
             }
-        }
-        catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        catch (IOException e) {
-            e.printStackTrace();
+            catch (NoSuchMethodException e) {
+                e.printStackTrace();
+            }
+            catch (SecurityException e) {
+                e.printStackTrace();
+            }
         }
      
         for (Class myClass : classes) {
@@ -295,7 +288,7 @@ public class MapEditorScreen extends GameEditorScreen {
                 constructor = myClass.getConstructor(types);
                 try {
                     newTile = constructor.newInstance(parameters);
-                    myTiles.add((Tile) newTile);
+                    myTiles.add((TileFactory) newTile);
                 }
                 catch (InstantiationException e) {
                     e.printStackTrace();

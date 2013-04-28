@@ -11,7 +11,8 @@ import util.Location;
  * @author Leonard K. Ng'eno
  */
 public abstract class TileFactory {
-    
+    public static final String ID = "0";
+
     public TileFactory() {
         
     }
