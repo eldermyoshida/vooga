@@ -11,7 +11,6 @@ import java.util.List;
  * Creates and updates user table
  * this clearly needs to be refactored because there is duplicate code
  * @author Natalia Carvalho
- * @editor Joshua Waldman
  */
 public class CommentTable extends Table {
 
@@ -51,7 +50,7 @@ public class CommentTable extends Table {
         }
         catch (SQLException e) {
             writeErrorMessage("Error adding new comment for this game in " +
-                    "CommentTable.java");
+                    "CommentTable.java @ Line 53");
         }
     }
     
@@ -79,7 +78,7 @@ public class CommentTable extends Table {
         }
         catch (SQLException e) {
             writeErrorMessage("Error getting all comments for this game in " +
-                    "CommentTable.java");
+                    "CommentTable.java @ Line 72");
         }
         return comments;
     }
@@ -104,7 +103,7 @@ public class CommentTable extends Table {
             }
         }
         catch (SQLException e) {
-            writeErrorMessage("Error printing entire table in CommentTable.java");
+            writeErrorMessage("Error printing entire table in CommentTable.java @ Line 91");
         }
     }
 

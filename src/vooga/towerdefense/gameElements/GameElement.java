@@ -1,23 +1,19 @@
-package vooga.towerdefense.gameElements;
+package vooga.towerdefense.gameelements;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
-
 import vooga.towerdefense.action.Action;
 import vooga.towerdefense.action.TargetedAction;
-import vooga.towerdefense.attributes.Attribute;
-import vooga.towerdefense.attributes.AttributeConstantsEnum;
 import vooga.towerdefense.attributes.AttributeManager;
+import util.Location;
+import vooga.towerdefense.util.Pixmap;
 import vooga.towerdefense.util.Sprite;
 
-
 /**
- * Underlying game element object that all types of sprites in the game are created from
- * Defined by its attributes and actions
+ * Underlying game element object that all types of sprites in the game are
+ * created from Defined by its attributes and actions
  * 
  * @author Matthew Roy
  * @author Xu Rui
@@ -25,72 +21,72 @@ import vooga.towerdefense.util.Sprite;
  */
 public class GameElement extends Sprite {
 
-    private AttributeManager myAttributeManager;
-    private List<Action> myActions;
+	private AttributeManager myAttributeManager;
+	private List<Action> myActions;
 
-    /**
-     * 
-     * @param image
-     * @param center
-     * @param size
-     * @param attributes
-     * @param actions
-     */
-    public GameElement (Pixmap image,
-                        Location center,
-                        Dimension size,
-                        AttributeManager attributes) {
-        super(image, center, size);
-        myAttributeManager = attributes;
-        myActions = new ArrayList<Action>();
-    }
+	/**
+	 * 
+	 * @param image
+	 * @param center
+	 * @param size
+	 * @param attributes
+	 * @param actions
+	 */
+	public GameElement(Pixmap image, Location center, Dimension size,
+			AttributeManager attributes) {
+		super(image, center, size);
+		myAttributeManager = attributes;
+		myActions = new ArrayList<Action>();
+	}
 
-    /**
-     * Updates all attributes and actions
-     * 
-     * @param elapsedTime
-     */
-    public void update (double elapsedTime) {
-        for (Action a : myActions) {
-            a.update(elapsedTime);
-        }
-        myAttributeManager.update();
-    }
+	/**
+	 * Updates all attributes and actions
+	 * 
+	 * @param elapsedTime
+	 */
+	public void update(double elapsedTime) {
 
-    @Override
-    public void paint (Graphics2D pen) {
-        super.paint(pen);
-    }
+		for (Action a : myActions) {
+			a.update(elapsedTime);
+		}
+		myAttributeManager.update();
+	}
 
-    public void addAction (Action a) {
-        myActions.add(a);
-    }
+	@Override
+	public void paint(Graphics2D pen) {
+		super.paint(pen);
+	}
 
-    public void addActions (List<Action> actions) {
-        myActions.addAll(actions);
-    }
+	public void addAction(Action a) {
+		myActions.add(a);
+	}
 
-    public AttributeManager getAttributeManager () {
-        return myAttributeManager;
-    }
+	public void addActions(List<Action> actions) {
+		myActions.addAll(actions);
+	}
 
-    public List<Action> getActions () {
-        return myActions;
-    }
+	public AttributeManager getAttributeManager() {
+		return myAttributeManager;
+	}
 
-    /**
-     * Returns all target tracking actions
-     * 
-     * @return
-     */
-    public List<TargetedAction> getTargetedActions () {
-        List<TargetedAction> actions = new ArrayList<TargetedAction>();
-        for (Action a : actions) {
-            if (a.isTargetTracking()) {
-                actions.add((TargetedAction) a);
-            }
-        }
-        return actions;
-    }
+	public List<Action> getActions() {
+		return myActions;
+	}
+
+	/**
+	 * Returns all target tracking actions, bridge for passing target
+	 * information from actions in parent element to elements it spawns.
+	 * 
+	 * @return
+	 */
+	public List<TargetedAction> getTargetedActions() {
+		List<TargetedAction> actions = new ArrayList<TargetedAction>();
+		for (Action a : actions) {
+			if (a.isTargetTracking()) {
+				actions.add((TargetedAction) a);
+			}
+		}
+		return actions;
+	}
 
 }
