@@ -3,6 +3,7 @@ package vooga.fighter.controller.leveleditor;
 import java.util.List; 
 
 
+
 import util.input.AlertObject;
 import util.input.InputClassTarget;
 import util.input.InputMethodTarget;
@@ -11,8 +12,7 @@ import vooga.fighter.controller.Controller;
 import vooga.fighter.controller.gameinformation.GameInfo;
 import vooga.fighter.controller.interfaces.ControllerDelegate;
 import vooga.fighter.controller.levels.MainMenuController;
-import vooga.fighter.model.MapEditorMode;
-import vooga.fighter.model.Mode;
+import vooga.fighter.model.mode.MapEditorMode;
 import vooga.fighter.model.objects.EnvironmentObject;
 import vooga.fighter.model.objects.MapObject;
 import vooga.fighter.util.CollisionManager;

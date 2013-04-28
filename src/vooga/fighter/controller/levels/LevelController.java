@@ -1,7 +1,5 @@
 package vooga.fighter.controller.levels;
 
-
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -11,11 +9,12 @@ import vooga.fighter.controller.displayinformation.GameLoopInfo;
 import vooga.fighter.controller.gameinformation.GameInfo;
 import vooga.fighter.controller.interfaces.ControllerDelegate;
 import vooga.fighter.controller.interfaces.ModeCondition;
-import vooga.fighter.model.LevelMode;
-import vooga.fighter.model.Mode;
+import vooga.fighter.model.mode.LevelMode;
+import vooga.fighter.model.mode.Mode;
 import vooga.fighter.model.objects.CharacterObject;
 import vooga.fighter.model.objects.EnvironmentObject;
 import vooga.fighter.model.objects.MapObject;
+
 import vooga.fighter.model.utils.UpdatableLocation;
 import vooga.fighter.util.CollisionManager;
 import vooga.fighter.view.Canvas;

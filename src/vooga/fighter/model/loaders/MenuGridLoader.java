@@ -7,7 +7,7 @@ import java.util.List;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
-import vooga.fighter.model.MenuMode;
+import vooga.fighter.model.mode.MenuMode;
 import vooga.fighter.model.ModelConstants;
 import vooga.fighter.model.objects.MenuObject;
 import vooga.fighter.model.utils.State;

@@ -1,4 +1,4 @@
-package vooga.fighter.model;
+package vooga.fighter.model.mode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +23,7 @@ public abstract class Mode {
 
     /**
      * Constructs a new Mode.
+     * @param collisionmanager is the collision manager to use
      */
     public Mode(CollisionManager collisionmanager) {
         myObjects = new ArrayList<GameObject>();
@@ -46,6 +47,7 @@ public abstract class Mode {
 
     /**
      * Add an object to the list of game objects.
+     * @param object is the object to add
      */
     public void addObject(GameObject object) {
         myObjects.add(object);
@@ -54,6 +56,7 @@ public abstract class Mode {
 
     /**
      * Remove an object from the list of game objects.
+     * @param object is the object to remove
      */
     public void removeObject(GameObject object) {
         myObjects.remove(object);

@@ -1,5 +1,8 @@
 package vooga.fighter.controller.levels;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import util.input.AlertObject;
 import util.input.InputClassTarget;
 import util.input.InputMethodTarget;
@@ -9,14 +12,17 @@ import vooga.fighter.controller.displayinformation.DisplayLoopInfo;
 import vooga.fighter.controller.gameinformation.GameInfo;
 import vooga.fighter.controller.interfaces.ControllerDelegate;
 import vooga.fighter.controller.interfaces.ModeCondition;
-import vooga.fighter.model.*;
+
+import vooga.fighter.model.MenuGrid;
+import vooga.fighter.model.mode.MenuMode;
+import vooga.fighter.model.mode.Mode;
+
 import vooga.fighter.model.objects.MouseClickObject;
 import vooga.fighter.model.objects.MouseObject;
 import vooga.fighter.util.CollisionManager;
 import vooga.fighter.view.Canvas;
 
-import java.util.ArrayList;
-import java.util.List;
+
 
 
 /**

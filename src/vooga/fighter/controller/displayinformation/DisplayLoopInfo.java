@@ -2,11 +2,12 @@ package vooga.fighter.controller.displayinformation;
 
 import java.util.List;
 
+import util.Paintable;
+import vooga.fighter.model.mode.Mode;
 import vooga.fighter.controller.interfaces.ViewDataSource;
-import vooga.fighter.model.Mode;
 import vooga.fighter.model.utils.ImageDataObject;
 import vooga.fighter.util.HUDFactory;
-import util.Paintable;
+
 
 import vooga.fighter.view.HUDElement;
 
@@ -21,7 +22,7 @@ import vooga.fighter.view.HUDElement;
  *
  */
 
-public class DisplayLoopInfo extends DisplayInfo implements ViewDataSource{
+public class DisplayLoopInfo extends DisplayInfo implements ViewDataSource {
     private Mode myMode;
     private List<ImageDataObject> myImageData;
     

@@ -1,11 +1,12 @@
 package vooga.fighter.controller.displayinformation;
+
 import java.util.List;
 import java.util.ArrayList;
 
 import vooga.fighter.controller.gameinformation.PlayerStatus;
 import vooga.fighter.controller.interfaces.ViewDataSource;
-import vooga.fighter.model.LevelMode;
-import vooga.fighter.model.Mode;
+import vooga.fighter.model.mode.LevelMode;
+import vooga.fighter.model.mode.Mode;
 import vooga.fighter.model.utils.Health;
 import vooga.fighter.util.HUDVariable;
 

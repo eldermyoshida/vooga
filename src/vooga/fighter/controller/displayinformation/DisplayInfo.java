@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Observable;
 
 import util.Location;
-import vooga.fighter.controller.interfaces.ViewDataSource;
 import util.Paintable;
+import vooga.fighter.controller.interfaces.ViewDataSource;
 
 
 /**

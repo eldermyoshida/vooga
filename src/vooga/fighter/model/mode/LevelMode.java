@@ -1,4 +1,4 @@
-package vooga.fighter.model;
+package vooga.fighter.model.mode;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +24,11 @@ public class LevelMode extends Mode {
     private List<Health> myHealthStats;
     private MapObject myMap;
 
+    /**
+     * Overrides superclass constructor.
+     * 
+     * @param manager is the collision manager to use
+     */
     public LevelMode(CollisionManager manager) {
         super(manager);
         myCharacterObjects = new ArrayList<CharacterObject>();
@@ -51,8 +56,11 @@ public class LevelMode extends Mode {
         }
     }
     
+    /**
+     * Updates the locally stored health of the character objects
+     */
     public void updateHealth() {
-        for (int i =0; i < myCharacterObjects.size(); i++) {
+        for (int i = 0; i < myCharacterObjects.size(); i++) {
             myHealthStats.set(i, myCharacterObjects.get(i).getHealth());
         }
     }
@@ -62,10 +70,10 @@ public class LevelMode extends Mode {
     /**
      * Applies forces on character objects
      */
-    public void applyForces(){
+    public void applyForces() {
         for (CharacterObject ch : myCharacterObjects) {
             for (Force force: myForces) {
-                 force.applyForce(ch);
+                force.applyForce(ch);
             }
         }
     }
@@ -84,24 +92,26 @@ public class LevelMode extends Mode {
     
     /**
      * Sets the map for the level
+     * @param map is the map to set
      */
-    public void setMap(MapObject map){
-    	myMap = map;
-    	addObject(map);
+    public void setMap(MapObject map) {
+        myMap = map;
+        addObject(map);
     }
 
     /**
      * sets forces for the level 
+     * @param forces is a list of globally applied forces to set
      */
-    public void setForces(List<Force> forces){
-    	myForces=forces;
+    public void setForces(List<Force> forces) {
+        myForces = forces;
     }
     
     /**
      * returns the map of the level 
      */
-    public MapObject getMap(){
-    	return myMap;
+    public MapObject getMap() {
+        return myMap;
     }
     /**
      * Returns the list of CharacterObjects.
@@ -110,11 +120,18 @@ public class LevelMode extends Mode {
         return myCharacterObjects;
     }
     
-    public void addCharacter(CharacterObject character){
-    	myCharacterObjects.add(character);
+    /**
+     * Add a character to this level.
+     * 
+     * @param character is the character object to add
+     */
+    public void addCharacter(CharacterObject character) {
+        myCharacterObjects.add(character);
     }
 
-
+    /**
+     * Returns the current health representations of all characters in this level
+     */
     public List<Health> getHealthStats() {
         return myHealthStats;
     }

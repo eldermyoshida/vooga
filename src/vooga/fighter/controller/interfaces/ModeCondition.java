@@ -1,6 +1,6 @@
 package vooga.fighter.controller.interfaces;
 
-import vooga.fighter.model.Mode;
+import vooga.fighter.model.mode.Mode;
 
 /**
  * 

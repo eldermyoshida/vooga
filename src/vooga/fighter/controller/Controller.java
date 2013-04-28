@@ -12,7 +12,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ResourceBundle;
 import javax.swing.Timer;
-import vooga.fighter.model.Mode;
+import vooga.fighter.model.mode.Mode;
 
 
 /**
