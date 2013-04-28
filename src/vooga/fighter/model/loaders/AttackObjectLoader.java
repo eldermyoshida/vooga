@@ -7,7 +7,6 @@ import org.w3c.dom.NodeList;
 
 import vooga.fighter.model.ModelConstants;
 import vooga.fighter.model.objects.AttackObject;
-import vooga.fighter.model.objects.GameObject;
 import vooga.fighter.model.utils.Effect;
 
 /**

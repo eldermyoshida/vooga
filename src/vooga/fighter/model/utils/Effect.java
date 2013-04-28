@@ -1,12 +1,9 @@
 package vooga.fighter.model.utils;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import vooga.fighter.model.ModelConstants;
 import vooga.fighter.model.objects.CharacterObject;
-import vooga.fighter.model.objects.GameObject;
 
 /**
  * Represents an effect placed on a character (or several).

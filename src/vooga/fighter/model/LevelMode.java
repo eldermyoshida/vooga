@@ -1,9 +1,7 @@
 package vooga.fighter.model;
 
-import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
-import vooga.fighter.controller.ModeCondition;
 import vooga.fighter.forces.Force;
 import vooga.fighter.model.objects.AttackObject;
 import vooga.fighter.model.objects.CharacterObject;
@@ -24,9 +22,7 @@ public class LevelMode extends Mode {
     private List<CharacterObject> myCharacterObjects;
     private List <Force> myForces;
     private List<Health> myHealthStats;
-    private List<Double> myScores;
     private MapObject myMap;
-    private List<ModeCondition> myModeConditions;
 
     public LevelMode(CollisionManager manager) {
         super(manager);
@@ -48,14 +44,6 @@ public class LevelMode extends Mode {
         // object update() and updateState() have to be in separate loops
         for (GameObject object : myObjects) {
             object.update();
-            if (object instanceof AttackObject) {
-                System.out.printf("LevelMode update : got attack object in loop\n");
-                System.out.printf("LevelMode update : attack hitbox x=%d y=%d w=%d h=%d\n", 
-                                  object.getCurrentState().getCurrentRectangle().x,
-                                  object.getCurrentState().getCurrentRectangle().y,
-                                  object.getCurrentState().getCurrentRectangle().width,
-                                  object.getCurrentState().getCurrentRectangle().height);
-            }
         }
         for (GameObject object : myObjects) {
             object.updateState();
