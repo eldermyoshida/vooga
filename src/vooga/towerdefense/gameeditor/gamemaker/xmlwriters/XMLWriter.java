@@ -16,8 +16,14 @@ import util.XMLTool;
  * 
  */
 public class XMLWriter {
-
+    
+    /**
+     * xml extension constant.
+     */
     public static final String XML_EXTENSION = ".xml";
+    /**
+     * tag constants.
+     */
     public static final String GAME_TAG = "game";
     public static final String VIEW_TAG = "view";
     public static final String PLAYER_TAG = "player";
@@ -56,6 +62,9 @@ public class XMLWriter {
     private RuleXMLWriter myRuleXMLWriter;
     private LevelXMLWriter myLevelXMLWriter;
 
+    /**
+     * constructor.
+     */
     public XMLWriter () {
         myCreatedUnits = new ArrayList<String>();
         myXMLDoc = new XMLTool();
@@ -110,7 +119,6 @@ public class XMLWriter {
                                List<String> viewInfo,
                                Map<String, List<String>> map) {
         myViewXMLWriter.write(myViewParent, dimension, viewInfo, map);
-        myXMLDoc.writeFile("/src/vooga/towerdefense/resources/defaultview.xml");
     }
 
     /**

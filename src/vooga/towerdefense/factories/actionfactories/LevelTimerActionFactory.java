@@ -13,6 +13,7 @@ public class LevelTimerActionFactory extends ActionFactory {
 		super();
 		myDuration = Integer.parseInt(duration);
 	}
+	
 
 	@Override
 	protected Action buildAction(GameElement e) {

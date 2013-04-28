@@ -15,7 +15,6 @@ import java.util.Set;
 
 import util.Location;
 import util.Pixmap;
-import vooga.towerdefense.attributes.Attribute;
 import vooga.towerdefense.attributes.AttributeConstantsEnum;
 import vooga.towerdefense.controller.modes.BuildMode;
 import vooga.towerdefense.controller.modes.ControlMode;
@@ -347,10 +346,6 @@ public class Controller {
 		GameElement t = factory.createElement(new Location());
 		myNewMode.setItemToBuild(t);
 		
-		System.out.println(t.getAttributeManager().getAttributesInfo());
-		Attribute a = t.getAttributeManager().getAttribute(AttributeConstantsEnum.COST.getStatusCode());
-		System.out.println(a);
-		
 		double cost = t.getAttributeManager()
 				.getAttribute(AttributeConstantsEnum.COST.getStatusCode())
 				.getValue();
@@ -498,9 +493,9 @@ public class Controller {
 		myModel.getPlayer().getAttributeManager()
 				.getAttribute(AttributeConstantsEnum.MONEY.getStatusCode())
 				.modifyValue(-cost);
-		System.out.println("My money : "+myModel.getPlayer().getAttributeManager()
-		.getAttribute(AttributeConstantsEnum.MONEY.getStatusCode())
-		.getValue());
 	}
 
+	public void updateWaveTimer(double timer) {
+		myView.getNextWaveScreen().updateTimerDisplay(String.valueOf(timer));
+	}
 }

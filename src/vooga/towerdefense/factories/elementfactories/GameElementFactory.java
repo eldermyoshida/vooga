@@ -37,6 +37,7 @@ public class GameElementFactory {
     private String myName;
     private GameElementDefinition myDef;
     private List<ActionFactory> myActionsToMake;
+    private List<GameElementFactory> myGameElementFactories;
     private GameMap myMap;
 
     private Pixmap myImage;
@@ -63,7 +64,7 @@ public class GameElementFactory {
         mySize = size;
         myAttributeManagerFactory = attrManager;
         myActionsToMake = myActions;
-        myAttributeManagerFactory.addAttributeFactory(makeAffiliation());
+        myAttributeManagerFactory.addAttributeFactory(makeAffiliation());        
     }
 
     /**
@@ -107,8 +108,9 @@ public class GameElementFactory {
      * 
      * @param map
      */
-    public void initialize (GameMap map) {
+    public void initialize (GameMap map, List<GameElementFactory> gameElementFactories) {
         myMap = map;
+        myGameElementFactories = gameElementFactories;
     }
 
     public GameMap getMap () {
@@ -186,4 +188,10 @@ public class GameElementFactory {
         projectile.addActions(actions);
         return projectile;
     }
+    
+    
+    public void addGameElementFactory(GameElementFactory GEFactory){
+    	myGameElementFactories.add(GEFactory);
+    }
+    
 }

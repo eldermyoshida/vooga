@@ -58,6 +58,7 @@ public class GameElementXMLLoader {
             gameElementFactories.put(myXMLTool.getTagName(subElement), 
                                      loadGameElementFactory(subElement, map, player));
         }
+        
         return gameElementFactories;
     }
     

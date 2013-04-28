@@ -1,7 +1,6 @@
 package vooga.towerdefense.gameeditor.gameloader.xmlloaders;
 
 import java.awt.Dimension;
-import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,11 +16,6 @@ import util.XMLTool;
 import vooga.towerdefense.gameeditor.controller.GameEditorController;
 import vooga.towerdefense.model.GameMap;
 import vooga.towerdefense.model.Tile;
-import vooga.towerdefense.model.tiles.factories.DefaultTileFactory;
-import vooga.towerdefense.model.tiles.factories.DestinationTileFactory;
-import vooga.towerdefense.model.tiles.factories.GrassTileFactory;
-import vooga.towerdefense.model.tiles.factories.PathTileFactory;
-import vooga.towerdefense.model.tiles.factories.SpawnTileFactory;
 import vooga.towerdefense.model.tiles.factories.TileFactory;
 
 /**
@@ -179,7 +173,7 @@ public class MapXMLLoader {
                         tileDimensions.getWidth() / 2);
                 int yCenter = (int) (i * tileDimensions.getHeight() + 
                         tileDimensions.getHeight() / 2);
-                String tileId = reader.next();                
+                String tileId = reader.next();
                 Location location = new Location(xCenter, yCenter);
                 grid[j][i] = getTileFactory(tileId).createTile(location, map);
             }
@@ -193,7 +187,7 @@ public class MapXMLLoader {
     
     private Map<String, TileFactory> getTileIdMap() {
         Map<String, TileFactory> tileIdMap = new HashMap<String, TileFactory>();
-        List<Class> tileFactoryClasses = tileFactoryClasses = GameEditorController.getClassesInPackage("vooga.towerdefense.model.tiles.factories");
+        List<Class> tileFactoryClasses = GameEditorController.getClassesInPackage("vooga.towerdefense.model.tiles.factories");
         for (Class c : tileFactoryClasses) {
             Object tileFactory;
             try {
@@ -214,26 +208,4 @@ public class MapXMLLoader {
         }
         return tileIdMap;
     }
-
-//    
-//    
-//    public static void main(String[] args) {
-//        try {
-//            Class c = Class.forName("vooga.towerdefense.model.tiles.factories.GrassTileFactory");
-//            c.newInstance();
-//            Field f = c.getField("ID");
-//            f.get(obj)
-//        }
-//        catch (ClassNotFoundException e) {
-//            e.printStackTrace();
-//        }
-//        catch (NoSuchFieldException e) {
-//            // TODO Auto-generated catch block
-//            e.printStackTrace();
-//        }
-//        catch (SecurityException e) {
-//            // TODO Auto-generated catch block
-//            e.printStackTrace();
-//        }
-//    }
 }
