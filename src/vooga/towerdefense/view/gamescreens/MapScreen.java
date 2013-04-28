@@ -76,14 +76,12 @@ public class MapScreen extends JPanel {
     @Override
     public void paintComponent (Graphics pen) {
         super.paintComponent(pen);
-        // paintGridLines(pen);
         myController.paintMap(pen);
     }
 
     /**
      * helper method to create the listener for mouse input.
      */
-    // TODO: integrate this with input team
     private void makeMouseAdapters () {
         myMouseAdapter = new MouseAdapter() {
             @Override
