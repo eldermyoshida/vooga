@@ -19,6 +19,7 @@ public class BuildMode extends ControlMode {
 	 * item that the user wants to build.
 	 */
 	private GameElement myItemToBuild;
+	private double myCost;
 
 	/**
 	 * sets the item the user is trying to build.
@@ -28,6 +29,14 @@ public class BuildMode extends ControlMode {
 	 */
 	public void setItemToBuild(GameElement item) {
 		myItemToBuild = item;
+	}
+	
+	/**
+	 * sets the cost of the item to be built.
+	 * @param cost
+	 */
+	public void setCost(double cost) {
+		myCost = cost;
 	}
 
 	/**
@@ -50,6 +59,7 @@ public class BuildMode extends ControlMode {
 
 		if (controller.canBuildHere(p, tilesWide, tilesTall))
 			controller.fixItemOnMap(myItemToBuild, p);
+			controller.spend(myCost);
 	}
 
 	/**

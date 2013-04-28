@@ -1,8 +1,6 @@
 package vooga.towerdefense.factories.actionfactories;
 
 import vooga.towerdefense.action.Action;
-import vooga.towerdefense.action.actionlist.OnDeath;
-import vooga.towerdefense.attributes.AttributeConstants;
 import vooga.towerdefense.gameelements.GameElement;
 import vooga.towerdefense.model.GameMap;
 import vooga.towerdefense.model.Player;

@@ -101,7 +101,8 @@
 			<image>tower.gif</image>
 			<type>Tower</type>
 			<attributes>
-				<HEALTH>100</HEALTH>
+				<Health>100</Health>
+				<Cost>100</Cost>
 			</attributes>
 			<actions>
 			</actions>			
