@@ -80,8 +80,8 @@ public class GameManagerRunAlone{
     			myGameInfo = new GameInfo(new MapLoader(myHardFilePathway).getMapNames());
     		}
     		
-    		protected void setCanvas(){
-    			myCanvas = new Canvas(SIZE);
+    		protected void setCanvas(Canvas canvas){
+    			myCanvas = canvas;
     		}
     		
     		protected JFrame makeFrame(){
