@@ -44,25 +44,27 @@ public class ClientModel extends Observable implements IClientModel, IModel {
      * This is the handler of information needed by all of the views in the process of connecting to
      * / creating a server, creating a game, waiting in a lobby.
      * 
-     * @param gameName
-     * @param userName
-     * @param factions
-     * @param maps
-     * @param maxPlayerArray
+     * @param gameName name of the game
+     * @param userName name of the user
+     * @param factionNameList a list of all faction choices, in string form
+     * @param mapNameList a list of all map names
+     * @param maxPlayerList a list of all max players. Should be the same length as the mapNameList
+     *        and contain an Integer value for the max players corresponding to the position that
+     *        the mapNameList.
      */
     public ClientModel (NetworkedGame game,
                         String gameName,
                         String userName,
-                        List<String> factions,
-                        List<String> maps,
-                        List<Integer> maxPlayerArray) {
+                        List<String> factionNameList,
+                        List<String> mapNameList,
+                        List<Integer> maxPlayerList) {
         myGame = game;
-        myFactions = factions;
+        myFactions = factionNameList;
         myUserName = userName;
         myClient = new Client(this);
         IMessage initialConnection = new InitialConnectionMessage(gameName, userName);
         myClient.sendData(initialConnection);
-        myViewAdapter = new ClientViewAdapter(this, gameName, maps, maxPlayerArray);
+        myViewAdapter = new ClientViewAdapter(this, gameName, mapNameList, maxPlayerList);
     }
 
     @Override
@@ -126,7 +128,7 @@ public class ClientModel extends Observable implements IClientModel, IModel {
     }
 
     /**
-     * 
+     * Gets the panel that this model's view uses.
      * @return the view used by all networking functions
      */
     public JPanel getView () {
