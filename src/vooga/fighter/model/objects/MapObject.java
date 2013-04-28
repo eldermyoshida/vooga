@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import util.Sound;
+import vooga.fighter.model.ModelConstants;
 import vooga.fighter.model.loaders.MapLoader;
 import vooga.fighter.model.utils.UpdatableLocation;
 
@@ -39,7 +40,7 @@ public class MapObject extends GameObject {
         myCurrentSound = null;
         myName = mapName;
         setLoader(new MapLoader(mapName, this, pathHierarchy));
-        setCurrentState("background");
+        setCurrentState(ModelConstants.BACKGROUND_PROPERTY);
         setImageData();
     }
 

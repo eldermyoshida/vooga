@@ -41,17 +41,17 @@ public class AttackObjectLoader extends ObjectLoader {
 	 */
 	protected void load(String attackName, String pathHierarchy) {
 		Document doc = getDocument();
-		NodeList attackNodes = doc.getElementsByTagName(getResourceBundle().getString("Attack"));
+		NodeList attackNodes = doc.getElementsByTagName(ModelConstants.ATTACK_PROPERTY);
 
 		for (int i = 0; i < attackNodes.getLength(); i++) {
 			Element attackNode = (Element) attackNodes.item(i);
-			String name = getAttributeValue(attackNode, getResourceBundle().getString("AttackName"));
-			NodeList effects= doc.getElementsByTagName(getResourceBundle().getString("Effect"));;
+			String name = getAttributeValue(attackNode, ModelConstants.ATTACKNAME_PROPERTY);
+			NodeList effects= doc.getElementsByTagName(ModelConstants.EFFECT_PROPERTY);;
 			if (attackName.equals(name)) {
 				addProperties(attackNode, myAttack);
-				NodeList stateNodes = attackNode.getElementsByTagName(getResourceBundle().getString("State"));
+				NodeList stateNodes = attackNode.getElementsByTagName(ModelConstants.STATE_PROPERTY);
 				addStates(stateNodes, myAttack);
-				myAttack.defineDefaultState(getAttributeValue(attackNode, getResourceBundle().getString("Default")));
+				myAttack.defineDefaultState(getAttributeValue(attackNode, ModelConstants.DEFAULT_PROPERTY));
 				addEffects(effects, pathHierarchy);
 			
 			}
@@ -66,8 +66,8 @@ public class AttackObjectLoader extends ObjectLoader {
 	protected void addEffects(NodeList effects, String pathHierarchy){
 		for (int i=0; i<effects.getLength(); i++){
 			Node effect= effects.item(i);
-			String effectPath= getResourceBundle().getString("EffectPath");
-			String effectName= getAttributeValue(effect,getResourceBundle().getString("EffectName"));
+			String effectPath= getResourceBundle().getString(ModelConstants.EFFECT_PATH_TAG);
+			String effectName= getAttributeValue(effect,ModelConstants.EFFECTNAME_PROPERTY);
 			Object effectObject = null;
 			Effect curr = null;
 			try {
@@ -77,10 +77,10 @@ public class AttackObjectLoader extends ObjectLoader {
 				curr = (Effect) effectObject;
 			}
 			catch (Exception e) {
-				throw new NullPointerException("No Such Class");
+				throw new NullPointerException(ModelConstants.NO_CLASS_EXCEPTION);
 			}
-			getAndAddProperty(effect, getResourceBundle().getString("Duration"), curr);
-			getAndAddProperty(effect, getResourceBundle().getString("Damage"), curr);
+			getAndAddProperty(effect, ModelConstants.DURATION_PROPERTY, curr);
+			getAndAddProperty(effect, ModelConstants.DAMAGE_PROPERTY, curr);
 			myAttack.addEffect(curr);
 		}
 	}

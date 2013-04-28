@@ -49,7 +49,7 @@ public class CharacterObject extends GameObject {
         myMovingDirection = ModelConstants.RIGHT; 
         myCurrentAttacks = new ArrayList<AttackObject>();
         setLoader(new CharacterLoader(charName, this, pathHierarchy));
-        setHealth(getProperty("maxHealth"));
+        setHealth(getProperty(ModelConstants.MAXHEALTH_PROPERTY));
         setToDefaultState();
         getCurrentState().setLooping(true);
         setLocation(center);
@@ -79,7 +79,7 @@ public class CharacterObject extends GameObject {
     public void updateState() {
         super.updateState();
         if (getCurrentState().hasCompleted()) {
-            setCurrentState("stand");            
+            setCurrentState(ModelConstants.STAND);            
         }
     }
 
@@ -112,7 +112,7 @@ public class CharacterObject extends GameObject {
      * Returns the mass for character
      */
     public int getMass() {
-        return getProperty("mass");
+        return getProperty(ModelConstants.MASS_PROPERTY);
     }
     
     /**
@@ -203,7 +203,7 @@ public class CharacterObject extends GameObject {
      */
     public void move(int direction) {
         myMovingDirection = direction; 
-        getLocation().translate(new Vector(direction, getProperty("movespeed")));
+        getLocation().translate(new Vector(direction, getProperty(ModelConstants.MOVESPEED_PROPERTY)));
 
     }
 
@@ -228,7 +228,7 @@ public class CharacterObject extends GameObject {
      * Will add jump method
      */
     public void jump() {        
-        getLocation().addAcceleration(new Vector(ModelConstants.UP, getProperty("jumpfactor")));
+        getLocation().addAcceleration(new Vector(ModelConstants.UP, getProperty(ModelConstants.JUMPFACTOR_PROPERTY)));
     } 
     
 

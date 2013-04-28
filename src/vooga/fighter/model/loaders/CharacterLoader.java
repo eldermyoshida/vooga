@@ -42,17 +42,17 @@ public class CharacterLoader extends ObjectLoader {
 	 */
 	protected void load(String charName, String pathHierarchy) {
 		Document doc = getDocument();
-		NodeList charNodes = doc.getElementsByTagName(getResourceBundle().getString("Character"));
+		NodeList charNodes = doc.getElementsByTagName(ModelConstants.CHARACTER_PROPERTY);
 
 		for (int i = 0; i < charNodes.getLength(); i++) {
 			Element node = (Element) charNodes.item(i);
-			String name = getAttributeValue(node, getResourceBundle().getString("CharacterName"));
+			String name = getAttributeValue(node, ModelConstants.CHARACTERNAME_PROPERTY);
 			if (charName.equals(name)) {
 				addProperties(node, myChar);
-				NodeList stateNodes = node.getElementsByTagName(getResourceBundle().getString("State"));
+				NodeList stateNodes = node.getElementsByTagName(ModelConstants.STATE_PROPERTY);
 				addStates(stateNodes, myChar);
-				myChar.defineDefaultState(getAttributeValue(node, getResourceBundle().getString("Default")));
-				NodeList attackNodes = node.getElementsByTagName(getResourceBundle().getString("Attack"));
+				myChar.defineDefaultState(getAttributeValue(node, ModelConstants.DEFAULT_PROPERTY));
+				NodeList attackNodes = node.getElementsByTagName(ModelConstants.ATTACK_PROPERTY);
 				addAttacks(attackNodes, pathHierarchy);
 			}
 		}
@@ -68,7 +68,7 @@ public class CharacterLoader extends ObjectLoader {
 	 */
 	private void addAttacks(NodeList attackNodes, String pathHierarchy) {
 		for (int i = 0; i < attackNodes.getLength(); i++) {
-			String attackName = getAttributeValue(attackNodes.item(i), getResourceBundle().getString("AttackName"));
+			String attackName = getAttributeValue(attackNodes.item(i), ModelConstants.ATTACKNAME_PROPERTY);
 			AttackObject newAttack = new AttackObject(attackName, pathHierarchy);
 			newAttack.setOwner(myChar);
 			newAttack.setOwnerForEffects(myChar);

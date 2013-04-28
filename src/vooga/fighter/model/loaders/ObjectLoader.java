@@ -13,6 +13,7 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import util.Pixmap;
+import vooga.fighter.model.ModelConstants;
 import vooga.fighter.model.objects.GameObject;
 import vooga.fighter.model.utils.State;
 
@@ -25,19 +26,7 @@ import vooga.fighter.model.utils.State;
 public abstract class ObjectLoader {
 
 
-    private String delimiter= ",";
-    /**
-     * The String representation of the location of the resource that will be loaded into myResources.
-     */
-	private String RESOURCE_OBJECT_PATH = "config.objects";
-    /**
-     * The String representation of the location of the resource that will be loaded into myDefaults.
-     */
-	private String RESOURCE_DEFAULT_VALUES_PATH="config.defaultvalues";
-    /**
-     * The String representation of the location of the resource that will be loaded into myProperties.
-     */
-	private String RESOURCE_PROPERTIES_PATH="config.propertyfields";
+
 	/**
 	 * Raw format of XML document containing object information
 	 */
@@ -73,7 +62,7 @@ public abstract class ObjectLoader {
 			myDocument.getDocumentElement().normalize();
 		} catch (Exception e) {
 			myDocument = null;
-			System.err.println("Parsing error/file not found for " + getClass().getSimpleName());
+			System.err.println(ModelConstants.PARSING_ERROR+ getClass().getSimpleName());
 		}
 	}
 	
@@ -82,9 +71,9 @@ public abstract class ObjectLoader {
 	 * @param pathHierarchy The path to the folder containing the game's resources
 	 */
 	private void setResourcePaths(String pathHierarchy){
-		myTags = ResourceBundle.getBundle(pathHierarchy+RESOURCE_OBJECT_PATH);
-		myDefaults= ResourceBundle.getBundle(pathHierarchy+RESOURCE_DEFAULT_VALUES_PATH);
-		myProperties= ResourceBundle.getBundle(pathHierarchy+RESOURCE_PROPERTIES_PATH);
+		myTags = ResourceBundle.getBundle(pathHierarchy+ModelConstants.RESOURCE_OBJECT_PATH);
+		myDefaults= ResourceBundle.getBundle(pathHierarchy+ModelConstants.RESOURCE_DEFAULT_VALUE_PATH);
+		myProperties= ResourceBundle.getBundle(pathHierarchy+ModelConstants.RESOURCE_PROPERTIES_PATH);
 	}
 
 	/**
@@ -124,7 +113,7 @@ public abstract class ObjectLoader {
 		}
 		catch(NullPointerException e){
 				String value= myDefaults.getString(getClass().getSimpleName()+tag);
-				System.err.println("Property "+ tag+ " not set.  Default value is "+value);
+				System.err.println(ModelConstants.PROPERTYSET_ERROR1+ tag+ ModelConstants.PROPERTYSET_ERROR2+value);
 				return value;
 		}
 	}
@@ -137,8 +126,8 @@ public abstract class ObjectLoader {
 	protected void addStates(NodeList stateNodes, GameObject myObject) {
 		for (int i = 0; i < stateNodes.getLength(); i++) {
 			Element state = (Element) stateNodes.item(i);
-			String stateName = getAttributeValue(stateNodes.item(i), getResourceBundle().getString("StateName"));
-			NodeList frameNodes = state.getElementsByTagName(getResourceBundle().getString("Frame"));
+			String stateName = getAttributeValue(stateNodes.item(i), ModelConstants.STATENAME_PROPERTY);
+			NodeList frameNodes = state.getElementsByTagName(ModelConstants.FRAME_PROPERTY);
 			State newState = new State(myObject, frameNodes.getLength());
 			getFrameProperties(frameNodes, newState);
 			myObject.addState(stateName, newState);
@@ -154,16 +143,16 @@ public abstract class ObjectLoader {
 	protected void getFrameProperties(NodeList frameNodes, State newState){
 		for (int j = 0; j < frameNodes.getLength(); j++) {
 			Element frame = (Element) frameNodes.item(j);
-			if (frame.getAttributes().getNamedItem(getResourceBundle().getString("Image")) != null){
-				newState.populateImage(new Pixmap(getAttributeValue(frame, getResourceBundle().getString("Image"))), j);
+			if (frame.getAttributes().getNamedItem(ModelConstants.IMAGE_PROPERTY) != null){
+				newState.populateImage(new Pixmap(getAttributeValue(frame, ModelConstants.IMAGE_PROPERTY)), j);
 			} else {
-				newState.populateImage(new Pixmap(getResourceBundle().getString("Blank")), j);
+				newState.populateImage(new Pixmap(ModelConstants.BLANK), j);
 			}
-			NodeList hitboxNodes = frame.getElementsByTagName(getResourceBundle().getString("Hitbox")); 
+			NodeList hitboxNodes = frame.getElementsByTagName(ModelConstants.HITBOX_PROPERTY); 
 			for (int k=0; k<hitboxNodes.getLength(); k++){
-				newState.populateRectangle(new Rectangle(Integer.parseInt(getAttributeValue(hitboxNodes.item(k), getResourceBundle().getString("CornerX"))),
-						Integer.parseInt(getAttributeValue(hitboxNodes.item(k), getResourceBundle().getString("CornerY"))), Integer.parseInt(getAttributeValue(hitboxNodes.item(k), getResourceBundle().getString("Width"))),
-						Integer.parseInt(getAttributeValue(hitboxNodes.item(k), getResourceBundle().getString("Height")))), j);
+				newState.populateRectangle(new Rectangle(Integer.parseInt(getAttributeValue(hitboxNodes.item(k), ModelConstants.CORNERX_PROPERTY)),
+						Integer.parseInt(getAttributeValue(hitboxNodes.item(k), ModelConstants.CORNERY_PROPERTY)), Integer.parseInt(getAttributeValue(hitboxNodes.item(k), ModelConstants.WIDTH_PROPERTY)),
+						Integer.parseInt(getAttributeValue(hitboxNodes.item(k), ModelConstants.HEIGHT_PROPERTY))), j);
 			}
 		}
 	}
@@ -172,7 +161,7 @@ public abstract class ObjectLoader {
 	 * Return array of desired properties that will be loaded into the character
 	 */
 	protected String [] getProperties(){
-		return myProperties.getString(getClass().getSimpleName()).split(delimiter);
+		return myProperties.getString(getClass().getSimpleName()).split(ModelConstants.DELIMITER);
 	}
 	
 	/**

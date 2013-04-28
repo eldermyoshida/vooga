@@ -52,24 +52,24 @@ public class MenuGridLoader extends ObjectLoader {
 	 */
     protected void load (String menuname, String pathHierarchy) {
         Document doc = getDocument();
-        NodeList menugridNodes = doc.getElementsByTagName(getResourceBundle().getString("MenuMode"));
+        NodeList menugridNodes = doc.getElementsByTagName(ModelConstants.MENUMODE_PROPERTY);
         for (int i = 0; i < menugridNodes.getLength(); i++) {
             Element node = (Element) menugridNodes.item(i);
-            String name = getAttributeValue(node, getResourceBundle().getString("MenuName"));
+            String name = getAttributeValue(node, ModelConstants.MENUNAME_PROPERTY);
             if (name.equals(menuname)) {
-                NodeList menuobjects = node.getElementsByTagName(getResourceBundle().getString("MenuObject"));
+                NodeList menuobjects = node.getElementsByTagName(ModelConstants.MENUOBJECT_PROPERTY);
                 for (int j = 0; j < menuobjects.getLength(); j++) {
                     Element node1 = (Element) menuobjects.item(j);
-                    String MenuObjectName = getAttributeValue(node1, getResourceBundle().getString("MenuObjectName"));
+                    String MenuObjectName = getAttributeValue(node1, ModelConstants.MENUOBJECTNAME_PROPERTY);
                     MenuObject menuobject = new MenuObject(MenuObjectName, myDelegate, pathHierarchy);
                     if (j == 0) myObject = menuobject;
-                    int xCoord = Integer.parseInt(getAttributeValue(node1, getResourceBundle().getString("XCoordinate")));
-                    int yCoord = Integer.parseInt(getAttributeValue(node1, getResourceBundle().getString("YCoordinate")));
+                    int xCoord = Integer.parseInt(getAttributeValue(node1, ModelConstants.XCOORD_PROPERTY));
+                    int yCoord = Integer.parseInt(getAttributeValue(node1,ModelConstants.YCOORD_PROPERTY));
                     menuobject.setLocation(new UpdatableLocation(xCoord, yCoord));
-                    String nextStateName = getAttributeValue(node1, getResourceBundle().getString("NextState"));
+                    String nextStateName = getAttributeValue(node1, ModelConstants.NEXTSTATE_PROPERTY);
                     menuobject.setNext(nextStateName);
-                    int xSize = Integer.parseInt(getAttributeValue(node1, getResourceBundle().getString("XSize")));
-                    int ySize = Integer.parseInt(getAttributeValue(node1, getResourceBundle().getString("YSize")));
+                    int xSize = Integer.parseInt(getAttributeValue(node1, ModelConstants.XSIZE_PROPERTY));
+                    int ySize = Integer.parseInt(getAttributeValue(node1, ModelConstants.YSIZE_PROPERTY));
                     for (Object s : menuobject.getStates().values()) {
                         State state = (State) s;
                         for (int k = 0; k < state.getNumFrames(); k++) {
@@ -80,15 +80,15 @@ public class MenuGridLoader extends ObjectLoader {
                             state.populateAllDelays(ModelConstants.FOUR_TICKS);
                         }
                     }
-                    int gridnum = Integer.parseInt(getAttributeValue(node1, getResourceBundle().getString("GridNum")));
+                    int gridnum = Integer.parseInt(getAttributeValue(node1, ModelConstants.GRIDNUM_PROPERTY));
                     menuobject.setNum(gridnum);
-                    int up = Integer.parseInt(getAttributeValue(node1, getResourceBundle().getString("Up")));
+                    int up = Integer.parseInt(getAttributeValue(node1, ModelConstants.UP_PROPERTY));
                     menuobject.setUp(up);
-                    int down = Integer.parseInt(getAttributeValue(node1, getResourceBundle().getString("Down")));
+                    int down = Integer.parseInt(getAttributeValue(node1, ModelConstants.DOWN_PROPERTY));
                     menuobject.setDown(down);
-                    int left = Integer.parseInt(getAttributeValue(node1, getResourceBundle().getString("Left")));
+                    int left = Integer.parseInt(getAttributeValue(node1, ModelConstants.LEFT_PROPERTY));
                     menuobject.setLeft(left);
-                    int right = Integer.parseInt(getAttributeValue(node1, getResourceBundle().getString("Right")));
+                    int right = Integer.parseInt(getAttributeValue(node1, ModelConstants.RIGHT_PROPERTY));
                     menuobject.setRight(right);
                     myMenuObjects.add(menuobject);
                 }

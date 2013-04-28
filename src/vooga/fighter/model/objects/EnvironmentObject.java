@@ -1,5 +1,6 @@
 package vooga.fighter.model.objects;
 
+import vooga.fighter.model.ModelConstants;
 import vooga.fighter.model.loaders.EnvironmentObjectLoader;
 import vooga.fighter.model.utils.UpdatableLocation;
 
@@ -45,7 +46,7 @@ public class EnvironmentObject extends GameObject {
     private void init (String name, String pathHierarchy) {
         myName = name;
         setLoader(new EnvironmentObjectLoader(name, this, pathHierarchy));
-        setCurrentState("default");
+        setCurrentState(ModelConstants.DEFAULT_PROPERTY);
         getCurrentState().setLooping(true);
         setImageData();
     }
