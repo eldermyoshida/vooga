@@ -5,40 +5,54 @@
 			<dimension>800, 600</dimension>
 			<location>North</location>
 		</MapScreen>
-		<ShopScreen>
-			<dimension>800, 200</dimension>
+		<MultipleScreenPanel>
+			<dimension>1000, 200</dimension>
 			<location>South</location>
-		</ShopScreen>
-		<GameStatsScreen>
-			<dimension>200, 200</dimension>
+			<ShopScreen>
+				<dimension>600, 100</dimension>
+				<location>Center</location>
+			</ShopScreen>
+			<NextWaveScreen>
+				<dimension>200, 100</dimension>
+				<location>East</location>
+			</NextWaveScreen>
+		</MultipleScreenPanel>
+		<MultipleScreenPanel>
+			<dimension>200, 600</dimension>
 			<location>East</location>
-		</GameStatsScreen>
+			<GameStatsScreen>
+				<dimension>200, 300</dimension>
+				<location>North</location>
+			</GameStatsScreen>
+			<GameElementInformationScreen>
+				<dimension>200, 300</dimension>
+				<location>South</location>
+			</GameElementInformationScreen>
+		</MultipleScreenPanel>
 	</view>
 	<map>
 		<Map1>
-			<image>tower.gif</image>
+			<image>grass_tile.gif</image>
 			<tile_size>50</tile_size>
 			<dimension>
 				<width>500</width>
 				<height>500</height>
 			</dimension>
-			<grid>
-			1 1 1 1 1 1 1 1 1 1
-			1 1 1 1 1 1 1 1 1 1
-			1 1 1 1 1 1 1 1 1 1
-			1 1 1 1 1 1 1 1 1 1
-			1 2 2 2 1 1 1 1 1 1
-			s 2 1 2 1 2 2 2 2 d
-			1 1 1 2 1 2 1 1 1 1
-			1 1 1 2 2 2 1 1 1 1
-			1 1 1 1 1 1 1 1 1 1
-			1 1 1 1 1 1 1 1 1 1
-			</grid>
+			<grid>0 0 0 0 0 0 0 0 0 0
+			0 1 1 1 1 0 0 0 0 0
+			s 1 0 0 1 0 0 0 0 0
+			0 0 0 0 1 0 0 0 0 0
+			0 0 0 0 1 0 0 0 0 0
+			0 0 0 0 1 0 0 0 0 0
+			0 0 0 0 1 0 0 0 0 0
+			0 0 0 0 1 0 0 0 0 0
+			0 0 0 0 1 1 1 1 1 d
+			0 0 0 0 0 0 0 0 0 0</grid>
 		</Map1>
 	</map>
 	<player>
 		<attributes>
-			<Health>100.0</Health>
+			<Health>10.0</Health>
 			<Score>0.0</Score>
 			<Money>1000.0</Money>
 		</attributes>
@@ -49,7 +63,7 @@
 			<image>dog.gif</image>
 			<type>Unit</type>
 			<attributes>
-				<HEALTH>100</HEALTH>
+				<HEALTH>10</HEALTH>
 				<MOVE_SPEED>50</MOVE_SPEED>
 				<DIRECTION>0</DIRECTION>
 			</attributes>
@@ -57,8 +71,8 @@
 				<FollowPath>
 				</FollowPath>
 				<Move>
-					<parameter1>MOVE_SPEED</parameter1>
-					<parameter2>DIRECTION</parameter2>
+					<parameter>MOVE_SPEED</parameter>
+					<parameter>DIRECTION</parameter>
 				</Move>
 			</actions>			
 		</Dog>
@@ -75,8 +89,8 @@
 				<FollowPath>
 				</FollowPath>
 				<Move>
-					<parameter1>MOVE_SPEED</parameter1>
-					<parameter2>DIRECTION</parameter2>
+					<parameter>MOVE_SPEED</parameter>
+					<parameter>DIRECTION</parameter>
 				</Move>
 			</actions>			
 		</Bear>
@@ -93,8 +107,8 @@
 				<FollowPath>
 				</FollowPath>
 				<Move>
-					<parameter1>MOVE_SPEED</parameter1>
-					<parameter2>DIRECTION</parameter2>
+					<parameter>MOVE_SPEED</parameter>
+					<parameter>DIRECTION</parameter>
 				</Move>
 			</actions>			
 		</Elephant>
@@ -106,27 +120,36 @@
 				<HEALTH>100</HEALTH>
 			</attributes>
 			<actions>
-			
 			</actions>			
 		</TestTower>
 	</gameelements>
 	<rules>
 		<EnemyReachedEndRule/>
 		<NextLevelRule/>
+		<LoseAtZeroHealthRule/>
 	</rules>
 	<levels>
+		<Level0>
+			<rules>
+			</rules>
+			<actions>
+				<LevelTimerAction>
+					<parameter>10000</parameter>
+				</LevelTimerAction>
+			</actions>
+		</Level0>
 		<Level1>
 			<rules>
 			</rules>
 			<actions>
 				<WaveAction>
-					<parameter1>10</parameter1>
-					<parameter2>1000</parameter2>
-					<parameter3>Elephant</parameter3>
+					<parameter>10</parameter>
+					<parameter>1000</parameter>
+					<parameter>Elephant</parameter>
 				</WaveAction>
-				<TimerAction>
-					<parameter1>60000</parameter1>
-				</TimerAction>
+				<LevelTimerAction>
+					<parameter>60000</parameter>
+				</LevelTimerAction>
 			</actions>
 		</Level1>
 		<Level2>
@@ -134,13 +157,13 @@
 				</rules>
 				<actions>
 				<WaveAction>
-					<parameter1>10</parameter1>
-					<parameter2>1000</parameter2>
-					<parameter3>Bear</parameter3>
+					<parameter>10</parameter>
+					<parameter>1000</parameter>
+					<parameter>Bear</parameter>
 				</WaveAction>
-				<TimerAction>
-					<parameter1>60000</parameter1>
-				</TimerAction>
+				<LevelTimerAction>
+					<parameter>60000</parameter>
+				</LevelTimerAction>
 				</actions>
 			</Level2>
 	</levels>
