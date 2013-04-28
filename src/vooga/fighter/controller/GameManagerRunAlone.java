@@ -16,88 +16,12 @@ import arcade.games.UserGameData;
  * 
  * @author Jack Matteucci
  * 
-<<<<<<< HEAD
- * 
- * NOTE:  THIS CODE IS JUST FOR TESTING PURPOSES!
-=======
  *  * NOTE:  THIS CODE IS JUST FOR TESTING PURPOSES!
->>>>>>> 8734b60d0f7bb49747aa9abcaf69fb09ac8b0c32
  * It is duplicated but only because we didn't 
  * want to have to include arcade when testing...
  */
 
 public class GameManagerRunAlone{
-<<<<<<< HEAD
-    	public static final Dimension SIZE = new Dimension(800, 600);
-    	    public static final String TITLE = "Fighter!";
-    	    private static final String PATHWAY = "vooga.fighter.";
-    	    public static final int THREE_TOP_HIGH_SCORES = 3;
-    	    private Canvas myCanvas;
-    	    private ControllerManager myControllerManager;
-    	    private GameInfo myGameInfo;
-    	    private String myHardFilePathway;
-
-    	    public GameManagerRunAlone(String pathway) {
-    	    	setFilePathway(pathway);
-    	        setCanvas();
-    	        setInfo();
-    	        ControllerFactory factory = makeFactory(myCanvas,myHardFilePathway);
-    	        ControlProgressionManager progressionmanager = makeProgression(factory.getMap());
-    	        myControllerManager = makeManager(myCanvas, myGameInfo, factory, progressionmanager,myHardFilePathway);
-    	        JFrame frame = makeFrame();
-    	        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    	        frame.getContentPane().add(myCanvas, BorderLayout.CENTER);
-    	        frame.pack();
-    	        frame.setVisible(true);
-    	    }
-
-    	    public void run (){
-    	        myControllerManager.run();
-    	    }
-
-    	    protected ControllerFactory makeFactory(Canvas canvas, String pathway){
-    	        return new ControllerFactory(canvas, pathway);
-    	    }
-
-    	    protected ControllerManager makeManager(Canvas canvas, GameInfo info, ControllerFactory factory,
-    	                                            ControlProgressionManager progression, String myFilePathway){
-    	        return new ControllerManager(canvas, info, factory, progression, myFilePathway);
-    	    }
-
-    	    protected ControlProgressionManager makeProgression(Map<String, Controller> map){
-    	        return new ControlProgressionManager(map);
-    	    }
-
-
-    	    public UserGameData generateNewProfile(){
-    	        return myGameInfo;
-    	    }
-
-    	    protected void setFilePathway(){
-    	        myHardFilePathway = PATHWAY;
-    	    }
-    	    
-    	    protected void setFilePathway(String pathway) {
-    	    	myHardFilePathway = pathway;
-    	    }
-    		 
-    		 protected GameInfo getGameInfo(){
-    			 return myGameInfo;
-    		 }
-
-    		protected void setInfo(){
-    			myGameInfo = new GameInfo(new MapLoader(myHardFilePathway).getMapNames());
-    		}
-    		
-    		protected void setCanvas(){
-    			myCanvas = new Canvas(SIZE);
-    		}
-    		
-    		protected JFrame makeFrame(){
-    			return new JFrame(TITLE);
-    		}
-
-=======
     public static final Dimension SIZE = new Dimension(800, 600);
 
     public static final String TITLE = "Fighter!";
@@ -172,6 +96,5 @@ public class GameManagerRunAlone{
         setCanvas(new Canvas(SIZE));
         setInfo(new GameInfo(new MapLoader(myHardFilePathway).getMapNames()));
     }
->>>>>>> 8734b60d0f7bb49747aa9abcaf69fb09ac8b0c32
 
 }

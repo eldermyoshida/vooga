@@ -66,7 +66,7 @@ public class ControllerFactory {
         Controller controller = null;
         try {
             Class<?> controllerClass = null;
-            String filePath = myPackageName + controllerName;
+            String filePath = "vooga.fighter.controller.levels." + controllerName;
             controllerClass = Class.forName(filePath);
             controllerObject = controllerClass.newInstance();
             controller = (Controller) controllerObject;
