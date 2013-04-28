@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -269,6 +270,13 @@ public class GameEditorController extends JFrame {
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         String path = packageName.replace(".", "/");
         URL resource = classLoader.getResource(path);
+        path = resource.toString().replaceAll("%20", " ");
+        try {
+            resource = new URL(path);
+        }
+        catch (MalformedURLException e1) {
+            e1.printStackTrace();
+        }
         File directory = new File(resource.getFile());
         if (directory.exists()) {
             File[] files = directory.listFiles();
@@ -350,6 +358,13 @@ public class GameEditorController extends JFrame {
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         String path = packagePath.replace(".", "/");
         URL resource = classLoader.getResource(path);
+        path = resource.toString().replaceAll("%20", " ");
+        try {
+            resource = new URL(path);
+        }
+        catch (MalformedURLException e1) {
+            e1.printStackTrace();
+        }
         File directory = new File(resource.getFile());
         if (directory.exists()) {
             File[] files = directory.listFiles();
