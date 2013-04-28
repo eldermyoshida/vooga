@@ -27,7 +27,7 @@ public abstract class RTSGame extends Game {
         ResourceManager.getInstance().registerResourceLoader(new SoundLoader());
         ResourceManager.getInstance().setResourceBase(DEFAULT_RESOURCE_LOCATION);
         
-        // Build game with game Definition file
+        //Build game with game Definition file
         myFactory = new Factory();
         myFactory.loadXMLFile(gameDefinition);
         

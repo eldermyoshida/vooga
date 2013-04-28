@@ -23,34 +23,29 @@ import vooga.rts.util.Location3D;
  */
 public class CanAttack implements AttackStrategy {
 
-	private static final Location3D DEFAULTLOCATION = new Location3D(0,0,0);
-	private static final int DEFAULTTEAM = 0;
+    private static final Location3D DEFAULTLOCATION = new Location3D(0, 0, 0);
+    private static final int DEFAULTTEAM = 0;
     private List<Weapon> myWeapons;
     private int myWeaponIndex;
-    
+
     /**
      * Creates a new attack strategy that represents an entity that can attack.
-     * This strategy is created with a weapon so that the entity will be able 
+     * This strategy is created with a weapon so that the entity will be able
      * to attack.
-     * @param worldLocation is the location of the entity that has this 
-     * strategy (it is needed for the position of the weapon)
+     * 
+     * @param worldLocation is the location of the entity that has this
+     *        strategy (it is needed for the position of the weapon)
      * @param PlayerID is the team that the entity with this strategy is on
      */
     public CanAttack (Location3D worldLocation, int PlayerID) {
         myWeapons = new ArrayList<Weapon>();
-        Weapon defaultWeapon =
-                new Weapon(new Projectile(Projectile.DEFAULT_PIC, worldLocation,
-                                          Projectile.DEFAULT_DIMENSION, PlayerID,
-                                          Projectile.DEFAULT_DAMAGE, Projectile.DEFAULT_HEALTH,800),
-                           Weapon.DEFAULT_RANGE, worldLocation, Weapon.DEFAULT_COOLDOWN_TIME);
-        myWeapons.add(defaultWeapon);
         myWeaponIndex = 0;
     }
 
-    public CanAttack() {
-    	this(DEFAULTLOCATION, DEFAULTTEAM);
+    public CanAttack () {
+        this(DEFAULTLOCATION, DEFAULTTEAM);
     }
-    
+
     /**
      * Attacks the given IAttackable object by first judging whether the Weapon
      * is in range for the attack action.
@@ -64,12 +59,12 @@ public class CanAttack implements AttackStrategy {
         }
     }
 
-    
-    public void setWeaponLocation(Location3D newLocation) {
-    	for(Weapon weapon : myWeapons) {
-    		weapon.setCenter(newLocation);
-    	}
+    public void setWeaponLocation (Location3D newLocation) {
+        for (Weapon weapon : myWeapons) {
+            weapon.setCenter(newLocation);
+        }
     }
+
     /**
      * Determines if the IAttackable object is in the range of the currently
      * activated Weapon.
@@ -91,15 +86,14 @@ public class CanAttack implements AttackStrategy {
     public List<Weapon> getWeapons () {
         return myWeapons;
     }
-    
+
     /**
-     * Sets myWeapons to the new list of weapons. 
+     * Sets myWeapons to the new list of weapons.
      */
-    public void setWeapons(List<Weapon> newWeapons){
-    	myWeapons = newWeapons;
+    public void setWeapons (List<Weapon> newWeapons) {
+        myWeapons = newWeapons;
     }
-    
-    
+
     /**
      * Returns the index of the Weapon that's currently been activated in the
      * list of Weapons belonged to this CanAttack object.
@@ -120,7 +114,6 @@ public class CanAttack implements AttackStrategy {
         myWeaponIndex = weaponIndex;
     }
 
-
     /**
      * Adds a Weapon to the list of Weapons belonged to this AttackStrategy.
      * 
@@ -130,21 +123,27 @@ public class CanAttack implements AttackStrategy {
         myWeapons.add(weapon);
     }
 
-
     public Weapon getCurrentWeapon () {
         return myWeapons.get(myWeaponIndex);
     }
+
+    public boolean hasWeapon () {
+        return true;
+    }
     
-    public boolean hasWeapon(){
-    	return true;
+    public void affect (InteractiveEntity other) {
+        CanAttack toAdd = new CanAttack();
+        toAdd.setWeaponIndex(0);
+        toAdd.setWeapons(this.getWeapons());
+        other.setAttackStrategy(toAdd);
     }
 
+    @Override
+    public void setPlayerID (int playerID) {
+        for (Weapon weapon : myWeapons) {
+            weapon.getProjectile().setPlayerID(playerID);
+        }
 
-	public void affect(InteractiveEntity other) {
-		CanAttack toAdd = new CanAttack();
-		toAdd.setWeaponIndex(0);
-		toAdd.setWeapons(this.getWeapons());
-		other.setAttackStrategy(toAdd);
-	}
+    }
 
 }

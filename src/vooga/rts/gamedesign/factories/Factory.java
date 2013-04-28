@@ -56,9 +56,8 @@ public class Factory {
     public static final String MATCHING_TYPE_TAG = "type";
     public static final String MATCHING_PATH_TAG = "path";
 
-    
     private Map<String, Integer> myStarterPack;
-    
+
     private Map<String, String> myDecoderPaths;
     private Map<String, Decoder> myDecoders;
     private Map<String, InteractiveEntity> mySprites;
@@ -128,9 +127,10 @@ public class Factory {
         myProjectiles.put(name, proj);
     }
 
-    public void put (String name, int amount){
+    public void put (String name, int amount) {
         myStarterPack.put(name, amount);
     }
+
     public Map<String, UpgradeTree> getUpgradeTrees () {
         return myUpgradeTrees;
     }
@@ -212,12 +212,12 @@ public class Factory {
     }
 
     /**
-     * Returns the initial values of the game defined by the XML file. 
+     * Returns the initial values of the game defined by the XML file.
      */
-    public Map<String, Integer> getStarterPack(){
+    public Map<String, Integer> getStarterPack () {
         return myStarterPack;
     }
-    
+
     /**
      * Puts a production dependency (tells the factory what "name" can produce) in
      * a dependency map.
@@ -325,7 +325,8 @@ public class Factory {
                                   InvocationTargetException, NoSuchMethodException,
                                   ClassNotFoundException {
         for (String key : myDecoderPaths.keySet()) {
-            Decoder decoder = (Decoder) ReflectionHelper.makeInstance(myDecoderPaths.get(key), this);
+            Decoder decoder =
+                    (Decoder) ReflectionHelper.makeInstance(myDecoderPaths.get(key), this);
             myDecoders.put(key, decoder);
         }
     }
@@ -367,9 +368,9 @@ public class Factory {
         catch (Exception e) {
             e.printStackTrace();
         }
+        initializeStrategies();
         initializeProjectiles();
         initializeWeapons();
-        initializeStrategies();
         initializeProducables();
 
     }
@@ -450,9 +451,4 @@ public class Factory {
 
     }
 
-    public static void main (String[] args) {
-        Factory a = new Factory();
-        a.loadXMLFile("Factory.xml");
-
-    }
 }

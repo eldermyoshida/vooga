@@ -35,8 +35,6 @@ public class Weapon {
     private int myRange;
     private List<Projectile> myProjectiles;
     private double myCooldownTime;
-    // private Interval interval;
-    private Ellipse2D myRangeCircle;
     private Location3D myCenter;
     private AttackingState attackingState;
 
@@ -49,25 +47,25 @@ public class Weapon {
      * @param projectile
      */
     public Weapon (Projectile projectile, int range, Location3D center, double cooldownTime) {
-    	this(range, cooldownTime);
+        this(range, cooldownTime);
         myProjectile = projectile;
         myCenter = center;
     }
 
-    public Weapon(int range, double cooldownTime) {
-    	myRange = range;
-    	myCooldownTime = cooldownTime;
-    	myProjectiles = new ArrayList<Projectile>();
+    public Weapon (int range, double cooldownTime) {
+        myRange = range;
+        myCooldownTime = cooldownTime;
+        myProjectiles = new ArrayList<Projectile>();
         attackingState = AttackingState.NOT_ATTACKING;
     }
-    
+
     /**
      * This method is used by the weapon to attack an InteractiveEntity.
      * 
      */
     public void fire (InteractiveEntity interactiveEntity) {
         final InteractiveEntity toBeShot = interactiveEntity;
-        if (!toBeShot.isDead() && attackingState == AttackingState.NOT_ATTACKING) {
+        if (canFire(toBeShot)) {
             attackingState = AttackingState.WAITING;
             cooldownTime = new DelayedTask(myCooldownTime, new Runnable() {
 
@@ -88,6 +86,20 @@ public class Weapon {
     }
 
     /**
+     * Determines whether a weapon can possibly fire based on whether or not it is already waiting
+     * to attack (or attacking) and whether
+     * its target is dead or not. This method is used to make sure that a delayed task (for weapon
+     * cooldown) is not overwritten before it
+     * is used.
+     * 
+     * @param toBeShot is the enemy being targeted
+     * @return whether or not the weapon can create a delayed task to fire
+     */
+    private boolean canFire (final InteractiveEntity toBeShot) {
+        return !toBeShot.isDead() && attackingState == AttackingState.NOT_ATTACKING;
+    }
+
+    /**
      * 
      * NOTE: moving this method is gonna break DamageUpgradeNode.
      * 
@@ -105,13 +117,14 @@ public class Weapon {
     public List<Projectile> getProjectiles () {
         return myProjectiles;
     }
-    
+
     /**
      * Returns the projectile that is currently in use.
+     * 
      * @return the projectile that is currently in use
      */
-    public Projectile getProjectile() {
-    	return myProjectile;
+    public Projectile getProjectile () {
+        return myProjectile;
     }
 
     /**
@@ -132,9 +145,6 @@ public class Weapon {
      *         if the interactive is out of the range of the weapon
      */
     public boolean inRange (InteractiveEntity enemy, double distance) {
-//        myRangeCircle = new Ellipse2D.Double(myCenter.getX(), myCenter.getY(), myRange, myRange);
-//        return myRangeCircle.contains(enemy.getWorldLocation().to2D());
-//        ellipse thing doesnt seem to be working very well.
         return (distance < this.myRange);
     }
 

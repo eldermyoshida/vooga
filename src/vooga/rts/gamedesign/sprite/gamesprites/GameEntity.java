@@ -111,10 +111,6 @@ public class GameEntity extends GameSprite {
         return myCurrentHealth;
     }
 
-    public EntityState getState () {
-        return myEntityState;
-    }
-
     /**
      * Sets the health of the entity.
      * 
@@ -159,6 +155,7 @@ public class GameEntity extends GameSprite {
      */
     public void setPlayerID (int playerID) {
         myPlayerID = playerID;
+
     }
 
     /**
@@ -214,6 +211,11 @@ public class GameEntity extends GameSprite {
         return mySpeed;
     }
 
+    /**
+     * Sets the speed of the entity.
+     * 
+     * @param speed is the speed that the entity will have
+     */
     public void setSpeed (int speed) {
         mySpeed = speed;
     }

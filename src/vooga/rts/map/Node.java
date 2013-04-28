@@ -154,7 +154,7 @@ public class Node {
                 continue;
             }
             GameEntity ge = (GameEntity) item;
-            if (ge.getState().getOccupyState() == OccupyState.OCCUPYING) {
+            if (ge.getEntityState().getOccupyState() == OccupyState.OCCUPYING) {
                 continue;
             }
 
