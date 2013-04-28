@@ -21,6 +21,7 @@ import vooga.scroller.sprites.interfaces.Locatable;
 import vooga.scroller.sprites.movement.Movement;
 import vooga.scroller.sprites.movement.TrackPlayer;
 import vooga.scroller.sprites.superclasses.GameCharacter;
+import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.util.ISpriteView;
 import vooga.scroller.util.Pixmap;
 
@@ -52,7 +53,7 @@ public class FishLib extends EncapsulatedSpriteLibrary {
         }
 
         @Override
-        public void useItem (MrFish p) {
+        public void useItem (Player p) {
             p.setHealth(p.getHealth() + HEALTH_GAIN);          
         }  
     }
@@ -100,8 +101,9 @@ public class FishLib extends EncapsulatedSpriteLibrary {
 
 
         @Override
-        public void useItem (MrFish p) {
-            p.addItem(getRandomItem());
+        public void useItem (Player p) {
+            MrFish fish = (MrFish) p;
+            fish.addItem(getRandomItem());
             
         }
 
@@ -134,7 +136,7 @@ public class FishLib extends EncapsulatedSpriteLibrary {
             return 10;
         }
         @Override
-        public void useItem (MrFish p) {
+        public void useItem (Player p) {
             double multiplier = Math.pow(myRandom.nextGaussian()-.5, 3);
             p.takeHit((int)(HEALTH_MULTIPLIER*multiplier));
             }
@@ -161,8 +163,9 @@ public class FishLib extends EncapsulatedSpriteLibrary {
             return 0;
         }
         @Override
-        public void useItem (MrFish p) {
-            p.incrementScore(SCORE);
+        public void useItem (Player p) {
+            MrFish fish = (MrFish) p;
+            fish.incrementScore(SCORE);
             
         }
 

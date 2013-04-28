@@ -58,7 +58,7 @@ public class MrFish extends Player {
     
     
     
-    private Inventory myInventory;
+    private Inventory<MrFish, Item> myInventory;
     private Statistic myScore;
     private Statistic myMoney;
     
@@ -70,7 +70,7 @@ public class MrFish extends Player {
         super(MR_FISH_VIEW, center, MR_FISH_SIZE, gameView, sm, MR_FISH_HEALTH, MR_FISH_DAMAGE);
         
         myScore = new Score();
-        myInventory = new Inventory(this);
+        myInventory = new Inventory<MrFish, Item>(this);
         
         myScoreHeader = new ValueText(myScore.getName(), myScore.getAggregateValue());
         myHealthHeader = new ValueText(HEALTH_STRING, this.getHealth());
