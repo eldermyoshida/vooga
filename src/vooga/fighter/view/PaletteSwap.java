@@ -1,21 +1,21 @@
 package vooga.fighter.view;
 
 import java.awt.Graphics;
-import java.awt.Image;
 import java.awt.image.BufferedImage;
-import java.awt.image.RescaleOp;
-
 import sun.awt.image.ToolkitImage;
-import util.Pixmap;
 import vooga.fighter.util.Paintable;
+
+/**
+ * This class is to be used for changing the colors of images. Currently,
+ * PaletteSwap can only be used to set images to GrayScale
+ * 
+ * @author Bill Muensterman
+ * 
+ */
 
 public class PaletteSwap {
 
-	public PaletteSwap(Image i) {
-
-	}
-
-	public void setImageToGreyScale(Paintable paintable) {
+	public void setImageToGrayScale(Paintable paintable) {
 		BufferedImage buffered = ((ToolkitImage) paintable).getBufferedImage();
 		BufferedImage temp = new BufferedImage(buffered.getWidth(),
 				buffered.getHeight(), BufferedImage.TYPE_BYTE_GRAY);

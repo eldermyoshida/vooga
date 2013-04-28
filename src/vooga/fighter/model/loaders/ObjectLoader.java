@@ -123,9 +123,9 @@ public abstract class ObjectLoader {
 			return value; 
 		}
 		catch(NullPointerException e){
-			String value= myDefaults.getString(getClass().getSimpleName()+tag);
-			System.err.println("Property "+ tag+ " not set.  Default value is "+value);
-			return value;
+				String value= myDefaults.getString(getClass().getSimpleName()+tag);
+				System.err.println("Property "+ tag+ " not set.  Default value is "+value);
+				return value;
 		}
 	}
 
@@ -176,15 +176,23 @@ public abstract class ObjectLoader {
 	}
 	
 	/**
-	 * Loops through list of properties and adds property values for gameobject
+	 * Loops through list of properties and 
 	 * @param node The node which contains the property information
 	 * @param object The GameObject which will have the property information added into
 	 */
 	protected void addProperties(Node node, GameObject object){
 		for (String property: getProperties()){
-			int propertyValue= Integer.parseInt(getAttributeValue(node, property));
-			object.addProperty(property, propertyValue);
+			getAndAddProperty(node, property, object);
 		}
 	}
+	
+	/**
+	 * Adds property values for gameobject
+	 */
+	protected void getAndAddProperty(Node node, String property, GameObject object){
+		int propertyValue= Integer.parseInt(getAttributeValue(node, property));
+		object.addProperty(property, propertyValue);
+	}
+	
 }
 

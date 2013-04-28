@@ -88,6 +88,13 @@ public class Pixmap implements Paintable {
 		// lasting effects
 		pen.setTransform(old);
 	}
+	
+	/**
+	 * Reverse the pen before painting
+	 * @param pen
+	 * @param center
+	 * @param size
+	 */
 
 	public void paintReverse(Graphics2D pen, Point2D center, Dimension size) {
 		// Get the current transform
@@ -95,13 +102,15 @@ public class Pixmap implements Paintable {
 		// Perform transformation
 		pen.transform(AffineTransform.getScaleInstance(-1, 1));
 		// Render
-		// g2d.draw(...);
 		paint(pen, center, size);
 		// Restore original transform
 		pen.setTransform(saveAT);
 
 	}
-
+	
+/**
+ * Uses BufferedImages and ToolKitImages to set an image to grayscale
+ */
 	public void setImageToGrayscale() {
 		BufferedImage buffered = ((ToolkitImage) myImage).getBufferedImage();
 		BufferedImage temp = new BufferedImage(buffered.getWidth(),

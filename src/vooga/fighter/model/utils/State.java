@@ -4,7 +4,6 @@ import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Rectangle;
 
-import vooga.fighter.model.objects.AttackObject;
 import vooga.fighter.model.objects.GameObject;
 import util.Location;
 import util.Pixmap;

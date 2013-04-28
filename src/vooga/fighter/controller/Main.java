@@ -21,7 +21,7 @@ public class Main extends JFrame
     {
 
         GameManagerRunAlone control = new GameManagerRunAlone();
-
         control.run();
     }
 }
+

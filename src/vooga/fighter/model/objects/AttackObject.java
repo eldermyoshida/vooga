@@ -134,6 +134,15 @@ public class AttackObject extends GameObject{
     public void setOwner(CharacterObject owner){
     	myOwner= owner; 
     }
+    
+    /**
+     * Sets the owner for effects
+     */
+    public void setOwnerForEffects(CharacterObject owner){
+    	for (Effect effect: myEffects){
+    		effect.setOwner(owner);
+    	}
+    }
     /**
      * Inflicts damage upon a target player.
      */
