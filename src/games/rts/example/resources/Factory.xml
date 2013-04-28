@@ -172,14 +172,14 @@
 	<projectiles src = "vooga.rts.gamedesign.sprite.gamesprites.Projectile">
 		<projectile>
 			<name>bullet</name>
-			<img>bullet.png</img>
+			<img>images/bullet.png</img>
 			<damage>10</damage>
 			<lifespan>100</lifespan>
 			<speed>200</speed>
 		</projectile>
 		<projectile>
 			<name>sniperbullet</name>
-			<img>bullet.png</img>
+			<img>images/bullet.png</img>
 			<damage>10</damage>
 			<lifespan>100</lifespan>
 			<speed>400</speed>

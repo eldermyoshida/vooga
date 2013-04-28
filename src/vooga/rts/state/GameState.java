@@ -59,7 +59,6 @@ public class GameState extends SubState implements Controller, Observer {
     private FrameCounter myFrames;
 
     private Rectangle2D myDrag;
-    private Factory myFactory;
 
     private MiniMap myMiniMap;
 
