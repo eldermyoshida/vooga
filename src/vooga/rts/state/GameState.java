@@ -196,19 +196,6 @@ public class GameState extends SubState implements Controller, Observer {
                                        DEFAULT_OCCUPY_RELATIVE_LOCATION);
         getPlayers().getPlayer(playerID).add(startOccupy);
 
-        // This is for testing
-        final Building testGarrison = startOccupy;
-
-        myTasks.add(new DelayedTask(10, new Runnable() {
-            @Override
-            public void run () {
-                if (testGarrison.getOccupyStrategy().getOccupiers().size() > 0) {
-                    System.out.println("will puke!");
-                    testGarrison.getAction(new Command("deoccupy")).apply();
-                }
-            }
-        }));
-
     }
 
     private InteractiveEntity setLocation (InteractiveEntity subject,

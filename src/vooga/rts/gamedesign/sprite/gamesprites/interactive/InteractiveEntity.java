@@ -300,7 +300,9 @@ public abstract class InteractiveEntity extends GameEntity implements
 		for (String s : myActions.keySet()) {
 			// need to check what type it is...eg it cant be a left click
 			String commandName = s.split(" ")[0];
-			if (commandName.equals("make") || commandName.equals("deoccupy")) { // very buggy
+			//if (commandName.equals("make") || commandName.equals("deoccupy")) { // very buggy
+			if(!(commandName.equals("leftclick") || commandName.equals("rightclick"))) {
+				System.err.println("yollo: " + commandName);
 				infoCommands.add(new InformationCommand(s, myActionInfos.get(s)));
 			}
 
