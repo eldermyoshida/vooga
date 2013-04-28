@@ -469,20 +469,20 @@ public abstract class InteractiveEntity extends GameEntity implements
 	}
 
 	/**
-	 * If the passed in parameter is another InteractiveEntity, checks to see if
-	 * it is a Building and can be occupied, checks to see if it is an enemy,
-	 * and if so, switches to attack state. Defaults to move to the center of
-	 * the other InteractiveEntity
+	 * First the the GameEntity that is passed in is checked to see if it is a
+	 * resource which can be gathered. Next, it checks to see if it is a
+	 * Building and can be occupied.  After that it checks to see if it is an enemy, and if so,
+	 * switches to attack state. Finally, it defaults to move to the center of the other
+	 * InteractiveEntity.
 	 * 
 	 * @param other
-	 *            - the other InteractiveEntity
+	 *            - the the GameEntity that was right clicked on
 	 */
 	public void recognize(GameEntity other) {
 		myTargetEntity = other;
-		if(other instanceof Resource) {
+		if (other instanceof Resource) {
 			getEntityState().setUnitState(UnitState.GATHER);
-		}
-		else if (isEnemy((InteractiveEntity)other)) {
+		} else if (isEnemy((InteractiveEntity) other)) {
 			getEntityState().setUnitState(UnitState.ATTACK);
 		} else if (other instanceof Building) {
 			getEntityState().setUnitState(UnitState.OCCUPY);
@@ -570,7 +570,7 @@ public abstract class InteractiveEntity extends GameEntity implements
 		if (myAttackStrategy.hasWeapon()) {
 			Weapon weapon = myAttackStrategy.getCurrentWeapon();
 			if (getEntityState().inAttackMode()) {
-				((InteractiveEntity)myTargetEntity).getAttacked(this);
+				((InteractiveEntity) myTargetEntity).getAttacked(this);
 			} else {
 				List<InteractiveEntity> enemies = findEnemies(weapon);
 				if (!enemies.isEmpty()) {
@@ -686,13 +686,13 @@ public abstract class InteractiveEntity extends GameEntity implements
 	public void setUpgradeStrategy(UpgradeStrategy upgradeStrategy) {
 		myUpgradeStrategy = upgradeStrategy;
 	}
-	
+
 	/**
-	 * Returns the target entity of this entity.  In other words, if an entity
-	 * is right clicked on, that entity becomes the target entity which is
-	 * returned from this method.
+	 * Returns the target entity of this entity. In other words, if an entity is
+	 * right clicked on, that entity becomes the target entity which is returned
+	 * from this method.
 	 * 
-	 * @return the target interactive entity
+	 * @return the target game entity
 	 */
 	public GameEntity getTargetEntity() {
 		return myTargetEntity;
