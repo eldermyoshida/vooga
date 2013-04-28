@@ -5,12 +5,12 @@ package vooga.towerdefense.action;
  * @author JLongley
  *
  */
-public class TimerAction extends Action {
+public class LevelTimerAction extends Action {
 
 	private int myDuration;
 	private int myTimer;
 	
-	public TimerAction(int duration) {
+	public LevelTimerAction(int duration) {
 		super();
 		myTimer = 0;
 		myDuration = duration;

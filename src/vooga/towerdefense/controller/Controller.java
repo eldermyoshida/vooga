@@ -4,7 +4,6 @@ import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
-import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -246,20 +245,11 @@ public class Controller {
 	 * @param item
 	 * @param p
 	 */
-	// TODO The item that should be added should be a new instance of the one in
-	// the shop!!!
 	public void fixItemOnMap(GameElement item, Point p) {
-		//GameElement newItem = createNewElement(item);
 		if (myModel.getMap().isTower(item)) {
-			Location snappedLocation = getPointSnappedToGrid(new Location(p.getX(),
-					p.getY()));
-			//newItem.setCenter(snappedLocation.getX(), snappedLocation.getY());
-			//item.setCenter(snappedLocation.getX(), snappedLocation.getY());
-			item.setCenter(50, 50);
 			myModel.getMap().blockTiles(item);
+			myModel.getMap().updatePaths();
 		}
-
-		
 		myModel.getMap().addToMap(item);
 		displayMap();
 		myControlMode = new SelectMode();
@@ -298,37 +288,6 @@ public class Controller {
 	 */
 	public String getStringFromResources(String s) {
 		return myResourceBundle.getString(s);
-	}
-
-	/**
-	 * 
-	 * @param item
-	 *            Object to create new instance of
-	 * @return new instance of item
-	 */
-	private GameElement createNewElement(GameElement item) {
-		try {
-			Class<? extends GameElement> myClass = item.getClass();
-			@SuppressWarnings("rawtypes")
-			Class[] types = { Pixmap.class, Location.class, Dimension.class,
-					List.class, String.class };
-			Constructor<? extends GameElement> constructor = myClass
-					.getConstructor(types);
-			//FIXME:  the actions are passed by referece.  To truly be a new instance, they must be remade as well
-			Object[] parameters = { item.getPixmap(), item.getCenter(),
-					item.getSize(), item.getActions()};
-			Object myNewItem = constructor.newInstance(parameters);
-			return (GameElement) myNewItem;
-		} catch (InvocationTargetException e) {
-			// ??
-			System.out.println(e.getMessage());
-		}
-
-		catch (Exception e) {
-			// ??
-			System.out.println(e.getMessage());
-		}
-		return null;
 	}
 
 	/**
@@ -485,6 +444,23 @@ public class Controller {
 	
 	public Dimension getTileSize() {
 		return myModel.getMap().getTileSize();
+	}
+
+	/**
+	 * The function called when the model reaches winning conditions
+	 */
+	public void win() {
+	    myView.showWinScreen();
+		
+	}
+
+	/**
+	 * The function called when the model reaches losing conditions
+	 */
+	public void lose() {
+	    System.out.println("You lose");
+	    myView.showLoseScreen();
+		
 	}
 
 }

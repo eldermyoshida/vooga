@@ -15,7 +15,7 @@ public class WinAtScoreRule extends Rule {
 
 	@Override
 	protected boolean condition() {
-		return (myModel.getPlayer().getAttributeManager().getAttribute("SCORE").getValue() > 1000);
+		return (myModel.getPlayer().getAttributeManager().getAttribute("Score").getValue() > 1000);
 	}
 
 	@Override

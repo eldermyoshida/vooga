@@ -30,18 +30,15 @@ public class EnemyReachedEndRule extends Rule {
 	@Override
 	protected boolean condition() {
 		for (GameElement e : myModel.getMap().getAllGameElements()) {
-			// TODO: fix the affiliation code
-			// //if the element's affiliation is 1, aka, it is an enemy unit
-			// if(
-			// Math.floor(e.getAttributeManager().getAttribute("affilitation").getValue())
-			// == 1) {
-			Tile enemyTile = myModel.getMap().getTile(e.getCenter());
-			Tile endTile = myModel.getMap().getTile(
-					myModel.getMap().getEndLocation());
-			if (enemyTile == endTile) { // enemy reached tile
-				enemiesAtEnd.add(e);
+			if (myModel.getMap().isEnemy(e)) {
+				Tile enemyTile = myModel.getMap().getTile(e.getCenter());
+				Tile endTile = myModel.getMap().getTile(
+						myModel.getMap().getEndLocation());
+				
+				if (enemyTile == endTile) { //enemy reached tile
+					enemiesAtEnd.add(e);
+				}
 			}
-			// }
 		}
 		return (enemiesAtEnd.size() > 0);
 	}
@@ -54,6 +51,8 @@ public class EnemyReachedEndRule extends Rule {
 					.getAttributeManager()
 					.getAttribute(AttributeConstantsEnum.HEALTH.getStatusCode());
 			health.setValue(health.getValue() - HEALTH_COST);
+			System.out.println("enemy reached end");
+			System.out.println("health: "+ health.getValue());
 			myModel.getMap().removeGameElement(e);
 		}
 		enemiesAtEnd.clear();
