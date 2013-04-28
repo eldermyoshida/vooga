@@ -25,6 +25,10 @@ public class IndividualResourceManager {
         myResources = new HashMap<String, Integer>();
     }
 
+    public Map<String,Integer> getResources(){
+        return myResources;
+    }
+    
     /**
      * Returns how much of a type of resource the player has.
      * 
@@ -86,10 +90,8 @@ public class IndividualResourceManager {
      */
     public boolean has (Map<String, Integer> costMap){
         for(String key : costMap.keySet()){
-            if(myResources.containsKey(key)){
-                if(myResources.get(key) < costMap.get(key)){
+            if(!myResources.containsKey(key) || myResources.get(key) < costMap.get(key)){
                     return false;
-                }
             }
         }
         return true;

@@ -77,16 +77,14 @@ public abstract class Decoder {
         Element costElement =
                 (Element) infoElement.getElementsByTagName(COST_TAG).item(0).getChildNodes();
         NodeList mapList = costElement.getChildNodes();
-        Map<String, Integer> costMap = null;
+        Map<String, Integer> costMap = new HashMap<String, Integer>();
         for (int i = 0; i < mapList.getLength(); i++) {
-            costMap = new HashMap<String, Integer>();
             Node costElem = mapList.item(i);
             if (costElem.getNodeType() == Node.ELEMENT_NODE) {
                 String rName = costElem.getNodeName();
                 int cost = Integer.parseInt(costElem.getTextContent());
                 costMap.put(rName, cost);
             }
-
         }
         return new Information(name, description, button, costMap);
     }
