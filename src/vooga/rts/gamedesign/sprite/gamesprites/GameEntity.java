@@ -2,6 +2,7 @@ package vooga.rts.gamedesign.sprite.gamesprites;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;
+import java.awt.geom.Line2D;
 import vooga.rts.gamedesign.state.EntityState;
 import vooga.rts.gamedesign.state.MovementState;
 import vooga.rts.util.Location3D;
@@ -48,10 +49,22 @@ public class GameEntity extends GameSprite {
         mySpeed = DEFAULT_SPEED;
     }
 
-    public boolean reachedGoal () {
+    public boolean reachedGoal (double elapsedTime) {
+        final int CHECK_SQUARE = 6;
         Vector v = getWorldLocation().difference(myGoal.to2D());
-        return (v.getMagnitude() < Location3D.APPROX_EQUAL);
+        if (v.getMagnitude() < Location3D.APPROX_EQUAL) {
+            return true;
+        }
+        v.scale(elapsedTime);
+        Location3D future = new Location3D(getWorldLocation());        
+        future.translate(v);        
+        Line2D lineTest = new Line2D.Double(getWorldLocation().to2D(), future.to2D());        
+        if (lineTest.intersects(myGoal.getX() - CHECK_SQUARE/2, myGoal.getY() - CHECK_SQUARE / 2, CHECK_SQUARE, CHECK_SQUARE)){
+            return true;
+        }
+        return false;
     }
+
 
     /**
      * Updates the shape's location.
@@ -63,7 +76,7 @@ public class GameEntity extends GameSprite {
             notifyObservers();
         }
         Vector v = getWorldLocation().difference(myGoal.to2D());
-        if (reachedGoal()) {
+        if (reachedGoal(elapsedTime)) {
             setVelocity(v.getAngle(), 0);
             myEntityState.stop();
         }
