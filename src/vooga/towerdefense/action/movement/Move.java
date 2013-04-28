@@ -1,4 +1,4 @@
-package vooga.towerdefense.action.actionlist;
+package vooga.towerdefense.action.movement;
 
 import util.Location;
 import util.Vector;

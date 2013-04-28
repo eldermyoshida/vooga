@@ -1,4 +1,4 @@
-package vooga.towerdefense.action.actionlist;
+package vooga.towerdefense.action.attack;
 
 import java.util.ArrayList;
 import java.util.List;

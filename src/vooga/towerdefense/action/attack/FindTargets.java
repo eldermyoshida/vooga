@@ -1,6 +1,8 @@
-package vooga.towerdefense.action;
+package vooga.towerdefense.action.attack;
 
 import java.util.List;
+
+import vooga.towerdefense.action.TargetedAction;
 import vooga.towerdefense.attributes.Attribute;
 import vooga.towerdefense.gameelements.GameElement;
 import vooga.towerdefense.model.GameMap;

@@ -48,8 +48,7 @@ public class WaveAction extends Action {
 
 	private void spawnUnit() {
 		GameElement unit = myFactory.createElement(myMap.getSpawnLocation());
-		
-		//obfuscated way to make a unit an enemy
+		//make a unit an enemy
 		Attribute affiliation = unit.getAttributeManager().getAttribute(AttributeConstantsEnum.AFFILIATION.getStatusCode());
 		affiliation.modifyValue(AttributeConstantsEnum.Enemy.getValue());
 		

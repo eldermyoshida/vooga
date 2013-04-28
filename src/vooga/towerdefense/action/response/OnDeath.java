@@ -1,10 +1,6 @@
-package vooga.towerdefense.action.actionlist;
-
-import java.util.ArrayList;
-import java.util.List;
+package vooga.towerdefense.action.response;
 
 import vooga.towerdefense.action.Action;
-import vooga.towerdefense.attributes.Attribute;
 import vooga.towerdefense.attributes.AttributeConstantsEnum;
 import vooga.towerdefense.gameelements.GameElement;
 

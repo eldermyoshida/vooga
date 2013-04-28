@@ -1,4 +1,4 @@
-package vooga.towerdefense.action.actionlist;
+package vooga.towerdefense.action.attack;
 
 import vooga.towerdefense.action.TargetedAction;
 import vooga.towerdefense.attributes.Attribute;
@@ -6,7 +6,8 @@ import vooga.towerdefense.gameelements.GameElement;
 
 
 /**
- * Modify a specified attribute value.
+ * Modify a specified attribute value by applying another attribute's value to it. 
+ * E.g. modify unit's health using projectile's damage level.
  * 
  * @author Matthew Roy
  */

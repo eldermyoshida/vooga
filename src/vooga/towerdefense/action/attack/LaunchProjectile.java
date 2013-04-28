@@ -1,4 +1,4 @@
-package vooga.towerdefense.action.actionlist;
+package vooga.towerdefense.action.attack;
 
 import vooga.towerdefense.action.TargetedAction;
 import vooga.towerdefense.factories.elementfactories.GameElementFactory;
@@ -8,6 +8,7 @@ import util.Location;
 
 /**
  * Creates a projectile aimed at a target, target needs to be predefined by FindTarget action.
+ * Projectile created continues the follow up actions.
  * 
  * @author Matthew Roy
  * @author Zhen Gou
@@ -27,21 +28,14 @@ public class LaunchProjectile extends TargetedAction {
 
     /**
      * Creates a projectile with action of shooting at targets. 
-     * Needs to figure out way to pass target information (one per follow up action or all targets for all follow up actions etc.)
      * 
      * @param elapsedTime 
      */
     @Override
     public void executeAction (double elapsedTime) {
-    	GameElement projectile = myProjectileFactory.createElement(myStart);
-    	myMap.addGameElement(projectile);
-    	
-    	
-      /*  for (GameElement target : getTargets()) {
+    	for (GameElement target : getTargets()) {
             GameElement projectile = myProjectileFactory.createElement(myStart, target);
-            if (myMap.getAllGameElements().contains(projectile)){
-            	myMap.addGameElement(projectile);
-            }
-        }*/
+            myMap.addGameElement(projectile);
+        }
     }
 }

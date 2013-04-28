@@ -1,18 +1,21 @@
-package vooga.towerdefense.action;
+package vooga.towerdefense.action.actionlist;
 
+import vooga.towerdefense.action.TargetedAction;
 import vooga.towerdefense.attributes.Attribute;
 
 /**
+ * Defines an action that executes periodically.
+ * 
  * @author Matthew Roy
  * @author Zhen Gou
  * 
  */
 public class PeriodicAction extends TargetedAction {
-	private Attribute myCd;
+	private Attribute myCoolDown;
 	private double myTimer;
 
 	public PeriodicAction(Attribute cd) {
-		myCd = cd;
+		myCoolDown = cd;
 		resetTimer();
 	}
 
@@ -29,7 +32,7 @@ public class PeriodicAction extends TargetedAction {
 	@Override
 	public void executeAction(double elapsedTime) {
 		updateTimer(elapsedTime);
-		if (myTimer > myCd.getValue()) {
+		if (myTimer > myCoolDown.getValue()) {
 			updateFollowUpActions(elapsedTime);
 			resetTimer();
 		}
