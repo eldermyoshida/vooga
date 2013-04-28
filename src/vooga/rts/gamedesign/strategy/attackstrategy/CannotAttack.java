@@ -76,4 +76,10 @@ public class CannotAttack implements AttackStrategy {
 		
 	}
 
+    @Override
+    public void setPlayerID (int playerID) {
+      
+        
+    }
+
 }

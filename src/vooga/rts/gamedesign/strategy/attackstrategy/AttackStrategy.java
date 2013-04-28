@@ -59,5 +59,9 @@ public interface AttackStrategy extends Strategy{
 	 * Allows the caller to know if this class has a weapon
 	 */
 	public boolean hasWeapon();
-
+	
+	/**
+	 * Sets the player ID of the weapon so that it can fire at the correct people. 
+	 */
+	public void setPlayerID(int playerID);
 }
