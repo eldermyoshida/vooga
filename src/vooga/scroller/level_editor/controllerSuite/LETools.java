@@ -37,7 +37,6 @@ public class LETools extends Tools<LevelEditing> {
     private static final int OTHERS = 4;
     private static final String BACKGROUND_CMD =  CommandConstants.CHANGE_BACKGROUND;
     private List<Map<Image, String>> mySpritesOptions;
-//    private Map<Image, String> myBackgroundImages;
     private Map<String, Map<Image, String>> myOtherOptions;
 
     /**
