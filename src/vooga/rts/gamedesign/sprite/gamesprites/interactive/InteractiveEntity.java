@@ -11,8 +11,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
 import java.util.Set;
 import vooga.rts.action.Action;
 import vooga.rts.action.IActOn;
@@ -71,6 +73,7 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
     public static final double DEFAULT_BUILD_TIME = 5;
     private boolean isSelected;
     private Sound mySound;
+    private UpgradeTree myUpgradeTree;
     private AttackStrategy myAttackStrategy;
     private ProductionStrategy myProductionStrategy;
     private UpgradeStrategy myUpgradeStrategy;
@@ -84,6 +87,8 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
     private Information myInfo;
     private PathFinder myFinder;
     private Path myPath;
+    private Queue<DelayedTask> myQueueableTasks;
+    private DelayedTask myCurQueueTask;
     private InteractiveEntity myTargetEntity;
 
     /**
@@ -122,48 +127,50 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
         myBuildTime = buildTime;
         myOccupyStrategy = new CannotBeOccupied();
         myPath = new Path();
+        myQueueableTasks = new LinkedList<DelayedTask>();
+        myCurQueueTask = new DelayedTask(0, null);
         myFinder = new AstarFinder();
         myTargetEntity = this;
         setSpeed(DEFAULT_INTERACTIVEENTITY_SPEED);
     }
 
-    /**
-     * Adds an action and the corresponding description into the Action
-     * map.
-     */
     public void addAction (String command, Action action) {
         myActions.put(command, action);
     }
 
-    /**
-     * Removes action of the given command name from the Action map.
-     * @param command the command that matches the Action to be remvoed
-     */
     public void removeAction (String command) {
         myActions.remove(command);
     }
 
-    /**
-     * Returns the map of actions
-     * @return the map of actions
-     */
     public Map<String, Action> getActions () {
         return myActions;
     }
 
-    /**
-     * Sets the map of Actions into the map that's passed in
-     * 
-     * @param actions the map of Actions that will be used
-     */
     public void setActions (Map<String, Action> actions) {
         myActions = actions;
     }
 
     public abstract void addActions ();
 
+    /**
+     * TESTING
+     */
+    public ArrayList<String> getAllActionCommands () {
+        ArrayList<String> result = new ArrayList<String>();
+        for (String a : myActions.keySet()) {
+            result.add(a);
+        }
+        return result;
+    }
+
     public void addTask (DelayedTask dt) {
         myTasks.add(dt);
+    }
+
+    public void addQueueableTask (DelayedTask dt) {
+
+        System.err.println("Size of queue : " + myQueueableTasks.size());
+        myQueueableTasks.add(dt);
     }
 
     public void setInfo (Information info) {
@@ -174,21 +181,10 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
         return myInfo;
     }
 
-    /**
-     * Sets the upgradeTree to the production strategy tied to this object.
-     * 
-     * @param upgradeTree the tree that will be set to this object.
-     */
     public void setUpgradeTree (UpgradeTree upgradeTree) {
         myUpgradeStrategy.setUpgradeTree(upgradeTree, this);
     }
 
-    /**
-     * Returns the upgrade tree from the upgrade strategy.
-     * 
-     * @return the upgrade tree stored in the InteractiveEntity' upgrade
-     * strategies.
-     */
     public UpgradeTree getUpgradeTree () {
         return myUpgradeStrategy.getUpgradeTree();
     }
@@ -320,6 +316,7 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
             if (isMake.equals("make")) { // very buggy
                 infoCommands.add(new InformationCommand(s, myInfos.get(s)));
             }
+
         }
         if (infoCommands.isEmpty()) {
             return null;
@@ -534,6 +531,19 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
         myAttackStrategy = newStrategy;
     }
 
+    /**
+     * Sets the upgrade tree of the entity for a specific team based on an
+     * upgrade tree and player ID that are passed in.
+     * 
+     * @param upgradeTree
+     *        is the new upgrade tree that the entity will have
+     * @param playerID
+     *        is the team that the upgrade is for
+     */
+    public void setUpgradeTree (UpgradeTree upgradeTree, int playerID) {
+        myUpgradeTree = upgradeTree;
+    }
+
     @Override
     public void update (double elapsedTime) {
         if (myPath != null) {
@@ -555,6 +565,16 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
             if (!dt.isActive()) {
                 it.remove();
             }
+        }
+        if (myCurQueueTask != null) {
+
+            if (!myCurQueueTask.isActive() && myQueueableTasks.peek() != null) {
+                myCurQueueTask = myQueueableTasks.poll();
+                System.out.println(myCurQueueTask);
+            }
+
+            myCurQueueTask.update(elapsedTime);
+
         }
         if (myAttackStrategy.hasWeapon()) {
             Weapon weapon = myAttackStrategy.getCurrentWeapon();
@@ -592,7 +612,14 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
                                                                  false);
         return enemies;
     }
-    
+
+    /*
+     * Test method to add an interactive entity to
+     */
+    public void addProducable (InteractiveEntity producable) {
+        myProductionStrategy.addProducable(producable);
+    }
+
     @Override
     public void updateAction (Command command) {
         if (myActions.containsKey(command.getMethodName())) {
@@ -656,11 +683,9 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
     }
 
     private void findpath (Location3D destination) {
-        System.out.println("Finding path");
         myPath = GameState.getMap().getPath(myFinder, getWorldLocation(), destination);
-        System.out.println("Found path");
         if (myPath != null) {
-            myProductionStrategy.setRallyPoint(this);            
+            myProductionStrategy.setRallyPoint(this);
         }
     }
 
@@ -674,14 +699,13 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
     }
 
     /**
-     * Returns the target entity of this entity. In other words, if an entity
-     * is right clicked on, that entity becomes the target entity which is
-     * returned from this method.
+     * Returns the target entity of this entity. In other words, if an entity is
+     * right clicked on, that entity becomes the target entity which is returned
+     * from this method.
      * 
      * @return the target interactive entity
      */
     public InteractiveEntity getTargetEntity () {
         return myTargetEntity;
     }
-
 }

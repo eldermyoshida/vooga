@@ -8,6 +8,7 @@ import vooga.rts.commands.Command;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit;
 import vooga.rts.gamedesign.state.OccupyState;
+import vooga.rts.util.Information;
 
 
 /**
@@ -43,7 +44,7 @@ public class CanBeOccupied implements OccupyStrategy {
      * strategy and the Unit.
      * 
      * @param entity The InteractiveEntity that has this strategy and will be
-     * occupied
+     *        occupied
      * @param occupier the Unit that wishes to occupy the InteractiveEntity
      */
     public void getOccupied (InteractiveEntity entity, Unit occupier) {
@@ -53,19 +54,20 @@ public class CanBeOccupied implements OccupyStrategy {
             }
             myOccupierHashCodes.add(occupier.hashCode());
             entity.setChanged();
+
             occupier.getEntityState().setOccupyState(OccupyState.OCCUPYING);
             occupier.setVisible(false);
             entity.notifyObservers(occupier);
         }
     }
-    
+
     /**
      * Gets the hash code of all the occupiers
      * 
      * @return the list of all the occupiers
      */
-    public List<Integer> getOccupiers() {
-    	return myOccupierHashCodes;
+    public List<Integer> getOccupiers () {
+        return myOccupierHashCodes;
     }
 
     /**
@@ -83,7 +85,9 @@ public class CanBeOccupied implements OccupyStrategy {
      * @param entity the object that is occupied.
      */
     private void addDeoccupyAction (final InteractiveEntity entity) {
-        entity.addAction("deoccupy", new InteractiveAction(entity) {
+
+        String commandName = "deoccupy";
+        entity.addAction(commandName, new InteractiveAction(entity) {
             @Override
             public void update (Command command) {
             }
@@ -100,19 +104,23 @@ public class CanBeOccupied implements OccupyStrategy {
                 }
             }
         });
+        entity.addInfo(commandName, new Information(commandName, "this deoccupies errboday",
+                                                    "buttons/unload.gif", null));
     }
 
     /**
-     *
+     * 
      * Applies this CanBeOccupied strategy to another InteractiveEntity that is
      * passed in, by setting it as the InteractiveEntity's strategy and
      * recreating the actions.
      * 
      * @param other the InteractiveEntity that will receive the strategy.
      */
-	public void affect(InteractiveEntity entity) {
-		OccupyStrategy newOccupy = new CanBeOccupied();
-		newOccupy.createOccupyActions(entity);
-		entity.setOccupyStrategy(newOccupy);
-	}
+
+    public void affect (InteractiveEntity entity) {
+        OccupyStrategy newOccupy = new CanBeOccupied();
+        newOccupy.createOccupyActions(entity);
+        entity.setOccupyStrategy(newOccupy);
+    }
+
 }

@@ -5,6 +5,7 @@ import java.util.List;
 
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.Building;
+import vooga.rts.gamedesign.state.ProducingState;
 import vooga.rts.gamedesign.strategy.Strategy;
 import vooga.rts.util.Location3D;
 
@@ -51,6 +52,11 @@ public class CannotProduce implements ProductionStrategy{
 
 	public void setRallyPoint(InteractiveEntity entity) {
 		return;
+	}
+
+	@Override
+	public ProducingState getProducingState() {
+		return ProducingState.NOT_PRODUCING;
 	}
 
 }
