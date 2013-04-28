@@ -48,7 +48,6 @@ public class GameManagerRunAlone{
     /**
     * Runs the entire engine
     */
-    @Override
     public void run () {
         myControllerManager.run();
     }
