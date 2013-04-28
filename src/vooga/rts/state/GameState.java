@@ -44,10 +44,6 @@ import vooga.rts.util.TimeIt;
 public class GameState extends SubState implements Controller, Observer {
     private static final Location3D DEFAULT_SOLDIER_ONE_RELATIVE_LOCATION = new Location3D(300,
                                                                                            300, 0);
-    private static final Location3D DEFAULT_SOLDIER_TWO_RELATIVE_LOCATION = new Location3D(0, 500,
-                                                                                           0);
-    private static final Location3D DEFAULT_SOLDIER_THREE_RELATIVE_LOCATION = new Location3D(300,
-                                                                                             0, 0);
 
     private static final Location3D DEFAULT_WORKER_RELATIVE_LOCATION = new Location3D(200, 200, 0);
 
@@ -57,7 +53,7 @@ public class GameState extends SubState implements Controller, Observer {
     private static final Location3D DEFAULT_OCCUPY_RELATIVE_LOCATION = new Location3D(300, 300, 0);
 
     private static GameMap myMap;
-    private static PlayerManager myPlayers;
+    private static PlayerManager myPlayers = new PlayerManager();
 
     private List<DelayedTask> myTasks;
     private FrameCounter myFrames;
@@ -70,33 +66,15 @@ public class GameState extends SubState implements Controller, Observer {
     private boolean isGameOver;
 
     public GameState (Observer observer) {
-        super(observer);
-        MapLoader ml = null;
-        try {
-            ml = new MapLoader();
-            ml.loadMapFile("/vooga/rts/tests/maps/testmap/testmap.xml");
-        }
-        catch (ParserConfigurationException e) {
-        }
-        catch (Exception e1) {
-        }
-        setMap(ml.getMyMap());
-        myMiniMap = new MiniMap(getMap(), new Location(50, 500), new Dimension(150, 200));
-
-        // myMap = new GameMap(new Dimension(4000, 2000), true);
-        myPlayers = new PlayerManager();
-        // myMap = new GameMap(8, new Dimension(512, 512));
-
+        super(observer);        
         myFrames = new FrameCounter(new Location(100, 20));
         myTasks = new ArrayList<DelayedTask>();
-        isGameOver = false;
-        setupGame();
+        isGameOver = false;        
     }
 
     @Override
     public void update (double elapsedTime) {
         if (isGameOver) {
-            System.out.println("gamestate update game over");
             setChanged();
             notifyObservers();
         }
@@ -105,7 +83,7 @@ public class GameState extends SubState implements Controller, Observer {
 
         for (DelayedTask dt : myTasks) {
             dt.update(elapsedTime);
-        }        
+        }
         myFrames.update(elapsedTime);
     }
 
@@ -114,7 +92,7 @@ public class GameState extends SubState implements Controller, Observer {
         Scale.unscalePen(pen);
         pen.setBackground(Color.BLACK);
         myMap.paint(pen);
-        myMiniMap.paint(pen);
+        // myMiniMap.paint(pen);
 
         if (myDrag != null) {
             pen.draw(myDrag);
@@ -123,7 +101,7 @@ public class GameState extends SubState implements Controller, Observer {
         Camera.instance().paint(pen);
         myFrames.paint(pen);
         Scale.scalePen(pen);
-        myPlayers.getHuman().paint(pen);
+        getPlayers().getHuman().paint(pen);
     }
 
     @Override
@@ -144,12 +122,17 @@ public class GameState extends SubState implements Controller, Observer {
     }
 
     public void setupGame () {
-        getPlayers().addPlayer(1);
+        getPlayers().addPlayer(1);        
+        //getPlayers().getPlayer(0).setBase(getMap().getPlayerLocations().get(0));
+        getPlayers().getPlayer(0).setBase(new Location3D(200, 200, 0));
         Location3D playerOneBase = getPlayers().getHuman().getBase();
         generateInitialSprites(0, playerOneBase);
 
         getPlayers().addPlayer(2);
+        
         Location3D playerEnemyBase = getPlayers().getPlayer(1).getEnemyBase();
+        //getPlayers().getPlayer(1).setBase(getMap().getPlayerLocations().get(1));
+        getPlayers().getPlayer(1).setBase(new Location3D(800, 800, 0));
         generateInitialSprites(1, playerEnemyBase);
 
         generateResources();
@@ -226,7 +209,23 @@ public class GameState extends SubState implements Controller, Observer {
 
     @Override
     public void activate () {
-        // TODO Auto-generated method stub
+    }
 
+    public void setupMap (String mapfile) {
+        MapLoader ml = null;
+        try {
+            ml = new MapLoader();
+            ml.loadMapFile(mapfile);
+        }
+        catch (ParserConfigurationException e) {
+        }
+        catch (Exception e1) {
+        }
+        if (ml.getMyMap().getPlayerLocations().size() >= 2) {
+            return;
+        }
+        setMap(ml.getMyMap());
+        myMiniMap = new MiniMap(getMap(), new Location(50, 500), new Dimension(150, 200));
+        setupGame();
     }
 }

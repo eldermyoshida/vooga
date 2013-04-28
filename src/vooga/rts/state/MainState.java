@@ -36,6 +36,9 @@ public class MainState implements State, Observer {
     private Timer myTimer;
     private InputController myController;
     private boolean myReady;
+    private String myMapFile;
+    
+    private GameState myGame; 
 
     public MainState () {
         myReady = false;
@@ -49,9 +52,9 @@ public class MainState implements State, Observer {
 
         MenuState menu = new MenuState(this, getWindow().getJFrame());
         myStates.put(loader, menu);
-        GameState game = new GameState(this);
-        myStates.put(menu, game);
-        myStates.put(game, menu);
+        myGame = new GameState(this);
+        myStates.put(menu, myGame);
+        myStates.put(myGame, menu);
 
         Input input = new Input(DEFAULT_INPUT_LOCATION, myWindow.getCanvas());
         myController = new InputController(this);
@@ -80,8 +83,7 @@ public class MainState implements State, Observer {
         if (o instanceof LoadingState) {
             MenuState m = new MenuState(this, myWindow.getJFrame());
             setActiveState(m);
-            m.setMenu(0);
-            
+            m.setMenu(0);            
         }
         else if (o instanceof MenuState) {
             setActiveState(new GameState(this));
@@ -98,7 +100,6 @@ public class MainState implements State, Observer {
     }
 
     private void render () {
-
         Graphics2D graphics = myWindow.getCanvas().getGraphics();
         graphics.setColor(Color.BLACK);
         graphics.fillRect(0, 0, myWindow.getCanvas().getWidth(), myWindow.getCanvas().getHeight());
@@ -155,5 +156,11 @@ public class MainState implements State, Observer {
 
     public void stop () {
         myTimer.cancel();
+    }
+
+    // Added so that we can actually get a game to create itself....
+    public void setMapFile (String map) {
+        myMapFile = map;     
+        myGame.setupMap(map);
     }
 }

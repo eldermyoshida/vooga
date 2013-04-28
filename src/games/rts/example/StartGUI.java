@@ -8,7 +8,8 @@ public class StartGUI extends RTSGame
 {    
 
     public StartGUI (ArcadeInteraction arcade) {
-        super(arcade, "/games/rts/example/resources/Factory.xml");        
+        super(arcade, "/games/rts/example/resources/Factory.xml");    
+        setMap("/games/rts/example/maps/bootstrap/bootstrap.xml");
     }
 
     public static void main (String[] args) {
