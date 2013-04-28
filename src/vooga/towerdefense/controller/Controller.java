@@ -15,7 +15,8 @@ import java.util.Set;
 
 import util.Location;
 import util.Pixmap;
-import vooga.towerdefense.action.Action;
+import vooga.towerdefense.attributes.Attribute;
+import vooga.towerdefense.attributes.AttributeConstantsEnum;
 import vooga.towerdefense.controller.modes.BuildMode;
 import vooga.towerdefense.controller.modes.ControlMode;
 import vooga.towerdefense.controller.modes.SelectMode;
@@ -73,11 +74,14 @@ public class Controller {
 	// TODO: controller constructor should take waves & map in order to
 	// initialize GameModel?
 	// TODO: fix where the parameters come from
-	public Controller(String language, String xmlPath) throws IllegalArgumentException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException {
+	public Controller(String language, String xmlPath)
+			throws IllegalArgumentException, ClassNotFoundException,
+			InstantiationException, IllegalAccessException,
+			InvocationTargetException {
 
-//		MapLoader loader = new MapLoader(path);
-//		List<GameMap> maps = loader.loadMaps();
-//		GameMap map = maps.get(2);
+		// MapLoader loader = new MapLoader(path);
+		// List<GameMap> maps = loader.loadMaps();
+		// GameMap map = maps.get(2);
 		// FIXME: Hardcoded for testing trolls
 		// ExampleAuraTowerFactory codeStyleGenerator = new
 		// ExampleAuraTowerFactory(
@@ -97,103 +101,116 @@ public class Controller {
 		myView.showSplashScreen();
 		setMaps();
 
-//		setLanguage(language);
-//
-//		List<Level> levels = new ArrayList<Level>();
-//		List<Action> actions = new ArrayList<Action>();
-//
-//		GameElementFactory factory = new GameElementFactory("Tester", new UnitDefinition());
-//		WaveActionFactory waveFactory = new WaveActionFactory(10, 200, factory,
-//				map);
-//		waveFactory.initialize(map);
-//		Action action = waveFactory.createAction(null);
-//		actions.add(action);
-//		List<Rule> levelRules = new ArrayList<Rule>();
-//
-//		Level level = new Level(actions, levelRules);
-//		levels.add(level);
-//		List<Rule> rules = new ArrayList<Rule>();
-//		
-//		myView = new TDView(this);
-//		
-//		myModel = new GameModel(this, levels, rules, map, new Shop(map));
-//		
-//		rules.add(new NextLevelRule(myModel));
-//		myControlMode = new SelectMode();
+		// setLanguage(language);
+		//
+		// List<Level> levels = new ArrayList<Level>();
+		// List<Action> actions = new ArrayList<Action>();
+		//
+		// GameElementFactory factory = new GameElementFactory("Tester", new
+		// UnitDefinition());
+		// WaveActionFactory waveFactory = new WaveActionFactory(10, 200,
+		// factory,
+		// map);
+		// waveFactory.initialize(map);
+		// Action action = waveFactory.createAction(null);
+		// actions.add(action);
+		// List<Rule> levelRules = new ArrayList<Rule>();
+		//
+		// Level level = new Level(actions, levelRules);
+		// levels.add(level);
+		// List<Rule> rules = new ArrayList<Rule>();
+		//
+		// myView = new TDView(this);
+		//
+		// myModel = new GameModel(this, levels, rules, map, new Shop(map));
+		//
+		// rules.add(new NextLevelRule(myModel));
+		// myControlMode = new SelectMode();
 	}
-	
+
 	/**
 	 * sets up the view for this game.
-	 * @throws InvocationTargetException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 * @throws ClassNotFoundException 
-	 * @throws IllegalArgumentException 
+	 * 
+	 * @throws InvocationTargetException
+	 * @throws IllegalAccessException
+	 * @throws InstantiationException
+	 * @throws ClassNotFoundException
+	 * @throws IllegalArgumentException
 	 */
-	private void setView() throws IllegalArgumentException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException {
-	    myView = myGameLoader.loadView(myView, this);
+	private void setView() throws IllegalArgumentException,
+			ClassNotFoundException, InstantiationException,
+			IllegalAccessException, InvocationTargetException {
+		myView = myGameLoader.loadView(myView, this);
 	}
-	
+
 	/**
 	 * sets the maps available for this game.
 	 */
 	private void setMaps() {
-	    myAvailableMaps = new HashMap<Pixmap, GameMap>();
-	    List<GameMap> mapChoices = myGameLoader.loadMaps();
-	    for (GameMap map : mapChoices) {
-	        myAvailableMaps.put(map.getBackgroundImage(), map);
-	    }
+		myAvailableMaps = new HashMap<Pixmap, GameMap>();
+		List<GameMap> mapChoices = myGameLoader.loadMaps();
+		for (GameMap map : mapChoices) {
+			myAvailableMaps.put(map.getBackgroundImage(), map);
+		}
 	}
-	
+
 	/**
 	 * sets the map for this game.
+	 * 
 	 * @param mapChoice
-	 * @throws InvocationTargetException 
-	 * @throws IllegalAccessException 
-	 * @throws InstantiationException 
-	 * @throws ClassNotFoundException 
-	 * @throws IllegalArgumentException 
+	 * @throws InvocationTargetException
+	 * @throws IllegalAccessException
+	 * @throws InstantiationException
+	 * @throws ClassNotFoundException
+	 * @throws IllegalArgumentException
 	 */
-	public void setMap(Pixmap mapChoice) throws IllegalArgumentException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException {
-	    addMapAndLoadGame(myAvailableMaps.get(mapChoice));
-	    setView();
+	public void setMap(Pixmap mapChoice) throws IllegalArgumentException,
+			ClassNotFoundException, InstantiationException,
+			IllegalAccessException, InvocationTargetException {
+		addMapAndLoadGame(myAvailableMaps.get(mapChoice));
+		setView();
 	}
-	
+
 	/**
 	 * gets the map images for this game.
+	 * 
 	 * @return set of pixmap
 	 */
-        public Set<Pixmap> getMapImages() {
-	    return myAvailableMaps.keySet();
+	public Set<Pixmap> getMapImages() {
+		return myAvailableMaps.keySet();
 	}
-	
+
 	/**
 	 * adds the map to the game and loads the remainder of the game state.
+	 * 
 	 * @param map
 	 */
 	private void addMapAndLoadGame(GameMap map) {
-//	        List<Level> levels = new ArrayList<Level>();
-//	        List<Action> actions = new ArrayList<Action>();
+		// List<Level> levels = new ArrayList<Level>();
+		// List<Action> actions = new ArrayList<Action>();
 
-//	        GameElementFactory factory = new GameElementFactory("Tester", new UnitDefinition());
-//	        WaveActionFactory waveFactory = new WaveActionFactory(10, 200, factory,
-//	                                                              map);
-//	        waveFactory.initialize(map);
-//	        Action action = waveFactory.createAction(null);
-//	        actions.add(action);
-//	        List<Rule> levelRules = new ArrayList<Rule>();
-//
-//	        Level level = new Level(actions, levelRules);
-//	        levels.add(level);
-//	        List<Rule> rules = new ArrayList<Rule>();
-	        
-	        Player player = myGameLoader.loadPlayer(this);
-	        List<GameElementFactory> factories = myGameLoader.loadElements(map, player);
-	        myModel = new GameModel(this, player, map, new Shop(map,factories));
-                myModel.setRules(myGameLoader.loadRules(myModel));
-	        myModel.setLevels(myGameLoader.loadLevels(myModel, map, player));
-	        myControlMode = new SelectMode();
-	        start();
+		// GameElementFactory factory = new GameElementFactory("Tester", new
+		// UnitDefinition());
+		// WaveActionFactory waveFactory = new WaveActionFactory(10, 200,
+		// factory,
+		// map);
+		// waveFactory.initialize(map);
+		// Action action = waveFactory.createAction(null);
+		// actions.add(action);
+		// List<Rule> levelRules = new ArrayList<Rule>();
+		//
+		// Level level = new Level(actions, levelRules);
+		// levels.add(level);
+		// List<Rule> rules = new ArrayList<Rule>();
+
+		Player player = myGameLoader.loadPlayer(this);
+		List<GameElementFactory> factories = myGameLoader.loadElements(map,
+				player);
+		myModel = new GameModel(this, player, map, new Shop(map, factories));
+		myModel.setRules(myGameLoader.loadRules(myModel));
+		myModel.setLevels(myGameLoader.loadLevels(myModel, map, player));
+		myControlMode = new SelectMode();
+		start();
 	}
 
 	/**
@@ -236,7 +253,7 @@ public class Controller {
 	 * updates the display on the MapScreen.
 	 */
 	public void displayMap() {
-	    myView.getMapScreen().update();
+		myView.getMapScreen().update();
 	}
 
 	/**
@@ -319,16 +336,26 @@ public class Controller {
 	 */
 	public void handleShopClickOnItem(Point p) {
 		ShopItem itemToBuy = myModel.getShopItem(p);
-		
-		//no item clicked
+
+		// no item clicked
 		if (itemToBuy == null)
 			return;
 
-		List<Action> actions = new ArrayList<Action>();
+		BuildMode myNewMode = new BuildMode();
+
 		GameElementFactory factory = itemToBuy.getFactory();
 		GameElement t = factory.createElement(new Location());
-		BuildMode myNewMode = new BuildMode();
 		myNewMode.setItemToBuild(t);
+		
+		System.out.println(t.getAttributeManager().getAttributesInfo());
+		Attribute a = t.getAttributeManager().getAttribute(AttributeConstantsEnum.COST.getStatusCode());
+		System.out.println(a);
+		
+		double cost = t.getAttributeManager()
+				.getAttribute(AttributeConstantsEnum.COST.getStatusCode())
+				.getValue();
+		myNewMode.setCost(cost);
+		
 		myControlMode = myNewMode;
 	}
 
@@ -429,8 +456,8 @@ public class Controller {
 		for (int i = 0; i < tilesWide; i++) {
 			for (int j = 0; j < tilesTall; j++) {
 				Location location = new Location(p.getX() + i
-						* myModel.getMap().getTileSize().getWidth(), p.getY() + j
-						* myModel.getMap().getTileSize().getHeight());
+						* myModel.getMap().getTileSize().getWidth(), p.getY()
+						+ j * myModel.getMap().getTileSize().getHeight());
 				canBuild = canBuild & myModel.getMap().isBuildable(location);
 			}
 		}
@@ -441,7 +468,7 @@ public class Controller {
 	public void displayPlayerStatistics(String playerData) {
 		myView.getStatsScreen().displayInformation(playerData);
 	}
-	
+
 	public Dimension getTileSize() {
 		return myModel.getMap().getTileSize();
 	}
@@ -450,17 +477,30 @@ public class Controller {
 	 * The function called when the model reaches winning conditions
 	 */
 	public void win() {
-	    myView.showWinScreen();
-		
+		myView.showWinScreen();
+
 	}
 
 	/**
 	 * The function called when the model reaches losing conditions
 	 */
 	public void lose() {
-	    myView.showLoseScreen();
-		
+		myView.showLoseScreen();
+
+	}
+
+	/**
+	 * decrements a players money by a specified amount.
+	 * 
+	 * @param myCost
+	 */
+	public void spend(double cost) {
+		myModel.getPlayer().getAttributeManager()
+				.getAttribute(AttributeConstantsEnum.MONEY.getStatusCode())
+				.modifyValue(-cost);
+		System.out.println("My money : "+myModel.getPlayer().getAttributeManager()
+		.getAttribute(AttributeConstantsEnum.MONEY.getStatusCode())
+		.getValue());
 	}
 
 }
-

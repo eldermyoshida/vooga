@@ -97,6 +97,7 @@ public class AStar {
 
                         }
                 }
+                System.out.println("returning null path in AStar");
                 return null;
         }
 

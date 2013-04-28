@@ -58,7 +58,6 @@ public class Pathfinder {
 
 
 		int[][] obstacleMap = convertMap(myGrid);
-
 		AreaMap map = new AreaMap(myGrid[0].length, myGrid.length, obstacleMap);
 		AStarHeuristic heuristic = new DiagonalHeuristic();
 
@@ -84,6 +83,9 @@ public class Pathfinder {
 
 		for (int i = 0; i < myGrid.length; i++) {
 			for (int j = 0; j < myGrid[0].length; j++) {
+				System.out.print(myGrid[i][j].getClass());
+				System.out.println(myGrid[i][j].isWalkable());
+				
 				obstacleMap[i][j] = myGrid[i][j].isWalkable() ? 0 : 1;
 			}
 		}
