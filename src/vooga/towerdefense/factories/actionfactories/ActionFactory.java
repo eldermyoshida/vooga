@@ -41,6 +41,10 @@ public abstract class ActionFactory {
     public GameMap getMap() {
         return myMap;
     }
+    
+    public Player getPlayer() {
+        return myPlayer;
+    }
 
     // TODO: Not sure if this is the best way to implement this. There needs to be a way to give in
     // a list of followup actions to the action
