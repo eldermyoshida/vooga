@@ -25,10 +25,10 @@ public class IndividualResourceManager {
         myResources = new HashMap<String, Integer>();
     }
 
-    public Map<String,Integer> getResources(){
+    public Map<String, Integer> getResources () {
         return myResources;
     }
-    
+
     /**
      * Returns how much of a type of resource the player has.
      * 
@@ -36,9 +36,7 @@ public class IndividualResourceManager {
      * @return the amount of resources
      */
     public int getAmount (String resource) {
-        if (myResources.containsKey(resource)) {
-            return myResources.get(resource.toLowerCase());
-        }
+        if (myResources.containsKey(resource)) { return myResources.get(resource.toLowerCase()); }
         return 0;
     }
 
@@ -70,34 +68,34 @@ public class IndividualResourceManager {
     public void charge (String type, int amount) {
         setAmount(type, getAmount(type) - amount);
     }
-    
+
     /**
-     * Charges the resource manager by the amounts determined in the cost map. 
+     * Charges the resource manager by the amounts determined in the cost map.
+     * 
      * @param costMap
      */
-    public void charge(Map<String, Integer> costMap){
-        for(String key: costMap.keySet()){
+    public void charge (Map<String, Integer> costMap) {
+        for (String key : costMap.keySet()) {
             int newValue = myResources.get(key) - costMap.get(key);
             myResources.put(key, newValue);
         }
     }
-    
+
     /**
-     * Tells the caller whether the player has these resources. 
+     * Tells the caller whether the player has these resources.
+     * 
      * @param type
      * @param amount
      * @return
      */
-    public boolean has (Map<String, Integer> costMap){
-        for(String key : costMap.keySet()){
-            if(!myResources.containsKey(key) || myResources.get(key) < costMap.get(key)){
-                    return false;
-            }
+    public boolean has (Map<String, Integer> costMap) {
+        for (String key : costMap.keySet()) {
+            if (!myResources.containsKey(key) || myResources.get(key) < costMap.get(key)) { return false; }
         }
         return true;
-        
+
     }
-    
+
     /**
      * Provides a certain amount of a type of resources to the player.
      * 

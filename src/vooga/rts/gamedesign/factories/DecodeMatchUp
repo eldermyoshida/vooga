@@ -30,5 +30,9 @@
 		<type>projectiles</type>
 		<path>vooga.rts.gamedesign.factories.ProjectileDecoder</path>
 	</pair>
+	<pair>
+		<type>start</type>
+		<path>vooga.rts.gamedesign.factories.StartDecoder</path>
+	</pair>
 
 </XMLMatchUp>

@@ -48,6 +48,7 @@ public abstract class Decoder {
     protected static final String INFORMATION_TAG = "information";
     protected static final String DESCRIPTION_TAG = "description";
     protected static final String BUTTON_TAG = "button";
+    protected static final String START_TAG = "start";
 
     /**
      * Gets the text content of the specified tag from the Element given as a parameter
@@ -89,6 +90,8 @@ public abstract class Decoder {
         return new Information(name, description, button, costMap);
     }
 
+    
+    
     /**
      * Depending on the decoder, this method takes in the document, parses it and instantiates
      * objects based on values given in the XML file. If objects also have dependencies, such as
