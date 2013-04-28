@@ -27,6 +27,7 @@ import vooga.rts.gamedesign.strategy.occupystrategy.OccupyStrategy;
 import vooga.rts.gamedesign.strategy.production.CanProduce;
 import vooga.rts.gamedesign.strategy.upgradestrategy.CanUpgrade;
 import vooga.rts.resourcemanager.ResourceManager;
+import vooga.rts.state.GameState;
 import vooga.rts.util.Camera;
 import vooga.rts.util.Information;
 import vooga.rts.util.Location3D;
@@ -48,13 +49,14 @@ import vooga.rts.util.Sound;
 public class Unit extends InteractiveEntity {
 
 	// default values
-	public static Pixmap DEFAULT_IMAGE = new Pixmap(
+	public static final Pixmap DEFAULT_IMAGE = new Pixmap(
 			"images/sprites/soldier.png");
-	public static Location3D DEFAULT_LOCATION = new Location3D();
-	public static Dimension DEFAULT_SIZE = new Dimension(90, 90);
-	public static Sound DEFAULT_SOUND = null;
-	public static int DEFAULT_PLAYERID = 1;
-	public static int DEFAULT_HEALTH = 100;
+	public static final Location3D DEFAULT_LOCATION = new Location3D();
+	public static final Dimension DEFAULT_SIZE = new Dimension(90, 90);
+	public static final Sound DEFAULT_SOUND = null;
+	public static final int DEFAULT_PLAYERID = 1;
+	public static final int DEFAULT_HEALTH = 100;
+	public static final int DEFUALT_GATHER_RADIUS = 100;
 
 	public Unit() {
 		this(DEFAULT_IMAGE, DEFAULT_LOCATION, DEFAULT_SIZE, DEFAULT_SOUND,
@@ -145,7 +147,17 @@ public class Unit extends InteractiveEntity {
 	@Override
 	public void update(double elapsedTime) {
 		if (getEntityState().getUnitState() == UnitState.OCCUPY) {
-			this.occupy((InteractiveEntity)getTargetEntity());
+			this.occupy((InteractiveEntity) getTargetEntity());
+		}
+		if (getEntityState().getUnitState() == UnitState.GATHER) {
+			this.gather((IGatherable) getTargetEntity());
+			removeState();
+		} else {
+			List<Resource> resources = GameState.getMap().getResources()
+					.getInArea(getWorldLocation(), DEFUALT_GATHER_RADIUS);
+			if (!resources.isEmpty()) {
+				this.gather(resources.get(0));
+			}
 		}
 		super.update(elapsedTime);
 	}

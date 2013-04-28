@@ -571,6 +571,7 @@ public abstract class InteractiveEntity extends GameEntity implements
 			Weapon weapon = myAttackStrategy.getCurrentWeapon();
 			if (getEntityState().inAttackMode()) {
 				((InteractiveEntity) myTargetEntity).getAttacked(this);
+				removeState();
 			} else {
 				List<InteractiveEntity> enemies = findEnemies(weapon);
 				if (!enemies.isEmpty()) {
@@ -583,6 +584,12 @@ public abstract class InteractiveEntity extends GameEntity implements
 
 		setChanged();
 		notifyObservers();
+	}
+
+	public void removeState() {
+		if(getTargetEntity().isDead()) {
+			getEntityState().setUnitState(UnitState.NO_STATE);
+		}
 	}
 
 	/**
