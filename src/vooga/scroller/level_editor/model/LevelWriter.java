@@ -69,7 +69,7 @@ public class LevelWriter {
             for (int i = 0; i < myGrid.getSize().height; i++) {
                 myFileWriter.write(NEW_LINE);
                 for (int j = 0; j < myGrid.getSize().width; j++) {
-                    Sprite s = myGrid.getSprite(j, i);
+                    Sprite s = myGrid.getSpriteFromCoor(j, i);
                     if (s == null) {
                         myFileWriter.write(SPACE);
                     }

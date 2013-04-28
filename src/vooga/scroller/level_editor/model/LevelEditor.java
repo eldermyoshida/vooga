@@ -54,21 +54,11 @@ public class LevelEditor implements ILevelEditor {
         processCommand(cmd);
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see vooga.scroller.level_editor.ILevelEditor#setSpriteMap(java.util.Map)
-     */
     @Override
     public void setSpriteMap (Map<Integer, Sprite> spriteMap) {
         mySpriteMap = spriteMap;
     }
 
-    /*
-     * (non-Javadoc)
-     * 
-     * @see vooga.scroller.level_editor.ILevelEditor#setBackgroundMap(java.util.Map)
-     */
     @Override
     public void setBackgroundMap (Map<Integer, IBackgroundView> map) {
         myBackgrounds = map;
