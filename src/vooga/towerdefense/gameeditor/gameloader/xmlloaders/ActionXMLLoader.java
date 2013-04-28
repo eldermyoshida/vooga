@@ -20,7 +20,7 @@ import vooga.towerdefense.model.Player;
  * @author Erick Gonzalez
  */
 public class ActionXMLLoader {
-    private static final String ACTIONS_TAG = "actions";
+    private static final String PARAMETERS_TAG = "parameter";
 
     private XMLTool myXMLTool;
 
@@ -97,11 +97,11 @@ public class ActionXMLLoader {
 
         for (Element subElement: subElements) {
             String subElementName = myXMLTool.getTagName(subElement);
-            if (subElementName.equals(ACTIONS_TAG)) {
-                subActionFactories.add(loadActionFactory(subElement, gameMap, player));
+            if (subElementName.equals(PARAMETERS_TAG)) {
+                parameterStrings.add(loadParameterString(subElement));
             }
             else {                
-                parameterStrings.add(loadParameterString(subElement));
+                subActionFactories.add(loadActionFactory(subElement, gameMap, player));
             }
         }
         
