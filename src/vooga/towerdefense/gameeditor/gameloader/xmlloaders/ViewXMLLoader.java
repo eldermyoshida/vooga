@@ -15,6 +15,7 @@ import vooga.towerdefense.view.gamescreens.GameElementInformationScreen;
 import vooga.towerdefense.view.gamescreens.GameStatsScreen;
 import vooga.towerdefense.view.gamescreens.MapScreen;
 import vooga.towerdefense.view.gamescreens.MultipleScreenPanel;
+import vooga.towerdefense.view.gamescreens.NextWaveScreen;
 import vooga.towerdefense.view.gamescreens.ShopScreen;
 
 /**
@@ -31,6 +32,7 @@ public class ViewXMLLoader {
     private static final String SHOPSCREEN_TAG = "ShopScreen";
     private static final String GAME_STATS_SCREEN_TAG = "GameStatsScreen";
     private static final String GAME_ELEMENTS_SCREEN_TAG = "GameElementInformationScreen";
+    private static final String NEXT_WAVE_SCREEN_TAG = "NextWaveScreen";
     private static final String MULTIPLE_SCREEN_PANEL_TAG = "MultipleScreenPanel";
     private static final String BORDER_LAYOUT_ADDITION = "BorderLayout.";
     
@@ -116,6 +118,9 @@ public class ViewXMLLoader {
         }
         else if (myXMLTool.getTagName(element).equals(GAME_STATS_SCREEN_TAG)) {
             view.setStatsScreen((GameStatsScreen)screen);
+        }
+        else if (myXMLTool.getTagName(element).equals(NEXT_WAVE_SCREEN_TAG)) {
+            view.setNextWaveScreen((NextWaveScreen)screen);
         }
         return screen;
     }
