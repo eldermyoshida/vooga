@@ -15,6 +15,10 @@ import vooga.scroller.sprites.Sprite;
 import vooga.scroller.sprites.animation.Animation;
 import vooga.scroller.sprites.animation.MovingSpriteAnimationFactory;
 import vooga.scroller.sprites.superclasses.Player;
+import vooga.scroller.util.Renderable;
+import vooga.scroller.util.Renderer;
+import vooga.scroller.util.mvc.Gaming;
+import vooga.scroller.util.mvc.IView;
 import vooga.scroller.view.GameView;
 
 
@@ -27,7 +31,7 @@ import vooga.scroller.view.GameView;
  * @author Scott Valentine
  */
 
-public class Model {
+public class Model implements Renderable<Gaming>{
          
     private GameView myView;
     private Player myPlayer;
@@ -166,6 +170,12 @@ public class Model {
     
     public Player getPlayer(){
         return myPlayer;
+    }
+
+
+    @Override
+    public Renderer<Gaming> initializeRenderer (IView<?> parent) {
+        return myView;
     }
     
 }

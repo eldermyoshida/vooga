@@ -1,11 +1,8 @@
 
 package vooga.scroller.view;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,12 +14,9 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Set;
 import java.util.TreeSet;
-import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.Timer;
-import vooga.scroller.scrollingmanager.OmniScrollingManager;
 import vooga.scroller.scrollingmanager.ScrollingManager;
-import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.util.Renderable;
 import vooga.scroller.util.Renderer;
 import vooga.scroller.util.mvc.Gaming;
@@ -54,7 +48,6 @@ public class GameView extends JComponent implements Renderer<Gaming>{
     // MULTIPLE KEY SUPPORT
     private Set<Integer> myKeys;
     private ScrollingManager myScrollManager;
-    private boolean win = false;
 
 
     /**
@@ -179,20 +172,18 @@ public class GameView extends JComponent implements Renderer<Gaming>{
 
     @Override
     public void render (Renderable<Gaming> renderable) {
-        // TODO Auto-generated method stub
-        
+        setModel((Model) renderable);
+    }
+
+
+    @Override
+    public Renderable<Gaming> getRenderable () {
+        return myGame;
     }
 
     @Override
     public void setRenderable (Renderable<Gaming> renderable) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
-    public Renderable<Gaming> getRenderable () {
-        // TODO Auto-generated method stub
-        return null;
+        setModel((Model) renderable);        
     }
 
 }
