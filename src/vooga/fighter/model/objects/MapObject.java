@@ -1,9 +1,12 @@
 package vooga.fighter.model.objects;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import util.Sound;
 import vooga.fighter.model.loaders.MapLoader;
 import vooga.fighter.model.utils.UpdatableLocation;
-import vooga.fighter.util.*;
-import java.util.*;
 
 
 /**
@@ -19,18 +22,20 @@ public class MapObject extends GameObject {
 
     private List<EnvironmentObject> myEnviroObjects;
     private List<UpdatableLocation> myStartingPositions;
-    private Map<String,Sound> mySounds;
+    private Map<String, Sound> mySounds;
     private Sound myCurrentSound;
     private String myName;
 
     /**
      * Constructor for a new Map object.
+     * @param mapName is the name of the map
+     * @param pathHierarchy is the path of the game resources folder
      */
     public MapObject(String mapName, String pathHierarchy) {
         super();
         myEnviroObjects = new ArrayList<EnvironmentObject>();
         myStartingPositions = new ArrayList<UpdatableLocation>();
-        mySounds = new HashMap<String,Sound>();
+        mySounds = new HashMap<String, Sound>();
         myCurrentSound = null;
         myName = mapName;
         setLoader(new MapLoader(mapName, this, pathHierarchy));
@@ -40,6 +45,7 @@ public class MapObject extends GameObject {
 
     /**
      * Adds an environment object to the map object.
+     * @param object is the environment object to add
      */
     public void addEnviroObject(EnvironmentObject object) {
         myEnviroObjects.add(object);
@@ -51,7 +57,7 @@ public class MapObject extends GameObject {
      * @param object - object to be removed
      */
     public void removeEnviroObject(EnvironmentObject object) {
-    	myEnviroObjects.remove(object);
+        myEnviroObjects.remove(object);
     }
     
     /**
@@ -59,14 +65,15 @@ public class MapObject extends GameObject {
      * @return myName - this map's name.
      */
     public String getName() {
-    	return myName;
+        return myName;
     }
     
     /**
      * sets the name of this map. used by map editor
+     * @param newName is the name to set
      */
     public void setName(String newName) {
-    	myName = newName;
+        myName = newName;
     }
 
     /**
@@ -85,6 +92,7 @@ public class MapObject extends GameObject {
     
     /**
      * Adds a starting position to the map object.
+     * @param position is the start position to add
      */
     public void addStartPosition(UpdatableLocation position) {
         myStartingPositions.add(position);
@@ -92,6 +100,8 @@ public class MapObject extends GameObject {
     
     /**
      * sets a starting position to the map object.
+     * @param index is the index to set in the list of starting positions
+     * @param position is the starting position to add
      */
     public void setStartPosition(int index, UpdatableLocation position) {
         myStartingPositions.set(index, position);
@@ -106,6 +116,8 @@ public class MapObject extends GameObject {
     
     /**
      * Adds a sound to the map object. Overwrites any existing value.
+     * @param key is the name of the sound
+     * @param sound is the sound itself
      */
     public void addSound(String key, Sound sound) {
         mySounds.put(key, sound);
@@ -121,6 +133,7 @@ public class MapObject extends GameObject {
     /**
      * Sets the current sound of the map object. Does nothing if the given key is
      * not found in the map.
+     * @param key is the name of the sound to set as current
      */
     public void setCurrentSound(String key) {
         if (mySounds.containsKey(key)) {
@@ -150,7 +163,7 @@ public class MapObject extends GameObject {
             getCurrentState().resetState();
         }
         if (myCurrentSound != null) {
-
+            return;
         }
     }
     
