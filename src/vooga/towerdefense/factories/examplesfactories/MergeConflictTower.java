@@ -33,7 +33,6 @@ public class MergeConflictTower extends GameElementFactory {
      */
     public MergeConflictTower (GameMap map, String name, TowerDefinition def) {
         super(name, "Projectile", def);
-        initialize(map);
     }
 
     @Override
@@ -57,7 +56,6 @@ public class MergeConflictTower extends GameElementFactory {
                 new FindTargets(getMap(), myTower.getCenter(), AM.getAttribute(AttributeConstantsEnum.ATTACK_RADIUS.getStatusCode()));
         Action randomFiring = new RandomChance(new Attribute("Chance", 0.1));
         ExampleDosProjectileFactory coolStoryBro = new ExampleDosProjectileFactory("projectilefactory", new ProjectileDefinition());
-        coolStoryBro.initialize(getMap());
         //Action launchProjectile = new MakeElement(getMap(), myTower.getCenter(), new ExampleDosProjectileFactory());
         Action launchProjectile = new LaunchProjectile(getMap(), putHere, new ExampleDosProjectileFactory("projectilefactory", new ProjectileDefinition()));
         findTargets.addFollowUpAction(launchProjectile);
