@@ -39,43 +39,19 @@ public class KirbyLib extends EncapsulatedSpriteLibrary {
     private static final int DEFAULT_HEALTH = 1;
     private static final int DEFAULT_DAMAGE = 0;
 
-    public static class Coin extends GameCharacter implements ICollectible {
 
-        private static final String DEFAULT_IMG = "coin.png";
-        private static final int DEFAULT_COIN_VALUE = 900;
-
-        public Coin () {
-            this(DEFAULT_LOC);
-        }
-
-        public Coin (Location center) {
-            super(makePixmap(DEFAULT_IMG), center, DEFAULT_SIZE, DEFAULT_HEALTH, DEFAULT_DAMAGE);
-        }
-
-        @Override
-        public int getValue () {
-            return DEFAULT_COIN_VALUE;
-        }
-
-        @Override
-        public void handleDeath (Level level) {
-            // killing this does not do anything           
-        }
-
-    }
-
-    public static class Koopa extends GameCharacter implements IEnemy {
+    public static class CutterEnemy extends GameCharacter implements IEnemy {
         private static final String DEFAULT_IMG = "koopa.png";
         private static final Dimension KOOPA_SIZE = new Dimension(32, 64);
         private int SPEED = 30;
         private int RADIUS = 45;
         private TrackPlayer movement = new TrackPlayer(this, getLocatable(), SPEED, RADIUS);
 
-        public Koopa () {
+        public CutterEnemy () {
             this(DEFAULT_LOC);
         }
 
-        public Koopa (Location center) {
+        public CutterEnemy (Location center) {
             super(makePixmap(DEFAULT_IMG), center, KOOPA_SIZE, new Integer(1), new Integer(1));
         }
 
@@ -89,7 +65,6 @@ public class KirbyLib extends EncapsulatedSpriteLibrary {
             // TODO Auto-generated method stub   
         }
         
-        
         // TODO :This is hacky
         @Override
         public void addTarget(Locatable target){
@@ -98,19 +73,20 @@ public class KirbyLib extends EncapsulatedSpriteLibrary {
 
     }
 
-    public static class Turtle extends GameCharacter implements IEnemy {
+    
+    public static class LaserEnemy extends GameCharacter implements IEnemy {
 
         private static final String DEFAULT_IMG = "turtle.gif";
         private int SPEED = 30;
         private int RADIUS = 45;
-        private Movement movement = new TrackPlayer(this, getLocatable(), SPEED, RADIUS);
+        private TrackPlayer movement = new TrackPlayer(this, getLocatable(), SPEED, RADIUS);
 
 
-        public Turtle () {
+        public LaserEnemy () {
             this(DEFAULT_LOC);
         }
 
-        public Turtle (Location center) {
+        public LaserEnemy (Location center) {
             super(makePixmap(DEFAULT_IMG), center, DEFAULT_SIZE, new Integer(1), new Integer(2));
         }
 
@@ -123,63 +99,29 @@ public class KirbyLib extends EncapsulatedSpriteLibrary {
         public void handleDeath (vooga.scroller.level_editor.Level level) {
             // TODO Auto-generated method stub   
         }
-    }
-
-    public static class Platform extends Sprite implements IPlatform {
-
-        private static final String DEFAULT_IMG = "block.png";
-
-        public Platform () {
-            this(DEFAULT_LOC);
-        }
-
-        public Platform (Location center) {
-            this(DEFAULT_IMG, center, DEFAULT_SIZE);
-        }
-
-        public Platform (String img, Location center, Dimension size) {
-            super(makePixmap(img), center, size);
-        }
-    }
-
-    public static class Plant extends GameCharacter implements IEnemy {
-        private static final String DEFAULT_IMG = "plant.png";
-
-        public Plant () {
-            this(DEFAULT_LOC);
-        }
-
-        public Plant (Location center) {
-            super(makePixmap(DEFAULT_IMG), center, new Dimension(32, 32), DEFAULT_HEALTH,
-                  new Integer(2));
-        }
-
+        
+        // TODO :This is hacky
         @Override
-        public void handleDeath (vooga.scroller.level_editor.Level level) {
-            // TODO Auto-generated method stub
-            
+        public void addTarget(Locatable target){
+            movement.setTarget(target);
         }
-
+        
     }
+    
+    public static class Boss extends GameCharacter implements IEnemy {
 
-    public static class MovingPlatformOne extends Sprite implements IPlatform {
-
-        private static final String DEFAULT_IMG = "platform.gif";
-        private static final int DEFAULT_SPEED = 100;
-        private static final Vector DEFAULT_VELOCITY = new Vector(Sprite.DOWN_DIRECTION,
-                                                                  DEFAULT_SPEED);
+        private static final String DEFAULT_IMG = "turtle.gif";
         private int SPEED = 30;
-        private Point2D START = new Point2D.Double(500.0, 100.0);
-        private Point2D END = new Point2D.Double(200.0, 500.0);
+        private int RADIUS = 45;
+        private TrackPlayer movement = new TrackPlayer(this, getLocatable(), SPEED, RADIUS);
 
-        private Movement movement = new BackAndForth(this, START, END, SPEED);
 
-        public MovingPlatformOne () {
+        public Boss () {
             this(DEFAULT_LOC);
         }
 
-        public MovingPlatformOne (Location center) {
-            super(makePixmap(DEFAULT_IMG), center, new Dimension(96, 32));
+        public Boss (Location center) {
+            super(makePixmap(DEFAULT_IMG), center, DEFAULT_SIZE, new Integer(1), new Integer(2));
         }
 
         public void update (double elapsedTime, Dimension bounds) {
@@ -187,68 +129,151 @@ public class KirbyLib extends EncapsulatedSpriteLibrary {
             super.update(elapsedTime, bounds);
         }
 
+        @Override
+        public void handleDeath (vooga.scroller.level_editor.Level level) {
+            // TODO Auto-generated method stub   
+        }
+        
+        // TODO :This is hacky
+        @Override
+        public void addTarget(Locatable target){
+            movement.setTarget(target);
+        }
+        
     }
 
 
-    public static class LevelTwoBlockOne extends Platform implements IPlatform {
+    public static class PlatformOne extends Sprite implements IPlatform {
 
-        private static final String DEFAULT_IMG = "leveltwoblock1.png";
-        private static final Dimension DEFAULT_SIZE = new Dimension(128, 96);
+        private static final String DEFAULT_IMG = "block.png";
 
-        public LevelTwoBlockOne () {
+        public PlatformOne () {
             this(DEFAULT_LOC);
         }
 
-        public LevelTwoBlockOne (Location center) {
-            super(DEFAULT_IMG, center, DEFAULT_SIZE);
+        public PlatformOne (Location center) {
+            this(DEFAULT_IMG, center, DEFAULT_SIZE);
         }
 
-        public void print () {
+        public PlatformOne (String img, Location center, Dimension size) {
+            super(makePixmap(img), center, size);
         }
     }
 
-    public static class LevelTwoBlockTwo extends Platform implements IPlatform {
+    public static class PlatformTwo extends Sprite implements IPlatform {
 
-        private static final String DEFAULT_IMG = "leveltwoblock2.png";
-        private static final Dimension DEFAULT_SIZE = new Dimension(96, 32);
+        private static final String DEFAULT_IMG = "block.png";
 
-        public LevelTwoBlockTwo () {
+        public PlatformTwo () {
             this(DEFAULT_LOC);
         }
 
-        public LevelTwoBlockTwo (Location center) {
-            super(DEFAULT_IMG, center, DEFAULT_SIZE);
+        public PlatformTwo (Location center) {
+            this(DEFAULT_IMG, center, DEFAULT_SIZE);
         }
 
-        public void print () {
-        }
-    }
-
-    public static class LevelTwoBlockThree extends Platform implements IPlatform {
-
-        private static final String DEFAULT_IMG = "leveltwoblock3.png";
-        private static final Dimension DEFAULT_SIZE = new Dimension(768, 192);
-
-        public LevelTwoBlockThree () {
-            this(DEFAULT_LOC);
-        }
-
-        public LevelTwoBlockThree (Location center) {
-            super(DEFAULT_IMG, center, DEFAULT_SIZE);
-        }
-
-        public void print () {
+        public PlatformTwo (String img, Location center, Dimension size) {
+            super(makePixmap(img), center, size);
         }
     }
     
-    public static class ItemBlock extends Sprite implements IPlatform {
+    public static class PlatformThree extends Sprite implements IPlatform {
 
-        private static final String BLOCK_IMG = "itemBlock.gif";
-        
-        public ItemBlock () {
-            super(makePixmap(BLOCK_IMG), DEFAULT_LOC, DEFAULT_SIZE);
+        private static final String DEFAULT_IMG = "block.png";
+
+        public PlatformThree () {
+            this(DEFAULT_LOC);
         }
-        
+
+        public PlatformThree (Location center) {
+            this(DEFAULT_IMG, center, DEFAULT_SIZE);
+        }
+
+        public PlatformThree (String img, Location center, Dimension size) {
+            super(makePixmap(img), center, size);
+        }
+    }
+    
+    
+    
+    
+    
+    public static class KirbyLaser extends GameCharacter implements IEnemy {
+
+        //has no movement right now 
+        private static final String DEFAULT_IMG = "turtle.gif";
+        private int SPEED = 30;
+
+
+        public KirbyLaser () {
+            this(DEFAULT_LOC);
+        }
+
+        public KirbyLaser (Location center) {
+            super(makePixmap(DEFAULT_IMG), center, DEFAULT_SIZE, new Integer(1), new Integer(2));
+        }
+
+        public void update (double elapsedTime, Dimension bounds) {
+            //movement.execute();
+            super.update(elapsedTime, bounds);
+        }
+
+        @Override
+        public void handleDeath (vooga.scroller.level_editor.Level level) {
+            // TODO Auto-generated method stub   
+        }
+    }
+    
+    public static class EnemyLaser extends GameCharacter implements IEnemy {
+
+        //has no movement right now 
+        private static final String DEFAULT_IMG = "turtle.gif";
+        private int SPEED = 30;
+
+
+        public EnemyLaser () {
+            this(DEFAULT_LOC);
+        }
+
+        public EnemyLaser (Location center) {
+            super(makePixmap(DEFAULT_IMG), center, DEFAULT_SIZE, new Integer(1), new Integer(2));
+        }
+
+        public void update (double elapsedTime, Dimension bounds) {
+            //movement.execute();
+            super.update(elapsedTime, bounds);
+        }
+
+        @Override
+        public void handleDeath (vooga.scroller.level_editor.Level level) {
+            // TODO Auto-generated method stub   
+        }
+    }
+    
+    public static class FireBall extends GameCharacter implements IEnemy {
+
+        //has no movement right now 
+        private static final String DEFAULT_IMG = "turtle.gif";
+        private int SPEED = 30;
+
+
+        public FireBall () {
+            this(DEFAULT_LOC);
+        }
+
+        public FireBall (Location center) {
+            super(makePixmap(DEFAULT_IMG), center, DEFAULT_SIZE, new Integer(1), new Integer(2));
+        }
+
+        public void update (double elapsedTime, Dimension bounds) {
+            //movement.execute();
+            super.update(elapsedTime, bounds);
+        }
+
+        @Override
+        public void handleDeath (vooga.scroller.level_editor.Level level) {
+            // TODO Auto-generated method stub   
+        }
     }
 
     public static class DoorPortal extends LevelPortal {
@@ -289,7 +314,7 @@ public class KirbyLib extends EncapsulatedSpriteLibrary {
      * @return
      */
     public static String getImagesDirectory () {
-        return "/vooga/scroller/marioGame/images/";
+        return "/vooga/scroller/kirbyGame/images/";
     }
 
     public static Pixmap makePixmap (String fileName) {
