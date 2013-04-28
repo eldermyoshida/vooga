@@ -29,8 +29,6 @@ public class LEGridView extends WindowComponent<LevelEditing>
         implements Scrollable, Renderer<LevelEditing> {
     
 
-    private static LEGridView D;
-
     /**
      * 
      */

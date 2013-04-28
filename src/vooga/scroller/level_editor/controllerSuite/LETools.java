@@ -14,7 +14,6 @@ import vooga.scroller.extra_resources.sprite_interfaces.IPlatform;
 import vooga.scroller.level_editor.LevelEditing;
 import vooga.scroller.level_editor.StartPoint;
 import vooga.scroller.level_editor.commands.CommandConstants;
-import vooga.scroller.level_editor.view.LEMenuBar;
 import vooga.scroller.level_editor.view.LEView;
 import vooga.scroller.sprites.Sprite;
 import vooga.scroller.sprites.interfaces.IDoor;

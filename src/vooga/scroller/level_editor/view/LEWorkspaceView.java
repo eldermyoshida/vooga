@@ -10,6 +10,8 @@ import vooga.scroller.level_editor.commands.CommandConstants;
 import vooga.scroller.level_editor.controllerSuite.LEGrid;
 import vooga.scroller.level_editor.controllerSuite.LETools;
 import vooga.scroller.level_editor.model.Editable;
+import vooga.scroller.sprites.Sprite;
+import vooga.scroller.util.IBackgroundView;
 import vooga.scroller.util.Renderable;
 import vooga.scroller.util.Renderer;
 import vooga.scroller.util.mvc.IView;
@@ -26,7 +28,7 @@ import vooga.scroller.viewUtil.EasyGridFactory;
  * 
  */
 public class LEWorkspaceView extends WorkspaceView<LevelEditing> 
-                            implements Renderer<LevelEditing>{
+                            implements Renderer<LevelEditing> {
     /**
      * 
      */
