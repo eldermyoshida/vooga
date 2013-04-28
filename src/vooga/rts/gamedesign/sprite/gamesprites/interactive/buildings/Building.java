@@ -4,7 +4,6 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.List;
-
 import vooga.rts.commands.Command;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit;
@@ -35,13 +34,15 @@ import vooga.rts.util.Sound;
 
 public class Building extends InteractiveEntity {
     public static final int PRODUCE_TIME = 90;
-    public static final Dimension DEFAULT_SIZE = new Dimension(100,100);
+    public static final Dimension DEFAULT_SIZE = new Dimension(100, 100);
     public static final int MAXHEALTH = 100;
 
     private Location3D myRallyPoint;
+
     /**
-     * Creates a new building with a rally point, a list of what can be 
+     * Creates a new building with a rally point, a list of what can be
      * produced, a list of what can observe the building, and an upgrade tree.
+     * 
      * @param image is the picture of the building
      * @param center is the location of the building
      * @param size is the dimensions of the building
@@ -59,12 +60,14 @@ public class Building extends InteractiveEntity {
                      int health,
                      double buildTime) {
         super(image, center, size, sound, playerID, MAXHEALTH, buildTime);
-        myRallyPoint = new Location3D(getWorldLocation().getX(), getWorldLocation().getY() + 150, 0);
+        myRallyPoint =
+                new Location3D(getWorldLocation().getX(), getWorldLocation().getY() + 150, 0);
 
     }
-    
-    public Building(Pixmap image, Sound sound, int health, double buildTime) {
-    	this(image, InteractiveEntity.DEFAULT_LOCATION, DEFAULT_SIZE, sound, InteractiveEntity.DEFAULT_PLAYERID, health, buildTime);
+
+    public Building (Pixmap image, Sound sound, int health, double buildTime) {
+        this(image, InteractiveEntity.DEFAULT_LOCATION, DEFAULT_SIZE, sound,
+             InteractiveEntity.DEFAULT_PLAYERID, health, buildTime);
     }
 
     /**
@@ -72,11 +75,12 @@ public class Building extends InteractiveEntity {
      * actions and information.
      */
     public InteractiveEntity copy () {
-        Building copyBuilding = new Building(getImage(), getWorldLocation(), getSize(), getSound(), getPlayerID(),
-                getHealth(), getBuildTime());
-        
+        Building copyBuilding =
+                new Building(getImage(), getWorldLocation(), getSize(), getSound(), getPlayerID(),
+                             getHealth(), getBuildTime());
+
         transmitProperties(copyBuilding);
-    	return copyBuilding;
+        return copyBuilding;
     }
 
     /**
@@ -99,9 +103,13 @@ public class Building extends InteractiveEntity {
         myRallyPoint = rallyPoint;
     }
 
-	@Override
-	public void addActions() {
-		// TODO Auto-generated method stub
-		
-	}
+    @Override
+    public void addActions () {        
+
+    }
+
+    @Override
+    public int getSpeed () {
+        return 0;
+    }
 }

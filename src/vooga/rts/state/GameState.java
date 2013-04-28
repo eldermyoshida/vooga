@@ -186,30 +186,6 @@ public class GameState extends SubState implements Controller, Observer {
         startOccupy =
                 (Building) setLocation(startOccupy, baseLocation, DEFAULT_OCCUPY_RELATIVE_LOCATION);
         getPlayers().getPlayer(playerID).add(startOccupy);
-
-        // this is for testing
-        final Building f = startProduction;
-        myTasks.add(new DelayedTask(2, new Runnable() {
-
-            @Override
-            public void run () {
-                f.getAction((new Command("make Marine"))).apply();
-            }
-        }, true));
-
-        // This is for testing
-        final Building testGarrison = startOccupy;
-
-        myTasks.add(new DelayedTask(10, new Runnable() {
-            @Override
-            public void run () {
-                if (((CanBeOccupied) testGarrison.getOccupyStrategy()).getOccupiers().size() > 0) {
-                    System.out.println("will puke!");
-                    testGarrison.getAction(new Command("deoccupy")).apply();
-                }
-            }
-        }));
-
     }
 
     private InteractiveEntity setLocation (InteractiveEntity subject,
