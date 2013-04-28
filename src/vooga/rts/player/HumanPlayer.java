@@ -66,8 +66,8 @@ public class HumanPlayer extends Player implements Observer {
         if (myGameMenu.withinBoundary(command)) {
             myGameMenu.receiveCommand(command);
         }
-        else {
-            getManager().receiveCommand(command);
+        else {            
+            getManager().receiveCommand(command);            
         }
     }
 

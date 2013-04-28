@@ -14,6 +14,7 @@ import vooga.rts.controller.InputController;
 import vooga.rts.game.RTSGame;
 import vooga.rts.gui.Window;
 import vooga.rts.gui.menus.MultiMenu;
+import vooga.rts.util.TimeIt;
 
 
 /**
@@ -68,8 +69,8 @@ public class MainState implements State, Observer {
     }
 
     @Override
-    public void paint (Graphics2D pen) {
-        myActiveState.paint(pen);
+    public void paint (Graphics2D pen) {                
+        myActiveState.paint(pen);        
     }
 
     @Override

@@ -1,4 +1,4 @@
-package vooga.rts;
+package games.rts.example;
 
 import vooga.rts.game.RTSGame;
 import arcade.games.ArcadeInteraction;
