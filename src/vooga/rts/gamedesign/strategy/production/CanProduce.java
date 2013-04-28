@@ -89,8 +89,8 @@ public class CanProduce implements ProductionStrategy {
 
 				@Override
 				public void apply() {
-				    if(playerResources.has(costMap)){
-				        playerResources.charge(costMap);
+//				    if(playerResources.has(costMap)){
+//				        playerResources.charge(costMap);
 	                                    final InteractiveEntity unit = producable;
 
 	                                        myProduceState = ProducingState.PRODUCING;
@@ -112,7 +112,7 @@ public class CanProduce implements ProductionStrategy {
 
 	                                        producer.addQueueableTask(dt);
 				        
-				    }
+				//    }
 
 				}
 			});
