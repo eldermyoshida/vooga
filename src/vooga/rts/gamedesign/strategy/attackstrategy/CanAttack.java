@@ -130,12 +130,20 @@ public class CanAttack implements AttackStrategy {
     public boolean hasWeapon () {
         return true;
     }
-    
+
     public void affect (InteractiveEntity other) {
         CanAttack toAdd = new CanAttack();
         toAdd.setWeaponIndex(0);
-        toAdd.setWeapons(this.getWeapons());
+        toAdd.setWeapons(this.getWeaponCopies());
         other.setAttackStrategy(toAdd);
+    }
+
+    private List<Weapon> getWeaponCopies () {
+        ArrayList<Weapon> weaponList = new ArrayList<Weapon>();
+        for (Weapon w : myWeapons) {
+            weaponList.add(w.copy());
+        }
+        return weaponList;
     }
 
     @Override

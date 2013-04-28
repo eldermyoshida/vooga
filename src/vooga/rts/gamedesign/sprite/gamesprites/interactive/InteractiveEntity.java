@@ -268,7 +268,7 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
     public void calculateDamage (int damage) {
         int healthLost = damage * (1 - (myArmor / (myArmor + 100)));
         changeHealth(healthLost);
-    }
+    } 
 
     public boolean containsInput (Command command) {
         return myActions.containsKey(command.getMethodName());

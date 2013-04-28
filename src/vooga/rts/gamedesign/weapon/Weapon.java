@@ -195,4 +195,13 @@ public class Weapon {
         myCenter = center;
         myProjectile.setWorldLocation(center);
     }
+
+    /**
+     * Returns a copy of the weapon so that units do not share the same weapon.
+     * 
+     * @return a copy of the weapon
+     */
+    public Weapon copy () {
+        return new Weapon(myProjectile, myRange, myCenter, myCooldownTime);
+    }
 }

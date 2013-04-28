@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+
 /**
  * This class implements ProductionStrategy and is used as an instance in
  * interactives for objects that are able to produce other interactives. The
@@ -28,127 +29,128 @@ import java.util.Map;
  */
 public class CanProduce implements ProductionStrategy {
 
-	private List<InteractiveEntity> myProducables;
-	private Location3D myRallyPoint;
-	private ProducingState myProduceState;
+    private List<InteractiveEntity> myProducables;
+    private Location3D myRallyPoint;
+    private ProducingState myProduceState;
 
-	/**
-	 * Creates a new production strategy that represents an entity that can
-	 * produce other entities. It is created with a list of entities that it can
-	 * produce and a rally point (where all the units created by this entity
-	 * will go).
-	 */
-	public CanProduce(InteractiveEntity entity) {
-		myProducables = new ArrayList<InteractiveEntity>();
-		myRallyPoint = new Location3D();
-		myProduceState = ProducingState.NOT_PRODUCING;
-		setRallyPoint(entity);
-	}
+    /**
+     * Creates a new production strategy that represents an entity that can
+     * produce other entities. It is created with a list of entities that it can
+     * produce and a rally point (where all the units created by this entity
+     * will go).
+     */
+    public CanProduce (InteractiveEntity entity) {
+        myProducables = new ArrayList<InteractiveEntity>();
+        myRallyPoint = new Location3D();
+        myProduceState = ProducingState.NOT_PRODUCING;
+        setRallyPoint(entity);
+    }
 
-	/**
-	 * Sets the rally point of the entity that can produce so that units will
-	 * move to that point after they are created by the entity.
-	 * 
-	 * @param rallyPoint
-	 *            is the location where the units will go when they are created
-	 */
-	public void setRallyPoint(Location3D rallyPoint) {
-		myRallyPoint = rallyPoint;
-	}
+    /**
+     * Sets the rally point of the entity that can produce so that units will
+     * move to that point after they are created by the entity.
+     * 
+     * @param rallyPoint
+     *        is the location where the units will go when they are created
+     */
+    public void setRallyPoint (Location3D rallyPoint) {
+        myRallyPoint = rallyPoint;
+    }
 
-	public void setRallyPoint(InteractiveEntity entity) {
-		myRallyPoint = new Location3D(entity.getWorldLocation().getX(), entity
-				.getWorldLocation().getY() + 50, 0);
-	}
+    public void setRallyPoint (InteractiveEntity entity) {
+        myRallyPoint =
+                new Location3D(entity.getWorldLocation().getX(),
+                               entity.getWorldLocation().getY() + 50, 0);
+    }
 
-	/**
-	 * Adds an interactive entity that can be produced to the list of this
-	 * entities producables.
-	 * 
-	 * @param producable
-	 *            is an entity that this production entity can create
-	 */
-	public void addProducable(InteractiveEntity producable) {
-		myProducables.add(producable);
+    /**
+     * Adds an interactive entity that can be produced to the list of this
+     * entities producables.
+     * 
+     * @param producable
+     *        is an entity that this production entity can create
+     */
+    public void addProducable (InteractiveEntity producable) {
+        myProducables.add(producable);
 
-	}
+    }
 
-	@Override
-	public void createProductionActions(final InteractiveEntity producer) {
-		for (final InteractiveEntity producable : myProducables) {
-			String commandName = "make " + producable.getInfo().getName();
-			final IndividualResourceManager playerResources = GameState.getPlayers().getPlayer(producer.getPlayerID()).getResources();
-			final Map<String, Integer> costMap = producable.getInfo().getCost();
-			System.out.println("COST "+ costMap);
-			System.out.println("HAVE " + playerResources.getResources());
-			producer.addAction(commandName, new InteractiveAction(producer) {
+    @Override
+    public void createProductionActions (final InteractiveEntity producer) {
+        for (final InteractiveEntity producable : myProducables) {
+            String commandName = "make " + producable.getInfo().getName();
+            final IndividualResourceManager playerResources =
+                    GameState.getPlayers().getPlayer(producer.getPlayerID()).getResources();
+            final Map<String, Integer> costMap = producable.getInfo().getCost();
+            System.out.println("COST " + costMap);
+            System.out.println("HAVE " + playerResources.getResources());
+            producer.addAction(commandName, new InteractiveAction(producer) {
 
-				@Override
-				public void update(Command command) {
-				}
+                @Override
+                public void update (Command command) {
+                }
 
-				@Override
-				public void apply() {
-				    if(playerResources.has(costMap)){
-				        playerResources.charge(costMap);
-			                    System.out.println("HAVE " + playerResources.getResources());
-	                                    final InteractiveEntity unit = producable;
+                @Override
+                public void apply () {
+                    if (playerResources.has(costMap)) {
+                        playerResources.charge(costMap);
+                        System.out.println("HAVE " + playerResources.getResources());
 
-	                                        myProduceState = ProducingState.PRODUCING;
-	                                        DelayedTask dt = new DelayedTask(unit.getBuildTime(),
-	                                                        new Runnable() {
-	                                                                @Override
-	                                                                public void run() {
-	                                                                        InteractiveEntity f = unit.copy();
-	                                                                        f.setWorldLocation(producer
-	                                                                                        .getWorldLocation());
-	                                                                        producer.setChanged();
-	                                                                        producer.notifyObservers(f);
+                        final InteractiveEntity unit = producable;
 
-	                                                                        myProduceState = ProducingState.NOT_PRODUCING;
-	                                                                        f.move(myRallyPoint);
+                        myProduceState = ProducingState.PRODUCING;
+                        DelayedTask dt = new DelayedTask(unit.getBuildTime(), new Runnable() {
+                            @Override
+                            public void run () {
+                                InteractiveEntity f = unit.copy();
+                                f.setWorldLocation(producer.getWorldLocation());
+                                producer.setChanged();
+                                producer.notifyObservers(f);
 
-	                                                                }
-	                                                        });
+                                myProduceState = ProducingState.NOT_PRODUCING;
+                                f.move(myRallyPoint);
 
-	                                        producer.addQueueableTask(dt);
-				        
-				    }
+                            }
+                        });
 
-				}
-			});
-			producer.addInfo(commandName, producable.getInfo());
-		}
-	}
+                        producer.addQueueableTask(dt);
 
-	public ProducingState getProducingState() {
-		return myProduceState;
-	}
+                    }
 
-	public void paint(Graphics2D pen) {
-		for (int i = 0; i < myProducables.size(); i++) {
-			myProducables.get(i).paint(pen);
-		}
-	}
+                }
+            });
+            producer.addInfo(commandName, producable.getInfo());
+        }
+    }
 
-	public void update(double elapsedTime) {
-		for (InteractiveEntity ie : myProducables) {
-			ie.update(elapsedTime);
-		}
-	}
+    public ProducingState getProducingState () {
+        return myProduceState;
+    }
 
-	public List<InteractiveEntity> getProducables() {
-		return myProducables;
-	}
+    public void paint (Graphics2D pen) {
+        for (int i = 0; i < myProducables.size(); i++) {
+            myProducables.get(i).paint(pen);
+        }
+    }
 
-	public void setProducables(List<InteractiveEntity> producables) {
-		myProducables = producables;
-	}
+    public void update (double elapsedTime) {
+        for (InteractiveEntity ie : myProducables) {
+            ie.update(elapsedTime);
+        }
+    }
 
-	public void affect(InteractiveEntity entity) {
-		ProductionStrategy newProduction = new CanProduce(entity);
-		newProduction.setProducables(getProducables());
-		newProduction.createProductionActions(entity);
-		entity.setProductionStrategy(newProduction);
-	}
+    public List<InteractiveEntity> getProducables () {
+        return myProducables;
+    }
+
+    public void setProducables (List<InteractiveEntity> producables) {
+        myProducables = producables;
+    }
+
+    public void affect (InteractiveEntity entity) {
+        ProductionStrategy newProduction = new CanProduce(entity);
+        newProduction.setProducables(getProducables());
+        newProduction.createProductionActions(entity);
+        entity.setProductionStrategy(newProduction);
+    }
 }
