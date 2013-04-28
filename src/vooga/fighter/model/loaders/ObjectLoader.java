@@ -144,6 +144,7 @@ public abstract class ObjectLoader {
 		for (int j = 0; j < frameNodes.getLength(); j++) {
 			Element frame = (Element) frameNodes.item(j);
 			if (frame.getAttributes().getNamedItem(ModelConstants.IMAGE_PROPERTY) != null){
+			        System.out.println("<objectloader> " + getAttributeValue(frame, ModelConstants.IMAGE_PROPERTY));
 				newState.populateImage(new Pixmap(getAttributeValue(frame, ModelConstants.IMAGE_PROPERTY)), j);
 			} else {
 				newState.populateImage(new Pixmap(ModelConstants.BLANK), j);

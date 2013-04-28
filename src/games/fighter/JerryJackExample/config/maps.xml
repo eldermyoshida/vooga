@@ -4,7 +4,7 @@
         <startingPos xCoord="140" yCoord="300"/>
         <startingPos xCoord="200" yCoord="300"/>
         <state stateName = "background">
-            <frame image = "fighter/JerryJackExample/images/Streets.jpeg" />
+            <frame image = "fighter/JerryJackExample/images/Streets.jpg" />
         </state>
         <environmentObject objectName="platform" xCoord="200" yCoord="550" />
     </map>

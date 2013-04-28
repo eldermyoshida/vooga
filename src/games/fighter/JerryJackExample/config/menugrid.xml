@@ -25,7 +25,5 @@
        
     </menumode>
     
-    <menumode menuname="MapSelectMenu2" >
-        <menuobject menuobjectname="BlueMap" xCoord = "250" yCoord = "150" xSize = "150" ySize = "150" nextState = "MapEditor" gridnum = "1" up="3" down="3" left="2" right="2" />              
-    </menumode>
+    
 </menutype>
