@@ -39,9 +39,6 @@ public class Player {
 		for(String attr : myAttributeManager.getAttributesInfo()) {
 			playerInfo.append(" "+attr+"\n");
 		}
-		
-		
-//		System.out.println(playerInfo.toString());
 		return playerInfo.toString();
 	}
 
