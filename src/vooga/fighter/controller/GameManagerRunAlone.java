@@ -32,8 +32,8 @@ public class GameManagerRunAlone{
     	    private GameInfo myGameInfo;
     	    private String myHardFilePathway;
 
-    	    public GameManagerRunAlone() {
-    	    	setFilePathway();
+    	    public GameManagerRunAlone(String pathway) {
+    	    	setFilePathway(pathway);
     	        setCanvas();
     	        setInfo();
     	        ControllerFactory factory = makeFactory(myCanvas,myHardFilePathway);
@@ -71,7 +71,10 @@ public class GameManagerRunAlone{
     	    protected void setFilePathway(){
     	        myHardFilePathway = PATHWAY;
     	    }
-    		 
+    	    
+    	    protected void setFilePathway(String pathway) {
+    	    	myHardFilePathway = pathway;
+    	    }
     		 
     		 protected GameInfo getGameInfo(){
     			 return myGameInfo;
