@@ -581,7 +581,7 @@ public abstract class InteractiveEntity extends GameEntity implements
 			}
 		}
 		getEntityState().update(elapsedTime);
-
+		getGatherStrategy().update(elapsedTime);
 		setChanged();
 		notifyObservers();
 	}

@@ -156,7 +156,9 @@ public class Unit extends InteractiveEntity {
 			List<Resource> resources = GameState.getMap().getResources()
 					.getInArea(getWorldLocation(), DEFUALT_GATHER_RADIUS);
 			if (!resources.isEmpty()) {
-				this.gather(resources.get(0));
+				Resource resource= resources.get(0);
+				move(resource.getWorldLocation());
+				this.gather(resource);
 			}
 		}
 		super.update(elapsedTime);

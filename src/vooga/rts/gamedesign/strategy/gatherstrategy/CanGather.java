@@ -61,7 +61,6 @@ public class CanGather implements GatherStrategy {
 			myGatherState = GatherState.GATHERING;
 			System.out.println("I gathered!!!");
 			myGatherDelay = new DelayedTask(myCooldown, new Runnable() {
-
 				@Override
 				public void run() {
 					toBeGathered.getGathered(id, myGatherAmount);
@@ -69,7 +68,6 @@ public class CanGather implements GatherStrategy {
 				}
 			});
 		}
-
 	}
 
 	@Override
