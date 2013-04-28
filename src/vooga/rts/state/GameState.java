@@ -42,8 +42,8 @@ import vooga.rts.util.TimeIt;
  * 
  */
 public class GameState extends SubState implements Controller, Observer {
-    private static final Location3D DEFAULT_SOLDIER_ONE_RELATIVE_LOCATION = new Location3D(300,
-                                                                                           300, 0);
+    private static final Location3D DEFAULT_SOLDIER_ONE_RELATIVE_LOCATION = new Location3D(100,
+                                                                                           100, 0);
 
     private static final Location3D DEFAULT_WORKER_RELATIVE_LOCATION = new Location3D(200, 200, 0);
 

@@ -109,7 +109,7 @@
 	<units src = "vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit">
 		<unit>
 			<name>Marine</name>
-			<img>images/sprites/soldier.png</img>
+			<img>images/sprites/halo_soldier.png</img>
 			<sound>pikachu.wav</sound>
 			<health>100</health>
 			<buildtime>5</buildtime>
@@ -131,7 +131,7 @@
 		</unit>
 		<unit>
 			<name>worker</name>
-			<img>images/worker.jpg</img>
+			<img>images/sprites/soldier.png</img>
 			<sound>pikachu.wav</sound>
 			<health>100</health>
 			<buildtime>5</buildtime>
