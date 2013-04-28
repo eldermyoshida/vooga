@@ -14,7 +14,7 @@ import vooga.towerdefense.view.gamescreens.GameStatsScreen;
 import vooga.towerdefense.view.gamescreens.MapScreen;
 import vooga.towerdefense.view.gamescreens.ShopScreen;
 import vooga.towerdefense.view.introscreens.MapsSelectorScreen;
-import vooga.towerdefense.view.introscreens.SplashScreen;
+import vooga.towerdefense.view.introscreens.ImageScreen;
 
 
 /**
@@ -30,7 +30,10 @@ public class TDView {
     private static final String TITLE_KEYWORD = "GameTitle";
     private static final String NEXT_BUTTON_KEYWORD = "NextButtonName";
     private static final Dimension MAP_SELECTOR_SCREEN_SIZE = new Dimension(800, 600);
-    private static final Dimension SPLASH_SCREEN_SIZE = new Dimension(800, 600);
+    private static final Dimension IMAGE_SCREEN_SIZE = new Dimension(800, 600);
+    private static final String SPLASH_SCREEN_IMAGE = "splashscreen.gif";
+    private static final String WIN_SCREEN_IMAGE = "winscreen.gif";
+    private static final String LOSE_SCREEN_IMAGE = "losescreen.gif";
     private JPanel myPanel;
     private Dimension mySize;
     private GameStatsScreen myGameStats;
@@ -38,7 +41,9 @@ public class TDView {
     private ShopScreen myShopScreen;
     private JFrame myFrame;
     private MapScreen myMapScreen;
-    private SplashScreen mySplashScreen;
+    private ImageScreen mySplashScreen;
+    private ImageScreen myWinScreen;
+    private ImageScreen myLoseScreen;
     private Controller myController;
     private MapsSelectorScreen myMapSelector;
     private JButton myNextScreenButton;
@@ -49,6 +54,9 @@ public class TDView {
      */
     public TDView (Controller controller) {
         myController = controller;
+        mySplashScreen = new ImageScreen(IMAGE_SCREEN_SIZE, SPLASH_SCREEN_IMAGE);
+        myWinScreen = new ImageScreen(IMAGE_SCREEN_SIZE, WIN_SCREEN_IMAGE);
+        myLoseScreen = new ImageScreen(IMAGE_SCREEN_SIZE, LOSE_SCREEN_IMAGE);
         myFrame = new JFrame(myController.getStringFromResources(TITLE_KEYWORD));
         myPanel = new JPanel();
         myPanel.setLayout(new BorderLayout());
@@ -60,7 +68,6 @@ public class TDView {
      * display the game splash screen
      */
     public void showSplashScreen () {
-        mySplashScreen = new SplashScreen(SPLASH_SCREEN_SIZE);
         myFrame.getContentPane().add(nextScreenButton(), BorderLayout.EAST);
         addScreen(mySplashScreen, BorderLayout.CENTER);
     }
@@ -74,6 +81,26 @@ public class TDView {
         myNextScreenButton.setVisible(false);
         myMapSelector = new MapsSelectorScreen(MAP_SELECTOR_SCREEN_SIZE, this, myController);
         addScreen(myMapSelector, BorderLayout.CENTER);
+    }
+    
+    /**
+     * shows the win screen.
+     */
+    public void showWinScreen() {
+        myFrame.getContentPane().setVisible(false);
+        JPanel panel = new JPanel();
+        myFrame.setContentPane(panel);
+        addScreen(myWinScreen, BorderLayout.CENTER);
+    }
+    
+    /**
+     * shows the losing screen.
+     */
+    public void showLoseScreen() {
+        myFrame.getContentPane().setVisible(false);
+        JPanel panel = new JPanel();
+        myFrame.setContentPane(panel);
+        addScreen(myLoseScreen, BorderLayout.CENTER);
     }
     
     /**

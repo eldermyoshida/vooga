@@ -116,6 +116,7 @@ public class XMLWriter {
                                List<String> viewInfo,
                                Map<String, List<String>> map) {
         myViewXMLWriter.write(myViewParent, dimension, viewInfo, map);
+        myXMLDoc.writeFile("/src/vooga/towerdefense/resources/defaultview.xml");
     }
 
     /**

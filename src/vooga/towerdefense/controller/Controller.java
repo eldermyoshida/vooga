@@ -451,7 +451,7 @@ public class Controller {
 	 * The function called when the model reaches winning conditions
 	 */
 	public void win() {
-		// TODO Auto-generated method stub
+	    myView.showWinScreen();
 		
 	}
 
@@ -459,7 +459,8 @@ public class Controller {
 	 * The function called when the model reaches losing conditions
 	 */
 	public void lose() {
-		// TODO Auto-generated method stub
+	    System.out.println("You lose");
+	    myView.showLoseScreen();
 		
 	}
 
