@@ -145,7 +145,8 @@ public class OneVOneController extends LevelController {
 
     @InputMethodTarget(name = "player2_attack")
     public void playerTwoAttacknput(AlertObject alObj) {
-        getInputObjects().get(1).attack("weakPunch");
+        AttackObject newAttack = getInputObjects().get(1).attack("weakPunch");
+        getMode().addObject(newAttack);
     }
 
     @InputMethodTarget(name = "continue")
