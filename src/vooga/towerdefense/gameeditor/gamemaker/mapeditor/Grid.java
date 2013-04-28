@@ -7,6 +7,7 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
 import vooga.towerdefense.model.Tile;
+import vooga.towerdefense.model.tiles.factories.TileFactory;
 
 
 /**
@@ -21,9 +22,9 @@ import vooga.towerdefense.model.Tile;
 public class Grid extends Rectangle {
     private static final long serialVersionUID = 1L;
     private static final Color DEFAULT_COLOR = Color.BLACK;
-    private Tile myTile;
+    private TileFactory myTile;
 
-    public Grid (int x, int y, int width, int height, Tile tile) {
+    public Grid (int x, int y, int width, int height, TileFactory tile) {
         super.x = x;
         super.y = y;
         super.width = width;
@@ -36,7 +37,7 @@ public class Grid extends Rectangle {
      * set the Tile for this grid
      * @param tile the tile to be contained in this grid
      */
-    public void setTile (Tile tile) {
+    public void setTile (TileFactory tile) {
         myTile = tile;
     }
 
@@ -68,7 +69,7 @@ public class Grid extends Rectangle {
      * 
      * @return tile's id
      */
-    public int getTileId () {
+    public String getTileId () {
         return myTile.getTileId();
     }
 
@@ -76,7 +77,7 @@ public class Grid extends Rectangle {
      * 
      * @return  The tile instance of this grid
      */
-    public Tile getTile () {
+    public TileFactory getTile () {
         return myTile;
     }
 

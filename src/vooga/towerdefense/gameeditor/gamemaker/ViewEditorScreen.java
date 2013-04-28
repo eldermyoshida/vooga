@@ -214,6 +214,11 @@ public class ViewEditorScreen extends GameEditorScreen {
 
     private void doneAddingMultiplePanels () {
         myMultiScreenMap.put(myKey, myScreens);
+        for (String key: myMultiScreenMap.keySet()) {
+            System.out.println(myMultiScreenMap.get(key));  
+        }
+        myKey = "";
+        myScreens.removeAll(myScreens);
      //   setVisibility (false);
     }
 
@@ -232,7 +237,7 @@ public class ViewEditorScreen extends GameEditorScreen {
         String position = (String)mySouthernPanelPosition.getSelectedItem();
         String screen = (String)myMultiPanel.getSelectedItem();
         String size = myMultiPanelSize.getText();
-       size = size.replaceFirst(",", "");
+        size = size.replaceFirst(",", "");
         myScreens.add(position + " " + screen + " " + size);
         myMultiPanelSize.setText("");
     }
@@ -242,7 +247,6 @@ public class ViewEditorScreen extends GameEditorScreen {
         for (JComboBox s: myJComboPanels) {
             if (s.getSelectedItem().equals(MULTIPLE_PANEL_NAME)){
                 mySouthernPanelScreen.setVisible(true);
-                System.out.println("goooooooooooooooodddddddddd!");
                 myKey = s.getName();
                 mySelectedJC = s;
             }
