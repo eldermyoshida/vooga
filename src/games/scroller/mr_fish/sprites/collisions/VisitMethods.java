@@ -87,6 +87,7 @@ public class VisitMethods {
     
     public void visit (Fireball fire, IEnemy enemy){
         enemy.takeHit(fire.getHit());
+        fire.setHealth(0);
     }
     
 

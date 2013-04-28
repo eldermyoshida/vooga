@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Random;
 import util.Location;
 import vooga.scroller.extra_resources.inventory.Item;
+import vooga.scroller.extra_resources.movements.TimedMovement;
 import vooga.scroller.extra_resources.sprite_interfaces.ICollectible;
 import vooga.scroller.extra_resources.sprite_interfaces.IEnemy;
 import vooga.scroller.extra_resources.sprite_interfaces.IPlatform;
@@ -15,7 +16,9 @@ import vooga.scroller.level_editor.Level;
 import vooga.scroller.level_editor.library.EncapsulatedSpriteLibrary;
 import vooga.scroller.level_management.LevelPortal;
 import vooga.scroller.sprites.Sprite;
+import vooga.scroller.sprites.animation.MovingSpriteAnimationFactory;
 import vooga.scroller.sprites.interfaces.Locatable;
+import vooga.scroller.sprites.movement.Movement;
 import vooga.scroller.sprites.movement.TrackPlayer;
 import vooga.scroller.sprites.superclasses.GameCharacter;
 import vooga.scroller.util.ISpriteView;
@@ -132,7 +135,7 @@ public class FishLib extends EncapsulatedSpriteLibrary {
         }
         @Override
         public void useItem (MrFish p) {
-            double multiplier = Math.pow(myRandom.nextGaussian()-.5, 2);
+            double multiplier = Math.pow(myRandom.nextGaussian()-.5, 3);
             p.takeHit((int)(HEALTH_MULTIPLIER*multiplier));
             }
 
@@ -166,22 +169,27 @@ public class FishLib extends EncapsulatedSpriteLibrary {
     }
     
     public static class Shark extends GameCharacter implements IEnemy {
-        private static final Pixmap DEFAULT_IMG = makePixmap(IMAGE_LOCATION,"shark_left.gif");
+        private static final Pixmap DEFAULT_IMG = makePixmap(IMAGE_LOCATION,"shark.gif");
         private static final Dimension DEFAULT_SIZE = new Dimension(64, 32);
         private static final int DEFAULT_HEALTH = 10;
         private static final int DEFAULT_DAMAGE = 7;
         private static final int SPEED = 30;
         private static final int RADIUS = 300;
+        private static final String IMAGE = "shark.gif";
         
         private TrackPlayer movement = new TrackPlayer(this, getLocatable(), SPEED, RADIUS);
 
         
         public Shark(){
             this(DEFAULT_CENTER);
+
         }
         
         public Shark (Location center) {
             super(DEFAULT_IMG, center, DEFAULT_SIZE, DEFAULT_HEALTH, DEFAULT_DAMAGE);
+            MovingSpriteAnimationFactory msaf = new MovingSpriteAnimationFactory(IMAGE_LOCATION, IMAGE);
+            ISpriteView animation = msaf.generateAnimation(this);
+            this.setView(animation);            
             initStates();
         }
 
@@ -211,26 +219,43 @@ public class FishLib extends EncapsulatedSpriteLibrary {
     }
     
     public static class Baracuda extends GameCharacter implements IEnemy {
-        private static final Pixmap DEFAULT_IMG = makePixmap(IMAGE_LOCATION,"baracuda_left.gif");
+        private static final Pixmap DEFAULT_IMG = makePixmap(IMAGE_LOCATION,"baracuda.gif");
         private static final Dimension DEFAULT_SIZE = new Dimension(64, 32);
         private static final int DEFAULT_HEALTH = 5;
         private static final int DEFAULT_DAMAGE = 5;
         
+        private static final double SPEED = 50;
+        private static final double ANGLE = 0;
+        private static final double TIME_LIMIT = 100;
+        private static final String IMAGE = "baracuda.gif";
+
+        private Movement myMovement;
+        
         public Baracuda(){
             this(DEFAULT_CENTER);
+            myMovement = new TimedMovement(this, TIME_LIMIT, ANGLE, SPEED);
         }
         
         
         public Baracuda (Location center) {
             super(DEFAULT_IMG, center, DEFAULT_SIZE, DEFAULT_HEALTH, DEFAULT_DAMAGE);
+            MovingSpriteAnimationFactory msaf = new MovingSpriteAnimationFactory(IMAGE_LOCATION, IMAGE);
+            ISpriteView animation = msaf.generateAnimation(this);
+            this.setView(animation);  
             initStates();
         }
-
+        
         private void initStates () {
             // TODO left, right states
             
         }
 
+        public void update (double elapsedTime, Dimension bounds) {
+            super.update(elapsedTime, bounds);
+            myMovement.execute();
+        }
+
+        
         @Override
         public void handleDeath (Level level) {
             level.addSprite(new HushPuppies(this.getCenter()));
@@ -316,6 +341,7 @@ public class FishLib extends EncapsulatedSpriteLibrary {
         private static final int DEFAULT_HEALTH = 1;
         private static final int DEFAULT_DAMAGE = 3;
         private static final int MAX_TIME = 50;
+        private static final double BUFFER_MAGNITUDE = .5;
         
         
         private int myTime;
@@ -330,6 +356,9 @@ public class FishLib extends EncapsulatedSpriteLibrary {
             super.update(elapsedTime, bounds);
             myTime += 1;
             if(myTime >= MAX_TIME){
+                this.setHealth(0);
+            }
+            if(this.getVelocity().getMagnitude() < BUFFER_MAGNITUDE){
                 this.setHealth(0);
             }
         }
