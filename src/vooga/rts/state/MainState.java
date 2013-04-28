@@ -15,6 +15,7 @@ import vooga.rts.game.RTSGame;
 import vooga.rts.gui.Window;
 import vooga.rts.gui.menus.MultiMenu;
 import vooga.rts.util.Scale;
+import vooga.rts.util.TimeIt;
 
 
 /**

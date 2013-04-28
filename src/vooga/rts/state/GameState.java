@@ -30,6 +30,7 @@ import vooga.rts.util.Information;
 import vooga.rts.util.Location3D;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.Scale;
+import vooga.rts.util.TimeIt;
 
 
 /**
@@ -126,7 +127,9 @@ public class GameState extends SubState implements Controller, Observer {
     public void paint (Graphics2D pen) {
         Scale.unscalePen(pen);
         pen.setBackground(Color.BLACK);
-        myMap.paint(pen);
+        myMap.paint(pen);                
+        myMiniMap.paint(pen);        
+        getPlayers().getHuman().paint(pen);
 
         if (myDrag != null) {
             pen.draw(myDrag);

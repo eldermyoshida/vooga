@@ -80,7 +80,7 @@ public abstract class InteractiveEntity extends GameEntity implements
 	private GatherStrategy myGatherStrategy;
 	private int myArmor;
 	private Map<String, Action> myActions;
-	private Map<String, Information> myInfos;
+	private Map<String, Information> myActionInfos;
 	private List<DelayedTask> myTasks;
 	private double myBuildTime;
 	private Information myInfo;
@@ -113,7 +113,7 @@ public abstract class InteractiveEntity extends GameEntity implements
 		myUpgradeStrategy = new CannotUpgrade();
 		myGatherStrategy = new CannotGather();
 		myActions = new HashMap<String, Action>();
-		myInfos = new HashMap<String, Information>();
+		myActionInfos = new HashMap<String, Information>();
 		isSelected = false;
 		myTasks = new ArrayList<DelayedTask>();
 		myBuildTime = buildTime;
@@ -190,7 +190,7 @@ public abstract class InteractiveEntity extends GameEntity implements
 	 * @param info
 	 */
 	public void addInfo(String command, Information info) {
-		myInfos.put(command, info);
+		myActionInfos.put(command, info);
 	}
 
 	/**
@@ -299,9 +299,9 @@ public abstract class InteractiveEntity extends GameEntity implements
 			return null; // this needs to be fixed
 		for (String s : myActions.keySet()) {
 			// need to check what type it is...eg it cant be a left click
-			String isMake = s.split(" ")[0];
-			if (isMake.equals("make")) { // very buggy
-				infoCommands.add(new InformationCommand(s, myInfos.get(s)));
+			String commandName = s.split(" ")[0];
+			if (commandName.equals("make") || commandName.equals("deoccupy")) { // very buggy
+				infoCommands.add(new InformationCommand(s, myActionInfos.get(s)));
 			}
 
 		}
