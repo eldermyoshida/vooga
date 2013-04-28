@@ -1,6 +1,5 @@
 package vooga.scroller.level_editor;
 
-import games.scroller.mr_fish.sprites.player.MrFish;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -10,25 +9,15 @@ import util.input.Input;
 import util.input.InputClassTarget;
 import util.input.InputMethodTarget;
 import vooga.scroller.util.IGameComponent;
-import vooga.scroller.util.Renderable;
-import vooga.scroller.util.Renderer;
 import vooga.scroller.level_editor.controllerSuite.LEGrid;
 import vooga.scroller.level_editor.model.SpriteBox;
 import vooga.scroller.level_management.LevelPortal;
 import vooga.scroller.level_management.SpriteManager;
-import vooga.scroller.level_management.splash_page.SplashPage;
-import vooga.scroller.level_management.splash_page.TestSplashPage;
-import vooga.scroller.marioGame.splash_page.MarioSplashPage;
-import vooga.scroller.marioGame.spritesDefinitions.players.Mario;
-import vooga.scroller.model.Model;
-import vooga.scroller.scrollingmanager.OmniScrollingManager;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.sprites.Sprite;
 import vooga.scroller.sprites.interfaces.IDoor;
 import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.util.PlatformerConstants;
-import vooga.scroller.util.mvc.Gaming;
-import vooga.scroller.util.mvc.IView;
 import vooga.scroller.view.GameView;
 
 

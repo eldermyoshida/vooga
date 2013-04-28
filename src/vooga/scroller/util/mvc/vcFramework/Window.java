@@ -253,8 +253,15 @@ public abstract class Window<W extends WorkspaceView<D>,
     }
     
 
-    public abstract D getDomain() ;
+    /**
+     * 
+     * @return
+     */
+    public abstract D getDomain();
     
+    /**
+     * @param jMenu - 
+     */
     public void registerMenu (JMenu jMenu) {
         myMenuBar.addCustomMenu(jMenu);
     }

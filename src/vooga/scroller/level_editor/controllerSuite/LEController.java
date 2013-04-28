@@ -224,6 +224,12 @@ public class LEController implements IController<LevelEditing> {
         myView.showMessageDialog(copyError);
     }
 
+    /**
+     * TODO - simulation broke because of change in how games are created.
+     * Among other things, implementation of abstract method: getVisits(), need for 
+     * sample player, and dependency of sample player on a view and a scroller manager.
+     * @param grid
+     */
     public void simulate (LEGrid grid) {
         SimpleView simContainer = new SimpleView("Level Simulation");
         ScrollingManager sm = new OmniScrollingManager();
