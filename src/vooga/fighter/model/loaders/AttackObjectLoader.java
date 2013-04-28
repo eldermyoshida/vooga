@@ -78,7 +78,8 @@ public class AttackObjectLoader extends ObjectLoader {
 				curr = (Effect) effectObject;
 			}
 			catch (Exception e) {
-				throw new NullPointerException("No Such Class");
+			    e.printStackTrace();
+				
 			}
 			getAndAddProperty(effect, getResourceBundle().getString("Duration"), curr);
 			getAndAddProperty(effect, getResourceBundle().getString("Damage"), curr);
