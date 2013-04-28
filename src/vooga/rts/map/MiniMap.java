@@ -36,7 +36,7 @@ public class MiniMap implements IGameLoop {
                 Node n = myMap.getNodeMap().get(x, y);
                 if (n.getContents().size() > 0) {
                     pen.setColor(Color.BLUE);
-                    pen.fill(new Rectangle2D.Double(myScreen.getX() + x / nodesPerPixel, myScreen.getY() + y / nodesPerPixel, 1, 1));
+                    pen.fill(new Ellipse2D.Double(myScreen.getX() + x / nodesPerPixel, myScreen.getY() + y / nodesPerPixel, 2, 2));
                     pen.setColor(Color.BLACK);
                 }
             }
