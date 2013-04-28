@@ -6,7 +6,7 @@
         <state stateName = "background">
             <frame image = "fighter/images/BlueBackground.jpeg" />
         </state>
-        <environmentObject objectName="platform" xCoord="200" yCoord="550" />
+        <environmentObject objectName="platform" xCoord="300" yCoord="400" />
     </map>
     <map mapName="RainbowBackground" xSize="1024" ySize="871">
         <startingPos xCoord="140" yCoord="300"/>
