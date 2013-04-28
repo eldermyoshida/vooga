@@ -139,7 +139,7 @@ public class LETools extends Tools<LevelEditing> {
 //    }
 
     @Override
-    public List<Map<Image, String>> EditableDependents () {
+    public List<Map<Image, String>> getEditableDependents () {
         return getAllSprites();
     }
 
@@ -149,7 +149,7 @@ public class LETools extends Tools<LevelEditing> {
     }
 
     @Override
-    public String EditableDependentsTitle () {
+    public String getEditableDependentsTitle () {
         return "Sprites";
     }
 
