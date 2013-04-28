@@ -138,6 +138,7 @@ public class Unit extends InteractiveEntity {
                     List<Resource> resources = GameState.getMap().getResources()
                             .getInArea(getWorldLocation(), DEFUALT_GATHER_RADIUS);
                     if (!resources.isEmpty()) {
+                        System.out.println("yayayayyaya");
                         Resource resource = resources.get(0);
                         setGoalLocation(resource.getWorldLocation());
                         setTargetEntity(resource);
