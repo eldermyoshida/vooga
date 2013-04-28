@@ -173,7 +173,7 @@ public class MapXMLLoader {
                         tileDimensions.getWidth() / 2);
                 int yCenter = (int) (i * tileDimensions.getHeight() + 
                         tileDimensions.getHeight() / 2);
-                String tileId = reader.next();                
+                String tileId = reader.next();
                 Location location = new Location(xCenter, yCenter);
                 grid[j][i] = getTileFactory(tileId).createTile(location, map);
             }
@@ -187,7 +187,7 @@ public class MapXMLLoader {
     
     private Map<String, TileFactory> getTileIdMap() {
         Map<String, TileFactory> tileIdMap = new HashMap<String, TileFactory>();
-        List<Class> tileFactoryClasses = tileFactoryClasses = GameEditorController.getClassesInPackage("vooga.towerdefense.model.tiles.factories");
+        List<Class> tileFactoryClasses = GameEditorController.getClassesInPackage("vooga.towerdefense.model.tiles.factories");
         for (Class c : tileFactoryClasses) {
             Object tileFactory;
             try {

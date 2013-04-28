@@ -186,4 +186,12 @@ public class GameElementFactory {
 		projectile.addActions(actions);
 		return projectile;
 	}
+	
+	/**
+	 * retrieves the image of this factory's element
+	 * @return
+	 */
+	public Pixmap getImage() {
+		return myImage;
+	}
 }

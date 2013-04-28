@@ -33,6 +33,13 @@ public class LaunchProjectileFactory extends ActionFactory {
 	 */
 	@Override
 	protected Action buildAction(GameElement e) {
+		System.out.println("launch projectile factory reached");
+		if (e.getAttributeManager().getGameElementFactory(myFactoryName)==null){
+			System.out.println("launch projectile factory is null");
+		}else{
+			System.out.println("launch projectile factory is not null");
+		}
+
 		return new LaunchProjectile(getMap(), e.getCenter(), e
 				.getAttributeManager().getGameElementFactory(myFactoryName));
 	}

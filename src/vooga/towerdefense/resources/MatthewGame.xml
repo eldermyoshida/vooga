@@ -3,40 +3,44 @@
 		<dimension>1100, 800</dimension>
 		<MapScreen>
 			<dimension>800, 600</dimension>
-			<location>North</location>
+			<location>Center</location>
 		</MapScreen>
 		<ShopScreen>
-			<dimension>800, 200</dimension>
+			<dimension>600, 100</dimension>
 			<location>South</location>
 		</ShopScreen>
 		<GameStatsScreen>
-			<dimension>200, 200</dimension>
+			<dimension>200, 300</dimension>
 			<location>East</location>
 		</GameStatsScreen>
+		<GameElementInformationScreen>
+			<dimension>200, 300</dimension>
+			<location>East</location>
+		</GameElementInformationScreen>
 	</view>
 	<map>
 		<Map1>
-			<image>tower.gif</image>
+			<image>grass_tile.gif</image>
 			<tile_size>50</tile_size>
 			<dimension>
 				<width>500</width>
 				<height>500</height>
 			</dimension>
 			<grid>1 1 1 1 1 1 1 1 1 1
-			1 1 1 1 2 2 2 1 1 1
-			1 2 2 2 2 1 2 1 1 1
-			1 2 1 1 1 1 2 1 1 1
-			1 2 1 2 2 2 2 1 1 1
-			s 2 1 2 1 1 1 2 2 d
-			1 1 1 2 1 1 1 2 1 1
-			1 1 1 2 2 2 2 2 1 1
 			1 1 1 1 1 1 1 1 1 1
+			s 2 2 1 1 1 1 1 1 1
+			1 1 2 1 1 1 1 1 1 1
+			1 1 2 1 1 1 1 1 1 1
+			1 1 2 1 1 1 1 1 1 1
+			1 1 2 1 1 1 1 1 1 1
+			1 1 2 1 1 1 1 1 1 1
+			1 1 2 2 2 2 2 2 2 d
 			1 1 1 1 1 1 1 1 1 1</grid>
 		</Map1>
 	</map>
 	<player>
 		<attributes>
-			<Health>100.0</Health>
+			<Health>10.0</Health>
 			<Score>0.0</Score>
 			<Money>1000.0</Money>
 		</attributes>
@@ -47,7 +51,7 @@
 			<image>dog.gif</image>
 			<type>Unit</type>
 			<attributes>
-				<HEALTH>100</HEALTH>
+				<HEALTH>10</HEALTH>
 				<MOVE_SPEED>50</MOVE_SPEED>
 				<DIRECTION>0</DIRECTION>
 			</attributes>
@@ -75,6 +79,10 @@
 				<Move>
 					<parameter>MOVE_SPEED</parameter>
 					<parameter>DIRECTION</parameter>
+						<Move>
+							<parameter>FLY_SPEED</parameter>
+							<parameter>DIRECTION</parameter>
+						</Move>
 				</Move>
 			</actions>			
 		</Bear>
@@ -85,11 +93,9 @@
 			<attributes>
 				<HEALTH>100</HEALTH>
 				<MOVE_SPEED>50</MOVE_SPEED>
+				<FLY_SPEED>50</FLY_SPEED>
+				<Attack_Radius>300</Attack_Radius>
 				<DIRECTION>0</DIRECTION>
-				<Attack_Range>300</Attack_Range>
-				<Number_of_Targets>4</Number_of_Targets>
-				<TargetEnemyUnit>1.2</TargetEnemyUnit>
-				<SlowEffect>20</SlowEffect>
 			</attributes>
 			<actions>
 				<FollowPath>
@@ -97,17 +103,13 @@
 				<Move>
 					<parameter>MOVE_SPEED</parameter>
 					<parameter>DIRECTION</parameter>
-					<Move>
-						<parameter>MOVE_SPEED</parameter>
-						<parameter>DIRECTION</parameter>
-					</Move>
+						<Move>
+							<parameter>FLY_SPEED</parameter>
+							<parameter>DIRECTION</parameter>
+						</Move>
 				</Move>
 			    <FindTargets>
 					<parameter>Attack_Range</parameter>
-					<ModifyAttributeValue>
-					    <parameter>SlowEffect</parameter>
-					    <parameter>Move_Speed</parameter>
-					</ModifyAttributeValue>
 			    </FindTargets>
 			</actions>			
 		</Elephant>
@@ -116,11 +118,11 @@
 			<image>tower.gif</image>
 			<type>Tower</type>
 			<attributes>
-				<Health>100</Health>
-				<Attack_Range>300</Attack_Range>
-				<Number_of_Targets>4</Number_of_Targets>
-				<TargetEnemyUnit>1.2</TargetEnemyUnit>
-				<SlowEffect>-20</SlowEffect>
+				<MOVE_SPEED>50</MOVE_SPEED>
+			</attributes>
+			<attributes>
+				<HEALTH>100</HEALTH>
+				<Cost>10</Cost>
 			</attributes>
 			<actions>
 			</actions>			
@@ -129,8 +131,18 @@
 	<rules>
 		<EnemyReachedEndRule/>
 		<NextLevelRule/>
+		<LoseAtZeroHealthRule/>
 	</rules>
 	<levels>
+		<Level0>
+			<rules>
+			</rules>
+			<actions>
+				<LevelTimerAction>
+					<parameter>10</parameter>
+				</LevelTimerAction>
+			</actions>
+		</Level0>
 		<Level1>
 			<rules>
 			</rules>
@@ -140,9 +152,9 @@
 					<parameter>1000</parameter>
 					<parameter>Elephant</parameter>
 				</WaveAction>
-				<TimerAction>
+				<LevelTimerAction>
 					<parameter>60000</parameter>
-				</TimerAction>
+				</LevelTimerAction>
 			</actions>
 		</Level1>
 		<Level2>
@@ -154,9 +166,9 @@
 					<parameter>1000</parameter>
 					<parameter>Bear</parameter>
 				</WaveAction>
-				<TimerAction>
+				<LevelTimerAction>
 					<parameter>60000</parameter>
-				</TimerAction>
+				</LevelTimerAction>
 				</actions>
 			</Level2>
 	</levels>
