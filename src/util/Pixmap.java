@@ -10,8 +10,6 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.ImageIcon;
 
-import sun.awt.image.ToolkitImage;
-
 
 /**
  * This class represents an image on the screen and
