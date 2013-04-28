@@ -85,7 +85,6 @@ public class GameElementXMLLoader {
                                                               elementDimension,
                                                               managerFactory,
                                                               actionFactories);
-        geFactory.initialize(map);
         return geFactory;
     }
     

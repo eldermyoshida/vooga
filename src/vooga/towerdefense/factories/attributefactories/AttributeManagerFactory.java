@@ -49,7 +49,7 @@ public class AttributeManagerFactory {
     }
     
     public void addGameElementFactory(GameElementFactory factory){
-    	
+    	myGameElementFactories.add(factory);
     }
 
     /**

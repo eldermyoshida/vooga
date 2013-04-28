@@ -111,6 +111,7 @@ public class GameElementFactory {
     public void initialize (GameMap map, List<GameElementFactory> gameElementFactories) {
         myMap = map;
         myGameElementFactories = gameElementFactories;
+        
     }
 
     public GameMap getMap () {
@@ -137,6 +138,9 @@ public class GameElementFactory {
     }
 
     public AttributeManager createAttributeFactory () {
+        for (GameElementFactory f : myGameElementFactories) { 
+            myAttributeManagerFactory.addGameElementFactory(f);
+        }
         return myAttributeManagerFactory.makeAttributeManager();
     }
 
@@ -192,6 +196,10 @@ public class GameElementFactory {
     
     public void addGameElementFactory(GameElementFactory GEFactory){
     	myGameElementFactories.add(GEFactory);
+    }
+    
+    public Pixmap getImage() {
+        return myImage;
     }
     
 }
