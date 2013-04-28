@@ -1,21 +1,14 @@
 package vooga.fighter.controller;
 
 import util.input.InputClassTarget;
-import util.input.InputMethodTarget;
-import util.input.PositionObject;
-import vooga.fighter.controller.Controller;
-import vooga.fighter.controller.ControllerDelegate;
-import vooga.fighter.controller.GameInfo;
-import vooga.fighter.model.objects.MouseClickObject;
 import vooga.fighter.view.Canvas;
 import vooga.fighter.view.ScoreScreenLayout;
-
 
 
 /**
  * Details a controller for displaying scores and goes back to menu
  * 
- * Extends a menucontroller, because has menu objects. Only addition 
+ * Extends a menucontroller, because has menu objects. Only addition
  * functionality wise is displaying info
  * 
  * 
@@ -26,7 +19,6 @@ import vooga.fighter.view.ScoreScreenLayout;
 @InputClassTarget
 public class ScoreController extends MenuController {
 
-
     /**
      * Initial constructor
      */
@@ -36,18 +28,19 @@ public class ScoreController extends MenuController {
 
     /**
      * Concrete constructor;
-     * @param name      name of controller
-     * @param frame     canvas
-     * @param manager   controllermanager
-     * @param gameinfo  GameInfo
-     * @param filePath  file path
+     * 
+     * @param name name of controller
+     * @param frame canvas
+     * @param manager controllermanager
+     * @param gameinfo GameInfo
+     * @param filePath file path
      */
-    public ScoreController(String name, Canvas frame, ControllerDelegate manager,
-                           GameInfo gameinfo, String filePath) {
+    public ScoreController (String name, Canvas frame, ControllerDelegate manager,
+                            GameInfo gameinfo, String filePath) {
         super(name, frame, manager, gameinfo, filePath);
         ScoreInfo scoreInfo = new ScoreInfo(filePath);
         scoreInfo.setWinners(gameinfo.getWinners());
-        this.getView().setLayout(new ScoreScreenLayout());
+        getView().setLayout(new ScoreScreenLayout());
         scoreInfo.setWinners(getGameInfo().getWinners());
 
     }
@@ -55,8 +48,12 @@ public class ScoreController extends MenuController {
     /**
      * Returns concrete constructor
      */
-    public Controller getController(String name, Canvas frame, ControllerDelegate manager, GameInfo gameinfo,
-                                    String filepath) {
+    @Override
+    public Controller getController (String name,
+                                     Canvas frame,
+                                     ControllerDelegate manager,
+                                     GameInfo gameinfo,
+                                     String filepath) {
         Controller controller = new ScoreController(name, frame, manager, gameinfo, filepath);
         return controller;
     }
@@ -64,17 +61,19 @@ public class ScoreController extends MenuController {
     /**
      * Checks this controller's end conditions
      */
-    public void notifyEndCondition(String choice) {
-    	removeListener();
-    	getMode().resetChoice();
-    	getGameInfo().getCharacters().clear();
-    	getManager().notifyEndCondition(getMode().getMenusNext(choice));
-        }
+    @Override
+    public void notifyEndCondition (String choice) {
+        removeListener();
+        getMode().resetChoice();
+        getGameInfo().getCharacters().clear();
+        getManager().notifyEndCondition(getMode().getMenusNext(choice));
+    }
 
     /**
      * Remove input
      */
-    public void removeListener(){
+    @Override
+    public void removeListener () {
         super.removeListener();
         getInput().removeListener(this);
     }
@@ -82,9 +81,12 @@ public class ScoreController extends MenuController {
     /**
      * check modeconditions
      */
-    public void checkConditions(){
-        for(ModeCondition condition: getConditions()){
-            if(condition.checkCondition(getMode())) notifyEndCondition(getMode().peekChoice());
+    @Override
+    public void checkConditions () {
+        for (ModeCondition condition : getConditions()) {
+            if (condition.checkCondition(getMode())) {
+                notifyEndCondition(getMode().peekChoice());
+            }
         }
     }
 }

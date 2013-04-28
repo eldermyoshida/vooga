@@ -1,20 +1,18 @@
 package vooga.fighter.controller;
 
-import vooga.fighter.controller.Controller;
-import vooga.fighter.controller.ControllerDelegate;
-import vooga.fighter.controller.GameInfo;
-import vooga.fighter.view.Canvas;
 import java.util.ResourceBundle;
+import vooga.fighter.view.Canvas;
 
 
 /**
  * 
  * Details a MainMenuController class, where start game etc. selections are
+ * 
  * @author Jack Matteucci
  * @author Jerry Li
  * 
- * This is a great class to reference when trying to understand how to extend the
- * menu controller hierarchy
+ *         This is a great class to reference when trying to understand how to extend the
+ *         menu controller hierarchy
  * 
  */
 public class MainMenuController extends MenuController {
@@ -23,20 +21,25 @@ public class MainMenuController extends MenuController {
 
     /**
      * Initial constructor. Called by ControllerFactory initially
-     * using reflection. 
+     * using reflection.
      */
     public MainMenuController () {
         super();
     }
+
     /**
-     * Concrete constructor, used when controller is switched to 
-     * @param name      name of controller
-     * @param frame     canvas
-     * @param manager   ControllerManager
-     * @param gameinfo  GameInfo
+     * Concrete constructor, used when controller is switched to
+     * 
+     * @param name name of controller
+     * @param frame canvas
+     * @param manager ControllerManager
+     * @param gameinfo GameInfo
      */
-    public MainMenuController(String name, Canvas frame, ControllerDelegate manager, GameInfo gameinfo,
-                              String pathway) {
+    public MainMenuController (String name,
+                               Canvas frame,
+                               ControllerDelegate manager,
+                               GameInfo gameinfo,
+                               String pathway) {
         super(name, frame, manager, gameinfo, pathway);
 
         getGameInfo().reset();
@@ -47,18 +50,18 @@ public class MainMenuController extends MenuController {
     /**
      * Returns concrete controller, used when controller is switched to
      */
-    public Controller getController(String name, Canvas frame, ControllerDelegate manager, 
-                                    GameInfo gameinfo, String pathway) {
+    @Override
+    public Controller getController (String name, Canvas frame, ControllerDelegate manager,
+                                     GameInfo gameinfo, String pathway) {
         return new MainMenuController(name, frame, manager, gameinfo, pathway);
     }
 
-
     /**
-     * Checks this controller's end conditions and notifies the 
+     * Checks this controller's end conditions and notifies the
      * delegate
      */
     @Override
-    public void notifyEndCondition(String choice) {
+    public void notifyEndCondition (String choice) {
         removeListener();
         getMode().resetChoice();
         getManager().notifyEndCondition(getMode().getMenusNext(choice));
@@ -67,7 +70,8 @@ public class MainMenuController extends MenuController {
     /**
      * Removes the input listener
      */
-    public void removeListener(){
+    @Override
+    public void removeListener () {
         super.removeListener();
         getInput().removeListener(this);
     }
@@ -75,9 +79,12 @@ public class MainMenuController extends MenuController {
     /**
      * Checks condition
      */
-    public void checkConditions(){
-        for(ModeCondition condition: getConditions()){
-            if(condition.checkCondition(getMode())) notifyEndCondition(getMode().peekChoice());
+    @Override
+    public void checkConditions () {
+        for (ModeCondition condition : getConditions()) {
+            if (condition.checkCondition(getMode())) {
+                notifyEndCondition(getMode().peekChoice());
+            }
         }
     }
 

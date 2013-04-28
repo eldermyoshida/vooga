@@ -1,15 +1,14 @@
 package vooga.fighter.controller;
 
-
-
 import vooga.fighter.model.utils.Health;
+
 
 /**
  * Container for player stats
  * 
  * @author Jerry Li
  * @author Jack Matteucci
- *
+ * 
  */
 public class PlayerStatus {
 
@@ -22,7 +21,7 @@ public class PlayerStatus {
     private boolean winStatus;
 
     /**
-     * Constructs player stats. 
+     * Constructs player stats.
      */
     public PlayerStatus () {
         myPlayerID++;
@@ -32,52 +31,57 @@ public class PlayerStatus {
         myScore = (double) 0;
     }
 
-
     /**
      * Gets player name
+     * 
      * @return
      */
-    public String getPlayerName() {
+    public String getPlayerName () {
         return myPlayerName;
     }
 
     /**
      * gets health
+     * 
      * @return
      */
-    public Health getHealth() {
+    public Health getHealth () {
         return myHealth;
     }
 
     /**
      * gets score
+     * 
      * @return
      */
-    public Double getScore() {
+    public Double getScore () {
         return myScore;
     }
 
     /**
      * sets character name
-     * @param name
+     * 
+     * @param name      name
      */
-    public void setCharacterName(String name) {
+    public void setCharacterName (String name) {
         myCharacterName = name;
     }
 
     /**
      * sets health
-     * @param health
+     * 
+     * @param health    health
      */
-    public void setHealth(Health health) {
+    public void setHealth (Health health) {
         myHealth = health;
     }
 
     /**
      * sets score
-     * @param score
+     * 
+     * @param score     score
      */
-    public void setScore(double score) {
+    public void setScore (double score) {
         myScore = score;
     }
 

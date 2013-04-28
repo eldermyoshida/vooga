@@ -1,39 +1,21 @@
 package vooga.fighter.controller;
 
-import java.awt.BorderLayout; 
+import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.DisplayMode;
-import java.awt.GraphicsDevice;
-import java.awt.GraphicsEnvironment;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-
+import java.util.Map;
 import javax.swing.JFrame;
-import javax.swing.Timer;
-
-import arcade.games.ArcadeInteraction;
-import arcade.games.Game;
-import arcade.games.GameData;
-import arcade.games.UserGameData;
-import util.Pixmap;
 import vooga.fighter.model.loaders.MapLoader;
-import util.Text;
 import vooga.fighter.view.Canvas;
 import vooga.fighter.controller.ControllerManager;
 import vooga.fighter.controller.gameinformation.GameInfo;
 
+import arcade.games.UserGameData;
 
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.List;
-import java.util.Map;
-import java.util.ResourceBundle;
 
 /**
  * 
  * @author Jack Matteucci
- *
+ * 
  */
 
 public class GameManagerRunAlone{

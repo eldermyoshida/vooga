@@ -1,19 +1,16 @@
 package vooga.fighter.controller;
 
-
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import util.Vector;
-import util.input.*;
+import util.input.AlertObject;
+import util.input.InputClassTarget;
+import util.input.InputMethodTarget;
+import util.input.PositionObject;
 import vooga.fighter.forces.Force;
 import vooga.fighter.forces.ForceFactory;
-import vooga.fighter.forces.Gravity;
 import vooga.fighter.model.objects.AttackObject;
 import vooga.fighter.model.objects.CharacterObject;
-import vooga.fighter.model.objects.MouseClickObject;
-import vooga.fighter.util.Physics;
 import vooga.fighter.view.Canvas;
 import vooga.fighter.view.FourPlayerMatchGameLayout;
 
@@ -24,7 +21,7 @@ import vooga.fighter.view.FourPlayerMatchGameLayout;
  * @author Jerry Li
  * @author by Jack Matteucci
  * 
- * Great class to reference when subclasing level controller 
+ *         Great class to reference when subclasing level controller
  */
 @InputClassTarget
 public class OneVOneController extends LevelController {
@@ -41,39 +38,41 @@ public class OneVOneController extends LevelController {
      */
     public OneVOneController () {
         super();
-    }   
+    }
 
     /**
      * Concrete constructor
-     * @param name      name of controller
-     * @param frame     frame
-     * @param manager   ControllerManager
-     * @param gameinfo  GameInfo
-     * @param filepath  FilePath
+     * 
+     * @param name name of controller
+     * @param frame frame
+     * @param manager ControllerManager
+     * @param gameinfo GameInfo
+     * @param filepath FilePath
      */
-    public OneVOneController(String name, Canvas frame, ControllerDelegate manager, 
-    		GameInfo gameinfo, String filepath) {
-    	super(name, frame, manager, gameinfo, filepath);
-    	myInputPathway = getHardFilePath() + INPUT_PATHWAY;
-    	myScorePathway = getHardFilePath() + SCORE_PATHWAY;
-    	myResources = ResourceBundle.getBundle(myScorePathway);
-    	ForceFactory forcefactory = new ForceFactory(getHardFilePath());
-    	myForces = forcefactory.getForces();
-    	getMode().setForces(myForces);
-    	frame.setLayout(new FourPlayerMatchGameLayout());
-    	setSumOfForces(myForces);
+    public OneVOneController (String name, Canvas frame, ControllerDelegate manager,
+                              GameInfo gameinfo, String filepath) {
+        super(name, frame, manager, gameinfo, filepath);
+        myInputPathway = getHardFilePath() + INPUT_PATHWAY;
+        myScorePathway = getHardFilePath() + SCORE_PATHWAY;
+        myResources = ResourceBundle.getBundle(myScorePathway);
+        ForceFactory forcefactory = new ForceFactory(getHardFilePath());
+        myForces = forcefactory.getForces();
+        getMode().setForces(myForces);
+        frame.setLayout(new FourPlayerMatchGameLayout());
+        setSumOfForces(myForces);
     }
 
     /**
      * Set sum of forces acting upon objects
+     * 
      * @param forces
      */
-    public void setSumOfForces(List<Force> forces) {
+    public void setSumOfForces (List<Force> forces) {
         Vector sum = new Vector();
         for (Force force : forces) {
             sum.sum(force.getVector());
         }
-        for(CharacterObject character : getInputObjects()) {
+        for (CharacterObject character : getInputObjects()) {
             character.setAppliedForces(sum);
         }
     }
@@ -81,28 +80,32 @@ public class OneVOneController extends LevelController {
     /**
      * Return concrete controller
      */
-    public Controller getController(String name, Canvas frame, ControllerDelegate manager, GameInfo gameinfo,
-                                    String filepath) {
+    @Override
+    public Controller getController (String name,
+                                     Canvas frame,
+                                     ControllerDelegate manager,
+                                     GameInfo gameinfo,
+                                     String filepath) {
         Controller controller = new OneVOneController(name, frame, manager, gameinfo, filepath);
         return controller;
     }
 
-
     /**
      * notify delegate of condition
      */
+    @Override
     public void notifyEndCondition (String endCondition) {
-    	removeListener();
-    	getManager().notifyEndCondition(myResources.getString(SCORE));
+        removeListener();
+        getManager().notifyEndCondition(myResources.getString(SCORE));
     }
-
 
     /**
      * Details movement inputs
+     * 
      * @param alObj
      */
     @InputMethodTarget(name = "player1_jump")
-    public void playerOneJumpInput (AlertObject alObj)  {
+    public void playerOneJumpInput (AlertObject alObj) {
         getInputObjects().get(0).jump();
     }
 
@@ -113,13 +116,13 @@ public class OneVOneController extends LevelController {
     }
 
     @InputMethodTarget(name = "player1_right")
-    public void playerOneRightInput(AlertObject alObj) {
+    public void playerOneRightInput (AlertObject alObj) {
         getInputObjects().get(0).move(0);
 
     }
 
     @InputMethodTarget(name = "player2_jump")
-    public void playerTwoJumpInput (AlertObject alObj)  {
+    public void playerTwoJumpInput (AlertObject alObj) {
         getInputObjects().get(1).move(270);
     }
 
@@ -130,36 +133,35 @@ public class OneVOneController extends LevelController {
     }
 
     @InputMethodTarget(name = "player2_right")
-    public void playerTwoRightInput(AlertObject alObj) {
+    public void playerTwoRightInput (AlertObject alObj) {
         getInputObjects().get(1).move(0);
 
     }
 
-
     @InputMethodTarget(name = "player1_attack")
-    public void playerOneAttackInput(AlertObject alObj) {
+    public void playerOneAttackInput (AlertObject alObj) {
         AttackObject newAttack = getInputObjects().get(0).attack("weakPunch");
         getMode().addObject(newAttack);
     }
 
     @InputMethodTarget(name = "player2_attack")
-    public void playerTwoAttacknput(AlertObject alObj) {
+    public void playerTwoAttacknput (AlertObject alObj) {
         getInputObjects().get(1).attack("weakPunch");
     }
 
     @InputMethodTarget(name = "continue")
-    public void mouseclick(PositionObject pos)  {
-        //This is a test
+    public void mouseclick (PositionObject pos) {
+        // This is a test
         getInputObjects().get(1).changeHealth(-10);
     }
 
     /**
      * Removes listener
      */
-    public void removeListener(){
+    @Override
+    public void removeListener () {
         super.removeListener();
         getInput().removeListener(this);
     }
-
 
 }

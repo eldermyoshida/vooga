@@ -2,16 +2,17 @@ package vooga.fighter.controller;
 
 import java.util.HashMap;
 
+
 /**
  * 
  * @author matthewparides
- *
+ * 
  */
 public class CharNameIDMaps {
     public static HashMap<Integer, String> IDtoName;
     public static HashMap<String, Integer> NametoID;
 
-    static{
+    static {
         IDtoName = new HashMap<Integer, String>();
         NametoID = new HashMap<String, Integer>();
         IDtoName.put(1, "Cpt. Falcon");
@@ -24,11 +25,11 @@ public class CharNameIDMaps {
         NametoID.put(getName(4), 4);
     }
 
-    public static int getID(String name) {
+    public static int getID (String name) {
         return NametoID.get(name);
     }
 
-    public static String getName(int ID) {
+    public static String getName (int ID) {
         return IDtoName.get(ID);
     }
 

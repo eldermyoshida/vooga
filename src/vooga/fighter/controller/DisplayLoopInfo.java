@@ -1,12 +1,11 @@
 package vooga.fighter.controller;
 
 import java.util.List;
-
 import vooga.fighter.model.Mode;
 import vooga.fighter.model.utils.ImageDataObject;
 import vooga.fighter.util.HUDFactory;
-
 import vooga.fighter.view.HUDElement;
+
 
 /**
  * Display loop info for menus
@@ -16,30 +15,31 @@ import vooga.fighter.view.HUDElement;
  * @author Jack Matteucci
  * @author Wayne You
  * @author Jerry Li
- *
+ * 
  */
 
-public class DisplayLoopInfo extends DisplayInfo implements ViewDataSource{
+public class DisplayLoopInfo extends DisplayInfo implements ViewDataSource {
     private Mode myMode;
     private List<ImageDataObject> myImageData;
-    
+
     /**
      * Constructor
      */
-    public DisplayLoopInfo() {
+    public DisplayLoopInfo () {
         super();
     }
-    
+
     /**
      * Constructor with mode, gets imagedata, from mode
+     * 
      * @param mode
      */
-    public DisplayLoopInfo(Mode mode) {
+    public DisplayLoopInfo (Mode mode) {
         myMode = mode;
-    	myImageData = mode.getImageData();
+        myImageData = mode.getImageData();
         updateInfo();
     }
-    
+
     /**
      * Adds HUDElements by checking the annotation and creating
      * the HUDElements
@@ -60,44 +60,47 @@ public class DisplayLoopInfo extends DisplayInfo implements ViewDataSource{
             throw new NullPointerException("Could not find class: " + e.getMessage());
         }
     }
-    
+
     /**
      * Updates by retrieving information from mode
      */
-    public void updateInfo(){
-    	getLocations().clear();
-    	getGameObjects().clear();
-    	getImageSizes().clear();
-    	getImageEffects().clear();
-    	myImageData = myMode.getImageData();
-    	for(ImageDataObject data : myImageData){
-    		getGameObjects().add(data.getImage());
-    		getLocations().add(data.getLocation());
-    		getImageSizes().add(data.getSize());
-    		getImageEffects().add(data.getImageEffect());
-    	}
+    public void updateInfo () {
+        getLocations().clear();
+        getGameObjects().clear();
+        getImageSizes().clear();
+        getImageEffects().clear();
+        myImageData = myMode.getImageData();
+        for (ImageDataObject data : myImageData) {
+            getGameObjects().add(data.getImage());
+            getLocations().add(data.getLocation());
+            getImageSizes().add(data.getSize());
+            getImageEffects().add(data.getImageEffect());
+        }
     }
-    
+
     /**
      * Updates information
      */
-    public void update() {
+    @Override
+    public void update () {
         updateInfo();
     }
-    
+
     /**
      * clear imagedata
      */
-    public void clear(){
-    	super.clear();
+    @Override
+    public void clear () {
+        super.clear();
         myImageData.clear();
     }
-    
+
     /**
      * Returns mode
+     * 
      * @return
      */
-    public Mode getMode() {
+    public Mode getMode () {
         return myMode;
     }
 
