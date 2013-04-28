@@ -9,7 +9,7 @@ import vooga.scroller.level_editor.LevelEditing;
 import vooga.scroller.level_editor.commands.CommandConstants;
 import vooga.scroller.level_editor.controllerSuite.LEGrid;
 import vooga.scroller.level_editor.controllerSuite.LETools;
-import vooga.scroller.util.Editable;
+import vooga.scroller.level_editor.model.Editable;
 import vooga.scroller.util.Renderable;
 import vooga.scroller.util.Renderer;
 import vooga.scroller.util.mvc.IView;

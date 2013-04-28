@@ -23,7 +23,6 @@ import vooga.scroller.level_editor.controllerSuite.LEController;
  *
  */
 
-import vooga.scroller.util.Editable;
 import vooga.scroller.util.mvc.IController;
 /**
  * LevelEditor is the Model side of the Level Editor as a whole. It processes
