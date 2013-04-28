@@ -6,10 +6,9 @@ import vooga.towerdefense.gameelements.GameElement;
 
 
 /**
- * Modify a specified attribute value. 
+ * Modify a specified attribute value.
  * 
  * @author Matthew Roy
- * @author Zhen Gou
  */
 public class ModifyAttributeValue extends TargetedAction {
 
@@ -20,17 +19,17 @@ public class ModifyAttributeValue extends TargetedAction {
         super();
         myTargetAttribute = targetAttributeName;
         myAppliedAttribute = attributeToApply;
- 
-    }
 
+    }
 
     /**
      * Scales the modified value to the elapsed time and applies it to all the given elements
      * Overrides from superclasses
+     * 
      * @param elapsedTime
      */
     public void executeAction (double elapsedTime) {
-        double scaledModifier = myAppliedAttribute.getValue()*elapsedTime/1000.0;
+        double scaledModifier = myAppliedAttribute.getValue() * elapsedTime / 1000.0;
         for (GameElement e : getTargets()) {
             Attribute toChange = e.getAttributeManager().getAttribute(myTargetAttribute);
             if (toChange != null) {
@@ -38,6 +37,5 @@ public class ModifyAttributeValue extends TargetedAction {
             }
         }
     }
-
 
 }

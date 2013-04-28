@@ -15,7 +15,6 @@ public class GrassTile extends Tile {
     private static final String NAME = "grass_tile.png";
     private static final String TILE_IMAGES_CLASS_PATH = "/vooga/towerdefense/images/map/";
     private static final Pixmap PIXMAP = new Pixmap(TILE_IMAGES_CLASS_PATH + NAME); 
-    private static final int ID = 2;
     
     /**
      * 
@@ -25,7 +24,7 @@ public class GrassTile extends Tile {
      * @param size the size of the tile
      */
     public GrassTile (Location center, Dimension size) {
-        super(ID, PIXMAP, center, size);
+        super(PIXMAP, center, size);
         setBuildable(true);
         setWalkable(false);
     }

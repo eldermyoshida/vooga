@@ -34,12 +34,15 @@ public class Shop {
 		
 		int xC = 10;
 		int yC = 10;
+		System.out.println(factories);
 		for (int i = 0; i < factories.size(); ++i) {
 		    // TODO: replace this with parsed file input
 		    //GameElementFactory factory = new GameElementFactory(DefinitionConstants.DEFAULT_TOWER_NAME, 
 		    //		DefinitionConstants.DEFAULT_TOWER_IMAGE);
 		    //factory.initialize(map);
+		    
 		    if (factories.get(i).getType().equals("Tower")) {
+		        
 		        Location l = new Location(i * ShopItem.SHOP_ITEM_WIDTH + xC, yC);
 		        myShopItems.add(new ShopItem(l, factories.get(i)));
 

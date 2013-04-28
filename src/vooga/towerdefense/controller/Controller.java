@@ -157,7 +157,6 @@ public class Controller {
 	public void setMap(Pixmap mapChoice) throws IllegalArgumentException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException {
 	    addMapAndLoadGame(myAvailableMaps.get(mapChoice));
 	    setView();
-	    myView.showScreen();
 	}
 	
 	/**

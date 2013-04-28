@@ -3,7 +3,6 @@ package vooga.towerdefense.factories.elementfactories;
 import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.List;
-
 import util.Location;
 import util.Pixmap;
 import vooga.towerdefense.action.Action;
@@ -12,6 +11,7 @@ import vooga.towerdefense.attributes.AttributeConstantsEnum;
 import vooga.towerdefense.attributes.AttributeManager;
 import vooga.towerdefense.attributes.DefaultAttributeManager;
 import vooga.towerdefense.factories.actionfactories.ActionFactory;
+import vooga.towerdefense.factories.attributefactories.AttributeFactory;
 import vooga.towerdefense.factories.attributefactories.AttributeManagerFactory;
 import vooga.towerdefense.factories.definitions.GameElementDefinition;
 import vooga.towerdefense.gameelements.GameElement;
@@ -28,8 +28,8 @@ import vooga.towerdefense.model.GameMap;
  */
 public class GameElementFactory {
 
-    //private static DefaultAttributeManager DEFAULT_ATTRIBUTE_MANAGER =
-      //      new DefaultAttributeManager();
+    // private static DefaultAttributeManager DEFAULT_ATTRIBUTE_MANAGER =
+    // new DefaultAttributeManager();
 
     /**
      * Name of the element that is defined in this class. For convenience.
@@ -54,8 +54,8 @@ public class GameElementFactory {
      * @param attrManager
      */
 
-    public GameElementFactory (String name, String type, 
-                               Pixmap image,Dimension size,
+    public GameElementFactory (String name, String type,
+                               Pixmap image, Dimension size,
                                AttributeManagerFactory attrManager, List<ActionFactory> myActions) {
         myName = name;
         myType = type;
@@ -63,27 +63,40 @@ public class GameElementFactory {
         mySize = size;
         myAttributeManagerFactory = attrManager;
         myActionsToMake = myActions;
+        myAttributeManagerFactory.addAttributeFactory(makeAffiliation());
     }
-    
+
     /**
      * returns the type of this factory.
+     * 
      * @return a string representing the type
      */
-    public String getType() {
+    public String getType () {
         return myType;
     }
-    
+
+    private AttributeFactory makeAffiliation () {
+        AttributeConstantsEnum affliationValue = AttributeConstantsEnum.valueOf(myType);
+        AttributeFactory affiliation =
+                new AttributeFactory(
+                                     AttributeConstantsEnum.AFFILIATION.getStatusCode(),
+                                     affliationValue.getValue());
+        return affiliation;
+    }
+
     @Deprecated
-    public GameElementFactory (String name, Pixmap image){
+    public GameElementFactory (String name, Pixmap image) {
         myName = name;
         myImage = image;
         myAttributeManagerFactory = new AttributeManagerFactory();
-        mySize = new Dimension(50,50);//TODO: just for testing before having the xml loader working
-        
+        mySize = new Dimension(50, 50);// TODO: just for testing before having the xml loader
+                                       // working
+
     }
+
     @Deprecated
     public GameElementFactory (String name, String type, GameElementDefinition definition) {
-        this(name, type, definition.getImage(),definition.getSize(), definition
+        this(name, type, definition.getImage(), definition.getSize(), definition
                 .getAttributeManagerFactory(), definition.getActions());
         myName = name;
         myDef = definition;
@@ -167,12 +180,9 @@ public class GameElementFactory {
         List<Action> actions = new ArrayList<Action>();
         actions.add(new MoveToTarget(projectile.getCenter(),
                                      target.getCenter(), projectile.getAttributeManager()
-                                             .getAttribute(AttributeConstantsEnum.MOVE_SPEED.toString())));
+                                             .getAttribute(AttributeConstantsEnum.MOVE_SPEED
+                                                                   .toString())));
         projectile.addActions(actions);
         return projectile;
     }
-
-    //public AttributeManager getDefaultAM () {
-    //    return DEFAULT_ATTRIBUTE_MANAGER;
-    //}
 }

@@ -4,6 +4,7 @@ import java.util.Map;
 
 import vooga.towerdefense.action.Action;
 import vooga.towerdefense.action.waveactions.WaveAction;
+import vooga.towerdefense.factories.ActionAnnotation;
 import vooga.towerdefense.factories.actionfactories.ActionFactory;
 import vooga.towerdefense.factories.elementfactories.GameElementFactory;
 import vooga.towerdefense.gameelements.GameElement;
@@ -21,11 +22,12 @@ public class WaveActionFactory extends ActionFactory {
 	private GameElementFactory myFactory;
 	public static Map<String, GameElementFactory> ourGEFactories; 
 	
-	public WaveActionFactory(String numUnits, String cooldown, String factory) {
+	public WaveActionFactory(@ActionAnnotation(name = "number of units", value = "int") String numUnits,
+	                         @ActionAnnotation(name = "cooldown", value = "int") String cooldown,
+	                         @ActionAnnotation(name = "unit to spawn", value = "name of unit") String factory) {
 		myNumUnits = Integer.parseInt(numUnits);
 		myCooldown = Integer.parseInt(cooldown);
 		myFactory = ourGEFactories.get(factory);		
-		
 	}
 	
 	@Override

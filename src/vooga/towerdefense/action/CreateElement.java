@@ -1,17 +1,25 @@
 package vooga.towerdefense.action;
 
 import vooga.towerdefense.factories.elementfactories.GameElementFactory;
+import vooga.towerdefense.gameelements.GameElement;
+import vooga.towerdefense.model.GameMap;
 
 /**
+ * Creates a new game element
+ * 
  * @author Matthew Roy
  *
  */
 public class CreateElement extends Action {
     
     private GameElementFactory myFactory;
+    private GameElement myCreator;
+    private GameMap myMap;
     
-    public CreateElement(GameElementFactory factory) {
+    public CreateElement(GameMap map, GameElement creator, GameElementFactory factory) {
         super();
+        myMap = map;
+        myCreator = creator;
         myFactory = factory;
     }
 
@@ -21,8 +29,8 @@ public class CreateElement extends Action {
      */
     @Override
     public void executeAction (double elapsedTime) {
-        // TODO Auto-generated method stub
-
+        GameElement element = myFactory.createElement(myCreator.getCenter());
+        myMap.addGameElement(element);
     }
 
 }
