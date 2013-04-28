@@ -703,8 +703,13 @@ public abstract class InteractiveEntity extends GameEntity implements
     public GameEntity getTargetEntity () {
         return myTargetEntity;
     }
-    
-    public void setTargetEntity(GameEntity entity) {
+
+    /**
+     * Sets the target entity that this entity should act on.
+     * 
+     * @param entity is the target entity
+     */
+    public void setTargetEntity (GameEntity entity) {
         myTargetEntity = entity;
     }
 
