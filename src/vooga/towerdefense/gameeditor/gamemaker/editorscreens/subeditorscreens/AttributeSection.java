@@ -102,7 +102,9 @@ public class AttributeSection extends SubEditorSection {
                    + name + " " + value + "\n");
             }
             else {
-                AttributeConstantsEnum enumType = AttributeConstantsEnum.valueOf(myAttributesBox.getSelectedItem().toString());
+                AttributeConstantsEnum enumType
+                    = AttributeConstantsEnum.valueOf
+                    (myAttributesBox.getSelectedItem().toString());
                 myAttributesSelected.setText(myAttributesSelected.getText()
                     + enumType.getStatusCode()
                     + " " + myAttributeValue.getText() + "\n");
