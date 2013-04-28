@@ -6,12 +6,10 @@ import java.awt.GridBagLayout;
 import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
 import java.io.File;
-import java.util.List;
 import java.util.ResourceBundle;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
-import javax.swing.JMenuBar;
 import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
 import vooga.scroller.util.Renderable;
@@ -50,7 +48,7 @@ public abstract class Window<W extends WorkspaceView<D>,
 
     private JFileChooser myChooser;
     private IController<D> myController;
-    private MenuBarView<D> myMenuBar;
+    private MenuBarView myMenuBar;
     private Dimension mySize = ViewConstants.DEFAULT_WINDOW_SIZE;
     
     private JTabbedPane myTabbedPane;    
@@ -73,6 +71,7 @@ public abstract class Window<W extends WorkspaceView<D>,
         // create and arrange sub-parts of the GUI
         ourResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + language);
         myChooser = new JFileChooser(System.getProperties().getProperty(USER_DIR));
+        myMenuBar = new MenuBarView(this);
         //tabs
         getContentPane().setLayout(new GridBagLayout());
         setTools(tools);
@@ -143,7 +142,7 @@ public abstract class Window<W extends WorkspaceView<D>,
     }
     
     /**
-     * Load the specified file in a new tab - TODO
+     * Load the specified file in a new tab
      * @param file2open
      */
     private void loadFile (File file2open) {
@@ -225,17 +224,8 @@ public abstract class Window<W extends WorkspaceView<D>,
     }
 
     
-    protected void setMenu (JMenuBar menu) {
-        myMenuBar = (MenuBarView<D>) menu;
-    }
-    
-    protected void setMenu (T tools) {
-        setMenu(tools.getMenu(this));
-    }
-    
     private void setTools (T tools) {
         myTools = tools;
-        setMenu(myTools);
     }
     
     /**
@@ -252,13 +242,6 @@ public abstract class Window<W extends WorkspaceView<D>,
         addTab(associatedWorkspaceView, r);
     }
     
-
-    @Override
-    public void setDefaultWorkspaceTools (T tools) {
-        if (tools != null) {
-            setTools(tools);
-        }
-    }
     
     @Override
     public Renderable<D> getRenderable () {
@@ -284,9 +267,6 @@ public abstract class Window<W extends WorkspaceView<D>,
         getActiveTab().undo();
     }
     
-    public void addDomainSpecificMenus(D d) {
-//        myMenuBar.add(d.getDomainMenuItems());
-    }
 
     public abstract D getDomain() ;
     
@@ -294,7 +274,7 @@ public abstract class Window<W extends WorkspaceView<D>,
         myMenuBar.addCustomMenu(jMenu);
     }
 
-    public IController<D> getController () {
+    protected IController<D> getController () {
         return myController;
     }
 }

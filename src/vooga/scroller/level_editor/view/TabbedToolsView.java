@@ -100,30 +100,7 @@ public class TabbedToolsView<D extends IDomainDescriptor> extends
     
     @Override
     public void render (Renderable<D> tools) {
-//        mySpriteUI.setLayout(new SpringLayout());
-        for (Map<Image, String> m : myTools.getEditableDependents()) {
-            if (m.size()>0) {
-            JPanel ed_dep_Buttons = new RadioGroup(this.getSize(), 
-                                                   new SelectEditableDependentsListener(),
-                                                   m);
-            myEditableDependentsUI.add(ed_dep_Buttons);
-            }
-        }
-
-//        myOtherUI.setLayout(new GridLayout());
-        for (String keyword : myTools.getEditableIndependents().keySet()) {
-            Map<Image, String> m = myTools.getEditableIndependents().get(keyword);
-            if (m.size()>0) {
-            JPanel ed_ind_Buttons = new RadioGroup(this.getSize(), 
-                                   new EditableIndependentsListener(keyword),
-                                   m);
-            myIndependentsUI.add(ed_ind_Buttons);
-            }
-        }
-        myTabs.add(myEditableDependentsUI, myTools.getEditableDependentsTitle());
-        myTabs.add(myIndependentsUI, myTools.getEditableIndependentsTitle());
-//        myTabs.add(addOtherSpecificTools());
-        EasyGridFactory.layout(this, myTabs);
+        setup((Tools<D>) tools);
     }
 
     private void setSelectedEditableDependent (String spriteID) {
@@ -138,6 +115,34 @@ public class TabbedToolsView<D extends IDomainDescriptor> extends
     public void setRenderable (Renderable<D> tools) {
         myTools = (Tools<D>) tools;
         render(tools);
+    }
+    
+    private void setup(Tools<D> tools) {
+
+//      mySpriteUI.setLayout(new SpringLayout());
+      for (Map<Image, String> m : myTools.getEditableDependents()) {
+          if (m.size()>0) {
+          JPanel ed_dep_Buttons = new RadioGroup(this.getSize(), 
+                                                 new SelectEditableDependentsListener(),
+                                                 m);
+          myEditableDependentsUI.add(ed_dep_Buttons);
+          }
+      }
+
+//      myOtherUI.setLayout(new GridLayout());
+      for (String keyword : myTools.getEditableIndependents().keySet()) {
+          Map<Image, String> m = myTools.getEditableIndependents().get(keyword);
+          if (m.size()>0) {
+          JPanel ed_ind_Buttons = new RadioGroup(this.getSize(), 
+                                 new EditableIndependentsListener(keyword),
+                                 m);
+          myIndependentsUI.add(ed_ind_Buttons);
+          }
+      }
+      myTabs.add(myEditableDependentsUI, myTools.getEditableDependentsTitle());
+      myTabs.add(myIndependentsUI, myTools.getEditableIndependentsTitle());
+//      myTabs.add(addOtherSpecificTools());
+      EasyGridFactory.layout(this, myTabs);
     }
 
     @Override

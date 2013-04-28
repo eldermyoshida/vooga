@@ -25,8 +25,6 @@ R extends WindowComponent<D>, T extends Tools<D>> extends IView<D> {
 
     public void showWorkspace (W associatedWorkspaceView, Renderable<D> m);
     
-    public void setDefaultWorkspaceTools(T t);
-    
     /**
      * This is most likely to act as an initial "show." This method is intended
      * to start the window by making it visible. It is designed to be primarily used by

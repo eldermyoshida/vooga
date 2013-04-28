@@ -3,27 +3,18 @@ package vooga.scroller.util.mvc.vcFramework;
 import java.awt.Image;
 import java.util.List;
 import java.util.Map;
-import javax.swing.JMenuBar;
-import javax.swing.JToggleButton;
-import vooga.scroller.level_editor.view.TabbedToolsView;
 import vooga.scroller.util.Renderable;
-import vooga.scroller.util.mvc.IView;
 
 /**
- * TO-DO defines a general tools class that is necessary for workspace
+ * Defines a general tools class that is necessary for workspace
  * customization
- * V is a view able to render this tool
- * D is a domain descriptor
+ * By default, Tools support mapping of instantaneous options and delayed options.
+ * @param <D> is a domain descriptor
  * @author Dagbedji Fagnisse
  *
  */
-public abstract class Tools<D extends IDomainDescriptor> implements Renderable<D> {
-    
-//    public abstract Object getActionLibrary();
-    
-    public abstract JMenuBar getMenu(Window<?, D, ?, ?> w);
-
-//    public abstract V initializeRenderer (IView<D> parent);
+public abstract class Tools<D extends IDomainDescriptor> implements 
+                            Renderable<D> {
 
     public abstract List<Map<Image, String>> getEditableDependents ();
 
