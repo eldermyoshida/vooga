@@ -76,9 +76,9 @@
 				</Move>
 			</actions>			
 		</Dog>
-		<Bear>
-			<dimension>50, 50</dimension>
-			<image>bear.gif</image>
+		<Fireball>
+			<dimension>80, 80</dimension>
+			<image>fireball.gif</image>
 			<type>Projectile</type>
 			<attributes>
 				<HEALTH>100</HEALTH>
@@ -91,7 +91,7 @@
 					<parameter>DIRECTION</parameter>
 				</Move>
 			</actions>			
-		</Bear>
+		</Fireball>
 		<Elephant>
 			<dimension>80, 80</dimension>
 			<image>dancing_elephant.gif</image>
@@ -109,7 +109,7 @@
 					<parameter>MOVE_SPEED</parameter>
 					<parameter>DIRECTION</parameter>
 						<Move>
-							<parameter>FLY_SPEED</parameter>
+							<parameter>MOVE_SPEED</parameter>
 							<parameter>DIRECTION</parameter>
 						</Move>
 				</Move>
@@ -124,11 +124,15 @@
 				<Cost>10</Cost>
 				<MOVE_SPEED>50</MOVE_SPEED>
 				<DIRECTION>0</DIRECTION>
+				<ATTACK_RADIUS>100</ATTACK_RADIUS>
 			</attributes>
 			<actions>
-				<LaunchProjectile>
-					<parameter>Bear</parameter>					
-				</LaunchProjectile>	
+				<FindTargets>
+					<parameter>ATTACK_RADIUS</parameter>
+					<LaunchProjectile>
+						<parameter>Fireball</parameter>					
+					</LaunchProjectile>	
+				</FindTargets>
 			</actions>			
 		</TestTower>
 	</gameelements>
