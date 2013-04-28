@@ -1,4 +1,4 @@
-package vooga.scroller.level_editor.view;
+package vooga.scroller.util.mvc.vcFramework;
 
 
 import java.awt.Image;
@@ -8,12 +8,7 @@ import java.util.Map;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
-import vooga.scroller.level_editor.LevelEditing;
-import vooga.scroller.util.Renderable;
 import vooga.scroller.util.mvc.IView;
-import vooga.scroller.util.mvc.vcFramework.IDomainDescriptor;
-import vooga.scroller.util.mvc.vcFramework.Tools;
-import vooga.scroller.util.mvc.vcFramework.WindowComponent;
 import vooga.scroller.viewUtil.EasyGridFactory;
 import vooga.scroller.viewUtil.RadioGroup;
 
@@ -56,16 +51,16 @@ public class TabbedToolsView<D extends IDomainDescriptor>
         myEditableDependentsUI.setLayout(new BoxLayout(myEditableDependentsUI, BoxLayout.PAGE_AXIS));
         myIndependentsUI = new JPanel();
         myIndependentsUI.setLayout(new BoxLayout(myIndependentsUI, BoxLayout.PAGE_AXIS));
-        setRenderable((Renderable<D>)tools);
+        setTools(tools);
     }
     
     
     private static double getDefaultHeightRatio () {
-        return LevelEditing.VIEW_CONSTANTS.DEFAULT_TOOLSVIEW_HEIGHT_RATIO;
+        return ViewConstants.DEFAULT_TOOLSVIEW_HEIGHT_RATIO;
     }
 
     private static double getDefaultWidthRatio () {
-        return LevelEditing.VIEW_CONSTANTS.DEFAULT_TOOLSVIEW_WIDTH_RATIO;
+        return ViewConstants.DEFAULT_TOOLSVIEW_WIDTH_RATIO;
     }
 
     /**
@@ -78,26 +73,17 @@ public class TabbedToolsView<D extends IDomainDescriptor>
     }
 
 
-    @Override
-    public void render (Renderable<D> tools) {
-        setup((Tools<D>) tools);
-    }
-
     private void setSelectedEditableDependent (String spriteID) {
         mySelectedEditableDependent = spriteID;
     }
 
     private void setTools (Tools<D> t) {
         myTools = t;
+        setup();
     }
 
-    @Override
-    public void setRenderable (Renderable<D> tools) {
-        setTools((Tools<D>) tools);
-        render(tools);
-    }
 
-    private void setup(Tools<D> tools) {
+    private void setup() {
 
         for (Map<Image, String> m : myTools.getEditableDependents()) {
             if (m.size() > 0) {
@@ -120,11 +106,6 @@ public class TabbedToolsView<D extends IDomainDescriptor>
         myTabs.add(myEditableDependentsUI, myTools.getEditableDependentsTitle());
         myTabs.add(myIndependentsUI, myTools.getEditableIndependentsTitle());
         EasyGridFactory.layout(this, myTabs);
-    }
-
-    @Override
-    public Renderable<D> getRenderable () {
-        return (Renderable<D>) myTools;
     }
 
 

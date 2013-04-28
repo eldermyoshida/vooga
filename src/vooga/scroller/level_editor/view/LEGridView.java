@@ -16,6 +16,7 @@ import vooga.scroller.level_editor.controllerSuite.LEGrid;
 import vooga.scroller.util.Renderable;
 import vooga.scroller.util.Renderer;
 import vooga.scroller.util.mvc.IView;
+import vooga.scroller.util.mvc.vcFramework.ViewConstants;
 import vooga.scroller.util.mvc.vcFramework.WindowComponent;
 
 
@@ -40,6 +41,7 @@ public class LEGridView extends WindowComponent<LevelEditing>
      */
     public LEGridView (IView<LevelEditing> parent, Renderable<LevelEditing> r) {
         super(parent, ((LEGrid) r).getPixelSize());
+        myGrid = (LEGrid) r;
         this.addMouseListener(new GridPositionListener());
 
     }
@@ -50,7 +52,7 @@ public class LEGridView extends WindowComponent<LevelEditing>
      * @return - height ratio
      */
     private double getDefaultHeightRatio () {
-        return LevelEditing.VIEW_CONSTANTS.DEFAULT_GRIDVIEW_HEIGHT_RATIO;
+        return ViewConstants.DEFAULT_GRIDVIEW_HEIGHT_RATIO;
     }
 
     /**
@@ -59,7 +61,7 @@ public class LEGridView extends WindowComponent<LevelEditing>
      * @return - width ratio
      */
     private double getDefaultWidthRatio () {
-        return LevelEditing.VIEW_CONSTANTS.DEFAULT_GRIDVIEW_WIDTH_RATIO;
+        return ViewConstants.DEFAULT_GRIDVIEW_WIDTH_RATIO;
     }
 
     private void createSprite (int x, int y) {

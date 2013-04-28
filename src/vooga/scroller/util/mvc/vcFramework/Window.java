@@ -115,6 +115,7 @@ public abstract class Window<W extends WorkspaceView<D>,
     public void addTab (W tab, Renderable<D> p) {
         myTabbedPane.addTab(getLiteral("TabTitle") + " " + (tab.getID() + 1), tab);
         tab.setRenderable(p);
+        myTabbedPane.setSelectedComponent(tab);
     }
 
     @SuppressWarnings("unchecked")
@@ -193,14 +194,6 @@ public abstract class Window<W extends WorkspaceView<D>,
         getActiveTab().redo();
     }
 
-    /**
-     * This method might not be thread safe under the current implementation.
-     * @param r - object to render
-     */
-    @Override
-    public void render(Renderable<D> r) {
-        showWorkspace(getActiveTab(), r);
-    }
     
     /**
      * Save the active workspace
@@ -243,10 +236,6 @@ public abstract class Window<W extends WorkspaceView<D>,
     }
     
     
-    @Override
-    public Renderable<D> getRenderable () {
-        return getActiveTab().getRenderable();
-    }
 
     
     @Override
@@ -255,10 +244,6 @@ public abstract class Window<W extends WorkspaceView<D>,
         setVisible(true);
     }
     
-    @Override
-    public void setRenderable (Renderable<D> renderable) {
-        getActiveTab().setRenderable(renderable);
-    }
     
     /**
      * Undo last action for active workspace
@@ -268,8 +253,15 @@ public abstract class Window<W extends WorkspaceView<D>,
     }
     
 
-    public abstract D getDomain() ;
+    /**
+     * 
+     * @return
+     */
+    public abstract D getDomain();
     
+    /**
+     * @param jMenu - 
+     */
     public void registerMenu (JMenu jMenu) {
         myMenuBar.addCustomMenu(jMenu);
     }

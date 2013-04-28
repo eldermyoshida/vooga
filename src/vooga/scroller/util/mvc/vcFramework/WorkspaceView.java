@@ -2,6 +2,7 @@
 package vooga.scroller.util.mvc.vcFramework;
 
 import java.awt.Dimension;
+import vooga.scroller.util.Renderer;
 import vooga.scroller.util.mvc.IView;
 
 /**
@@ -12,7 +13,8 @@ import vooga.scroller.util.mvc.IView;
  *
  */
 public abstract class WorkspaceView<D extends IDomainDescriptor> 
-                                        extends WindowComponent<D> {
+                                        extends WindowComponent<D> 
+                                      implements Renderer<D>{
 
     /**
      * 

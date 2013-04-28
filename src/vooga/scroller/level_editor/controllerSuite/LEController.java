@@ -6,7 +6,6 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JOptionPane;
-import util.Location;
 import vooga.scroller.level_editor.ILevelEditor;
 import vooga.scroller.level_editor.Level;
 import vooga.scroller.level_editor.LevelEditing;
@@ -27,8 +26,6 @@ import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.util.PlatformerConstants;
 import vooga.scroller.util.Renderable;
-import vooga.scroller.util.Renderer;
-import vooga.scroller.util.mvc.Gaming;
 import vooga.scroller.util.mvc.IController;
 import vooga.scroller.util.mvc.IWindow;
 import vooga.scroller.util.mvc.SimpleView;
@@ -118,7 +115,7 @@ public class LEController implements IController<LevelEditing> {
     }
 
     private String getLanguage () {
-        String[] languages = { "English", "French" };
+        String[] languages = {"English", "French"};
         int n =
                 JOptionPane.showOptionDialog(null,
                                              "Choose a language", "Language Selection",
@@ -227,10 +224,12 @@ public class LEController implements IController<LevelEditing> {
         myView.showMessageDialog(copyError);
     }
 
-    public Player getSamplePlayer () {
-        return mySamplePlayer;
-    }
-
+    /**
+     * TODO - simulation broke because of change in how games are created.
+     * Among other things, implementation of abstract method: getVisits(), need for 
+     * sample player, and dependency of sample player on a view and a scroller manager.
+     * @param grid
+     */
     public void simulate (LEGrid grid) {
         SimpleView simContainer = new SimpleView("Level Simulation");
         ScrollingManager sm = new OmniScrollingManager();
@@ -240,9 +239,9 @@ public class LEController implements IController<LevelEditing> {
         Level sim = new Level(1, sm, grid);
         SplashPage sp = new TestSplashPage(display, sm);
         Model m = new Model(display, sm, mySamplePlayer, sp, sim);
-        m.start();
         display.setModel(m);
         sim.addPlayer(mySamplePlayer);
+        m.start();
         display.start();
         simContainer.add((GameView) display);
         simContainer.start();

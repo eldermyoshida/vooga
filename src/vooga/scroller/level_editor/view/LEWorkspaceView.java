@@ -5,6 +5,7 @@ import vooga.scroller.level_editor.LevelEditing;
 import vooga.scroller.level_editor.commands.CommandConstants;
 import vooga.scroller.util.Renderable;
 import vooga.scroller.util.Renderer;
+import vooga.scroller.util.mvc.vcFramework.TabbedToolsView;
 import vooga.scroller.util.mvc.vcFramework.Tools;
 import vooga.scroller.util.mvc.vcFramework.WorkspaceView;
 import vooga.scroller.viewUtil.EasyGridFactory;
@@ -22,7 +23,7 @@ public class LEWorkspaceView extends WorkspaceView<LevelEditing>
      * 
      */
     private static final long serialVersionUID = 1L;
-    private Renderer<LevelEditing> myGridView;
+    private LEGridView myGridView;
     private TabbedToolsView<LevelEditing> myToolsView;
     private JScrollPane myLevelGridScroller;
     private JScrollPane myToolsScroller;
@@ -39,7 +40,7 @@ public class LEWorkspaceView extends WorkspaceView<LevelEditing>
     public LEWorkspaceView (LEView host, int id, 
                             Renderable<LevelEditing> grid, Tools<LevelEditing> tools) {
         super(id, host);
-        myGridView = grid.initializeRenderer(this);
+        myGridView = (LEGridView) grid.initializeRenderer(this);
         myToolsView = new TabbedToolsView<LevelEditing>(tools, this);
         myLevelGridScroller = new JScrollPane((LEGridView) myGridView,
                                               JScrollPane.VERTICAL_SCROLLBAR_ALWAYS,

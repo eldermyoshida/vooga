@@ -30,24 +30,6 @@ public class SimpleView extends JFrame implements IView<Gaming> {
         return null;
     }
 
-    @Override
-    public void render (Renderable<Gaming> r) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
-    public void setRenderable (Renderable<Gaming> renderable) {
-        // TODO Auto-generated method stub
-        
-    }
-
-    @Override
-    public Renderable<Gaming> getRenderable () {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
    
     public void start () {
         pack();

@@ -1,5 +1,4 @@
 package vooga.scroller.level_editor.controllerSuite;
-import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;

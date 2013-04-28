@@ -28,12 +28,12 @@ public class MenuBarView extends JMenuBar {
     private JMenu myEditMenu;
     private Timer myTimer;
     private List<JMenu> myCustomMenus;
-    
+
     /**
      * Constructor for MenuBarView
      * @param window the parent view that component is inside of
      */
-    
+
     public MenuBarView(Window<?, ?, ?, ?> window) {
         myWindow = window;
         myActionLibrary = new WindowActionLibrary(myWindow);
@@ -48,7 +48,7 @@ public class MenuBarView extends JMenuBar {
         };
         myTimer = new Timer(DEFAULT_DELAY, prefListener);
         myTimer.start();
-        
+
     }
 
 
@@ -56,16 +56,20 @@ public class MenuBarView extends JMenuBar {
      * Any 
      */
     protected void addCoreMenus () {
-            this.add(makeFileMenu());
-            this.add(makeEditMenu());
+        this.add(makeFileMenu());
+        this.add(makeEditMenu());
     }
 
     protected void addCustomMenus (List <JMenu> menus) {
-        for(JMenu m: menus) {
+        for (JMenu m: menus) {
             addCustomMenu(m);
         }
     }
-    
+
+    /**
+     * 
+     * @param cm - 
+     */
     public void addCustomMenu (JMenu cm) {
         myCustomMenus.add(cm);
         this.add(cm);
@@ -86,7 +90,7 @@ public class MenuBarView extends JMenuBar {
         myFileMenu = result;
         return myFileMenu;
     }
-    
+
     /**
      * This menu mostly handles actions that apply to the whole active workspace.
      * @return
@@ -100,8 +104,8 @@ public class MenuBarView extends JMenuBar {
         myEditMenu = result;
         return myEditMenu;
     }
-    
-    
+
+
     /**
      * Make the preferences menu active
      */
@@ -116,5 +120,5 @@ public class MenuBarView extends JMenuBar {
         return myCustomMenus;
     }
 
-    
+
 }
