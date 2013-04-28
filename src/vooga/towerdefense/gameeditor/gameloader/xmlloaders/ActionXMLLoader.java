@@ -24,7 +24,7 @@ public class ActionXMLLoader {
     private static final String WAVE_ACTION_FACTORIES_CLASSPATH = 
             "vooga.towerdefense.factories.waveactionfactories.";
     private static final String ACTION_FACTORIES_CLASSPATH = 
-            "vooga.towerdefense.factories.waveactionfactories.";
+            "vooga.towerdefense.factories.actionfactories.";
     private static final String WAVE = "Wave";
     private static final String FACTORY = "Factory";
     private XMLTool myXMLTool;
@@ -67,6 +67,7 @@ public class ActionXMLLoader {
     public List<Action> loadActions (GameElement e, Element actionsElement, GameMap gameMap, 
                                      Player player) {
         List<ActionFactory> actionFactories = loadActionFactories(actionsElement, gameMap, player);
+        System.out.println(actionFactories);
 
         List<Action> actions = new ArrayList<Action>();
         for (ActionFactory af : actionFactories) {
@@ -116,7 +117,6 @@ public class ActionXMLLoader {
         }
         
         try {
-            //TODO: need to fix this shit
             String classPath = "";
             if (actionName.contains(WAVE)) {
                 classPath = WAVE_ACTION_FACTORIES_CLASSPATH;
@@ -125,6 +125,7 @@ public class ActionXMLLoader {
                 classPath = ACTION_FACTORIES_CLASSPATH;
             }
             classPath += actionName + FACTORY;
+            System.out.println(classPath);
             Class actionFactoryClass = Class.forName(classPath);
 
             Constructor[] constructors = actionFactoryClass.getDeclaredConstructors();
