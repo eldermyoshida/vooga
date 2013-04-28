@@ -1,6 +1,6 @@
 package vooga.rts.networking.client;
 
-import vooga.rts.networking.communications.Message;
+import vooga.rts.networking.communications.IMessage;
 
 
 /**
@@ -16,7 +16,7 @@ public interface IMessageReceiver {
      * 
      * @param message
      */
-    public void getMessage (Message message);
+    public void getMessage (IMessage message);
 
     /**
      * Notifies the message receiver that the connection has been closed.

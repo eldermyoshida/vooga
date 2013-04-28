@@ -10,6 +10,7 @@ import util.logger.IVoogaHandler;
 import util.logger.LoggerManager;
 import vooga.rts.networking.NetworkBundle;
 import vooga.rts.networking.communications.ExpandedLobbyInfo;
+import vooga.rts.networking.communications.IMessage;
 import vooga.rts.networking.communications.LobbyInfo;
 import vooga.rts.networking.communications.Message;
 import vooga.rts.networking.communications.clientmessages.ClientInfoMessage;
@@ -155,7 +156,7 @@ public abstract class AbstractThreadContainer implements IThreadContainer, IMess
     /**
      * Send a message to all connection threads.
      */
-    protected void sendMessageToAllConnections (Message message) {
+    protected void sendMessageToAllConnections (IMessage message) {
         for (ConnectionThread thread : myConnectionThreads.values()) {
             thread.sendMessage(message);
         }
@@ -164,7 +165,7 @@ public abstract class AbstractThreadContainer implements IThreadContainer, IMess
     /**
      * Send a message to a specific connection thread.
      */
-    protected void sendMessageToClient (ConnectionThread thread, Message message) {
+    protected void sendMessageToClient (ConnectionThread thread, IMessage message) {
         thread.sendMessage(message);
     }
 

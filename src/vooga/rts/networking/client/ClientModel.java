@@ -7,8 +7,8 @@ import javax.swing.JPanel;
 import vooga.rts.networking.client.clientgui.ClientViewAdapter;
 import vooga.rts.networking.client.clientgui.IModel;
 import vooga.rts.networking.communications.ExpandedLobbyInfo;
+import vooga.rts.networking.communications.IMessage;
 import vooga.rts.networking.communications.LobbyInfo;
-import vooga.rts.networking.communications.Message;
 import vooga.rts.networking.communications.PlayerInfo;
 import vooga.rts.networking.communications.clientmessages.InitialConnectionMessage;
 import vooga.rts.networking.communications.clientmessages.JoinLobbyMessage;
@@ -60,13 +60,13 @@ public class ClientModel extends Observable implements IClientModel, IModel {
         myFactions = factions;
         myUserName = userName;
         myClient = new Client(this);
-        Message initialConnection = new InitialConnectionMessage(gameName, userName);
+        IMessage initialConnection = new InitialConnectionMessage(gameName, userName);
         myClient.sendData(initialConnection);
         myViewAdapter = new ClientViewAdapter(this, gameName, maps, maxPlayerArray);
     }
 
     @Override
-    public void getMessage (Message message) {
+    public void getMessage (IMessage message) {
         if (message instanceof ServerInfoMessage) {
             ((ServerInfoMessage) message).affectClient(this);
         }
