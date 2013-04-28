@@ -20,6 +20,7 @@ import vooga.rts.gamedesign.sprite.map.Terrain;
 import vooga.rts.resourcemanager.ResourceManager;
 import vooga.rts.util.Camera;
 import vooga.rts.util.Location3D;
+import vooga.rts.util.TimeIt;
 
 
 /**
@@ -136,8 +137,11 @@ public class GameMap implements IGameLoop {
 
     @Override
     public void paint (Graphics2D pen) {
-        myTiles.paint(pen);
-        myNodeMap.paint(pen);
+        TimeIt ti = new TimeIt();
+        myTiles.paint(pen);        
+        ti.printTime();
+        
+        myNodeMap.paint(pen);        
     }
 
     /**
