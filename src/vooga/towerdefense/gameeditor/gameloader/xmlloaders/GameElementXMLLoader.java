@@ -58,6 +58,7 @@ public class GameElementXMLLoader {
             gameElementFactories.put(myXMLTool.getTagName(subElement), 
                                      loadGameElementFactory(subElement, map, player));
         }
+        
         return gameElementFactories;
     }
     
@@ -84,7 +85,6 @@ public class GameElementXMLLoader {
                                                               elementDimension,
                                                               managerFactory,
                                                               actionFactories);
-        geFactory.initialize(map);
         return geFactory;
     }
     

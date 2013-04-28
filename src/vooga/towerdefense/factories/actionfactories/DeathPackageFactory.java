@@ -42,7 +42,7 @@ public class DeathPackageFactory extends ActionFactory {
         myRemoveElement = new RemoveElementFactory();
         myPlayerValue =
                 new ModifyPlayerAttributeFactory(AttributeConstantsEnum.MONEY.getStatusCode(),
-                                                 AttributeConstantsEnum.HEALTH.getStatusCode());
+                                                 AttributeConstantsEnum.MONEY.getStatusCode());
     }
 
     /**
@@ -52,8 +52,10 @@ public class DeathPackageFactory extends ActionFactory {
      */
     @Override
     protected Action buildAction (GameElement e) {
-        // TODO Auto-generated method stub
-        return null;
+        Action death = myDeath.createAction(e);
+        death.addFollowUpAction(myPlayerValue.buildAction(e));
+        death.addFollowUpAction(myRemoveElement.buildAction(e));
+        return death;
     }
 
 }

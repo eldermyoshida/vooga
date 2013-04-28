@@ -3,6 +3,7 @@ package vooga.towerdefense.action;
 import java.util.ArrayList;
 import java.util.List;
 import vooga.towerdefense.attributes.Attribute;
+import vooga.towerdefense.attributes.AttributeConstantsEnum;
 import vooga.towerdefense.gameelements.GameElement;
 import vooga.towerdefense.model.GameMap;
 import util.Location;
@@ -41,7 +42,7 @@ public class FilterTargets extends TargetedAction {
         List<GameElement> filteredTargets = new ArrayList<GameElement>();
         for (int i = 0; i < getTargets().size(); i++) {
             GameElement e = getTargets().get(i);
-            Attribute affiliation = e.getAttributeManager().getAttribute("Affiliation");
+            Attribute affiliation = e.getAttributeManager().getAttribute(AttributeConstantsEnum.AFFILIATION.getStatusCode());
             if (affiliation != null && affiliation.getValue() == myTargetAffiliation.getValue()) {
                 filteredTargets.add(e);
                 if (myNumTargets != null && myNumTargets.getValue() == myTargetAffiliation.getValue()) {

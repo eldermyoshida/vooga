@@ -108,6 +108,7 @@
 				<FLY_SPEED>50</FLY_SPEED>
 				<RADIUS>300</RADIUS>
 				<Slow>-10</Slow>
+				<Money>10</Money>
 				<DIRECTION>0</DIRECTION>
 			</attributes>
 			<actions>

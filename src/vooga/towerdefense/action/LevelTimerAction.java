@@ -1,6 +1,5 @@
 package vooga.towerdefense.action;
 
-
 /**
  * A simple Action that disables itself after a certain amount of time.
  * @author JLongley
@@ -8,23 +7,24 @@ package vooga.towerdefense.action;
  */
 public class LevelTimerAction extends Action {
 
-	private int myDuration;
 	private int myTimer;
+	private int myDuration;
 	
 	public LevelTimerAction(int duration) {
 		super();
 		myTimer = 0;
 		myDuration = duration;
-	}
-	
-	public int getRemainingTime() {
-		return myTimer;
+		
 	}
 	
 	@Override
 	public void executeAction(double elapsedTime) {
-		myTimer-=elapsedTime;
-		if(myTimer<=0)
+		myTimer+=elapsedTime;
+		if(myTimer>myDuration)
 			setEnabled(false);
+	}
+	
+	public int getRemainingTime() {
+	    return myDuration - myTimer;
 	}
 }

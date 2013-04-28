@@ -5,18 +5,30 @@
 			<dimension>800, 600</dimension>
 			<location>Center</location>
 		</MapScreen>
-		<ShopScreen>
-			<dimension>600, 100</dimension>
+		<MultipleScreenPanel>
+			<dimension>1000, 200</dimension>
 			<location>South</location>
-		</ShopScreen>
-		<GameStatsScreen>
-			<dimension>200, 300</dimension>
+			<ShopScreen>
+				<dimension>600, 100</dimension>
+				<location>Center</location>
+			</ShopScreen>
+			<NextWaveScreen>
+				<dimension>200, 100</dimension>
+				<location>East</location>
+			</NextWaveScreen>
+		</MultipleScreenPanel>
+		<MultipleScreenPanel>
+			<dimension>200, 600</dimension>
 			<location>East</location>
-		</GameStatsScreen>
-		<GameElementInformationScreen>
-			<dimension>200, 300</dimension>
-			<location>East</location>
-		</GameElementInformationScreen>
+			<GameStatsScreen>
+				<dimension>200, 200</dimension>
+				<location>North</location>
+			</GameStatsScreen>
+			<GameElementInformationScreen>
+				<dimension>200, 200</dimension>
+				<location>South</location>
+			</GameElementInformationScreen>
+		</MultipleScreenPanel>
 	</view>
 	<map>
 		<Map1>
@@ -67,22 +79,16 @@
 		<Bear>
 			<dimension>50, 50</dimension>
 			<image>bear.gif</image>
-			<type>Unit</type>
+			<type>Projectile</type>
 			<attributes>
 				<HEALTH>100</HEALTH>
 				<MOVE_SPEED>50</MOVE_SPEED>
 				<DIRECTION>0</DIRECTION>
 			</attributes>
 			<actions>
-				<FollowPath>
-				</FollowPath>
 				<Move>
 					<parameter>MOVE_SPEED</parameter>
 					<parameter>DIRECTION</parameter>
-						<Move>
-							<parameter>FLY_SPEED</parameter>
-							<parameter>DIRECTION</parameter>
-						</Move>
 				</Move>
 			</actions>			
 		</Bear>

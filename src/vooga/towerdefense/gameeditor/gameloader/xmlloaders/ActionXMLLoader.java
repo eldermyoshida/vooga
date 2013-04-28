@@ -40,6 +40,7 @@ public class ActionXMLLoader {
      * 
      * @param actionsElement the xml element for the <actions> tag
      * @param gameMap a game map
+     * @param player a player object
      * @return a list of actions under the actionsElement
      */
     public List<Action> loadActions (Element actionsElement, GameMap gameMap, Player player) {
@@ -55,9 +56,11 @@ public class ActionXMLLoader {
      * @param e a game element upon which the list of actions will act on
      * @param actionsElement the XML element represening the <actions> tag
      * @param gameMap a game map object
+     * @param player a player object
      * @return a list of actions acting on the given GameElement
      */
-    public List<Action> loadActions (GameElement e, Element actionsElement, GameMap gameMap, Player player) {
+    public List<Action> loadActions (GameElement e, Element actionsElement, GameMap gameMap, 
+                                     Player player) {
         List<ActionFactory> actionFactories = loadActionFactories(actionsElement, gameMap, player);
 
         List<Action> actions = new ArrayList<Action>();
@@ -76,7 +79,8 @@ public class ActionXMLLoader {
      * @param gameMap a game map object
      * @return a list of ActionFactory objects acting on the given GameElement
      */
-    public List<ActionFactory> loadActionFactories (Element actionsElement, GameMap gameMap, Player player) {        
+    public List<ActionFactory> loadActionFactories (Element actionsElement, GameMap gameMap, 
+                                                    Player player) {        
         List<Element> subElements = myXMLTool.getChildrenList(actionsElement);
 
         List<ActionFactory> actionFactories = new ArrayList<ActionFactory>();
