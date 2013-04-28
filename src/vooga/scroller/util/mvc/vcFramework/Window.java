@@ -48,7 +48,7 @@ public abstract class Window<W extends WorkspaceView<D>,
 
     private JFileChooser myChooser;
     private IController<D> myController;
-    private MenuBarView<D> myMenuBar;
+    private MenuBarView myMenuBar;
     private Dimension mySize = ViewConstants.DEFAULT_WINDOW_SIZE;
     
     private JTabbedPane myTabbedPane;    
@@ -71,6 +71,7 @@ public abstract class Window<W extends WorkspaceView<D>,
         // create and arrange sub-parts of the GUI
         ourResources = ResourceBundle.getBundle(DEFAULT_RESOURCE_PACKAGE + language);
         myChooser = new JFileChooser(System.getProperties().getProperty(USER_DIR));
+        myMenuBar = new MenuBarView(this);
         //tabs
         getContentPane().setLayout(new GridBagLayout());
         setTools(tools);

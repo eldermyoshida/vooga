@@ -164,9 +164,5 @@ public class LETools extends Tools<LevelEditing> {
         
     }
 
-    @Override
-    public JMenuBar getMenu (Window<?, LevelEditing, ?, ?> w) {
-        return new LEMenuBar((LEView) w);
-    }
 
 }

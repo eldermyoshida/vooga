@@ -20,10 +20,9 @@ import javax.swing.Timer;
  *
  */
 @SuppressWarnings("serial")
-public abstract class MenuBarView<D extends IDomainDescriptor> extends JMenuBar {
+public class MenuBarView extends JMenuBar {
     private static final int DEFAULT_DELAY = 100;
-    private Window<?, D, ?, ?> myWindow;
-    D myDomain;
+    private Window<?, ?, ?, ?> myWindow;
     private WindowActionLibrary myActionLibrary;
     private JMenu myFileMenu;
     private JMenu myEditMenu;
@@ -35,14 +34,11 @@ public abstract class MenuBarView<D extends IDomainDescriptor> extends JMenuBar 
      * @param window the parent view that component is inside of
      */
     
-    public MenuBarView(Window<?, D, ?, ?> window) {
+    public MenuBarView(Window<?, ?, ?, ?> window) {
         myWindow = window;
-        myDomain = window.getDomain();
         myActionLibrary = new WindowActionLibrary(myWindow);
         myCustomMenus = new ArrayList<JMenu>();
-        setSpecializedWindow(myWindow);
         addCoreMenus();
-        addDomainMenus();
         ActionListener prefListener =  new ActionListener() {
             public void actionPerformed (ActionEvent e) {
                 if (myWindow.getTabCount() > 0) {
@@ -55,10 +51,6 @@ public abstract class MenuBarView<D extends IDomainDescriptor> extends JMenuBar 
         
     }
 
-    private void addDomainMenus () {
-        List<JMenu> menus = myDomain.getDomainSpecificMenus();
-        addCustomMenus(menus);
-    }
 
     /**
      * Any 
@@ -67,8 +59,6 @@ public abstract class MenuBarView<D extends IDomainDescriptor> extends JMenuBar 
             this.add(makeFileMenu());
             this.add(makeEditMenu());
     }
-    
-    protected abstract void setSpecializedWindow(Window<?, D, ?, ?> w);
 
     protected void addCustomMenus (List <JMenu> menus) {
         for(JMenu m: menus) {

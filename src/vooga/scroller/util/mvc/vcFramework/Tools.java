@@ -3,7 +3,7 @@ package vooga.scroller.util.mvc.vcFramework;
 import java.awt.Image;
 import java.util.List;
 import java.util.Map;
-import javax.swing.JMenuBar;
+import vooga.scroller.util.Renderable;
 
 /**
  * Defines a general tools class that is necessary for workspace
@@ -13,9 +13,8 @@ import javax.swing.JMenuBar;
  * @author Dagbedji Fagnisse
  *
  */
-public abstract class Tools<D extends IDomainDescriptor> {
-    
-    public abstract JMenuBar getMenu(Window<?, D, ?, ?> w);
+public abstract class Tools<D extends IDomainDescriptor> implements 
+                            Renderable<D> {
 
     public abstract List<Map<Image, String>> getEditableDependents ();
 

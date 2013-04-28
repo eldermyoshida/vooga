@@ -1,20 +1,16 @@
 package vooga.scroller.viewUtil;
 
 import java.awt.Dimension;
-import java.awt.FlowLayout;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import javax.swing.AbstractAction;
-import javax.swing.AbstractButton;
-import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
@@ -90,7 +86,6 @@ public class RadioGroup extends JPanel {
      * @param args
      */
     public static void main (String[] args) {
-        // TODO 
         JFrame tester = new JFrame("RadioGroup Tester");
         tester.setSize(250, 150);
         tester.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -140,15 +135,6 @@ public class RadioGroup extends JPanel {
         b.addActionListener(myListener);
     }
     
-    /**
-     * Add the buttons passes to the RadioGroup
-     * @param buttons - to be added
-     */
-    private void add (JRadioButton ...buttons) {
-        for (JRadioButton b:buttons) {
-            add(b);
-        }
-    }
     
     private String compose (String before, String after) {
         StringBuilder res = new StringBuilder();
@@ -246,7 +232,7 @@ public class RadioGroup extends JPanel {
     }
     
     /**
-     * TODO
+     * Test Action (for JUnit testing)
      * @author Dagbedji Fagnisse
      *
      */
