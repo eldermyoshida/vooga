@@ -276,7 +276,9 @@ public class MapPanel extends JComponent {
         EditableTile t = myCanvas.getCurrentSelectTile();
         for(int i = 0; i<myMap.getMyXsize(); ++i) {
             for(int j = 0; j<myMap.getMyYsize(); ++j) {
-                myMap.addTile(i,j, t.getMyID(), t.getMyName(), t.getMyImageName(), t.getImage());
+                if (myMap.getMyTile(i, j).getMyID() == 0) {
+                    myMap.addTile(i,j, t.getMyID(), t.getMyName(), t.getMyImageName(), t.getImage());
+                }
             }
         }
         repaint();        
