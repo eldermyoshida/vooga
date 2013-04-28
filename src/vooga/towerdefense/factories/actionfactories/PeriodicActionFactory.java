@@ -2,6 +2,7 @@ package vooga.towerdefense.factories.actionfactories;
 
 import vooga.towerdefense.action.Action;
 import vooga.towerdefense.action.PeriodicAction;
+import vooga.towerdefense.factories.ActionAnnotation;
 import vooga.towerdefense.gameelements.GameElement;
 
 
@@ -16,7 +17,7 @@ public class PeriodicActionFactory extends ActionFactory{
 	
 	private String myCooldownReference;
 
-	public PeriodicActionFactory(String cooldownReference){
+	public PeriodicActionFactory( @ActionAnnotation(name = "cool down", value = "attribute") String cooldownReference){
 		myCooldownReference=cooldownReference;
 		
 	}
