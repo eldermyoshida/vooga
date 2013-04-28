@@ -1,11 +1,10 @@
 package vooga.scroller.collision_manager;
 
-import games.scroller.mr_fish.sprites.collisions.VisitMethods;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
-import vooga.scroller.level_editor.Level;
+import vooga.scroller.marioGame.spritesDefinitions.collisions.VisitMethods;
 import vooga.scroller.sprites.Sprite;
 
 
@@ -32,11 +31,9 @@ import vooga.scroller.sprites.Sprite;
 
 public class CollisionManager {
 
-    Level myLevel;
     private VisitMethods visit;
 
-    public CollisionManager (Level level) {
-        myLevel = level;
+    public CollisionManager () {
         visit = new VisitMethods();
     }
 
@@ -78,24 +75,6 @@ public class CollisionManager {
                 invokeVisit(classArray, sprites);
             }
         }
-        
-        
-        
-        
-//        if (getInterfaces(clazz1) == null ||
-//            getInterfaces(clazz2) == null) {
-//            @SuppressWarnings("rawtypes")
-//            Class[] classArray = { clazz1, clazz2 };
-//            invokeVisit(classArray, sprites);
-//        }
-//
-//        else {
-//            @SuppressWarnings("rawtypes")
-//            Class[] classArray =
-//                    { getInterfaces(clazz1)[0], getInterfaces(clazz2)[0] };
-//            Object[] sprites = { sprite1, sprite2 };
-//            invokeVisit(classArray, sprites);
-//        }
     }
     
     
