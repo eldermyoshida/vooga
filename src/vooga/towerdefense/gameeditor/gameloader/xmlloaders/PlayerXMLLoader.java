@@ -13,6 +13,9 @@ import vooga.towerdefense.model.Player;
 /**
  * This class is responsible for loading the Player
  * object from an XML file.
+ *
+ * @author Angelica Schwartz
+ * @author Erick Gonzalez
  */
 public class PlayerXMLLoader {
     
@@ -21,10 +24,19 @@ public class PlayerXMLLoader {
     
     private XMLTool myXMLTool;
     
+    /**
+     * constructor.
+     * @param xmlTool
+     */
     public PlayerXMLLoader(XMLTool xmlTool) {
         myXMLTool = xmlTool;
     }
     
+    /**
+     * loads the player into the xml file.
+     * @param controller
+     * @return the player
+     */
     public Player loadPlayer(Controller controller) {
         Element playerElement = myXMLTool.getElement(PLAYER_TAG);
         Element attributeParent = myXMLTool.getElement(ATTRIBUTES_TAG);
@@ -32,7 +44,8 @@ public class PlayerXMLLoader {
         AttributeFactoryXMLLoader attributeLoader = new AttributeFactoryXMLLoader(myXMLTool);
         List<AttributeFactory> attributeFactories = 
                 attributeLoader.loadAttributeFactories(attributeParent);        
-        AttributeManagerFactory attributeManagerFactory = new AttributeManagerFactory(attributeFactories);
+        AttributeManagerFactory attributeManagerFactory
+            = new AttributeManagerFactory(attributeFactories);
         AttributeManager attributeManager = attributeManagerFactory.makeAttributeManager();
         return new Player(controller, attributeManager);
         
