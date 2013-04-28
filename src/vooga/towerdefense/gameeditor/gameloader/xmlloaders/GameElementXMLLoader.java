@@ -13,6 +13,7 @@ import vooga.towerdefense.factories.attributefactories.AttributeFactory;
 import vooga.towerdefense.factories.attributefactories.AttributeManagerFactory;
 import vooga.towerdefense.factories.elementfactories.GameElementFactory;
 import vooga.towerdefense.model.GameMap;
+import vooga.towerdefense.model.Player;
 
 /**
  * This class is responsible for loading GameElementFactory
@@ -46,7 +47,7 @@ public class GameElementXMLLoader {
      * @param map a game map
      * @return a map from the name of a GameElementFactory to its object
      */
-    public Map<String, GameElementFactory> loadGameElementFactories (GameMap map) {
+    public Map<String, GameElementFactory> loadGameElementFactories (GameMap map, Player player) {
         //TODO: This needs to be passed in as a parameter
         Element gameElementsElement = myXMLTool.getElement(GAME_ELEMENTS_TAG);        
         List<Element> subElements = myXMLTool.getChildrenList(gameElementsElement);
@@ -55,14 +56,14 @@ public class GameElementXMLLoader {
                 new HashMap<String, GameElementFactory>();
         for (Element subElement : subElements) {
             gameElementFactories.put(myXMLTool.getTagName(subElement), 
-                                     loadGameElementFactory(subElement, map));
+                                     loadGameElementFactory(subElement, map, player));
         }
         return gameElementFactories;
     }
     
     
     private GameElementFactory loadGameElementFactory (Element gameElement, 
-                                                       GameMap map) {
+                                                       GameMap map, Player player) {
         Map<String, Element> subElementMap = myXMLTool.getChildrenElementMap(gameElement);
         String gameElementName = myXMLTool.getTagName(gameElement);
         String gameElementType = loadType(subElementMap.get(TYPE_TAG));
@@ -73,7 +74,7 @@ public class GameElementXMLLoader {
         
         ActionXMLLoader loader = new ActionXMLLoader(myXMLTool);
         List<ActionFactory> actionFactories = loader.
-                loadActionFactories(subElementMap.get(ACTIONS_TAG), map);
+                loadActionFactories(subElementMap.get(ACTIONS_TAG), map, player);
         
         AttributeManagerFactory managerFactory = new AttributeManagerFactory(attributeFactories);
         

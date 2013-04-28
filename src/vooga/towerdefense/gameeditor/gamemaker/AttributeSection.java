@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import vooga.towerdefense.attributes.AttributeConstantsEnum;
 
 /**
  * Panel that holds the attribute editor screen.
@@ -104,8 +105,9 @@ public class AttributeSection extends SubEditorSection {
                    + name + " " + value + "\n");
             }
             else {
+                AttributeConstantsEnum enumType = AttributeConstantsEnum.valueOf(myAttributesBox.getSelectedItem().toString());
                 myAttributesSelected.setText(myAttributesSelected.getText()
-                    + myAttributesBox.getSelectedItem().toString()
+                    + enumType.getStatusCode()
                     + " " + myAttributeValue.getText() + "\n");
             }
         }
