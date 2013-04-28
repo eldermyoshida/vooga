@@ -34,7 +34,7 @@ public class ViewXMLLoader {
     private static final String GAME_ELEMENTS_SCREEN_TAG = "GameElementInformationScreen";
     private static final String NEXT_WAVE_SCREEN_TAG = "NextWaveScreen";
     private static final String MULTIPLE_SCREEN_PANEL_TAG = "MultipleScreenPanel";
-    private static final String BORDER_LAYOUT_ADDITION = "BorderLayout.";
+    private static final String VIEWSCREENS_PATH = "vooga.towerdefense.view.gamescreens.";
     
     public ViewXMLLoader(XMLTool xmlTool) {
         myXMLTool = xmlTool;
@@ -103,7 +103,7 @@ public class ViewXMLLoader {
         Element dimensionElement = subElements.get(DIMENSION_TAG);
         Dimension dimension = makeDimensionFrom(myXMLTool.getContent(dimensionElement));
         //TODO: fix magic path
-        Class c = Class.forName("vooga.towerdefense.view.gamescreens." + myXMLTool.getTagName(element));
+        Class c = Class.forName(VIEWSCREENS_PATH + myXMLTool.getTagName(element));
         Constructor[] constructors = c.getConstructors();
         Constructor cons = constructors[0];
         JPanel screen = (JPanel) cons.newInstance(dimension, controller);
