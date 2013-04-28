@@ -32,11 +32,16 @@ public abstract class RTSGame extends Game {
         myFactory.loadXMLFile(gameDefinition);
         
         myState = new MainState();
+        
     }
 
     @Override
     public void run () {
         myState.start(); 
+    }
+    
+    public void setMap(String map) {
+        myState.setMapFile(map);
     }
     
     public static Factory getFactory() {

@@ -46,7 +46,8 @@ public class Resource extends GameEntity implements IGatherable {
     @Override
     public void getGathered (int playerID, int gatherAmount) {
         changeHealth(gatherAmount);
-        System.out.println("resource health: " + getHealth());
+        GameState.getPlayers().getPlayer(playerID).getResources().earn(myType, gatherAmount);
+        
         if (isDead()) {
             setVisible(false);
         }

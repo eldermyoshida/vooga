@@ -47,9 +47,7 @@ public class GameMap implements IGameLoop {
     
     private String myMapName;
     private String myMapDescription;
-    private List<Location3D> myPlayerLocations;
-
-    
+    private List<Location3D> myPlayerLocations;    
 
     /**
      * calculates how many nodes there are
@@ -62,6 +60,7 @@ public class GameMap implements IGameLoop {
         myNodeMap = factory.makeMap(Node.NODE_SIZE, size);
         myTerrain = new GameSpriteManager<Terrain>();
         myResources = new GameSpriteManager<Resource>();
+        myPlayerLocations = new ArrayList<Location3D>();
         Camera.instance().setMapSize(size);
     }
 
