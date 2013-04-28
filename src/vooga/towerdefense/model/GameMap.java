@@ -14,6 +14,7 @@ import vooga.rts.util.Vector;
 import vooga.towerdefense.action.Action;
 import vooga.towerdefense.action.actionlist.FollowPath;
 import vooga.towerdefense.attributes.AttributeConstants;
+import vooga.towerdefense.attributes.AttributeConstantsEnum;
 import vooga.towerdefense.attributes.AttributeManager;
 import vooga.towerdefense.gameelements.GameElement;
 
@@ -88,8 +89,9 @@ public class GameMap {
 	 * @return
 	 */
 	public boolean isTower(GameElement e) {
-		return e.getAttributeManager().getAttribute(AttributeConstants.NAME)
-				.equals("tower");
+	        int i = (int)e.getAttributeManager().getAttribute(AttributeConstantsEnum.AFFILIATION.getStatusCode()).getValue();
+	        double remainder = e.getAttributeManager().getAttribute(AttributeConstantsEnum.AFFILIATION.getStatusCode()).getValue() - 1; 
+		return remainder == .1;
 	}
 
 	/**
