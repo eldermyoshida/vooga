@@ -63,7 +63,7 @@ public class ClientModel extends Observable implements IClientModel, IModel {
         myUserName = userName;
         myClient = new Client(this);
         IMessage initialConnection = new InitialConnectionMessage(gameName, userName);
-        myClient.sendData(initialConnection);
+        myClient.sendMessage(initialConnection);
         myViewAdapter = new ClientViewAdapter(this, gameName, mapNameList, maxPlayerList);
     }
 
@@ -83,7 +83,7 @@ public class ClientModel extends Observable implements IClientModel, IModel {
      * Request currently available lobbies from the server
      */
     public void requestLobbies () {
-        myClient.sendData(new RequestServerListMessage());
+        myClient.sendMessage(new RequestServerListMessage());
     }
 
     /**
@@ -92,7 +92,7 @@ public class ClientModel extends Observable implements IClientModel, IModel {
      * @param id ID of the lobby to join
      */
     public void requestJoinLobby (int id) {
-        myClient.sendData(new JoinLobbyMessage(id));
+        myClient.sendMessage(new JoinLobbyMessage(id));
     }
 
     /**
@@ -100,7 +100,7 @@ public class ClientModel extends Observable implements IClientModel, IModel {
      */
     public void leaveLobby () {
         myLobbyInfo.removePlayer(myPlayer);
-        myClient.sendData(new LeaveLobbyMessage(myLobbyInfo));
+        myClient.sendMessage(new LeaveLobbyMessage(myLobbyInfo));
     }
 
     /**
@@ -109,14 +109,14 @@ public class ClientModel extends Observable implements IClientModel, IModel {
      * @param lobbyInfo Lobby containing information to host a game
      */
     public void startLobby (LobbyInfo lobbyInfo) {
-        myClient.sendData(new StartLobbyMessage(lobbyInfo));
+        myClient.sendMessage(new StartLobbyMessage(lobbyInfo));
     }
 
     /**
      * Request to initiate the game in this lobby
      */
     public void requestStartGame () {
-        myClient.sendData(new RequestStartGameMessage());
+        myClient.sendMessage(new RequestStartGameMessage());
     }
 
     /**
@@ -124,7 +124,7 @@ public class ClientModel extends Observable implements IClientModel, IModel {
      * the lobby has changed
      */
     public void sendUpdatedLobbyInfo () {
-        myClient.sendData(new UpdateLobbyInfoMessage(myLobbyInfo));
+        myClient.sendMessage(new UpdateLobbyInfoMessage(myLobbyInfo));
     }
 
     /**
@@ -175,7 +175,7 @@ public class ClientModel extends Observable implements IClientModel, IModel {
     @Override
     public void loadGame (ExpandedLobbyInfo lobbyInfo) {
         myGame.loadGame(lobbyInfo, myPlayer);
-        myClient.sendData(new ReadyToStartGameMessage());
+        myClient.sendMessage(new ReadyToStartGameMessage());
     }
 
     @Override

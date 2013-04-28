@@ -84,7 +84,7 @@ public class Client extends Thread implements IClient {
     }
 
     @Override
-    public void sendData (IMessage message) {
+    public void sendMessage (IMessage message) {
         try {
             myOutput.writeObject(message);
         }

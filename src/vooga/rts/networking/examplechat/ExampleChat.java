@@ -104,7 +104,7 @@ public class ExampleChat implements NetworkedGame, IChatModel, IMessageReceiver 
 
     @Override
     public void messageEntered (String message) {
-        myClient.sendData(new ChatMessage(
+        myClient.sendMessage(new ChatMessage(
                                           new UserTimeStamp(
                                                             (System.nanoTime() - myStartTime) /
                                                                     ONE_MILLISECOND),
