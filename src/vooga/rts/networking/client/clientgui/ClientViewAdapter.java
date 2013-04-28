@@ -92,9 +92,6 @@ public class ClientViewAdapter extends ViewAdapter {
         myLeaveLobbyListener = new ActionListener() {
             @Override
             public void actionPerformed (ActionEvent arg0) {
-                myModel.getLobbyInfo()
-                        .removePlayer(myModel.getPlayersInfo()
-                                .get(0));
                 myModel.leaveLobby();
                 switchToServerBrowserView();
             }

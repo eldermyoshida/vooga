@@ -19,7 +19,7 @@ import vooga.rts.networking.communications.servermessages.SwitchToLobbyMessage;
  */
 public class Lobby extends Room {
 
-    private int numberOfClientsReady = 0;
+    private int myNumberOfClientsReady = 0;
 
     /**
      * Instantiates the Lobby.
@@ -27,6 +27,7 @@ public class Lobby extends Room {
      * @param myRoomNumber number of room
      * @param gameContainer game container
      * @param lobbyInfo lobby info
+     * @param logger log this
      */
     public Lobby (int myRoomNumber, GameContainer gameContainer, LobbyInfo lobbyInfo, Logger logger) {
         super(myRoomNumber, gameContainer, lobbyInfo, logger);
@@ -59,8 +60,8 @@ public class Lobby extends Room {
 
     @Override
     public void clientIsReadyToStart (ConnectionThread thread) {
-        numberOfClientsReady++;
-        if (numberOfClientsReady == getNumberOfConnections()) {
+        myNumberOfClientsReady++;
+        if (myNumberOfClientsReady == getNumberOfConnections()) {
             sendMessageToAllConnections(new StartGameMessage());
             new GameServer(getID(), getGameContainer(), this, getLogger());
         }

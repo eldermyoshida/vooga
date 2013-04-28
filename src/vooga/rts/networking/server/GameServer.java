@@ -25,6 +25,7 @@ public class GameServer extends Room {
      * @param id id of the gameserver
      * @param container gamecontainer of the gameserver
      * @param lobby lobby to get connections from
+     * @param logger logger to use
      */
     public GameServer (int id, GameContainer container, Lobby lobby, Logger logger) {
         super(id, container, lobby, logger);

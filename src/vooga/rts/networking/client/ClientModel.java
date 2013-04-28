@@ -97,6 +97,7 @@ public class ClientModel extends Observable implements IClientModel, IModel {
      * Request to leave a lobby on the server
      */
     public void leaveLobby () {
+        myLobbyInfo.removePlayer(myPlayer);
         myClient.sendData(new LeaveLobbyMessage(myLobbyInfo));
     }
 

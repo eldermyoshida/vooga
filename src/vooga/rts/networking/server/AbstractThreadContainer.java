@@ -26,21 +26,24 @@ import vooga.rts.networking.communications.clientmessages.ClientInfoMessage;
  */
 public abstract class AbstractThreadContainer implements IThreadContainer, IMessageReceiver {
 
-    private Map<Integer, ConnectionThread> myConnectionThreads =
-            new HashMap<Integer, ConnectionThread>();
-    private Logger myLogger;
+    /**
+     * The email handler that sends this to the email.
+     */
     public static final IVoogaHandler EMAIL_HANDLER =
             new HandlerMemory(new HandlerMail("vooga-networking-logger@duke.edu",
                                               new String[] { "david.s.winegar@gmail.com" },
                                               "mail.smtp.host", "Log update",
                                               "New log item received: \n"), 1, Level.SEVERE);
+    private Map<Integer, ConnectionThread> myConnectionThreads =
+            new HashMap<Integer, ConnectionThread>();
+    private Logger myLogger;
 
     /**
      * Default empty constructor, initializes state and logger.
      */
     public AbstractThreadContainer () {
         LoggerManager log = new LoggerManager();
-        //log.addHandler(EMAIL_HANDLER);
+        // log.addHandler(EMAIL_HANDLER);
         myLogger = log.getLogger();
     }
 
