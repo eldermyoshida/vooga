@@ -35,6 +35,7 @@ import vooga.rts.gamedesign.strategy.upgradestrategy.UpgradeStrategy;
 import vooga.rts.gamedesign.upgrades.UpgradeTree;
 import vooga.rts.gamedesign.weapon.Weapon;
 import vooga.rts.util.Location3D;
+import vooga.rts.util.ReflectionHelper;
 
 
 /**
@@ -49,23 +50,27 @@ import vooga.rts.util.Location3D;
 
 public class Factory {
 
+    public static final String GAMEELEMENT_TAG = "GameElements";
     public static final String DECODER_MATCHING_FILE = "DecodeMatchUp";
     public static final String MATCHING_PAIR_TAG = "pair";
     public static final String MATCHING_TYPE_TAG = "type";
     public static final String MATCHING_PATH_TAG = "path";
 
-    Map<String, String> myDecoderPaths;
-    Map<String, Decoder> myDecoders;
-    Map<String, InteractiveEntity> mySprites;
-    Map<String, Resource> myResources;
-    Map<String, Strategy> myStrategies;
-    Map<String, Weapon> myWeapons;
-    Map<String, Projectile> myProjectiles;
-    Map<String, String[]> myProductionDependencies;
-    Map<String, String[]> myStrategyDependencies;
-    Map<String, UpgradeTree> myUpgradeTrees;
-    Map<String, String[]> myWeaponDependencies;
-    Map<String, String> myProjectileDependencies;
+    
+    private Map<String, Integer> myStarterPack;
+    
+    private Map<String, String> myDecoderPaths;
+    private Map<String, Decoder> myDecoders;
+    private Map<String, InteractiveEntity> mySprites;
+    private Map<String, Resource> myResources;
+    private Map<String, Strategy> myStrategies;
+    private Map<String, Weapon> myWeapons;
+    private Map<String, Projectile> myProjectiles;
+    private Map<String, String[]> myProductionDependencies;
+    private Map<String, String[]> myStrategyDependencies;
+    private Map<String, UpgradeTree> myUpgradeTrees;
+    private Map<String, String[]> myWeaponDependencies;
+    private Map<String, String> myProjectileDependencies;
 
     public Factory () {
         myDecoderPaths = new HashMap<String, String>();
@@ -78,6 +83,7 @@ public class Factory {
         catch (Exception e) {
             e.printStackTrace();
         }
+        myStarterPack = new HashMap<String, Integer>();
         mySprites = new HashMap<String, InteractiveEntity>();
         myResources = new HashMap<String, Resource>();
         myStrategies = new HashMap<String, Strategy>();
@@ -122,6 +128,9 @@ public class Factory {
         myProjectiles.put(name, proj);
     }
 
+    public void put (String name, int amount){
+        myStarterPack.put(name, amount);
+    }
     public Map<String, UpgradeTree> getUpgradeTrees () {
         return myUpgradeTrees;
     }
@@ -202,6 +211,13 @@ public class Factory {
         return myResources.get(key);
     }
 
+    /**
+     * Returns the initial values of the game defined by the XML file. 
+     */
+    public Map<String, Integer> getStarterPack(){
+        return myStarterPack;
+    }
+    
     /**
      * Puts a production dependency (tells the factory what "name" can produce) in
      * a dependency map.
@@ -309,8 +325,7 @@ public class Factory {
                                   InvocationTargetException, NoSuchMethodException,
                                   ClassNotFoundException {
         for (String key : myDecoderPaths.keySet()) {
-            Class<?> headClass = Class.forName(myDecoderPaths.get(key));
-            Decoder decoder = (Decoder) headClass.getConstructor(Factory.class).newInstance(this);
+            Decoder decoder = (Decoder) ReflectionHelper.makeInstance(myDecoderPaths.get(key), this);
             myDecoders.put(key, decoder);
         }
     }
@@ -337,7 +352,6 @@ public class Factory {
             DocumentBuilder db = dbf.newDocumentBuilder();
             Document doc = db.parse(file);
             doc.getDocumentElement().normalize();
-            System.out.println(doc.getDocumentElement().getNodeName());
             NodeList head = doc.getChildNodes();
             Node childNode = head.item(0);
             NodeList children = childNode.getChildNodes();
@@ -366,15 +380,16 @@ public class Factory {
      */
     private void initializeProducables () {
         for (String key : myProductionDependencies.keySet()) {
-            System.out.println(key);
+            InteractiveEntity producer = mySprites.get(key);
             String[] produces = myProductionDependencies.get(key);
-            mySprites.get(key)
-                    .setProductionStrategy((ProductionStrategy) new CanProduce(mySprites.get(key)));
+            producer.setProductionStrategy(new CanProduce(producer));
             for (String baby : produces) {
                 InteractiveEntity producable = mySprites.get(baby);
-                // this should not be new unit
-                (mySprites.get(key).getProductionStrategy()).addProducable(new Unit());
+
+                producer.addProducable(producable.copy());
+
             }
+
         }
     }
 

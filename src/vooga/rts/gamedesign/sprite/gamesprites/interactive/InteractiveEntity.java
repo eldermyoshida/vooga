@@ -11,9 +11,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
 import java.util.Set;
+
 import vooga.rts.action.Action;
 import vooga.rts.action.IActOn;
 import vooga.rts.ai.AstarFinder;
@@ -26,6 +29,7 @@ import vooga.rts.gamedesign.sprite.gamesprites.IAttackable;
 import vooga.rts.gamedesign.sprite.gamesprites.Projectile;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.Building;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit;
+import vooga.rts.gamedesign.state.ProducingState;
 import vooga.rts.gamedesign.state.UnitState;
 import vooga.rts.gamedesign.strategy.Strategy;
 import vooga.rts.gamedesign.strategy.attackstrategy.AttackStrategy;
@@ -35,9 +39,9 @@ import vooga.rts.gamedesign.strategy.gatherstrategy.CannotGather;
 import vooga.rts.gamedesign.strategy.gatherstrategy.GatherStrategy;
 import vooga.rts.gamedesign.strategy.occupystrategy.CannotBeOccupied;
 import vooga.rts.gamedesign.strategy.occupystrategy.OccupyStrategy;
+import vooga.rts.gamedesign.strategy.production.CanProduce;
 import vooga.rts.gamedesign.strategy.production.CannotProduce;
 import vooga.rts.gamedesign.strategy.production.ProductionStrategy;
-import vooga.rts.gamedesign.strategy.upgradestrategy.CanUpgrade;
 import vooga.rts.gamedesign.strategy.upgradestrategy.CannotUpgrade;
 import vooga.rts.gamedesign.strategy.upgradestrategy.UpgradeStrategy;
 import vooga.rts.gamedesign.upgrades.UpgradeTree;
@@ -83,10 +87,11 @@ public abstract class InteractiveEntity extends GameEntity implements
 	private Map<String, Information> myInfos;
 	private List<DelayedTask> myTasks;
 	private double myBuildTime;
-	private List<InteractiveEntity> myProducables;
 	private Information myInfo;
 	private PathFinder myFinder;
 	private Path myPath;
+	private Queue<DelayedTask> myQueueableTasks;
+	private DelayedTask myCurQueueTask;
 	private InteractiveEntity myTargetEntity;
 
 	/**
@@ -119,8 +124,9 @@ public abstract class InteractiveEntity extends GameEntity implements
 		myTasks = new ArrayList<DelayedTask>();
 		myBuildTime = buildTime;
 		myOccupyStrategy = new CannotBeOccupied();
-		myProducables = new ArrayList<InteractiveEntity>();
 		myPath = new Path();
+		myQueueableTasks = new LinkedList<DelayedTask>();
+		myCurQueueTask = new DelayedTask(0, null);
 		myFinder = new AstarFinder();
 		myTargetEntity = this;
 		setSpeed(DEFAULT_INTERACTIVEENTITY_SPEED);
@@ -159,6 +165,12 @@ public abstract class InteractiveEntity extends GameEntity implements
 		myTasks.add(dt);
 	}
 
+	public void addQueueableTask(DelayedTask dt) {
+
+		System.err.println("Size of queue : " + myQueueableTasks.size());
+		myQueueableTasks.add(dt);
+	}
+
 	public void setInfo(Information info) {
 		myInfo = info;
 	}
@@ -183,13 +195,6 @@ public abstract class InteractiveEntity extends GameEntity implements
 		all[3] = myProductionStrategy;
 		all[4] = myUpgradeStrategy;
 		return all;
-	}
-
-	/**
-	 * returns the list of producables
-	 */
-	public List<InteractiveEntity> getProducables() {
-		return myProducables;
 	}
 
 	/**
@@ -561,6 +566,16 @@ public abstract class InteractiveEntity extends GameEntity implements
 				it.remove();
 			}
 		}
+		if (myCurQueueTask != null) {
+
+			if (!myCurQueueTask.isActive() && myQueueableTasks.peek() != null) {
+				myCurQueueTask = myQueueableTasks.poll();
+				System.out.println(myCurQueueTask);
+			}
+
+			myCurQueueTask.update(elapsedTime);
+
+		}
 		if (myAttackStrategy.hasWeapon()) {
 			Weapon weapon = myAttackStrategy.getCurrentWeapon();
 			if (getEntityState().inAttackMode()) {
@@ -597,8 +612,8 @@ public abstract class InteractiveEntity extends GameEntity implements
 	/*
 	 * Test method to add an interactive entity to
 	 */
-	public void addProducable(InteractiveEntity i) {
-		myProducables.add(i);
+	public void addProducable(InteractiveEntity producable) {
+		myProductionStrategy.addProducable(producable);
 	}
 
 	@Override
@@ -668,7 +683,6 @@ public abstract class InteractiveEntity extends GameEntity implements
 				destination);
 		if (myPath != null) {
 			myProductionStrategy.setRallyPoint(this);
-			super.move(myPath.getNext());
 		}
 	}
 
@@ -680,11 +694,11 @@ public abstract class InteractiveEntity extends GameEntity implements
 	public void setUpgradeStrategy(UpgradeStrategy upgradeStrategy) {
 		myUpgradeStrategy = upgradeStrategy;
 	}
-	
+
 	/**
-	 * Returns the target entity of this entity.  In other words, if an entity
-	 * is right clicked on, that entity becomes the target entity which is
-	 * returned from this method.
+	 * Returns the target entity of this entity. In other words, if an entity is
+	 * right clicked on, that entity becomes the target entity which is returned
+	 * from this method.
 	 * 
 	 * @return the target interactive entity
 	 */

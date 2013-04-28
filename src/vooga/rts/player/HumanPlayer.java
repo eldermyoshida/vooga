@@ -41,7 +41,6 @@ public class HumanPlayer extends Player implements Observer {
 
     private GameMenu myGameMenu;
 
-
     public HumanPlayer (int id, int teamID) {
         super(id, teamID);
         
@@ -59,15 +58,14 @@ public class HumanPlayer extends Player implements Observer {
         // Maybe look for design pattern that can implement filtering the inputs
     }
 
-
     @Override
     public void sendCommand (Command command) {
         // Check for camera movement
         if (myGameMenu.withinBoundary(command)) {
             myGameMenu.receiveCommand(command);
         }
-        else {
-            getManager().receiveCommand(command);
+        else {            
+            getManager().receiveCommand(command);            
         }
     }
 
@@ -127,9 +125,12 @@ public class HumanPlayer extends Player implements Observer {
         if (a instanceof InformationCommand) {
             InformationCommand i = (InformationCommand) a;
             getManager().receiveCommand(i);
+        } else {
+            setChanged();
+            notifyObservers();
         }
-
+        
+       
     }
-
 
 }

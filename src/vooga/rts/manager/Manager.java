@@ -94,9 +94,9 @@ public class Manager extends Observable implements State, IActOn, Observer {
      */
     @Override
     public void updateAction (Command command) {
-        if (myActions.containsKey(command.getMethodName())) {
+        if (myActions.containsKey(command.getMethodName())) {                        
             Action current = myActions.get(command.getMethodName());
-            current.update(command);
+            current.update(command);            
             current.apply();
         }
         else {
@@ -170,8 +170,8 @@ public class Manager extends Observable implements State, IActOn, Observer {
     }
 
     private void notifyDeselect () {
-        // setChanged();
-        // notifyObservers(false);
+        setChanged();
+        notifyObservers(false);
     }
 
     /**
@@ -255,8 +255,8 @@ public class Manager extends Observable implements State, IActOn, Observer {
     }
 
     public void notifySelect () {
-        // setChanged();
-        // notifyObservers(true);
+         setChanged();
+         notifyObservers(true);
     }
 
     /**
