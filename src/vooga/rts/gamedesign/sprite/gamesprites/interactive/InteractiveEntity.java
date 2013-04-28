@@ -83,7 +83,6 @@ public abstract class InteractiveEntity extends GameEntity implements
 	private Map<String, Information> myInfos;
 	private List<DelayedTask> myTasks;
 	private double myBuildTime;
-	private List<InteractiveEntity> myProducables;
 	private Information myInfo;
 	private PathFinder myFinder;
 	private Path myPath;
@@ -118,8 +117,7 @@ public abstract class InteractiveEntity extends GameEntity implements
 		isSelected = false;
 		myTasks = new ArrayList<DelayedTask>();
 		myBuildTime = buildTime;
-		myOccupyStrategy = new CannotBeOccupied();
-		myProducables = new ArrayList<InteractiveEntity>();
+		myOccupyStrategy = new CannotBeOccupied();		
 		myPath = new Path();
 		myFinder = new AstarFinder();
 		myTargetEntity = this;
@@ -183,13 +181,6 @@ public abstract class InteractiveEntity extends GameEntity implements
 		all[3] = myProductionStrategy;
 		all[4] = myUpgradeStrategy;
 		return all;
-	}
-
-	/**
-	 * returns the list of producables
-	 */
-	public List<InteractiveEntity> getProducables() {
-		return myProducables;
 	}
 
 	/**
@@ -475,6 +466,7 @@ public abstract class InteractiveEntity extends GameEntity implements
 	 *            - the other InteractiveEntity
 	 */
 	public void recognize(InteractiveEntity other) {
+		myTargetEntity = other;
 		if (isEnemy(other)) {
 			getEntityState().setUnitState(UnitState.ATTACK);
 		} else if (other instanceof Building) {
@@ -596,8 +588,8 @@ public abstract class InteractiveEntity extends GameEntity implements
 	/*
 	 * Test method to add an interactive entity to
 	 */
-	public void addProducable(InteractiveEntity i) {
-		myProducables.add(i);
+	public void addProducable(InteractiveEntity producable) {
+	    myProductionStrategy.addProducable(producable);
 	}
 
 	@Override
@@ -678,6 +670,17 @@ public abstract class InteractiveEntity extends GameEntity implements
 
 	public void setUpgradeStrategy(UpgradeStrategy upgradeStrategy) {
 		myUpgradeStrategy = upgradeStrategy;
+	}
+	
+	/**
+	 * Returns the target entity of this entity.  In other words, if an entity
+	 * is right clicked on, that entity becomes the target entity which is
+	 * returned from this method.
+	 * 
+	 * @return the target interactive entity
+	 */
+	public InteractiveEntity getTargetEntity() {
+		return myTargetEntity;
 	}
 
 }

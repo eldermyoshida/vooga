@@ -46,20 +46,20 @@ public class GameState extends SubState implements Controller {
     private static final Location3D DEFAULT_SOLDIER_THREE_RELATIVE_LOCATION = new Location3D(300,
                                                                                              0, 0);
     private static final Information DEFAULT_SOLDIER_INFO =
-            new Information("Marine", "I am a soldier of Nunu.", null, "buttons/marine.png");
+            new Information("Marine", "I am a soldier of Nunu.", "buttons/marine.png");
     private static final Location3D DEFAULT_WORKER_RELATIVE_LOCATION = new Location3D(200, 200, 0);
     private static final Information DEFAULT_WORKER_INFO =
             new Information("Worker",
-                            "I am a worker. I am sent down from Denethor, son of Ecthelion ", null,
+                            "I am a worker. I am sent down from Denethor, son of Ecthelion ",
                             "images/scv.png");
     private static final Location3D DEFAULT_PRODUCTION_RELATIVE_LOCATION = new Location3D(000, 500,
                                                                                           0);
     private static final Information DEFAULT_PRODUCTION_INFO =
-            new Information("Barracks", "This is a barracks that can make awesome pies", null,
+            new Information("Barracks", "This is a barracks that can make awesome pies",
                             "buttons/marine.png");
     private static final Location3D DEFAULT_OCCUPY_RELATIVE_LOCATION = new Location3D(300, 100, 0);
     private static final Information DEFAULT_OCCUPY_INFO =
-            new Information("Garrison", "This is a garrison that soldiers can occupy", null,
+            new Information("Garrison", "This is a garrison that soldiers can occupy",
                             "buttons/marine.png");
 
     private static GameMap myMap;
@@ -132,9 +132,7 @@ public class GameState extends SubState implements Controller {
         // If it's a drag, we need to do some extra checking.
         if (command instanceof DragCommand) {
             myDrag = ((DragCommand) command).getScreenRectangle();
-            if (myDrag == null) {
-                return;
-            }
+            if (myDrag == null) { return; }
         }
         sendCommand(command);
     }
@@ -159,33 +157,31 @@ public class GameState extends SubState implements Controller {
     private void generateInitialSprites (int playerID, Location3D baseLocation) {
         Unit worker = (Unit) myFactory.getEntitiesMap().get("worker").copy();
         worker =
-                (Unit) setLocationAndInfo(worker, baseLocation, DEFAULT_WORKER_RELATIVE_LOCATION,
-                                          DEFAULT_WORKER_INFO);
+                (Unit) setLocation(worker, baseLocation, DEFAULT_WORKER_RELATIVE_LOCATION);
         getPlayers().getPlayer(playerID).add(worker);
 
-        Unit soldierOne = (Unit) myFactory.getEntitiesMap().get("combat").copy();
+        Unit soldierOne = (Unit) myFactory.getEntitiesMap().get("Marine").copy();
         soldierOne =
-                (Unit) setLocationAndInfo(soldierOne, baseLocation,
-                                          DEFAULT_SOLDIER_ONE_RELATIVE_LOCATION,
-                                          DEFAULT_SOLDIER_INFO);
+                (Unit) setLocation(soldierOne, baseLocation,
+                                   DEFAULT_SOLDIER_ONE_RELATIVE_LOCATION);
         getPlayers().getPlayer(playerID).add(soldierOne);
 
         Building startProduction = (Building) myFactory.getEntitiesMap().get("home").copy();
         startProduction =
-                (Building) setLocationAndInfo(startProduction, baseLocation,
-                                              DEFAULT_PRODUCTION_RELATIVE_LOCATION,
-                                              DEFAULT_PRODUCTION_INFO);
+                (Building) setLocation(startProduction, baseLocation,
+                                       DEFAULT_PRODUCTION_RELATIVE_LOCATION);
         getPlayers().getPlayer(playerID).add(startProduction);
 
         Building startOccupy = (Building) myFactory.getEntitiesMap().get("garrison").copy();
         startOccupy =
-                (Building) setLocationAndInfo(startOccupy, baseLocation,
-                                              DEFAULT_OCCUPY_RELATIVE_LOCATION, DEFAULT_OCCUPY_INFO);
+                (Building) setLocation(startOccupy, baseLocation,
+                                       DEFAULT_OCCUPY_RELATIVE_LOCATION);
         getPlayers().getPlayer(playerID).add(startOccupy);
 
         // this is for testing
         final Building f = startProduction;
         myTasks.add(new DelayedTask(2, new Runnable() {
+
             @Override
             public void run () {
                 f.getAction((new Command("make Marine"))).apply();
@@ -204,17 +200,16 @@ public class GameState extends SubState implements Controller {
                 }
             }
         }));
+
     }
 
-    private InteractiveEntity setLocationAndInfo (InteractiveEntity subject,
-                                                  Location3D base,
-                                                  Location3D reference,
-                                                  Information info) {
+    private InteractiveEntity setLocation (InteractiveEntity subject,
+                                           Location3D base,
+                                           Location3D reference) {
         subject.setWorldLocation(new Location3D(base.getX() + reference.getX(), base.getY() +
                                                                                 reference.getY(),
                                                 base.getZ() + reference.getZ()));
         subject.move(subject.getWorldLocation());
-        subject.setInfo(info);
         return subject;
     }
 
@@ -239,14 +234,6 @@ public class GameState extends SubState implements Controller {
         List<InteractiveEntity> p1 = getPlayers().getTeam(1).getUnits();
         List<InteractiveEntity> p2 = getPlayers().getTeam(2).getUnits();
 
-        // now even yuckier
-        for (int i = 0; i < p1.size(); ++i) {
-            if (p1.get(i) instanceof Unit) {
-                for (int j = i + 1; j < p1.size(); ++j) {
-                    ((Unit) p1.get(i)).occupy(p1.get(j));
-                }
-            }
-        }
     }
 
     public static PlayerManager getPlayers () {
