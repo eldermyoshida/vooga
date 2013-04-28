@@ -62,7 +62,6 @@ public class ExampleDosProjectileFactory extends GameElementFactory {
      * @return
      */
     public GameElement createElement (GameElement myStart, GameElement e, GameMap map) {
-        initialize(map);
         GameElement myProjectile;
         if (myStart != null) {
             myProjectile = new GameElement(def.getImage(), myStart.getCenter(),
