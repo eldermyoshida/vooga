@@ -25,7 +25,8 @@ public class RTSPlayer extends Player {
         myFaction = faction;
     }
     
-    public String toString() {
+    @Override
+	public String toString() {
         return myName;
     }
 }

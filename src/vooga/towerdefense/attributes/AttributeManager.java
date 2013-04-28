@@ -64,7 +64,8 @@ public class AttributeManager {
         return info;
     }
 
-    public String toString () {
+    @Override
+	public String toString () {
         String returnValue = "";
         for (String s : getAttributesInfo()) {
             returnValue += s + "\n";

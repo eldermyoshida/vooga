@@ -1,7 +1,6 @@
 
 package vooga.scroller.level_editor.view;
 
-import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import vooga.scroller.level_editor.controllerSuite.LEController;
 import vooga.scroller.level_editor.controllerSuite.LETools;
@@ -35,7 +34,7 @@ public class LEView extends Window<LEWorkspaceView, LevelEditing, LEGridView, LE
 
     @Override
     public LEWorkspaceView initializeWorkspaceView (int id, Renderable<LEGridView> r) {
-        LEWorkspaceView res = new LEWorkspaceView(this, id, (Renderable<LEGridView>) r);
+        LEWorkspaceView res = new LEWorkspaceView(this, id, r);
         return res;
     }
 
@@ -61,7 +60,7 @@ public class LEView extends Window<LEWorkspaceView, LevelEditing, LEGridView, LE
      */
     public void simulate () {
         if (super.getActiveTab() instanceof LEWorkspaceView) {
-            simulate((LEWorkspaceView)super.getActiveTab());
+            simulate(super.getActiveTab());
         }
     }
 

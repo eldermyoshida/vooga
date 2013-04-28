@@ -4,8 +4,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 
-import vooga.towerdefense.util.Location;
-
 /**
  * Shell of an attribute class, allows for tracking and modification.
  * Value is in double, can be reset, and add temporary value, can also paint a bar

@@ -10,7 +10,6 @@ import vooga.scroller.marioGame.splash_page.MarioSplashPage;
 import vooga.scroller.marioGame.spritesDefinitions.MarioLib;
 import vooga.scroller.marioGame.spritesDefinitions.players.Mario;
 import vooga.scroller.model.ScrollerGame;
-import vooga.scroller.scrollingmanager.OmniScrollingManager;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.scrollingmanager.UniScrollingManager;
 import vooga.scroller.sprites.superclasses.Player;

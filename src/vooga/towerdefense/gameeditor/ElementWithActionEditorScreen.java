@@ -155,7 +155,8 @@ public abstract class ElementWithActionEditorScreen extends GameEditorScreen {
      * gets the name of this game element.
      * @return a string of the name
      */
-    public String getName() {
+    @Override
+	public String getName() {
         return myNameBox.getText();
     }
     
@@ -357,7 +358,8 @@ public abstract class ElementWithActionEditorScreen extends GameEditorScreen {
     /**
      * adds a game element to the game.
      */
-    public abstract void addElementToGame();
+    @Override
+	public abstract void addElementToGame();
     
     /**
      * helper method to make a map from the string from a text area.

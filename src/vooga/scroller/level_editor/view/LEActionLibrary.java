@@ -6,6 +6,8 @@ import java.awt.event.KeyEvent;
 import javax.swing.AbstractAction;
 import javax.swing.KeyStroke;
 
+import vooga.scroller.util.mvc.vcFramework.Window;
+
 /**
  * 
  * TODO: Make sure this is not redundant with @Command notation
@@ -27,7 +29,7 @@ private LEView myWindow;
     }
     
     private String getLiteral (String s) {
-        return LEView.getLiteral(s);
+        return Window.getLiteral(s);
     }
     
     public class SimulateAction extends AbstractAction {

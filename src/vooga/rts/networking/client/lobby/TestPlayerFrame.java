@@ -1,11 +1,9 @@
 package vooga.rts.networking.client.lobby;
-import java.awt.*;
 import java.awt.event.*;
 import java.util.List;
 import java.util.ArrayList;
 import java.util.Map;
 import javax.swing.*;
-import javax.swing.border.*;
 import javax.swing.table.*;
 //import vooga.rts.player.RTSPlayer;
 //TODO: still need to make handling for when is an empty player, or not the user. currently alows for change which we likely do not want
@@ -71,7 +69,8 @@ public class TestPlayerFrame extends JFrame
             private static final long serialVersionUID = 1L;
 
             //  Determine editor to be used by row
-            public TableCellEditor getCellEditor(int row, int column)
+            @Override
+			public TableCellEditor getCellEditor(int row, int column)
             {
                 int modelColumn = convertColumnIndexToModel( column );
 

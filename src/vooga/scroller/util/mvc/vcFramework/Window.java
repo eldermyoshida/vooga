@@ -1,23 +1,16 @@
 
 package vooga.scroller.util.mvc.vcFramework;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagLayout;
-import java.awt.Image;
 import java.awt.Toolkit;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.util.ResourceBundle;
-import javax.imageio.ImageIO;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
-import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JTabbedPane;
-import vooga.scroller.level_editor.view.LEGridView;
-import vooga.scroller.level_editor.view.LEWorkspaceView;
-import vooga.scroller.level_editor.view.LevelEditing;
 import vooga.scroller.util.Renderable;
 import vooga.scroller.util.mvc.IController;
 import vooga.scroller.util.mvc.IWindow;
@@ -149,7 +142,8 @@ implements IWindow<W, D, R, T> {
      * Uses the active tab
      * @param s The string to be processed
      */
-    public void process (Object o) {
+    @Override
+	public void process (Object o) {
         process(getActiveTab(), o);
     }
     

@@ -2,7 +2,6 @@ package vooga.towerdefense.action;
 
 import vooga.towerdefense.attributes.Attribute;
 import vooga.towerdefense.attributes.AttributeConstants;
-import vooga.towerdefense.attributes.AttributeConstantsEnum;
 import vooga.towerdefense.model.Player;
 
 /**

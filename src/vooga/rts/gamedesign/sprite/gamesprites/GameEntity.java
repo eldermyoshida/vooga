@@ -20,7 +20,6 @@ import vooga.rts.util.Sound;
 import vooga.rts.util.Vector;
 import vooga.rts.map.GameMap;
 import vooga.rts.ai.Path;
-import vooga.rts.ai.PathFinder;
 
 
 /**
@@ -242,7 +241,8 @@ public class GameEntity extends GameSprite {
      * Updates the shape's location.
      */
     // TODO: make Velocity three dimensional...
-    public void update (double elapsedTime) {
+    @Override
+	public void update (double elapsedTime) {
 
         if (getWorldLocation().near(myGoal)) {
             myEntityState.setMovementState(MovementState.STATIONARY);

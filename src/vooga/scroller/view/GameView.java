@@ -1,11 +1,8 @@
 
 package vooga.scroller.view;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,10 +14,8 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Set;
 import java.util.TreeSet;
-import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.Timer;
-import vooga.scroller.scrollingmanager.OmniScrollingManager;
 import vooga.scroller.scrollingmanager.ScrollingManager;
 import vooga.scroller.sprites.superclasses.Player;
 import vooga.scroller.model.Model;
@@ -124,7 +119,8 @@ public class GameView extends JComponent {
         // create a timer to animate the canvas
         Timer timer = new Timer(stepTime, 
                                 new ActionListener() {
-            public void actionPerformed (ActionEvent e) {
+            @Override
+			public void actionPerformed (ActionEvent e) {
                 myGame.update((double) stepTime / ONE_SECOND);
                 repaint();
             }
@@ -167,7 +163,7 @@ public class GameView extends JComponent {
             public void keyReleased (KeyEvent e) {
                 myLastKeyPressed = NO_KEY_PRESSED;
                 // MULTIPLE KEY SUPPORT
-                myKeys.remove((Integer)e.getKeyCode());
+                myKeys.remove(e.getKeyCode());
             }
         });
         myLastMousePosition = new Point();

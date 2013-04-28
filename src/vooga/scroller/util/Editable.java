@@ -1,8 +1,6 @@
 
 package vooga.scroller.util;
 
-import java.awt.Dimension;
-import java.awt.Image;
 import vooga.scroller.sprites.Sprite;
 
 

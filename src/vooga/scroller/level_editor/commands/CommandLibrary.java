@@ -3,7 +3,6 @@ package vooga.scroller.level_editor.commands;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import vooga.scroller.level_editor.model.LevelEditor;
 

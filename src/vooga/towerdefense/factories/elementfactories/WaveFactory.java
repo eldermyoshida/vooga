@@ -11,7 +11,6 @@ import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.gameElements.Wave;
 import vooga.towerdefense.model.GameMap;
 import vooga.towerdefense.model.tiles.Tile;
-import vooga.towerdefense.util.Location;
 
 
 public class WaveFactory {

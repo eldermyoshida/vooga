@@ -1,7 +1,6 @@
 
 package vooga.scroller.util.mvc.vcFramework;
 import java.awt.Dimension;
-import java.awt.GridBagConstraints;
 import javax.swing.JPanel;
 import vooga.scroller.util.mvc.IView;
 

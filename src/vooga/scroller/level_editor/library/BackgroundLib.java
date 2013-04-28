@@ -1,14 +1,8 @@
 package vooga.scroller.level_editor.library;
 
 import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import javax.imageio.ImageIO;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import vooga.scroller.util.IBackgroundView;
 import vooga.scroller.util.Pixmap;
 

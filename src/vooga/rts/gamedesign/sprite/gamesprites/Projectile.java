@@ -60,6 +60,7 @@ public class Projectile extends GameEntity {
 		myTimer = new DelayedTask(getHealth(), new Runnable() {
 			Projectile p = toDestroy;
 
+			@Override
 			public void run() {
 				p.die();
 			}

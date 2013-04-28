@@ -38,7 +38,8 @@ public class MenuLoader extends ObjectLoader {
 	 * @param menuObjectName Name tag of the menu object to be loaded in the xml file
 	 * @param pathHierarchy The path to the folder containing the game's resources
 	 */
-    protected void load (String menuObjectName, String pathHiearchy) {
+    @Override
+	protected void load (String menuObjectName, String pathHiearchy) {
         Document doc = getDocument();
         NodeList menuNodes = doc.getElementsByTagName(ModelConstants.MENUOBJECT_PROPERTY);
         for (int i = 0; i < menuNodes.getLength(); i++) {

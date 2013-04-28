@@ -1,8 +1,5 @@
 package vooga.rts.gamedesign.factories;
 
-import java.lang.reflect.InvocationTargetException;
-
-import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 
 public class CustomHandler {

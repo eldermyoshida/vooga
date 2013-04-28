@@ -55,6 +55,7 @@ public class MapLoader extends ObjectLoader {
 	 * @param mapName Name tag of the map to be loaded in the xml file
 	 * @param pathHierarchy The path to the folder containing the game's resources
 	 */
+	@Override
 	protected void load(String mapName, String pathHierarchy) {
 		Document doc = getDocument();
 		NodeList mapNodes = doc.getElementsByTagName(ModelConstants.MAP_PROPERTY);

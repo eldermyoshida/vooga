@@ -11,8 +11,6 @@ import vooga.rts.state.State;
 import vooga.rts.util.Camera;
 import vooga.rts.util.Location;
 import vooga.rts.util.Location3D;
-=======
-import util.input.*;
 >>>>>>> input
 
 

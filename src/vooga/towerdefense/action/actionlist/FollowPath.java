@@ -4,8 +4,6 @@ import vooga.towerdefense.action.Action;
 import vooga.towerdefense.attributes.AttributeConstantsEnum;
 import vooga.towerdefense.gameElements.GameElement;
 import vooga.towerdefense.model.Path;
-import vooga.towerdefense.util.Location;
-import vooga.towerdefense.util.Vector;
 
 
 /**
@@ -31,7 +29,8 @@ public class FollowPath extends Action {
         changeNode();
     }
 
-    public void executeAction (double elapsedTime) {
+    @Override
+	public void executeAction (double elapsedTime) {
         if (myInitiator.getCenter().distance(myCurrentPathNode) < DISTANCE_OFFSET) {
             changeNode();
         }

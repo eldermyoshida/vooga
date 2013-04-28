@@ -3,7 +3,6 @@ package vooga.rts.networking.client;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import vooga.rts.networking.client.GUI.CreateLobbyView;
@@ -12,8 +11,6 @@ import vooga.rts.networking.client.GUI.ServerBrowserView;
 import vooga.rts.networking.client.GUI.ViewContainerPanel;
 import vooga.rts.networking.communications.LobbyInfo;
 import vooga.rts.networking.communications.Message;
-import vooga.rts.networking.communications.clientmessages.InitialConnectionMessage;
-import vooga.rts.networking.communications.clientmessages.RequestServerListMessage;
 import vooga.rts.networking.communications.servermessages.ServerInfoMessage;
 
 /**

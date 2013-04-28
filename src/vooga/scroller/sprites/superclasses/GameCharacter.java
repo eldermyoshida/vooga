@@ -43,7 +43,8 @@ public abstract class GameCharacter extends Sprite {
         myDamage = damage;
     }
 
-    public void update (double elapsedTime, Dimension bounds) {
+    @Override
+	public void update (double elapsedTime, Dimension bounds) {
         super.update(elapsedTime, bounds);
         if(myHealth <= 0){
             handleDeath();

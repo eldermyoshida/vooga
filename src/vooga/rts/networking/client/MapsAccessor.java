@@ -1,10 +1,8 @@
 package vooga.rts.networking.client;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
-import vooga.rts.networking.server.GameContainer;
 
 public class MapsAccessor {
     private static final String DEFAULT_PACKAGE = "vooga.rts.";

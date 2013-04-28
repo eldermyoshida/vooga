@@ -67,6 +67,7 @@ public class EnvironmentObjectLoader extends ObjectLoader {
 	 * @param enviroObjectName The environment object name tag to be matched in the xml
  	 * @param pathHierarchy The path to the folder containing the game's resources
 	 */
+	@Override
 	protected void load(String enviroObjectName, String pathHierarchy) {
 		Document doc = getDocument();
 		NodeList enviroObjectNodes = doc.getElementsByTagName(ModelConstants.ENVIRONMENTOBJECT_PROPERTY);

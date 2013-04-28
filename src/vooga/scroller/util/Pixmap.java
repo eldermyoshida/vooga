@@ -6,7 +6,6 @@ import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.geom.Point2D;
 import java.awt.geom.AffineTransform;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 
 

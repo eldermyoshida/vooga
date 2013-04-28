@@ -68,11 +68,13 @@ public class MainController extends AbstractController implements Observer {
 		myTimer.start();
 	}
 
+	@Override
 	public void update(double elapsedTime) {
 		myActiveController.update(elapsedTime);
 		myFrames.update(elapsedTime);
 	}
 
+	@Override
 	public void paint(Graphics2D pen) {
 		myActiveController.paint(pen);
 		myFrames.paint(pen);
@@ -126,9 +128,11 @@ public class MainController extends AbstractController implements Observer {
 		}
 	}
 
+	@Override
 	public void activate() {
 	}
 
+	@Override
 	public MainState getGameState() {
 		return MainState.Main;
 	}

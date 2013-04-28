@@ -36,7 +36,8 @@ public class Client extends Thread implements IClient {
     /**
      * Creates the sockets and streams for this client
      */
-    public void run () {
+    @Override
+	public void run () {
         try {
             mySocket = new Socket(myHost, myPort);
             myInput = new ObjectInputStream(mySocket.getInputStream());

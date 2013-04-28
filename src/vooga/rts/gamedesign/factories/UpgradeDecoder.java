@@ -1,21 +1,14 @@
 package vooga.rts.gamedesign.factories;
 
-import java.io.File;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
-import vooga.rts.gamedesign.upgrades.DamageUpgradeNode;
-import vooga.rts.gamedesign.upgrades.HealthUpgradeNode;
 import vooga.rts.gamedesign.upgrades.UpgradeNode;
 import vooga.rts.gamedesign.upgrades.UpgradeTree;
 
@@ -69,6 +62,7 @@ public class UpgradeDecoder extends Decoder {
 	 * 
 	 */
 
+	@Override
 	public void create(Document doc) throws ClassNotFoundException, NumberFormatException, IllegalArgumentException, SecurityException, InstantiationException, IllegalAccessException, InvocationTargetException {
 		//TODO: get all upgradeTrees into a same file. Return all results into a map
 		UpgradeTree upgradeTree = new UpgradeTree();
@@ -80,7 +74,7 @@ public class UpgradeDecoder extends Decoder {
 			Element typeElmnt = (Element) nodeLst.item(i);
 			Element nameElmnt = (Element) typeElmnt.getElementsByTagName(CATEGORY_NAME_TAG).item(0);
 			NodeList name = nameElmnt.getChildNodes();
-			upgradeTree.addBranch(((Node) name.item(0)).getNodeValue());
+			upgradeTree.addBranch(name.item(0).getNodeValue());
 			
 			NodeList upgradeNodeList = typeElmnt.getElementsByTagName(INDIVIDUAL_UPGRADE_TAG);
 			for (int j=0; j<upgradeNodeList.getLength(); ++j) {
@@ -107,7 +101,7 @@ public class UpgradeDecoder extends Decoder {
 	private String loadSingleLine(Element element, String tag) {
 		NodeList nodeElmntLst = element.getElementsByTagName(tag);
 		Element nodeElmnt = (Element) nodeElmntLst.item(0);
-		String result = ((Node)nodeElmnt.getChildNodes().item(0)).getNodeValue();
+		String result = nodeElmnt.getChildNodes().item(0).getNodeValue();
 		return result;
 	}
 	

@@ -3,15 +3,10 @@ package vooga.rts.gamedesign.factories;
 import java.lang.reflect.InvocationTargetException;
 
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import vooga.rts.gamedesign.strategy.Strategy;
-import vooga.rts.gamedesign.strategy.attackstrategy.AttackStrategy;
-import vooga.rts.gamedesign.strategy.gatherstrategy.GatherStrategy;
-import vooga.rts.gamedesign.strategy.occupystrategy.OccupyStrategy;
-import vooga.rts.util.Location3D;
 import vooga.rts.util.ReflectionHelper;
 
 /**
@@ -48,7 +43,7 @@ public class StrategyDecoder extends Decoder{
 	private void getSources(NodeList list) throws InstantiationException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, NoSuchMethodException, SecurityException{
 		for(int j = 0 ; j < list.getLength() ; j++ ){
 			Node Node = list.item(j);
-			if(Node.getNodeType() == Node.ELEMENT_NODE){
+			if(Node.getNodeType() == org.w3c.dom.Node.ELEMENT_NODE){
 				String path = Node.getAttributes().item(0).getTextContent();
 				String key = Node.getNodeName();
 				

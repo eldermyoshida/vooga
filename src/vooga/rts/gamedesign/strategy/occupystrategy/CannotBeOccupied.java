@@ -2,8 +2,6 @@ package vooga.rts.gamedesign.strategy.occupystrategy;
 
 import java.util.List;
 
-import vooga.rts.action.InteractiveAction;
-import vooga.rts.commands.Command;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit;
 
@@ -26,6 +24,7 @@ public class CannotBeOccupied implements OccupyStrategy{
 	}
 	
 	
+	@Override
 	public void addValidClassType(Unit u) {
 		return;
 	}

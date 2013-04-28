@@ -15,7 +15,8 @@ public class RandomChance extends Action {
         myChance = randomChance;
     }
     
-    public void update(double elapsedTime) {
+    @Override
+	public void update(double elapsedTime) {
         if (Math.random() <= myChance) {
             super.update(elapsedTime);
         }

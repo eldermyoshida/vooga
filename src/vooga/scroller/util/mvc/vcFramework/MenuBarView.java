@@ -5,7 +5,6 @@ package vooga.scroller.util.mvc.vcFramework;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -40,7 +39,8 @@ public abstract class MenuBarView extends JMenuBar {
         setSpecializedWindow(myWindow);
         addComponents();
         ActionListener prefListener =  new ActionListener() {
-            public void actionPerformed (ActionEvent e) {
+            @Override
+			public void actionPerformed (ActionEvent e) {
                 if (myWindow.getTabCount() > 0) {
                     enableWorkspaceDependentsMenus();
                 }

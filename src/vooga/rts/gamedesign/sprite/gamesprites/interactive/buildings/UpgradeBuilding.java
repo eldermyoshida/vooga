@@ -1,13 +1,10 @@
 package vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings;
 
 import java.awt.Dimension;
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
-import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit;
 import vooga.rts.gamedesign.upgrades.UpgradeNode;
 import vooga.rts.gamedesign.upgrades.UpgradeTree;
-import vooga.rts.util.Location;
 import vooga.rts.util.Location3D;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.Sound;
@@ -51,7 +48,8 @@ public class UpgradeBuilding extends Building {
 >>>>>>> master
      * Adds the list of available upgrades into the list of available actions.
      */
-    public void addUpgradeActions (UpgradeTree upgradeTree) {
+    @Override
+	public void addUpgradeActions (UpgradeTree upgradeTree) {
         List<UpgradeNode> initialUpgrades = upgradeTree.getCurrentUpgrades();
         //addUpgradeActions(initialUpgrades);
     }

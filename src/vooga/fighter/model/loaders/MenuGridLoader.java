@@ -50,7 +50,8 @@ public class MenuGridLoader extends ObjectLoader {
 	 * @param attackName Name tag of the attack to be loaded in the xml file
 	 * @param pathHierarchy The path to the folder containing the game's resources
 	 */
-    protected void load (String menuname, String pathHierarchy) {
+    @Override
+	protected void load (String menuname, String pathHierarchy) {
         Document doc = getDocument();
         NodeList menugridNodes = doc.getElementsByTagName(ModelConstants.MENUMODE_PROPERTY);
         for (int i = 0; i < menugridNodes.getLength(); i++) {

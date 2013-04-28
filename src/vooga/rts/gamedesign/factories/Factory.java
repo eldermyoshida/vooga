@@ -2,10 +2,8 @@ package vooga.rts.gamedesign.factories;
 
 import java.io.File;
 import java.io.IOException;
-import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -15,7 +13,6 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
-import vooga.rts.gamedesign.sprite.gamesprites.GameSprite;
 import vooga.rts.gamedesign.sprite.gamesprites.Resource;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
 import vooga.rts.gamedesign.strategy.Strategy;
@@ -176,11 +173,11 @@ public class Factory {
 			
 			Element typeElmnt = (Element)pairElmnt.getElementsByTagName(DECODER_MATCHING_DECODETYPE_TAG).item(0);
 			NodeList typeList = typeElmnt.getChildNodes();
-			String type = ((Node) typeList.item(0)).getNodeValue();
+			String type = typeList.item(0).getNodeValue();
 			
 			Element pathElmnt = (Element)pairElmnt.getElementsByTagName(DECODER_MATCHING_PATH_TAG).item(0);
 			NodeList pathList = pathElmnt.getChildNodes();
-			String path = ((Node) pathList.item(0)).getNodeValue();
+			String path = pathList.item(0).getNodeValue();
 			
 			Class<?> headClass =
 					Class.forName(path);

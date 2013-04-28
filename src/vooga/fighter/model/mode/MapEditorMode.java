@@ -53,7 +53,7 @@ public class MapEditorMode extends Mode {
         myEnviroObjects = new ArrayList<EnvironmentObject>();
         myCurrentSelection = null;
         EnvironmentObjectLoader loader = new EnvironmentObjectLoader(myFilePath);
-        myEnviroObjects = (ArrayList<EnvironmentObject>)loader.getEnvironmentObjects(myFilePath);
+        myEnviroObjects = loader.getEnvironmentObjects(myFilePath);
         initializeEnviroObjects();
         myBackgroundPaths = new ArrayList<String>();
         
@@ -123,7 +123,8 @@ public class MapEditorMode extends Mode {
     /**
      * Creates the list of image data objects and returns it.
      */
-    public List<ImageDataObject> getImageData () {
+    @Override
+	public List<ImageDataObject> getImageData () {
         List<ImageDataObject> result = new ArrayList<ImageDataObject>();
         for (GameObject object : getMyObjects()) {
             result.add(object.getImageData());

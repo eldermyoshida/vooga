@@ -1,13 +1,7 @@
 package vooga.rts.leveleditor.gui;
 
-import java.awt.BorderLayout;
-import java.awt.GridLayout;
-import java.awt.image.BufferedImage;
 import java.util.ResourceBundle;
-import javax.imageio.ImageIO;
-import javax.swing.JPanel;
 import vooga.rts.leveleditor.components.Resource;
-import vooga.rts.leveleditor.components.Tile;
 
 /**
  * This Panel holds all the map resources designer can use

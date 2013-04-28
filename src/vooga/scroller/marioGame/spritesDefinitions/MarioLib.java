@@ -77,7 +77,8 @@ public class MarioLib extends EncapsulatedSpriteLibrary {
             super(makePixmap(DEFAULT_IMG), center, KOOPA_SIZE, new Integer(1), new Integer(1));
         }
 
-        public void update (double elapsedTime, Dimension bounds) {
+        @Override
+		public void update (double elapsedTime, Dimension bounds) {
             movement.execute();
             super.update(elapsedTime, bounds);
         }
@@ -112,7 +113,8 @@ public class MarioLib extends EncapsulatedSpriteLibrary {
             super(makePixmap(DEFAULT_IMG), center, DEFAULT_SIZE, new Integer(1), new Integer(2));
         }
 
-        public void update (double elapsedTime, Dimension bounds) {
+        @Override
+		public void update (double elapsedTime, Dimension bounds) {
             movement.execute();
             super.update(elapsedTime, bounds);
         }
@@ -180,7 +182,8 @@ public class MarioLib extends EncapsulatedSpriteLibrary {
             super(makePixmap(DEFAULT_IMG), center, new Dimension(96, 32));
         }
 
-        public void update (double elapsedTime, Dimension bounds) {
+        @Override
+		public void update (double elapsedTime, Dimension bounds) {
             movement.execute();
             super.update(elapsedTime, bounds);
         }

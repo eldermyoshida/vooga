@@ -28,7 +28,8 @@ public class ModifyAttributeValue extends TargetedAction {
      * Overrides from superclasses
      * @param elapsedTime
      */
-    public void executeAction (double elapsedTime) {
+    @Override
+	public void executeAction (double elapsedTime) {
         double scaledModifier = myAppliedAttribute.getValue()*elapsedTime/1000.0;
         for (GameElement e : getTargets()) {
             Attribute toChange = e.getAttributeManager().getAttribute(myTargetAttribute);

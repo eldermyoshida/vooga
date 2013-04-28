@@ -56,7 +56,7 @@ public class MarioCollisions {
         switch (collisionType) {
             case TOP:
                 player.setCenter(player.getX(), platform.getTop() - (player.getHeight() / 2));
-                Vector v = player.getVelocity().getComponentVector((double) Sprite.DOWN_DIRECTION);
+                Vector v = player.getVelocity().getComponentVector(Sprite.DOWN_DIRECTION);
                 v.negate();
                 player.addVector(v);
 

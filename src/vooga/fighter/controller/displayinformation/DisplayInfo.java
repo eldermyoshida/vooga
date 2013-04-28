@@ -10,7 +10,6 @@ import util.Paintable;
 import vooga.fighter.controller.interfaces.ViewDataSource;
 
 
-
 /**
  * Displays game updatable information
  * Extends Observable and implements

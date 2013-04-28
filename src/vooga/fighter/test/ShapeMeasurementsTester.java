@@ -7,8 +7,6 @@ import java.awt.geom.Ellipse2D;
 
 import org.junit.Test;
 
-import util.Location;
-import vooga.fighter.util.CollisionDetector;
 import vooga.fighter.util.ShapeMeasurements;
 
 public class ShapeMeasurementsTester {

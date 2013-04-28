@@ -46,8 +46,7 @@ public class ModelConstants {
     public static final String MOUSE_CLICK_IMAGE_TAG = "mouseclick";
     
     //Mouse image tag
-    public static final String MOUSE_IMAGE_TAG = "mouse";
-    
+    public static final String MOUSE_IMAGE_TAG = "mouse";    
     public static final String ATTACKLOADER_PATH_TAG = "AttackPath";
     public static final String CHARACTERLOADER_PATH_TAG = "CharacterPath";
     public static final String ENVIRONMENTLOADER_PATH_TAG= "EnvironmentPath";

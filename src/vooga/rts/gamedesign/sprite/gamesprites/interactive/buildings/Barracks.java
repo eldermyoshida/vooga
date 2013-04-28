@@ -9,7 +9,6 @@ import vooga.rts.commands.Command;
 import vooga.rts.commands.PositionCommand;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Soldier;
-import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit;
 import vooga.rts.util.Camera;
 import vooga.rts.util.Location3D;
 import vooga.rts.util.Pixmap;

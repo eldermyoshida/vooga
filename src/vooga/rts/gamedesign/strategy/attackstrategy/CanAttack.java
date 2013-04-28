@@ -52,7 +52,8 @@ public class CanAttack implements AttackStrategy {
      * @param enemy the IAttackable object being attacked.
      * @param distance the distance between the CanAttack object and the enemy.
      */
-    public void attack (IAttackable enemy, double distance) {
+    @Override
+	public void attack (IAttackable enemy, double distance) {
         if (inWeaponRange((InteractiveEntity) enemy, distance)) {
             myWeapons.get(myWeaponIndex).fire((InteractiveEntity) enemy);
         }
@@ -81,7 +82,8 @@ public class CanAttack implements AttackStrategy {
      * 
      * @return the list of Weapon stored
      */
-    public List<Weapon> getWeapons () {
+    @Override
+	public List<Weapon> getWeapons () {
         return myWeapons;
     }
 
@@ -91,7 +93,8 @@ public class CanAttack implements AttackStrategy {
      * 
      * @return the index of the Weapon that's currently been activated
      */
-    public int getWeaponIndex () {
+    @Override
+	public int getWeaponIndex () {
         return myWeaponIndex;
     }
 
@@ -119,7 +122,8 @@ public class CanAttack implements AttackStrategy {
      * 
      * @param weapon the new Weapon to be added into the list.
      */
-    public void addWeapons (Weapon weapon) {
+    @Override
+	public void addWeapons (Weapon weapon) {
         myWeapons.add(weapon);
     }
 
@@ -128,11 +132,13 @@ public class CanAttack implements AttackStrategy {
      * 
      * @return Whether this CanAttack is able to attack.
      */
-    public boolean getCanAttack () {
+    @Override
+	public boolean getCanAttack () {
         return myCanAttack;
     }
 
-    public Weapon getCurrentWeapon () {
+    @Override
+	public Weapon getCurrentWeapon () {
         return myWeapons.get(myWeaponIndex);
     }
 }

@@ -1,6 +1,5 @@
 package vooga.rts.gamedesign.sprite.gamesprites;
 
-import vooga.rts.util.Location;
 import vooga.rts.util.Location3D;
 
 /**

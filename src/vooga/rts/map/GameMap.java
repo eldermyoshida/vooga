@@ -6,7 +6,6 @@ import java.awt.image.BufferedImage;
 import java.util.List;
 import vooga.rts.IGameLoop;
 import vooga.rts.ai.Path;
-import vooga.rts.ai.PathFinder;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
 import vooga.rts.resourcemanager.ResourceManager;
 import vooga.rts.util.Camera;

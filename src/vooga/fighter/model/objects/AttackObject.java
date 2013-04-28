@@ -94,8 +94,9 @@ public class AttackObject extends GameObject {
     /**
      * Updates the attack object by decreasing its counter.
      */
-    public void completeUpdate() {
-        myCounter.decrementCounter();
+    @Override
+	public void completeUpdate(){
+    	myCounter.decrementCounter();
     }
     
     /**
@@ -186,7 +187,8 @@ public class AttackObject extends GameObject {
     /**
      * Returns true if this attack object has expired.
      */
-    public boolean shouldBeRemoved() {
+    @Override
+	public boolean shouldBeRemoved() {
         return !myCounter.hasCountRemaining();
     }      
 

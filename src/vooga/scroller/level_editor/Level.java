@@ -16,7 +16,6 @@ import vooga.scroller.level_management.LevelPortal;
 import vooga.scroller.level_management.SpriteManager;
 import vooga.scroller.level_management.splash_page.SplashPage;
 import vooga.scroller.level_management.splash_page.TestSplashPage;
-import vooga.scroller.marioGame.splash_page.MarioSplashPage;
 import vooga.scroller.marioGame.spritesDefinitions.players.Mario;
 import vooga.scroller.model.Model;
 import vooga.scroller.scrollingmanager.OmniScrollingManager;
@@ -96,7 +95,8 @@ public class Level implements Renderable<GameView>, IGameComponent {
     // this(); // TODO Incomplete. figure out SM constraints...
     // }
 
-    public void update (double elapsedTime, Dimension bounds, GameView gameView) {
+    @Override
+	public void update (double elapsedTime, Dimension bounds, GameView gameView) {
         myStateManager.update(elapsedTime, bounds, gameView);
     }
 
@@ -134,7 +134,8 @@ public class Level implements Renderable<GameView>, IGameComponent {
         mySpriteManager.removeSprite(s);
     }
 
-    public void addPlayer (Player p) {
+    @Override
+	public void addPlayer (Player p) {
         mySpriteManager.addPlayer(p);
     }
 
@@ -142,7 +143,8 @@ public class Level implements Renderable<GameView>, IGameComponent {
         myBackground = i;
     }
 
-    public Image getBackground () {
+    @Override
+	public Image getBackground () {
         return myBackground;
     }
 
@@ -174,23 +176,28 @@ public class Level implements Renderable<GameView>, IGameComponent {
         return myScrollingManager.getLowerBoundary(frame, getPlayer().getCenter());
     }
 
-    public double getRightBoundary () {
+    @Override
+	public double getRightBoundary () {
         return myScrollingManager.getRightBoundary(frameOfReferenceSize, getPlayer().getCenter());
     }
 
-    public double getLeftBoundary () {
+    @Override
+	public double getLeftBoundary () {
         return myScrollingManager.getLeftBoundary(frameOfReferenceSize, getPlayer().getCenter());
     }
 
-    public double getUpperBoundary () {
+    @Override
+	public double getUpperBoundary () {
         return myScrollingManager.getUpperBoundary(frameOfReferenceSize, getPlayer().getCenter());
     }
 
-    public double getLowerBoundary () {
+    @Override
+	public double getLowerBoundary () {
         return myScrollingManager.getLowerBoundary(frameOfReferenceSize, getPlayer().getCenter());
     }
 
-    public Dimension getLevelBounds () {
+    @Override
+	public Dimension getLevelBounds () {
         return mySize;
     }
 
@@ -200,7 +207,8 @@ public class Level implements Renderable<GameView>, IGameComponent {
      * 
      * @return This level's player.
      */
-    public Player getPlayer () {
+    @Override
+	public Player getPlayer () {
         return mySpriteManager.getPlayer();
     }
 
@@ -209,7 +217,8 @@ public class Level implements Renderable<GameView>, IGameComponent {
      * 
      * @param myInput input that controls level elements.
      */
-    public void addInputListeners (Input myInput) {
+    @Override
+	public void addInputListeners (Input myInput) {
 
         // TODO: sprite manager?
         myInput.replaceMappingResourcePath(getPlayer().getInputFilePath());
@@ -223,7 +232,8 @@ public class Level implements Renderable<GameView>, IGameComponent {
      * 
      * @param myInput input that controls level elements.
      */
-    public void removeInputListeners (Input myInput) {
+    @Override
+	public void removeInputListeners (Input myInput) {
         // TODO: sprite manager?
         myInput.removeListener(getPlayer());
         myInput.removeListener(this);
@@ -234,7 +244,8 @@ public class Level implements Renderable<GameView>, IGameComponent {
      * 
      * @return
      */
-    public IDoor getDoor () {
+    @Override
+	public IDoor getDoor () {
         return myDoor;
     }
 

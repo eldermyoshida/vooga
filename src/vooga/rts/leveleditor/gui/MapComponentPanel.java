@@ -1,13 +1,11 @@
 package vooga.rts.leveleditor.gui;
 
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.util.List;
 import java.util.ResourceBundle;
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -51,7 +49,8 @@ public abstract class MapComponentPanel extends JPanel {
         JPanel p = new JPanel();
         JButton b = new JButton("Import");
         b.addActionListener(new ActionListener() {
-            public void actionPerformed (ActionEvent e) {
+            @Override
+			public void actionPerformed (ActionEvent e) {
                 try {
                     int response = myChooser.showDialog(myPanel, "Import");
                     if (response == JFileChooser.APPROVE_OPTION) {

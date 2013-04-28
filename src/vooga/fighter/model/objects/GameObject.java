@@ -309,7 +309,8 @@ public abstract class GameObject {
      * Checks if this object is equal to another by using the instance id.
      * @param o is the object to check equality with
      */
-    public boolean equals(Object o) {
+    @Override
+	public boolean equals(Object o) {
         if (o == null) {
             return false;
         }

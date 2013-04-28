@@ -81,7 +81,8 @@ public abstract class Tile extends Sprite {
         myElement = null;
     }
     
-    public Pixmap getPixmap () {
+    @Override
+	public Pixmap getPixmap () {
         return myPixmap;
     }
 }

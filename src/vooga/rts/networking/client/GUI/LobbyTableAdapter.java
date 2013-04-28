@@ -1,13 +1,8 @@
 package vooga.rts.networking.client.GUI;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import javax.swing.DefaultCellEditor;
-import javax.swing.JComboBox;
 import javax.swing.table.AbstractTableModel;
-import javax.swing.table.TableCellEditor;
 
 
 /**
