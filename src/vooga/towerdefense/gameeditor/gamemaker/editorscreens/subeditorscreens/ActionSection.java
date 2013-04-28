@@ -29,6 +29,7 @@ public class ActionSection extends SubEditorSection {
     private static final String ACTION_ADD_BUTTON_TEXT = "Add Action";
     private static final String FOLLOW_UP_ACTION_TEXT = "Add follow up action";
     private static final String ACTION_DELETE_BUTTON_TEXT = "Delete Action";
+    private static final String FACTORY_INDICATOR_STRING = "Factory";
     private JComboBox myActionsBox;
     private JTextArea myActionsSelected;
     private JButton myAddActionButton;
@@ -43,7 +44,9 @@ public class ActionSection extends SubEditorSection {
      * @param actions
      * @param mouseAdapter
      */
-    public ActionSection(String title, String path, List<String> actions, MouseAdapter mouseAdapter) {
+    public ActionSection(String title, String path,
+                         List<String> actions,
+                         MouseAdapter mouseAdapter) {
         super(title);
         setPath(path);
         makeActionsSection(actions, mouseAdapter);
@@ -54,7 +57,8 @@ public class ActionSection extends SubEditorSection {
      * @param actions
      * @param mouseAdapter
      */
-    public void makeActionsSection(List<String> actions, MouseAdapter mouseAdapter) {
+    public void makeActionsSection(List<String> actions,
+                                   MouseAdapter mouseAdapter) {
         JPanel westSide = new JPanel(new BorderLayout());
         westSide.add(new JLabel(getTitle()), BorderLayout.NORTH);
         myActionsBox = new JComboBox();
@@ -122,9 +126,10 @@ public class ActionSection extends SubEditorSection {
                 }
             }
             childAction = "\t" + childAction;
-            myActionsSelected.setText(myActionsSelected.getText().substring(0, myActionsSelected.getText().indexOf(parentAction))
+            myActionsSelected.setText(myActionsSelected.getText().substring(0,
+                                      myActionsSelected.getText().indexOf(parentAction))
                                       + parentAction + "\n" + childAction
-                                      + myActionsSelected.getText().substring(myActionsSelected.getText().indexOf(parentAction) 
+                                      + myActionsSelected.getText().substring(myActionsSelected.getText().indexOf(parentAction)
                                       + parentAction.length()+1, myActionsSelected.getText().length()));
             
         }
@@ -139,7 +144,8 @@ public class ActionSection extends SubEditorSection {
      */
     private String addAction() {
         try {
-            Class c = Class.forName(myActionPath + "." + myActionsBox.getSelectedItem().toString()+"Factory");
+            Class c = Class.forName(myActionPath + "." + myActionsBox.getSelectedItem().toString()
+                                    + FACTORY_INDICATOR_STRING);
             Constructor[] constructors = c.getConstructors();
             Annotation[][] annotations = constructors[0].getParameterAnnotations();
             String display = myActionsBox.getSelectedItem().toString();
