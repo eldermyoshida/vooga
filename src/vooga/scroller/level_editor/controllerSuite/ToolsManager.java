@@ -21,9 +21,9 @@ public class ToolsManager {
     private Map<Integer, Sprite> mySpriteMap;
     private LETools myViewTools;
 
-//    public ToolsManager (ISpriteLibrary l) {
-//        this(l, new BackgroundLib(new String[0]));
-//    }
+    // public ToolsManager (ISpriteLibrary l) {
+    // this(l, new BackgroundLib(new String[0]));
+    // }
 
     public ToolsManager (ISpriteLibrary l, IBackgroundLibrary bgLib) {
         myBackgroundLib = bgLib;
@@ -41,10 +41,10 @@ public class ToolsManager {
         for (Class<? extends Sprite> c : mySpriteLib.getSpritesClasses()) {
             try {
                 sprite = (Sprite) c.newInstance();
-                if(IDoor.class.isAssignableFrom(sprite.getClass())){
-                    setupTool(-i,sprite);
+                if (IDoor.class.isAssignableFrom(sprite.getClass())) {
+                    setupTool(-i, sprite);
                 }
-                else{
+                else {
                     setupTool(i, sprite);
                 }
             }
@@ -61,7 +61,6 @@ public class ToolsManager {
     }
 
     private void setupTool (int i, Sprite sprite) {
-        System.out.println(i+" "+sprite.getClass().getName());
         mySpriteMap.put(i, sprite);
         myViewTools.addSpriteOption(sprite, i);
     }
