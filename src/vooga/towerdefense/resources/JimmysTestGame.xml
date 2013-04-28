@@ -3,14 +3,14 @@
 		<dimension>1100, 800</dimension>
 		<MapScreen>
 			<dimension>800, 600</dimension>
-			<location>North</location>
+			<location>Center</location>
 		</MapScreen>
 		<MultipleScreenPanel>
 			<dimension>1000, 200</dimension>
 			<location>South</location>
 			<ShopScreen>
 				<dimension>600, 100</dimension>
-				<location>Center</location>
+				<location>North</location>
 			</ShopScreen>
 			<NextWaveScreen>
 				<dimension>200, 100</dimension>

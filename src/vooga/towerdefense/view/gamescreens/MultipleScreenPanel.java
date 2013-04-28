@@ -35,6 +35,7 @@ public class MultipleScreenPanel extends JPanel {
      * @param location
      */
     public void addScreen (JPanel screen, String location) {
+        System.out.println(screen.getClass() + " @ " + location);
         add(screen, location);
     }
 
