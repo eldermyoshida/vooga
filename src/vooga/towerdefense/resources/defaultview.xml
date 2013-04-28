@@ -1,9 +1,9 @@
 <game>
     <view>
-        <dimension>1100, 800</dimension>
+        <dimension/>
         <MapScreen>
-            <dimension>800, 600</dimension>
-            <location>Center</location>
+            <dimension>500, 500</dimension>
+            <location>North</location>
         </MapScreen>
     </view>
     <map/>

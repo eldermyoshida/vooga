@@ -12,8 +12,9 @@ import util.Location;
  * @author Leonard K. Ng'eno
  */
 public class PathTileFactory extends TileFactory {
-    public static final String ID = "1";
-    
+    private static final String ID = "2";
+    private static final String NAME = "path_tile.png";
+
     public PathTileFactory() {
         super();
     }
@@ -21,5 +22,14 @@ public class PathTileFactory extends TileFactory {
     @Override
     public Tile createTile (Location center, GameMap map) {
         return new PathTile(center, map.getTileSize());
+    }
+    
+    public String getName(){
+        return NAME;
+    }
+    
+    @Override
+    public String getTileId () {
+        return ID;
     }
 }

@@ -1,7 +1,9 @@
 package vooga.towerdefense.view.gamescreens;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import javax.swing.JPanel;
 import vooga.towerdefense.controller.Controller;
 
@@ -38,4 +40,10 @@ public class MultipleScreenPanel extends JPanel {
         add(screen, location);
     }
 
+    @Override
+    public void paintComponent (Graphics pen) {
+        super.paintComponent(pen);
+        pen.setColor(Color.WHITE);
+        pen.fillRect(0, 0, getSize().width, getSize().height);
+    }
 }

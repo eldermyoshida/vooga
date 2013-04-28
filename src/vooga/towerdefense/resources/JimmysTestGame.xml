@@ -2,8 +2,8 @@
 	<view>
 		<dimension>1100, 800</dimension>
 		<MapScreen>
-			<dimension>800, 600</dimension>
-			<location>North</location>
+			<dimension>800, 500</dimension>
+			<location>Center</location>
 		</MapScreen>
 		<MultipleScreenPanel>
 			<dimension>1000, 200</dimension>
@@ -18,14 +18,14 @@
 			</NextWaveScreen>
 		</MultipleScreenPanel>
 		<MultipleScreenPanel>
-			<dimension>200, 600</dimension>
+			<dimension>200, 500</dimension>
 			<location>East</location>
 			<GameStatsScreen>
 				<dimension>200, 300</dimension>
-				<location>North</location>
+				<location>Center</location>
 			</GameStatsScreen>
 			<GameElementInformationScreen>
-				<dimension>200, 300</dimension>
+				<dimension>200, 200</dimension>
 				<location>South</location>
 			</GameElementInformationScreen>
 		</MultipleScreenPanel>

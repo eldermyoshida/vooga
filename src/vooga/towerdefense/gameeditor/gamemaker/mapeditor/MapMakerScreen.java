@@ -11,9 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
-import util.Location;
-import vooga.towerdefense.model.Tile;
-import vooga.towerdefense.model.tiles.DefaultTile;
 import vooga.towerdefense.model.tiles.factories.DefaultTileFactory;
 import vooga.towerdefense.model.tiles.factories.TileFactory;
 
@@ -28,9 +25,7 @@ import vooga.towerdefense.model.tiles.factories.TileFactory;
 public class MapMakerScreen extends JPanel {
 
     private static final long serialVersionUID = 1L;
-    private static final Dimension DEFAULT_TILE_SIZE = new Dimension(50, 50);
-    private static final Location DEFAULT_LOCATION = new Location(0, 0);
-    private static final DefaultTileFactory DEFAULT_TILE = new DefaultTileFactory();
+    private static final DefaultTileFactory DEFAULT_TILE_FACTORY = new DefaultTileFactory();
     private static final int MINIMUM_TILE_SIZE = 10;
     private static final String RESOURCE_LOCATION = "/vooga/towerdefense/images/background/";
     private Dimension mySize;
@@ -49,7 +44,7 @@ public class MapMakerScreen extends JPanel {
         mySize = size;
         myTileSize = 50;
         myGrids = new ArrayList<Grid>();
-        myTileToBuild = DEFAULT_TILE;
+        myTileToBuild = DEFAULT_TILE_FACTORY;
         myMapString = "";
 
         makeListener();
@@ -72,10 +67,9 @@ public class MapMakerScreen extends JPanel {
 
     private void paintTilesOnGrid (Graphics pen) {
         for (Grid g : myGrids) {
-            if (g.getTile() != null) {
-                g.paint((Graphics2D) pen);
-            }
+            g.paint((Graphics2D) pen);
         }
+        getMapString();
     }
 
     /**
@@ -86,7 +80,7 @@ public class MapMakerScreen extends JPanel {
      */
     public void setTileSizes (int size) {
         myTileSize = size;
-        myTileToBuild = DEFAULT_TILE;
+        myTileToBuild = DEFAULT_TILE_FACTORY;
         repaint();
     }
 
@@ -98,9 +92,9 @@ public class MapMakerScreen extends JPanel {
                 for (int j = 0; j < mySize.height; j += myTileSize) {
                     pen.drawLine(i, 0, i, mySize.height);
                     pen.drawLine(0, j, mySize.width, j);
-                    Grid rect = new Grid(i, j, myTileSize, myTileSize, DEFAULT_TILE);
+                    Grid rect = new Grid(i, j, myTileSize, myTileSize, DEFAULT_TILE_FACTORY);
                     myGrids.add(rect);
-                    myMap[i / myTileSize][j / myTileSize] = DEFAULT_TILE.ID;
+                    myMap[i / myTileSize][j / myTileSize] = DEFAULT_TILE_FACTORY.getTileId() + " ";
                 }
             }
         }
@@ -120,7 +114,7 @@ public class MapMakerScreen extends JPanel {
         for (Grid tile : myGrids) {
             if (tile.contains(point)) {
                 tile.setTile(myTileToBuild);
-                myMap[tile.x / myTileSize][tile.y / myTileSize] = myTileToBuild.ID;
+                myMap[tile.x / myTileSize][tile.y / myTileSize] = myTileToBuild.getTileId() + " ";
                 paintTilesOnGrid(getGraphics());
             }
         }
@@ -144,7 +138,7 @@ public class MapMakerScreen extends JPanel {
         myMapString = "";
         for (int j = 0; j < myMap.length; j++) {
             for (String[] element : myMap) {
-                myMapString += element[j]; //Integer.toString(element[j]) + " ";
+                myMapString += element[j]; 
             }
         }
         return myMapString;

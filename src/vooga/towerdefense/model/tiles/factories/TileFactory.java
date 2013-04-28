@@ -11,10 +11,8 @@ import util.Location;
  * @author Leonard K. Ng'eno
  */
 public abstract class TileFactory {
-    public static final String ID = "0";
 
-    public TileFactory() {
-        
+    public TileFactory() {       
     }
     
     /**
@@ -24,4 +22,8 @@ public abstract class TileFactory {
      * @return the corresponding tile
      */
     public abstract Tile createTile(Location center, GameMap map);
+
+    public abstract String getName(); 
+    
+    public abstract String getTileId();
 }

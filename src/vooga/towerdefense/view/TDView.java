@@ -59,8 +59,8 @@ public class TDView {
         myLoseScreen = new ImageScreen(IMAGE_SCREEN_SIZE, LOSE_SCREEN_IMAGE);
         myFrame = new JFrame(myController.getStringFromResources(TITLE_KEYWORD));
         myPanel = new JPanel();
-        myPanel.setLayout(new BorderLayout());
         myFrame.setContentPane(myPanel);
+        myFrame.getContentPane().setLayout(new BorderLayout());
         myFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
     
@@ -116,6 +116,7 @@ public class TDView {
      */
     public void addScreen (JPanel screen, String location) {
         myFrame.getContentPane().add(screen, location);
+        System.out.println("sajkdh: " + screen + location);
         myFrame.pack();
         myFrame.setVisible(true);
     }

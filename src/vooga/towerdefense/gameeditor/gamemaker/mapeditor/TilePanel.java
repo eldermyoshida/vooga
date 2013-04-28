@@ -53,16 +53,16 @@ public class TilePanel extends JPanel {
     }
 
     private void paintTileImages (Graphics2D pen) {
-        int xC = 30;
-        int yC = 30;
+        int xCenter = 25;
+        int yCenter = 25;
         for (int k = 0; k < myPixmaps.size(); k++) {
             myPixmaps.get(k)
-                    .paint(pen, new Location(k * DEFAULT_SIZE.width + xC, yC), DEFAULT_SIZE);
-            myBounds.put(myPixmaps.get(k), new Rectangle((k * DEFAULT_SIZE.width + xC) -
+                    .paint(pen, new Location(k * DEFAULT_SIZE.width + xCenter, yCenter), DEFAULT_SIZE);
+            myBounds.put(myPixmaps.get(k), new Rectangle((k * DEFAULT_SIZE.width + xCenter) -
                                                          (DEFAULT_SIZE.width / 2),
-                                                         yC - (DEFAULT_SIZE.height / 2),
+                                                         yCenter - (DEFAULT_SIZE.height / 2),
                                                          DEFAULT_SIZE.width, DEFAULT_SIZE.height));
-            xC += 10;
+            xCenter += 10;
         }
     }
 

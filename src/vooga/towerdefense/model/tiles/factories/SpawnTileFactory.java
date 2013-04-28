@@ -11,8 +11,9 @@ import vooga.towerdefense.model.Tile;
  */
 public class SpawnTileFactory extends PathTileFactory { 
     
-    public static final String ID = "s";
-    
+    private static final String ID = "s";
+    private static final String NAME = "spawn_tile.png";
+
     public SpawnTileFactory() {
         super();
     }
@@ -22,4 +23,13 @@ public class SpawnTileFactory extends PathTileFactory {
         map.setSpawnLocation(center);
         return super.createTile(center, map);
     } 
+    
+    public String getName(){
+        return NAME;
+    }
+    
+    @Override
+    public String getTileId () {
+        return ID;
+    }
 }

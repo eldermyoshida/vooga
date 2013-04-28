@@ -8,7 +8,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
-import java.io.IOException;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
@@ -21,11 +20,9 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import util.Location;
 import util.Pixmap;
 import vooga.towerdefense.gameeditor.gamemaker.GameEditorController;
 import vooga.towerdefense.gameeditor.gamemaker.GameEditorScreen;
-import vooga.towerdefense.model.Tile;
 import vooga.towerdefense.model.tiles.factories.TileFactory;
 
 /**
@@ -43,7 +40,7 @@ public class MapEditorScreen extends GameEditorScreen {
     private static final long serialVersionUID = 1L;
     private static final String NEXT_SCREEN_NAME = "PlayerEditorScreen";
     private static final String TITLE_NAME = "MAP ";
-    private static final String TILE_PACKAGE_PATH = "vooga.towerdefense.model.tiles";
+    private static final String TILE_PACKAGE_PATH = "vooga.towerdefense.model.tiles.factories";
     private static final String TILE_IMAGES_CLASS_PATH = "vooga/towerdefense/images/map";
     private static final Dimension TILE_PANEL_SIZE = new Dimension(400, 100);
     private static final String USER_DIR = "user.dir";
@@ -58,9 +55,9 @@ public class MapEditorScreen extends GameEditorScreen {
     private MouseAdapter myMouseListener;
     private int myTileSize;
     private TilePanel myTilePainter;
-    private TileFactory myTileToBuild;
+    private TileFactory myTileFactoryToBuild;
     private List<String> myBackgroundImages;
-    private List<TileFactory> myTiles;
+    private List<TileFactory> myTileFactories;
     private String myBackgroundImageName;
     private String myMapName;
     private JButton myBackgroundImageButton;
@@ -74,10 +71,10 @@ public class MapEditorScreen extends GameEditorScreen {
      * @param controller
      */
     public MapEditorScreen (Dimension size, GameEditorController controller) {
-        super(size, controller, TITLE_NAME, NEXT_SCREEN_NAME);       
+        super(size, controller, TITLE_NAME, NEXT_SCREEN_NAME);  
+        makeListeners();
         initVariables();
         addComponentsToScreen();
-        makeListeners();
         addMouseListener(myMouseListener);
         myBackgroundImageButton.addMouseListener(myMouseListener);
         myMapNameButton.addMouseListener(myMouseListener);        
@@ -105,24 +102,11 @@ public class MapEditorScreen extends GameEditorScreen {
         add(makeTextField(), BorderLayout.EAST);
         add(myMapNameButton, BorderLayout.EAST);
         add(makeMapNameTextField(), BorderLayout.WEST);
-//        add(EastSectionComponents(), BorderLayout.EAST);
         add(makeLabelText("MAP TILES"), BorderLayout.SOUTH);
         add(makePathTilePainter(), BorderLayout.SOUTH);
         add(makeLabelText("BACKGROUND IMAGE"));
         add(myBackgroundImageButton, BorderLayout.SOUTH);
     }
-    
-//    private JComponent EastSectionComponents(){
-//        JPanel panel = new JPanel();
-//        panel.setPreferredSize(new Dimension(200, 600));
-//        panel.setBackground(Color.GREEN);
-//        panel.add(makeLabelText("TILE SIZE"));
-//        panel.add(makeTextField());
-//        panel.add(myMapNameButton);
-//        panel.add(makeMapNameTextField());
-//        panel.setVisible(true);
-//        return panel;
-//    }
     
     private JComponent makeMapNameTextField () {
         myMapNameTextField = new JTextField(FIELD_SIZE);
@@ -153,7 +137,7 @@ public class MapEditorScreen extends GameEditorScreen {
                 if (e.getSource().equals(myMapNameTextField)) {
                     setMapName();
                 }
-                else {
+                else if (e.getSource().equals(myTextField)){
                     repaintGrids();
                 }
             }
@@ -219,7 +203,7 @@ public class MapEditorScreen extends GameEditorScreen {
         File[] images = getImages(TILE_IMAGES_CLASS_PATH);
         List<Pixmap> myImages = new ArrayList<Pixmap>();
         myImages = makeTileImages(images);
-        initTileClasses();
+        initTileFactories();
         myTilePainter = new TilePanel(TILE_PANEL_SIZE, myImages, this);
         return myTilePainter;
     }
@@ -232,12 +216,12 @@ public class MapEditorScreen extends GameEditorScreen {
      */
     public void makeTileInstances (String s) {
         
-        for (TileFactory tile: myTiles) {
-//           if (tile.getName().equals(s)){
-//               myTileToBuild = tile;
-//           }
+        for (TileFactory tile: myTileFactories) {
+           if (tile.getName().equals(s)){
+               myTileFactoryToBuild = tile;
+           }
         }
-        myMapMakerBox.setTile(myTileToBuild);
+        myMapMakerBox.setTile(myTileFactoryToBuild);
     }
 
     private List<Pixmap> makeTileImages (File[] file) {
@@ -260,53 +244,39 @@ public class MapEditorScreen extends GameEditorScreen {
         return null;
     }
 
-    @SuppressWarnings({ "rawtypes", "unused", "unchecked" })
-    private void initTileClasses() {
+    @SuppressWarnings({ "rawtypes", "static-access" })
+    private void initTileFactories() {
         List<Class> classes = new ArrayList<Class>();
-        myTiles = new ArrayList<TileFactory>();
+        myTileFactories = new ArrayList<TileFactory>();
         classes = getController().getClassesInPackage(TILE_PACKAGE_PATH);
         for (Class myClass : classes) {
-            Class[] types = {Location.class, Dimension.class };
-            Object[] parameters = {new Location(0,0), new Dimension(50,50)};
-            try {
-                Constructor constructor = myClass.getConstructor(types);
+             try {
+                if (myClass != vooga.towerdefense.model.tiles.factories.TileFactory.class){
+                    try {
+                        @SuppressWarnings("unchecked")
+                        Constructor ctor = myClass.getConstructor();
+                        try {
+                            myTileFactories.add((TileFactory) ctor.newInstance());
+                        }
+                        catch (IllegalArgumentException e) {
+                            e.printStackTrace();
+                        }
+                        catch (InvocationTargetException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    catch (NoSuchMethodException e) {
+                        e.printStackTrace();
+                    }
+                    catch (SecurityException e) {
+                        e.printStackTrace();
+                    } 
+                }
             }
-            catch (NoSuchMethodException e) {
+            catch (InstantiationException e) {
                 e.printStackTrace();
             }
-            catch (SecurityException e) {
-                e.printStackTrace();
-            }
-        }
-     
-        for (Class myClass : classes) {
-            Class[] types = {Location.class, Dimension.class };
-            Object[] parameters = {new Location(0,0), new Dimension(50,50)};
-            Constructor constructor;
-            Object newTile;
-            try {
-                constructor = myClass.getConstructor(types);
-                try {
-                    newTile = constructor.newInstance(parameters);
-                    myTiles.add((TileFactory) newTile);
-                }
-                catch (InstantiationException e) {
-                    e.printStackTrace();
-                }
-                catch (IllegalAccessException e) {
-                    e.printStackTrace();
-                }
-                catch (IllegalArgumentException e) {
-                    e.printStackTrace();
-                }
-                catch (InvocationTargetException e) {
-                    e.printStackTrace();
-                }
-            }
-            catch (NoSuchMethodException e) {
-                e.printStackTrace();
-            }
-            catch (SecurityException e) {
+            catch (IllegalAccessException e) {
                 e.printStackTrace();
             }
         }

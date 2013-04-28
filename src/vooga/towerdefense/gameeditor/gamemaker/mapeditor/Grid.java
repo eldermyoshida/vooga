@@ -6,7 +6,8 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
-import vooga.towerdefense.model.Tile;
+import javax.swing.ImageIcon;
+import util.Pixmap;
 import vooga.towerdefense.model.tiles.factories.TileFactory;
 
 
@@ -20,17 +21,20 @@ import vooga.towerdefense.model.tiles.factories.TileFactory;
  * @author Leonard K. Ng'eno
  */
 public class Grid extends Rectangle {
+    
     private static final long serialVersionUID = 1L;
     private static final Color DEFAULT_COLOR = Color.BLACK;
-    private TileFactory myTile;
+    private static final String TILE_IMAGES_CLASS_PATH = "/vooga/towerdefense/images/map/";
+    private TileFactory myTileFactory;
+    private Pixmap myPixmap;
 
     public Grid (int x, int y, int width, int height, TileFactory tile) {
         super.x = x;
         super.y = y;
         super.width = width;
         super.height = height;
-
-        myTile = tile;
+        myTileFactory = tile;
+        myPixmap = new Pixmap(TILE_IMAGES_CLASS_PATH + myTileFactory.getName());
     }
 
     /**
@@ -38,23 +42,21 @@ public class Grid extends Rectangle {
      * @param tile the tile to be contained in this grid
      */
     public void setTile (TileFactory tile) {
-        myTile = tile;
+        myTileFactory = tile;
+        myPixmap.setImage(TILE_IMAGES_CLASS_PATH + myTileFactory.getName());
     }
 
     /**
-     * This method paints the map tile contained in this grid
+     * This method paints the map tile (to be created by the factory) contained in this grid
      * 
      * @param pen
      */
     public void paint (Graphics2D pen) {
-        double thickness = 2;
+        double thickness = 3;
         pen.setStroke(new BasicStroke((float) thickness));
         pen.setColor(DEFAULT_COLOR);
         pen.drawRect(x, y, width, height);
-//        if (myTile != null) {
-//            myTile.getPixmap().paint(pen, new Point(x + (width / 2), y + (height / 2)),
-//                                     new Dimension(width, height));
-//        }
+        myPixmap.paint(pen, new Point(x+(width/2),y+(height/2)), new Dimension(width, height));
     }
 
     /**
@@ -67,18 +69,18 @@ public class Grid extends Rectangle {
 
     /**
      * 
-     * @return tile's id
+     * @return tile factory's id
      */
     public String getTileId () {
-        return myTile.ID;
+        return myTileFactory.getTileId();
     }
 
     /**
      * 
-     * @return  The tile instance of this grid
+     * @return  The tile factory instance of this grid
      */
     public TileFactory getTile () {
-        return myTile;
+        return myTileFactory;
     }
 
 }

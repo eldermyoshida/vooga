@@ -13,8 +13,9 @@ import util.Location;
  */
 public class DefaultTileFactory extends TileFactory {
     
-    public static final String ID = "2";
-    
+    private static final String ID = "0";
+    private static final String NAME = "blank_tile.png";
+
     public DefaultTileFactory() {
         super();
     }
@@ -23,4 +24,13 @@ public class DefaultTileFactory extends TileFactory {
     public Tile createTile (Location center, GameMap map) {
         return new DefaultTile(center, map.getTileSize());
     }    
+    
+    public String getName(){
+        return NAME;
+    }
+
+    @Override
+    public String getTileId () {
+        return ID;
+    }
 }
