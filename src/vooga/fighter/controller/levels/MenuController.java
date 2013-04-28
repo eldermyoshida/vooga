@@ -1,4 +1,4 @@
-package vooga.fighter.controller.menus;
+package vooga.fighter.controller.levels;
 
 import util.input.AlertObject;
 import util.input.InputClassTarget;

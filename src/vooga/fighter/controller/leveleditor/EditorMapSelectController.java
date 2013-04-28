@@ -1,6 +1,6 @@
 package vooga.fighter.controller.leveleditor;
 
-import vooga.fighter.controller.menus.MapSelectController;
+import vooga.fighter.controller.levels.MapSelectController;
 
 /**
  * Map select screen for the map editor.
