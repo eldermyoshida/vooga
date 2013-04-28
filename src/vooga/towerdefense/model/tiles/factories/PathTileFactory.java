@@ -12,14 +12,20 @@ import util.Location;
  * @author Leonard K. Ng'eno
  */
 public class PathTileFactory extends TileFactory {
+    private static final String ID = "1";
     
-    public PathTileFactory(String tileId) {
-        super(tileId);
+    public PathTileFactory() {
+        super();
     }
 
     @Override
     public Tile createTile (Location center, GameMap map) {
         return new PathTile(center, map.getTileSize());
+    }
+
+    @Override
+    public String getTileId () {
+        return ID;
     }
 
 }

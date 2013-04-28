@@ -3,6 +3,7 @@ package vooga.towerdefense.model.tiles.factories;
 import vooga.towerdefense.model.GameMap;
 import vooga.towerdefense.model.Tile;
 import util.Location;
+
 /**
  * An abstract TileFactory.
  * 
@@ -11,10 +12,8 @@ import util.Location;
  */
 public abstract class TileFactory {
     
-    private String myTileId;
-    
-    public TileFactory(String tileId) {
-        myTileId = tileId;
+    public TileFactory() {
+        
     }
     
     /**
@@ -25,8 +24,6 @@ public abstract class TileFactory {
      */
     public abstract Tile createTile(Location center, GameMap map);
     
-    public String getTileId() {
-        return myTileId;
-    }
+    public abstract String getTileId();
 
 }

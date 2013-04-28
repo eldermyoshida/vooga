@@ -13,13 +13,20 @@ import util.Location;
  */
 public class DefaultTileFactory extends TileFactory {
     
-    public DefaultTileFactory(String tileId) {
-        super(tileId);
+    private static final String ID = "2";
+    
+    public DefaultTileFactory() {
+        super();
     }
 
     @Override
     public Tile createTile (Location center, GameMap map) {
         return new DefaultTile(center, map.getTileSize());
+    }
+
+    @Override
+    public String getTileId () {
+        return ID;
     }
     
     

@@ -4,10 +4,17 @@ import util.Location;
 import vooga.towerdefense.model.GameMap;
 import vooga.towerdefense.model.Tile;
 
+/**
+ * @author Erick Gonzalez
+ * @author Leonard K. Ng'eno
+ *
+ */
 public class DestinationTileFactory extends PathTileFactory {
     
-    public DestinationTileFactory(String tileId) {
-        super(tileId);
+    private static final String ID = "e";
+    
+    public DestinationTileFactory() {
+        super();
     }
 
     @Override
@@ -16,4 +23,9 @@ public class DestinationTileFactory extends PathTileFactory {
         return super.createTile(center, map);
     }
 
+    @Override
+    public String getTileId () {
+        return ID;
+    }
+    
 }
