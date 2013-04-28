@@ -12,6 +12,7 @@ public class LevelEditing implements IDomainDescriptor {
 
     public static final String UPDATE_GRID_SIZE = "Update Grid Size";
     public static final String SIMULATION_ERROR_MESSAGE = "All levels need a start point and a portal";
+    public static final String WEB_CONNECTION_PROBLEMS = "Problems connecting with the Web";
 
     @Override
     public String getDomainName () {
