@@ -33,7 +33,7 @@ public class RightClickAction extends ManagerAction {
             for (InteractiveEntity ie : getManager().getSelected()) {
                 GameEntity enemy = GameState.getMap().getEntity(myLocation);
                 if (enemy != null) {
-                    ie.recognize(enemy);
+                    // ie.recognize(enemy);
                 }
                 else {
                     ie.move(myLocation);

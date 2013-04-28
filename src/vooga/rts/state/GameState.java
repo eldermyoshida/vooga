@@ -59,7 +59,7 @@ public class GameState extends SubState implements Controller {
     private static final Information DEFAULT_PRODUCTION_INFO =
             new Information("Barracks", "This is a barracks that can make awesome pies",
                             "buttons/marine.png");
-    private static final Location3D DEFAULT_OCCUPY_RELATIVE_LOCATION = new Location3D(300, 100, 0);
+    private static final Location3D DEFAULT_OCCUPY_RELATIVE_LOCATION = new Location3D(300, 300, 0);
     private static final Information DEFAULT_OCCUPY_INFO =
             new Information("Garrison", "This is a garrison that soldiers can occupy",
                             "buttons/marine.png");
@@ -171,8 +171,7 @@ public class GameState extends SubState implements Controller {
         getPlayers().getPlayer(playerID).add(startProduction);
 
         Building startOccupy = (Building) RTSGame.getFactory().getEntitiesMap().get("garrison").copy();
-        startOccupy =
-                (Building) setLocation(startOccupy, baseLocation,
+        startOccupy = (Building) setLocation(startOccupy, baseLocation,
                                        DEFAULT_OCCUPY_RELATIVE_LOCATION);
         getPlayers().getPlayer(playerID).add(startOccupy);
 
@@ -187,6 +186,7 @@ public class GameState extends SubState implements Controller {
             }
         }, true));
 
+        
         // This is for testing
         final Building testGarrison = startOccupy;
 

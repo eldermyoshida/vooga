@@ -662,7 +662,9 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
     }
 
     private void findpath (Location3D destination) {
+        System.out.println("Finding path");
         myPath = GameState.getMap().getPath(myFinder, getWorldLocation(), destination);
+        System.out.println("Found path");
         if (myPath != null) {
             myProductionStrategy.setRallyPoint(this);            
         }
