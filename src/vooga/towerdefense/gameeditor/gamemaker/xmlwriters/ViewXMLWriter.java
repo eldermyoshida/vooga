@@ -4,7 +4,6 @@ import java.util.List;
 import java.util.Map;
 import org.w3c.dom.Element;
 import util.XMLTool;
-import vooga.towerdefense.gameeditor.gamemaker.XMLWriter;
 
 /**
  * ViewXMLWriter writes the view properties of the game

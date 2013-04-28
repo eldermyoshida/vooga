@@ -11,7 +11,7 @@ import vooga.towerdefense.model.Tile;
  */
 public class DestinationTileFactory extends PathTileFactory {
     
-    private static final String ID = "e";
+    public static final String ID = "d";
     
     public DestinationTileFactory() {
         super();
@@ -22,10 +22,4 @@ public class DestinationTileFactory extends PathTileFactory {
         map.setDestinationLocation(center);
         return super.createTile(center, map);
     }
-
-    @Override
-    public String getTileId () {
-        return ID;
-    }
-    
 }

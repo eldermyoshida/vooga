@@ -15,6 +15,7 @@ import vooga.towerdefense.gameelements.GameElement;
 public class MoveToTargetFactory extends ActionFactory {
 	private String myMovespeedReference;
 	public MoveToTargetFactory(String movespeedReference){
+		super();
 		myMovespeedReference=movespeedReference;
 		
 	}

@@ -21,7 +21,7 @@ import vooga.towerdefense.controller.modes.BuildMode;
 import vooga.towerdefense.controller.modes.ControlMode;
 import vooga.towerdefense.controller.modes.SelectMode;
 import vooga.towerdefense.factories.elementfactories.GameElementFactory;
-import vooga.towerdefense.gameeditor.gameloader.GameLoader;
+import vooga.towerdefense.gameeditor.gameloader.xmlloaders.GameLoader;
 import vooga.towerdefense.gameelements.GameElement;
 import vooga.towerdefense.model.GameLoop;
 import vooga.towerdefense.model.GameMap;
@@ -368,7 +368,6 @@ public class Controller {
 
 	public Location getPointSnappedToGrid(Location location) {
 		return myModel.getMap().getTile(location).getCenter();
-
 	}
 
 	/**
@@ -486,7 +485,6 @@ public class Controller {
 	 * The function called when the model reaches losing conditions
 	 */
 	public void lose() {
-		System.out.println("You lose");
 		myView.showLoseScreen();
 
 	}

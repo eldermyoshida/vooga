@@ -20,6 +20,7 @@ public class FilterTargetsFactory extends ActionFactory{
      */
 	public FilterTargetsFactory( @ActionAnnotation(name = "target affiliation", value = "attribute") String affiliationReference,
 			 @ActionAnnotation(name = "num targets", value = "attribute") String numTargetsReference){
+		super();
 		myAffiliationReference=affiliationReference;
 		myNumTargetsReference=numTargetsReference;
 		

@@ -6,7 +6,7 @@ import java.util.List;
 import vooga.towerdefense.action.Action;
 import vooga.towerdefense.action.FindTargets;
 import vooga.towerdefense.action.actionlist.LaunchProjectile;
-import vooga.towerdefense.attributes.AttributeConstants;
+import vooga.towerdefense.attributes.AttributeConstantsEnum;
 import vooga.towerdefense.attributes.AttributeManager;
 import vooga.towerdefense.factories.definitions.GameElementDefinition;
 import vooga.towerdefense.factories.definitions.ProjectileDefinition;
@@ -67,7 +67,7 @@ public class ExampleAuraTowerFactory extends GameElementFactory {
         FindTargets findTargets =
                 new FindTargets(myMap, element.getCenter(),
                                 element.getAttributeManager()
-                                        .getAttribute(AttributeConstants.ATTACK_RADIUS));
+                                        .getAttribute(AttributeConstantsEnum.ATTACK_RADIUS.getStatusCode()));
         findTargets
                 .addFollowUpAction(new LaunchProjectile(
                                                         myMap,

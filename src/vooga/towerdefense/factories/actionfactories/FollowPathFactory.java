@@ -17,6 +17,9 @@ import vooga.towerdefense.gameelements.GameElement;
  */
 
 public class FollowPathFactory extends ActionFactory{
+	public FollowPathFactory(){
+		super();
+	}
 	
 	@Override
 	protected Action buildAction(GameElement elementToMove) {

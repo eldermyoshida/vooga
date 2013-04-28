@@ -1,7 +1,6 @@
 package vooga.towerdefense.action;
 
 import vooga.towerdefense.attributes.Attribute;
-import vooga.towerdefense.attributes.AttributeConstants;
 import vooga.towerdefense.attributes.AttributeConstantsEnum;
 import vooga.towerdefense.model.Player;
 
@@ -34,9 +33,9 @@ public class PlayerStatAction extends Action{
 
 	@Override
 	public void executeAction(double elapsedTime) {
-		myPlayer.getAttributeManager().getAttribute(AttributeConstants.SCORE).modifyValue(myScoreChangeReference.getValue());
-		myPlayer.getAttributeManager().getAttribute(AttributeConstants.HEALTH).modifyValue(myLifeChangeReference.getValue());
-		myPlayer.getAttributeManager().getAttribute(AttributeConstants.MONEY).modifyValue(myMoneyChangeReference.getValue());
+		myPlayer.getAttributeManager().getAttribute(AttributeConstantsEnum.SCORE.getStatusCode()).modifyValue(myScoreChangeReference.getValue());
+		myPlayer.getAttributeManager().getAttribute(AttributeConstantsEnum.HEALTH.getStatusCode()).modifyValue(myLifeChangeReference.getValue());
+		myPlayer.getAttributeManager().getAttribute(AttributeConstantsEnum.MONEY.getStatusCode()).modifyValue(myMoneyChangeReference.getValue());
 	
 		
 	}

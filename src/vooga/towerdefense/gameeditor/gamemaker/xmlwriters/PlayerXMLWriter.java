@@ -3,7 +3,6 @@ package vooga.towerdefense.gameeditor.gamemaker.xmlwriters;
 import java.util.Map;
 import org.w3c.dom.Element;
 import util.XMLTool;
-import vooga.towerdefense.gameeditor.gamemaker.XMLWriter;
 
 /**
  * PlayerXMLWriter writes the player information

@@ -23,7 +23,4 @@ public abstract class TileFactory {
      * @return the corresponding tile
      */
     public abstract Tile createTile(Location center, GameMap map);
-    
-    public abstract String getTileId();
-
 }
