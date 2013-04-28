@@ -124,4 +124,8 @@ public class Pixmap {
         int height = myImage.getHeight(null);
         return new Dimension(width, height);
     }
+    
+    public String getFilePath() {
+        return myFileName;
+    }
 }
