@@ -134,16 +134,20 @@
 				<MOVE_SPEED>50</MOVE_SPEED>
 				<FLY_SPEED>300</FLY_SPEED>
 				<RADIUS>100</RADIUS>
+				<AttackType>1.2</AttackType>
 				<Slow>-5</Slow>
 				<DIRECTION>0</DIRECTION>
 			</attributes>
 			<actions>
 			    <FindTargets>
 					<parameter>RADIUS</parameter>
-					<ApplyAttributeBuff>
-					    <parameter>Slow</parameter>
-					    <parameter>Health</parameter>
-					</ApplyAttributeBuff>
+					<FilterTargets>
+					    <parameter>AttackType</parameter>
+					    <ApplyAttributeBuff>
+					    	<parameter>Slow</parameter>
+					    	<parameter>Health</parameter>
+						</ApplyAttributeBuff>
+					</FilterTargets>
 			    </FindTargets>
 			</actions>			
 		</TestTower>

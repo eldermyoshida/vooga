@@ -2,7 +2,6 @@ package vooga.towerdefense.factories.actionfactories;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import vooga.towerdefense.action.Action;
 import vooga.towerdefense.gameelements.GameElement;
 import vooga.towerdefense.model.GameMap;
@@ -37,12 +36,12 @@ public abstract class ActionFactory {
             a.initialize(map, player);
         }
     }
-    
-    public GameMap getMap() {
+
+    public GameMap getMap () {
         return myMap;
     }
-    
-    public Player getPlayer() {
+
+    public Player getPlayer () {
         return myPlayer;
     }
 
@@ -62,8 +61,8 @@ public abstract class ActionFactory {
         }
         myFollowUpActions.addAll(addToList);
     }
-    
-    public List<ActionFactory> getFollowUpActions() {
+
+    public List<ActionFactory> getFollowUpActions () {
         return myFollowUpActions;
     }
 
@@ -105,8 +104,8 @@ public abstract class ActionFactory {
      * @param e
      * @return
      */
-    protected Action buildTargetedAction (GameElement e, GameElement target){
-    	return buildAction(e);
+    protected Action buildTargetedAction (GameElement e, GameElement target) {
+        return buildAction(e);
     }
 
     /**

@@ -9,7 +9,6 @@ import vooga.towerdefense.action.Action;
 import vooga.towerdefense.action.actionlist.MoveToTarget;
 import vooga.towerdefense.attributes.AttributeConstantsEnum;
 import vooga.towerdefense.attributes.AttributeManager;
-import vooga.towerdefense.attributes.DefaultAttributeManager;
 import vooga.towerdefense.factories.actionfactories.ActionFactory;
 import vooga.towerdefense.factories.attributefactories.AttributeFactory;
 import vooga.towerdefense.factories.attributefactories.AttributeManagerFactory;
@@ -27,9 +26,6 @@ import vooga.towerdefense.model.GameMap;
  * @author Zhen Gou
  */
 public class GameElementFactory {
-
-    // private static DefaultAttributeManager DEFAULT_ATTRIBUTE_MANAGER =
-    // new DefaultAttributeManager();
 
     /**
      * Name of the element that is defined in this class. For convenience.
@@ -64,7 +60,7 @@ public class GameElementFactory {
         mySize = size;
         myAttributeManagerFactory = attrManager;
         myActionsToMake = myActions;
-        myAttributeManagerFactory.addAttributeFactory(makeAffiliation());        
+        myAttributeManagerFactory.addAttributeFactory(makeAffiliation());
     }
 
     /**
@@ -111,7 +107,7 @@ public class GameElementFactory {
     public void initialize (GameMap map, List<GameElementFactory> gameElementFactories) {
         myMap = map;
         myGameElementFactories = gameElementFactories;
-        
+
     }
 
     public GameMap getMap () {
@@ -138,7 +134,7 @@ public class GameElementFactory {
     }
 
     public AttributeManager createAttributeFactory () {
-        for (GameElementFactory f : myGameElementFactories) { 
+        for (GameElementFactory f : myGameElementFactories) {
             myAttributeManagerFactory.addGameElementFactory(f);
         }
         return myAttributeManagerFactory.makeAttributeManager();
@@ -158,7 +154,7 @@ public class GameElementFactory {
         List<Action> actions = new ArrayList<Action>();
         for (ActionFactory a : myActionsToMake) {
             System.out.println(a);
-                actions.add(a.createAction(element));
+            actions.add(a.createAction(element));
         }
         return actions;
     }
@@ -188,18 +184,17 @@ public class GameElementFactory {
         actions.add(new MoveToTarget(projectile.getCenter(),
                                      target.getCenter(), projectile.getAttributeManager()
                                              .getAttribute(AttributeConstantsEnum.MOVE_SPEED
-                                                           .getStatusCode())));
+                                                     .getStatusCode())));
         projectile.addActions(actions);
         return projectile;
     }
-    
-    
-    public void addGameElementFactory(GameElementFactory GEFactory){
-    	myGameElementFactories.add(GEFactory);
+
+    public void addGameElementFactory (GameElementFactory GEFactory) {
+        myGameElementFactories.add(GEFactory);
     }
-    
-    public Pixmap getImage() {
+
+    public Pixmap getImage () {
         return myImage;
     }
-    
+
 }
