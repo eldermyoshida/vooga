@@ -11,8 +11,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
 import java.util.Set;
 import vooga.rts.action.Action;
 import vooga.rts.action.IActOn;
@@ -27,6 +29,7 @@ import vooga.rts.gamedesign.sprite.gamesprites.Projectile;
 import vooga.rts.gamedesign.sprite.gamesprites.Resource;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.Building;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit;
+import vooga.rts.gamedesign.state.ProducingState;
 import vooga.rts.gamedesign.state.UnitState;
 import vooga.rts.gamedesign.strategy.Strategy;
 import vooga.rts.gamedesign.strategy.attackstrategy.AttackStrategy;
@@ -36,9 +39,9 @@ import vooga.rts.gamedesign.strategy.gatherstrategy.CannotGather;
 import vooga.rts.gamedesign.strategy.gatherstrategy.GatherStrategy;
 import vooga.rts.gamedesign.strategy.occupystrategy.CannotBeOccupied;
 import vooga.rts.gamedesign.strategy.occupystrategy.OccupyStrategy;
+import vooga.rts.gamedesign.strategy.production.CanProduce;
 import vooga.rts.gamedesign.strategy.production.CannotProduce;
 import vooga.rts.gamedesign.strategy.production.ProductionStrategy;
-import vooga.rts.gamedesign.strategy.upgradestrategy.CanUpgrade;
 import vooga.rts.gamedesign.strategy.upgradestrategy.CannotUpgrade;
 import vooga.rts.gamedesign.strategy.upgradestrategy.UpgradeStrategy;
 import vooga.rts.gamedesign.upgrades.UpgradeTree;
@@ -64,8 +67,7 @@ import vooga.rts.util.Sound;
  * 
  */
 
-public abstract class InteractiveEntity extends GameEntity implements
-        IAttackable, IActOn {
+public abstract class InteractiveEntity extends GameEntity implements IAttackable, IActOn {
 
     public static final Location3D DEFAULT_LOCATION = new Location3D(0, 0, 0);
     public static final int DEFAULT_PLAYERID = 0;
@@ -85,10 +87,11 @@ public abstract class InteractiveEntity extends GameEntity implements
     private Map<String, Information> myInfos;
     private List<DelayedTask> myTasks;
     private double myBuildTime;
-    private List<InteractiveEntity> myProducables;
     private Information myInfo;
     private PathFinder myFinder;
     private Path myPath;
+    private Queue<DelayedTask> myQueueableTasks;
+    private DelayedTask myCurQueueTask;
     private GameEntity myTargetEntity;
 
     /**
@@ -107,8 +110,13 @@ public abstract class InteractiveEntity extends GameEntity implements
      * @param health
      *        is the health of the interactive entity
      */
-    public InteractiveEntity (Pixmap image, Location3D center, Dimension size,
-                              Sound sound, int playerID, int health, double buildTime) {
+    public InteractiveEntity (Pixmap image,
+                              Location3D center,
+                              Dimension size,
+                              Sound sound,
+                              int playerID,
+                              int health,
+                              double buildTime) {
         super(image, center, size, playerID, health);
         mySound = sound;
         myAttackStrategy = new CannotAttack();
@@ -122,6 +130,8 @@ public abstract class InteractiveEntity extends GameEntity implements
         myBuildTime = buildTime;
         myOccupyStrategy = new CannotBeOccupied();
         myPath = new Path();
+        myQueueableTasks = new LinkedList<DelayedTask>();
+        myCurQueueTask = new DelayedTask(0, null);
         myFinder = new AstarFinder();
         myTargetEntity = this;
         setSpeed(DEFAULT_INTERACTIVEENTITY_SPEED);
@@ -158,6 +168,10 @@ public abstract class InteractiveEntity extends GameEntity implements
 
     public void addTask (DelayedTask dt) {
         myTasks.add(dt);
+    }
+
+    public void addQueueableTask (DelayedTask dt) {
+        myQueueableTasks.add(dt);
     }
 
     public void setInfo (Information info) {
@@ -233,8 +247,8 @@ public abstract class InteractiveEntity extends GameEntity implements
      *         it should not
      */
     private boolean attackInRange (IAttackable attackable, double distance) {
-        return getEntityState().inAttackMode()
-               && this.getAttackStrategy().getCurrentWeapon()
+        return getEntityState().inAttackMode() &&
+               this.getAttackStrategy().getCurrentWeapon()
                        .inRange((InteractiveEntity) attackable, distance);
     }
 
@@ -246,13 +260,10 @@ public abstract class InteractiveEntity extends GameEntity implements
      * @return the distance that the enemy is away
      */
     private double distance (IAttackable attackable) {
-        return Math.sqrt(Math
-                .pow(getWorldLocation().getX()
-                     - ((InteractiveEntity) attackable).getWorldLocation()
-                             .getX(), 2)
-                         + Math.pow(getWorldLocation().getY()
-                                    - ((InteractiveEntity) attackable).getWorldLocation()
-                                            .getY(), 2));
+        return Math.sqrt(Math.pow(getWorldLocation().getX() -
+                                  ((InteractiveEntity) attackable).getWorldLocation().getX(), 2) +
+                         Math.pow(getWorldLocation().getY() -
+                                  ((InteractiveEntity) attackable).getWorldLocation().getY(), 2));
     }
 
     public int calculateDamage (int damage) {
@@ -308,7 +319,9 @@ public abstract class InteractiveEntity extends GameEntity implements
             }
 
         }
-        if (infoCommands.isEmpty()) { return null; }
+        if (infoCommands.isEmpty()) {
+            return null;
+        }
         return infoCommands;
     }
 
@@ -370,8 +383,7 @@ public abstract class InteractiveEntity extends GameEntity implements
      */
     public void setGatherAmount (int gatherAmount) {
         myGatherStrategy.setGatherAmount(gatherAmount);
-        myGatherStrategy = new CanGather(CanGather.DEFAULTCOOL,
-                                         myGatherStrategy.getGatherAmount());
+        myGatherStrategy = new CanGather(CanGather.DEFAULTCOOL, myGatherStrategy.getGatherAmount());
     }
 
     /**
@@ -420,68 +432,65 @@ public abstract class InteractiveEntity extends GameEntity implements
 
     @Override
     public void paint (Graphics2D pen) {
-        if (!isVisible()) { return; }
+        if (!isVisible()) {
+            return;
+        }
         // pen.rotate(getVelocity().getAngle());
 
         // should probably use the getBottom, getHeight etc...implement them
-        Point2D selectLocation = Camera.instance().worldToView(
-                                                               getWorldLocation());
+        Point2D selectLocation = Camera.instance().worldToView(getWorldLocation());
 
         pen.drawRect((int) selectLocation.getX() - LOCATION_OFFSET,
                      (int) (selectLocation.getY() - 5 * LOCATION_OFFSET), 50, 5);
         Rectangle2D healthBar =
-                new Rectangle2D.Double(
-                                       (int) selectLocation.getX() - LOCATION_OFFSET,
+                new Rectangle2D.Double((int) selectLocation.getX() - LOCATION_OFFSET,
                                        (int) (selectLocation.getY() - 5 * LOCATION_OFFSET),
-                                       50
-                                               * getHealth() / getMaxHealth(), 5);
+                                       50 * getHealth() / getMaxHealth(), 5);
         float width = (float) (healthBar.getWidth() * (getHealth() / getMaxHealth()));
-        pen.setPaint(new GradientPaint((float) healthBar.getX() - width,
-                                       (float) healthBar.getMaxY(), Color.RED, (float) healthBar
-                                               .getMaxX(), (float) healthBar.getMaxY(), Color.GREEN));
+        pen.setPaint(new GradientPaint((float) healthBar.getX() - width, (float) healthBar
+                .getMaxY(), Color.RED, (float) healthBar.getMaxX(), (float) healthBar.getMaxY(),
+                                       Color.GREEN));
         pen.fill(healthBar);
         pen.setColor(Color.black);
 
         if (isSelected) {
             Ellipse2D.Double selectedCircle =
-                    new Ellipse2D.Double(
-                                         selectLocation.getX() - LOCATION_OFFSET,
+                    new Ellipse2D.Double(selectLocation.getX() - LOCATION_OFFSET,
                                          selectLocation.getY() + LOCATION_OFFSET, 50, 30);
             pen.fill(selectedCircle);
         }
         super.paint(pen);
         if (myAttackStrategy.hasWeapon()) {
-            for (Projectile p : myAttackStrategy.getCurrentWeapon()
-                    .getProjectiles()) {
+            for (Projectile p : myAttackStrategy.getCurrentWeapon().getProjectiles()) {
                 p.paint(pen);
             }
         }
     }
 
     /**
-     * If the passed in parameter is another InteractiveEntity, checks to see if
-     * resource which can be gathered. Next, it checks to see if it is a it is a
-     * Building and can be occupied, checks to see if it is an enemy, and if so,
-     * switches to attack state. Defaults to move to the center of the other
-     * InteractiveEntity
+     * If the passed in parameter is another GameEntity, checks to see if
+     * it is a Building and can be occupied, checks to see if it is an enemy,
+     * and if so, switches to attack state. Defaults to move to the center of
+     * the other GameEntity
      * 
      * @param other
-     *        - the other InteractiveEntity
+     *        - the other GameEntity
      */
     public void recognize (GameEntity other) {
         myTargetEntity = other;
         if (other instanceof Resource) {
             getEntityState().setUnitState(UnitState.GATHER);
         }
-        else if (isEnemy((InteractiveEntity) other)) {
+        if (isEnemy((InteractiveEntity) other)) {
             getEntityState().setUnitState(UnitState.ATTACK);
         }
-        else if (other instanceof Building) {
-            getEntityState().setUnitState(UnitState.OCCUPY);
-        }
-        else {
-            getEntityState().setUnitState(UnitState.NO_STATE);
-        }
+        else
+            if (other instanceof Building) {
+                getEntityState().setUnitState(UnitState.OCCUPY);
+            }
+            else {
+                getEntityState().setUnitState(UnitState.NO_STATE);
+            }
         move(other.getWorldLocation());
     }
 
@@ -561,6 +570,16 @@ public abstract class InteractiveEntity extends GameEntity implements
                 it.remove();
             }
         }
+        if (myCurQueueTask != null) {
+
+            if (!myCurQueueTask.isActive() && myQueueableTasks.peek() != null) {
+                myCurQueueTask = myQueueableTasks.poll();
+                System.out.println(myCurQueueTask);
+            }
+
+            myCurQueueTask.update(elapsedTime);
+
+        }
         if (myAttackStrategy.hasWeapon()) {
             Weapon weapon = myAttackStrategy.getCurrentWeapon();
             if (getEntityState().inAttackMode()) {
@@ -596,12 +615,12 @@ public abstract class InteractiveEntity extends GameEntity implements
      */
     private List<InteractiveEntity> findEnemies (Weapon weapon) {
         List<InteractiveEntity> enemies =
-                GameState.getMap()
-                        .<InteractiveEntity> getInArea(getWorldLocation(),
-                                                       weapon.getRange(),
-                                                       this,
-                                                       GameState.getPlayers()
-                                                               .getTeamID(getPlayerID()), false);
+                GameState.getMap().<InteractiveEntity> getInArea(getWorldLocation(),
+                                                                 weapon.getRange(),
+                                                                 this,
+                                                                 GameState.getPlayers()
+                                                                         .getTeamID(getPlayerID()),
+                                                                 false);
         return enemies;
     }
 
@@ -675,10 +694,7 @@ public abstract class InteractiveEntity extends GameEntity implements
     }
 
     private void findpath (Location3D destination) {
-        // System.out.println("Finding path");
-        myPath = GameState.getMap().getPath(myFinder, getWorldLocation(),
-                                            destination);
-        // System.out.println("Found path");
+        myPath = GameState.getMap().getPath(myFinder, getWorldLocation(), destination);
         if (myPath != null) {
             myProductionStrategy.setRallyPoint(this);
         }

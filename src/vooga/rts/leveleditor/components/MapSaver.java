@@ -266,11 +266,11 @@ public class MapSaver {
     private void appendInfo(Element root) {
         Element info = myDocument.createElement("MapInfo");
         Element name = myDocument.createElement("Name");
-        name.appendChild(myDocument.createTextNode(mySavingMap.getMyMapName()));
+        name.appendChild(myDocument.createTextNode(mySavingMap.getMapName()));
         info.appendChild(name);
         
         Element description = myDocument.createElement("Desc");
-        description.appendChild(myDocument.createTextNode(mySavingMap.getMyDescription()));
+        description.appendChild(myDocument.createTextNode(mySavingMap.getMapDescription()));
         info.appendChild(description);
         
         Element players = myDocument.createElement("Players");

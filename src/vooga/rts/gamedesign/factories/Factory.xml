@@ -1,56 +1,36 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+
 <GameElements>
-<upgrade>
-	<tree>
-		<treeName>SoldierUpgrade</treeName>
-		<type>
-			<name>Health</name>
-			<upgradeNode>
-				<parent>Health</parent>
-				<nodeName>Boost1</nodeName>
-				<object>Health</object>
-				<value>50</value>
-				<resourceCostType>Resource</resourceCostType>
-				<resourceAmount>30</resourceAmount>
-			</upgradeNode>
-			<upgradeNode>
-				<parent>Boost1</parent>
-				<nodeName>Boost2</nodeName>
-				<object>Health</object>
-				<value>100</value>
-				<resourceCostType>Resource</resourceCostType>
-				<resourceAmount>30</resourceAmount>
-			</upgradeNode>
-		</type>
-		<type>
-			<name>Attack</name>
-			<upgradeNode>
-				<parent>Attack</parent>
-				<nodeName>CanAttack</nodeName>
-				<object>AttackStrategy</object>
-				<value>0</value>
-				<resourceCostType>Resource</resourceCostType>
-				<resourceAmount>30</resourceAmount>
-			</upgradeNode>
-			<upgradeNode>
-				<parent>CanAttack</parent>
-				<nodeName>RangeBoost1</nodeName>
-				<object>Range</object>
-				<value>100</value>
-				<resourceCostType>Resource</resourceCostType>
-				<resourceAmount>30</resourceAmount>
-			</upgradeNode>
-			<upgradeNode>
-				<parent>CanAttack</parent>
-				<nodeName>DamageBoost1</nodeName>
-				<object>Damage</object>
-				<value>100</value>
-				<resourceCostType>Resource</resourceCostType>
-				<resourceAmount>30</resourceAmount>
-			</upgradeNode>
-		</type>
-	</tree>
-</upgrade>
+	<start>
+		<worker>2</worker>
+		<gold>100</gold>
+		<wood>100</wood>
+		<home>2</home>
+	</start>
+	<upgrade>
+		<tree>
+			<treeName>SoldierUpgrade</treeName>
+			<type>
+				<name>Health</name>
+				<upgradeNode>
+					<parent>Health</parent>
+					<nodeName>Boost1</nodeName>
+					<object>Health</object>
+					<value>50</value>
+					<resourceCostType>Resource</resourceCostType>
+					<resourceAmount>30</resourceAmount>
+				</upgradeNode>
+				<upgradeNode>
+					<parent>Boost1</parent>
+					<nodeName>Boost2</nodeName>
+					<object>Health</object>
+					<value>100</value>
+					<resourceCostType>Resource</resourceCostType>
+					<resourceAmount>30</resourceAmount>
+				</upgradeNode>
+			</type>
+		</tree>
+	</upgrade>
 	<resources src = "vooga.rts.gamedesign.sprite.gamesprites.Resource">
 		<resource>
 			<name>gold</name>
@@ -96,6 +76,10 @@
 			<information>
 				<description>Welcome home</description>
 				<button>buttons/marine.png</button>
+				<cost>
+					<gold>10</gold>
+					<wood>10</wood>
+				</cost>				
 			</information>			
 		</building>
 		<building>
@@ -112,6 +96,10 @@
 			<information>
 				<description>I am a garrison</description>
 				<button>buttons/marine.png</button>
+				<cost>
+					<gold>20</gold>
+					<wood>20</wood>
+				</cost>				
 			</information>			
 		</building>
 		<custombuilding src = "vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.Tower">
@@ -135,6 +123,10 @@
 			<information>
 				<description>I am a big doo doo</description>
 				<button>buttons/marine.png</button>
+				<cost>
+					<gold>15</gold>
+					<wood>15</wood>
+				</cost>				
 			</information>
 		</unit>
 		<unit>
@@ -153,6 +145,10 @@
 			<information>
 				<description>I am a big doo doo</description>
 				<button>images/scv.png</button>
+				<cost>
+					<gold>12</gold>
+					<wood>12</wood>
+				</cost>
 			</information>			
 		</unit>
 		<customunit src = "vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Soldier">
@@ -190,3 +186,4 @@
 		</projectile>
 	</projectiles>
 </GameElements>
+
