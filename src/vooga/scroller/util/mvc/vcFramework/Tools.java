@@ -13,8 +13,7 @@ import vooga.scroller.util.Renderable;
  * @author Dagbedji Fagnisse
  *
  */
-public abstract class Tools<D extends IDomainDescriptor> implements 
-                            Renderable<D> {
+public abstract class Tools<D extends IDomainDescriptor> {
 
     public abstract List<Map<Image, String>> getEditableDependents ();
 

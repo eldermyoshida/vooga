@@ -1,6 +1,5 @@
 package vooga.scroller.level_editor.controllerSuite;
 
-import java.awt.Graphics2D;
 import java.awt.Image;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,8 +14,6 @@ import vooga.scroller.level_editor.commands.CommandConstants;
 import vooga.scroller.sprites.Sprite;
 import vooga.scroller.sprites.interfaces.IDoor;
 import vooga.scroller.util.IBackgroundView;
-import vooga.scroller.util.Renderer;
-import vooga.scroller.util.mvc.IView;
 import vooga.scroller.util.mvc.vcFramework.Tools;
 
 
@@ -36,6 +33,10 @@ public class LETools extends Tools<LevelEditing> {
     private static final int SPECIALPOINTS = 3;
     private static final int OTHERS = 4;
     private static final String BACKGROUND_CMD =  CommandConstants.CHANGE_BACKGROUND;
+    private static final String EDITABLE_DEPENDENTS_TITLE = 
+            LevelEditing.EDITABLE_DEPENDENTS_TITLE;
+    private static final String EDITABLE_INDEPENDENTS_TITLE = 
+            LevelEditing.EDITABLE_INDEPENDENTS_TITLE;
     private List<Map<Image, String>> mySpritesOptions;
     private Map<String, Map<Image, String>> myOtherOptions;
 
@@ -54,7 +55,7 @@ public class LETools extends Tools<LevelEditing> {
         mySpritesOptions.add(COLLECTIBLES, collectibles);
         mySpritesOptions.add(SPECIALPOINTS, specialpoints);
         mySpritesOptions.add(OTHERS, others);
-        Map<Image, String> backgrounds = new HashMap<Image,String>();
+        Map<Image, String> backgrounds = new HashMap<Image, String>();
         myOtherOptions = new HashMap<String, Map<Image, String>>();
         myOtherOptions.put(BACKGROUND_CMD, backgrounds);
     }
@@ -99,11 +100,18 @@ public class LETools extends Tools<LevelEditing> {
     }
 
 
+    /**
+     * Get the available backgrounds
+     * @return
+     */
     public Map<Image, String> getBackgrounds () {
         return myOtherOptions.get(BACKGROUND_CMD);
     }
 
-
+    /**
+     * Add backgrounds to the tools
+     * @param backgrounds - backgrounds to add
+     */
     public void addBackgrounds (Map<Integer, IBackgroundView> backgrounds) {
         for (Integer key : backgrounds.keySet()) {
             myOtherOptions.get(BACKGROUND_CMD).put(
@@ -111,11 +119,6 @@ public class LETools extends Tools<LevelEditing> {
         }
     }
 
-//
-//    @Override
-//    public TabbedToolsView initializeRenderer (IView parent) {
-//        return new TabbedToolsView(this, parent);
-//    }
 
     @Override
     public List<Map<Image, String>> getEditableDependents () {
@@ -129,24 +132,12 @@ public class LETools extends Tools<LevelEditing> {
 
     @Override
     public String getEditableDependentsTitle () {
-        return "Sprites";
+        return EDITABLE_DEPENDENTS_TITLE;
     }
 
     @Override
     public String getEditableIndependentsTitle () {
-        return "Other";
-    }
-
-    @Override
-    public Renderer<LevelEditing> initializeRenderer (IView<?> parent) {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public void paint (Graphics2D pen) {
-        // TODO Auto-generated method stub
-        
+        return EDITABLE_INDEPENDENTS_TITLE;
     }
 
 
