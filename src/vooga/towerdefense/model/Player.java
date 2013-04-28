@@ -8,6 +8,7 @@ import vooga.towerdefense.attributes.AttributeManager;
 import vooga.towerdefense.controller.Controller;
 
 /**
+ * A player object, which holds things like score and lives.
  * 
  * @author JLongley
  *
@@ -30,7 +31,7 @@ public class Player {
 	}
 	
 	public void update(double elapsedTime) {
-        myController.displayPlayerStatistics(getPlayerDataString());
+	    myController.displayPlayerStatistics(getPlayerDataString());
     }
 	
 	public String getPlayerDataString() {

@@ -39,10 +39,15 @@ public class BuildMode extends ControlMode {
 	@Override
 	public void handleMapClick(Point p, Controller controller) {
 		Dimension tileSize = controller.getTileSize();
-		int tilesWide = (int) Math.ceil(myItemToBuild.getSize().getWidth()  / tileSize.getWidth());
-		int tilesTall = (int) Math.ceil(myItemToBuild.getSize().getHeight() / tileSize.getHeight());
-		
-		
+		int tilesWide = (int) Math.ceil(myItemToBuild.getSize().getWidth()
+				/ tileSize.getWidth());
+		int tilesTall = (int) Math.ceil(myItemToBuild.getSize().getHeight()
+				/ tileSize.getHeight());
+
+		Location snappedLocation = controller
+				.getPointSnappedToGrid(new Location(p.getX(), p.getY()));
+		myItemToBuild.setCenter(snappedLocation.getX(), snappedLocation.getY());
+
 		if (controller.canBuildHere(p, tilesWide, tilesTall))
 			controller.fixItemOnMap(myItemToBuild, p);
 	}
@@ -58,10 +63,12 @@ public class BuildMode extends ControlMode {
 		Location snappedLocation = controller
 				.getPointSnappedToGrid(new Location(p.getX(), p.getY()));
 
-                Dimension tileSize = controller.getTileSize();
-                int tilesWide = (int) Math.ceil(myItemToBuild.getSize().getWidth()  / tileSize.getWidth());
-                int tilesTall = (int) Math.ceil(myItemToBuild.getSize().getHeight() / tileSize.getHeight());
-		
+		Dimension tileSize = controller.getTileSize();
+		int tilesWide = (int) Math.ceil(myItemToBuild.getSize().getWidth()
+				/ tileSize.getWidth());
+		int tilesTall = (int) Math.ceil(myItemToBuild.getSize().getHeight()
+				/ tileSize.getHeight());
+
 		if (controller.canBuildHere(p, tilesWide, tilesTall))
 			controller.paintGhostImage(myItemToBuild.getPixmap(),
 					snappedLocation, myItemToBuild.getSize());

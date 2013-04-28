@@ -365,15 +365,15 @@ public class ViewEditorScreen extends GameEditorScreen {
      */
     private List<String> makeViewStrings() {
         List<String> viewInfo = new ArrayList<String>();
-        String s = (String)myNorthPanel.getSelectedItem() + " " + myNorthSize.getText() + " " + "NORTH";
+        String s = (String)myNorthPanel.getSelectedItem() + " " + myNorthSize.getText() + " " + "North";
         viewInfo.add(s);
-        s = (String)mySouthPanel.getSelectedItem() + " " + mySouthSize.getText() + " " + "SOUTH";
+        s = (String)mySouthPanel.getSelectedItem() + " " + mySouthSize.getText() + " " + "South";
         viewInfo.add(s);
-        s = (String)myCenterPanel.getSelectedItem() + " " + myCenterSize.getText() + " " + "CENTER";
+        s = (String)myCenterPanel.getSelectedItem() + " " + myCenterSize.getText() + " " + "Center";
         viewInfo.add(s);
-        s = (String)myEastPanel.getSelectedItem() + " " + myEastSize.getText() + " " + "EAST";
+        s = (String)myEastPanel.getSelectedItem() + " " + myEastSize.getText() + " " + "East";
         viewInfo.add(s);
-        s = (String)myWestPanel.getSelectedItem() + " " + myWestSize.getText() + " " + "WEST";
+        s = (String)myWestPanel.getSelectedItem() + " " + myWestSize.getText() + " " + "West";
         viewInfo.add(s);
         return viewInfo;
     }

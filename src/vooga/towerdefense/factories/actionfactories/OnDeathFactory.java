@@ -25,7 +25,7 @@ public class OnDeathFactory extends ActionFactory{
 	
 	@Override
 	public Action buildAction(GameElement element){
-		Action action=new OnDeath(element);
+		Action action = new OnDeath(element);
 		return action;
 	}
 }
