@@ -89,7 +89,6 @@ public class AttributeSection extends SubEditorSection {
      */
     @Override
     public void clear() {
-        super.clear();
         myAttributesSelected.setText("");        
     }
     

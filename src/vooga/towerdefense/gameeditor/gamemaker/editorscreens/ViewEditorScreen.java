@@ -243,7 +243,6 @@ public class ViewEditorScreen extends GameEditorScreen {
         for (JComboBox s: myJComboPanels) {
             if (s.getSelectedItem().equals(MULTIPLE_PANEL_NAME)){
                 mySouthernPanelScreen.setVisible(true);
-                System.out.println("goooooooooooooooodddddddddd!");
                 myKey = s.getName();
                 mySelectedJC = s;
             }

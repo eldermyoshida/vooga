@@ -101,7 +101,6 @@ public class ActionSection extends SubEditorSection {
      */
     @Override
     public void clear() {
-        super.clear();
         myActionsSelected.setText("");
     }
 

@@ -54,6 +54,10 @@ public class GameElementEditorScreen extends GameEditorScreen {
      */
     private static final String TITLE_NAME = "GAME ELEMENT ";
     /**
+     * name text for name label.
+     */
+    private static final String NAME_TEXT = "Name: ";
+    /**
      * constant for text area width.
      */
     private static final int TEXT_AREA_WIDTH = 10;
@@ -97,6 +101,14 @@ public class GameElementEditorScreen extends GameEditorScreen {
      * actions section for this game element screen.
      */
     private ActionSection myActionsSection;
+    /**
+     * label for the name.
+     */
+    private JLabel myNameLabel;
+    /**
+     * field for the name.
+     */
+    private JTextField myNameBox;
 
     /**
      * Constructor.
@@ -114,6 +126,7 @@ public class GameElementEditorScreen extends GameEditorScreen {
         myAvailableTypes.add(PROJECTILE_TYPE);
         myActionsSection = new ActionSection("Actions", ACTION_PACKAGE_PATH, getController().getAvailableActions(ACTION_PACKAGE_PATH), getMouseAdapter());
         myAttributesSection = new AttributeSection("Attributes", getController().getAttributes(ATTRIBUTE_CLASS_PATH), getMouseAdapter());
+        addNameSection();
         makeScreen();
     }
     
@@ -152,12 +165,22 @@ public class GameElementEditorScreen extends GameEditorScreen {
         add(imagePanel, BorderLayout.NORTH);
     }
     
+    private void addNameSection() {
+        JPanel namePanel = new JPanel(new BorderLayout());
+        myNameLabel = new JLabel(NAME_TEXT);
+        namePanel.add(myNameLabel, BorderLayout.WEST);
+        myNameBox = new JTextField(TEXT_FIELD_WIDTH);
+        namePanel.add(myNameBox, BorderLayout.EAST);
+        add(namePanel, BorderLayout.NORTH);
+    }
+    
     /**
      * clears the screen.
      */
     @Override
     public void clearScreen() {
         super.clearScreen();
+        myNameBox.setText("");
         myDimensionBox.setText("");
         myAttributesSection.clear();
         myActionsSection.clear();
@@ -167,7 +190,7 @@ public class GameElementEditorScreen extends GameEditorScreen {
      * adds this game element to the game.
      */
     public void addElementToGame() {
-        getController().addGameElementToGame(myTypeBox.getSelectedItem().toString(), getName(),
+        getController().addGameElementToGame(myTypeBox.getSelectedItem().toString(), myNameBox.getText(),
                                          myImageBox.getSelectedItem().toString(), myDimensionBox.getText(),
                                          myAttributesSection.getAttributes(),
                                          myActionsSection.getActions());
