@@ -21,7 +21,6 @@ import vooga.towerdefense.controller.Controller;
  */
 public class GameElementInformationScreen extends InformationScreen {
 
-    // TODO: load from resources
     private static final String UPGRADE_BUTTON_NAME = "Upgrade";
 
     /**
