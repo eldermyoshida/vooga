@@ -15,7 +15,7 @@ import vooga.fighter.model.utils.State;
 /**
  * Loads the resources necessary for MouseObjects. Reads the data from the file designated
  * in the path ModelConstants.MOUSELOADER_PATH_TAG.
- * @author David Le, Alan Ni
+ * @author David Le, alanni
  */
 public class MouseLoader extends ObjectLoader {
 

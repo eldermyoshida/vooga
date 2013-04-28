@@ -28,7 +28,6 @@ public class CharacterObject extends GameObject {
     private List<Effect> myActiveEffects;
     private Health myHealth; 
     private List<AttackObject> currentAttacks; 
-    private boolean facingRight;  
     private int movingDirection; 
     private Vector myVelocity;  
     
@@ -130,8 +129,6 @@ public class CharacterObject extends GameObject {
      * Creates and returns an attack object based on a given identifier. Returns null
      * if the specified attack does not exist.
      * 
-     * Note: For now just using String to represent attack types, but this is obviously
-     * subject to change.
      */
     public AttackObject createAttack(String key) {
         if (myAttacks.containsKey(key)) {
@@ -214,27 +211,6 @@ public class CharacterObject extends GameObject {
     public void jump() {        
     	getLocation().addAcceleration(new Vector(ModelConstants.UP, getProperty("jumpfactor")));
     } 
-    
-    /**
-     * Checks to see if character is facing right
-     */
-    public boolean isFacingRight(){
-    	return facingRight; 
-    }
-    
-    /**
-     * Sets the character to face left 
-     */
-    public void faceLeft(){
-    	facingRight=false; 
-    }
-    
-    /**
-     * Sets the character to face right 
-     */
-    public void faceRight(){
-    	facingRight=true; 
-    }
     
     /**
      * Returns list of all attackObjects
