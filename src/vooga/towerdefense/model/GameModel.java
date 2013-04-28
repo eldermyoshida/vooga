@@ -187,7 +187,6 @@ public class GameModel {
 	}
 
 	public void updateLevelTimer() {
-		System.out.println(getActiveLevel().getRemainingTime());
 		if(getActiveLevel().getRemainingTime()!=null)
 			myController.updateWaveTimer(getActiveLevel().getRemainingTime()/1000);
 	}
