@@ -55,6 +55,7 @@ public class AttackObject extends GameObject {
                     other.getProperty(ModelConstants.ATTACK_PROPERTY_DAMAGE));
         addProperty(ModelConstants.ATTACK_PROPERTY_DURATION, 
                     other.getProperty(ModelConstants.ATTACK_PROPERTY_DURATION));
+        System.out.println(getProperty(ModelConstants.ATTACK_PROPERTY_DIRECTION));
         this.myEffects = other.myEffects;
         this.myOwner = other.myOwner;
         this.myCounter = new Counter(getProperty(ModelConstants.ATTACK_PROPERTY_DURATION));   

@@ -11,6 +11,7 @@ import vooga.fighter.controller.gameinformation.GameInfo;
 import vooga.fighter.controller.interfaces.ControllerDelegate;
 import vooga.fighter.forces.Force;
 import vooga.fighter.forces.ForceFactory;
+import vooga.fighter.model.ModelConstants;
 import vooga.fighter.model.objects.AttackObject;
 import vooga.fighter.model.objects.CharacterObject;
 import vooga.fighter.view.Canvas;
@@ -109,13 +110,17 @@ public class OneVOneController extends LevelController {
 
     @InputMethodTarget(name = "player1_left")
     public void playerOneLeftInput (AlertObject alObj) {
-        getInputObjects().get(0).move(180);
-
+    	CharacterObject myChar= getInputObjects().get(0);
+    	myChar.addProperty(ModelConstants.ATTACK_PROPERTY_DIRECTION, 180); 
+    	myChar.move(180);
     }
 
     @InputMethodTarget(name = "player1_right")
     public void playerOneRightInput(AlertObject alObj) {
-        getInputObjects().get(0).move(0);
+    	CharacterObject myChar= getInputObjects().get(0);
+    	myChar.addProperty(ModelConstants.ATTACK_PROPERTY_DIRECTION, 0); 
+    	System.out.println(ModelConstants.ATTACK_PROPERTY_DIRECTION);
+    	myChar.move(0);
 
     }
 
