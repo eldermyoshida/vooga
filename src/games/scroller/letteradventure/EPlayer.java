@@ -31,7 +31,7 @@ public class EPlayer extends Player implements IInputListener{
     private static final int HEALTH = 1;
     private static final int DAMAGE = 0;    
     private static final int SPEED = 300;
-    private static final String INPUT_LOCATION = "games/scroller/letteradventure/input";
+    private static final String INPUT_LOCATION = "games/scroller/letteradventure/LetterMapping";
     private static final Vector JUMP_VELOCITY = new Vector(Sprite.UP_DIRECTION, 100);
     private static final double MAX_JUMP_VELOCITY = 0.5;
     
@@ -111,5 +111,12 @@ public class EPlayer extends Player implements IInputListener{
         this.getLevel().addSprite(new Projectile());
     }
     
+    /**
+     * Returns the score of the player after the end of the game.
+     * @return
+     */
+    public int getScore() {
+        return myScore;
+    }
 
 }

@@ -21,7 +21,7 @@ import vooga.scroller.util.Pixmap;
  */
 public class SpriteLibrary extends EncapsulatedSpriteLibrary {
     public static final Dimension DEFAULT_SIZE = new Dimension(42, 42);
-    public static final String IMAGES_DIRECTORY = "/games/scroller/letteradventure/images/";
+    public static final String IMAGES_DIRECTORY = "/src/games/scroller/letteradventure/images/";
 
     /**
      * This is the platform that all the characters walk along.
@@ -32,7 +32,6 @@ public class SpriteLibrary extends EncapsulatedSpriteLibrary {
 
         public Platform (ISpriteView image, Dimension size) {
             super(makePixmap(PLATFORM_IMAGE), DEFAULT_SIZE);
-            // TODO Auto-generated constructor stub
         }
 
     }
@@ -94,6 +93,7 @@ public class SpriteLibrary extends EncapsulatedSpriteLibrary {
         @Override
         public void handleDeath (Level level) {
             // end game
+            // would like to return score from EPlayer to the arcade...
         }
     }
 

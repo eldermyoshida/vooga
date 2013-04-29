@@ -93,8 +93,5 @@ public class VisitMethods extends VisitLibrary {
     public void visit (Player player, IDoor levelPortal) {
         levelPortal.goToNextLevel();
     }
-    
-    
-    
 
 }
