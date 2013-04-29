@@ -1,5 +1,8 @@
 package games.fighter.JerryJackExample.controller.levels;
 
+import games.fighter.JerryJackExample.AdvancedGameInfo;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -54,6 +57,10 @@ import vooga.fighter.view.Canvas;
 			    	super(name, frame, manager, gameinfo, filepath);
 			    	myStockPathway = getHardFilePath() + STOCK_PATHWAY;
 			    	myCollisionDetector = new CollisionDetector();
+			    	myCharacterLives = new ArrayList<Integer>();
+			    	for(int i = 0; i< getGameInfo().getNumCharacters(); i ++){
+			    		myCharacterLives.add(getGameInfo().getMaxLives());
+			    	}
 			    }
 
 			    /**
@@ -104,5 +111,9 @@ import vooga.fighter.view.Canvas;
 			    		    return change;
 			    }
 			    };
+			    
+			    public AdvancedGameInfo getGameInfo(){
+			    	return (AdvancedGameInfo) getGameInfo();
+			    }
 
 	}
