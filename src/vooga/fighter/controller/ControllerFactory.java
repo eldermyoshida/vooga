@@ -52,7 +52,6 @@ public class ControllerFactory {
         for (String controllerName : myResources.keySet()) {
             Controller current = createController(controllerName);
             myControllerMap.put(current.getName(), current);
-            System.out.println("<controller factory " + controllerName);
         }
     }
 

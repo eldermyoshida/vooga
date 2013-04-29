@@ -36,7 +36,7 @@ public class StreetFighterOneVOneController extends OneVOneController{
     @Override
 	public Controller getController(String name, Canvas frame, ControllerDelegate manager, GameInfo gameinfo,
                                     String filepath) {
-        Controller controller = new OneVOneController(name, frame, manager, gameinfo, filepath);
+        Controller controller = new StreetFighterOneVOneController(name, frame, manager, gameinfo, filepath);
         return controller;
     }
 
