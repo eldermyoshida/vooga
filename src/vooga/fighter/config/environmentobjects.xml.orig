@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<environmentObjects>
+    <environmentObject objectName="platform" default="default">
+        <state stateName = "default">
+<<<<<<< HEAD
+            <frame image="fighter/images/brick1.gif">
+                <hitbox cornerX="0" cornerY="0" width="80" height="20"/>
+=======
+            <frame image="fighter/images/purple.jpg">
+                <hitbox cornerX="0" cornerY="0" width="100" height="25"/>
+>>>>>>> fa1c625696a7d5e5f2ae8cfcdc2ede42b167cd52
+            </frame>
+        </state>
+    </environmentObject>
+</environmentObjects>
