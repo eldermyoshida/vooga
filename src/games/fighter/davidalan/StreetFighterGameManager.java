@@ -1,16 +1,17 @@
 package games.fighter.davidalan;
 
+import arcade.games.ArcadeInteraction;
 import vooga.fighter.controller.*;
 import vooga.fighter.controller.gameinformation.GameInfo;
 import vooga.fighter.model.loaders.MapLoader;
 import vooga.fighter.view.Canvas;
 
-public class StreetFighterGameManager extends GameManagerRunAlone {
+public class StreetFighterGameManager extends GameManager {
 	
 	private static final String PATHWAY = "games.fighter.davidalan.";
 	
-	public StreetFighterGameManager () {
-		super();
+	public StreetFighterGameManager (ArcadeInteraction arcade) {
+		super(arcade);
 	}
 	
     /**
