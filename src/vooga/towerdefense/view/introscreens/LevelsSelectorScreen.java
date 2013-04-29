@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 import javax.swing.JButton;
 import util.Location;
-import util.Pixmap;
+import vooga.towerdefense.util.Pixmap;
 import vooga.towerdefense.view.TDView;
 
 
