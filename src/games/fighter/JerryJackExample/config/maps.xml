@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 <maps>
     <map mapName="StreetMap" xSize="1024" ySize="871">
-        <startingPos xCoord="140" yCoord="300"/>
-        <startingPos xCoord="200" yCoord="300"/>
+        <startingPos xCoord="140" yCoord="600"/>
+        <startingPos xCoord="200" yCoord="600"/>
         <state stateName = "background">
             <frame image = "fighter/JerryJackExample/images/Streets.jpg" />
         </state>
-        <environmentObject objectName="platform" xCoord="450" yCoord="800" />
+        <environmentObject objectName="platform" xCoord="450" yCoord="700" />
     </map>
     <map mapName="RainbowBackground" xSize="1024" ySize="871">
         <startingPos xCoord="140" yCoord="300"/>
