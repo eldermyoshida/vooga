@@ -166,8 +166,9 @@ public abstract class LevelController extends Controller {
      * Anonymous Class that is fed into the winConditions via setupConditions
      */
     ModeCondition wincondition = new ModeCondition() {
+        
     	@Override
-		public boolean checkCondition(Mode mode) {
+		public boolean checkCondition(Mode mode) {    	   
     		LevelMode levelmode = (LevelMode) mode;
     		boolean change = false;
     		    for (int i = 0; i < levelmode.getCharacterObjects().size(); i++) {
