@@ -2,7 +2,7 @@ package vooga.towerdefense.factories.actionfactories;
 
 import vooga.towerdefense.action.Action;
 import vooga.towerdefense.action.response.OnDeath;
-import vooga.towerdefense.gameelements.GameElement;
+import vooga.towerdefense.gameelements2.GameElement;
 
 /**
  * This is an action factory for creating OnDeath actions.

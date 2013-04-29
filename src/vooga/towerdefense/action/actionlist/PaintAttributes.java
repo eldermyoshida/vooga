@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import vooga.towerdefense.action.Action;
 import vooga.towerdefense.attributes.Attribute;
-import vooga.towerdefense.gameelements.GameElement;
+import vooga.towerdefense.gameelements2.GameElement;
 
 /**
  * This is a test paint attribute action. Not a core game element component, but

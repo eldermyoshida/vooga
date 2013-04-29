@@ -12,7 +12,7 @@ import vooga.towerdefense.attributes.AttributeManager;
 import vooga.towerdefense.factories.actionfactories.ActionFactory;
 import vooga.towerdefense.factories.attributefactories.AttributeFactory;
 import vooga.towerdefense.factories.attributefactories.AttributeManagerFactory;
-import vooga.towerdefense.gameelements.GameElement;
+import vooga.towerdefense.gameelements2.GameElement;
 import vooga.towerdefense.model.GameMap;
 
 /**

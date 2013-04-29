@@ -4,7 +4,7 @@ import java.util.List;
 
 import vooga.towerdefense.action.TargetedAction;
 import vooga.towerdefense.attributes.Attribute;
-import vooga.towerdefense.gameelements.GameElement;
+import vooga.towerdefense.gameelements2.GameElement;
 import vooga.towerdefense.model.GameMap;
 import util.Location;
 
