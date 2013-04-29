@@ -17,10 +17,7 @@ import vooga.fighter.controller.gameinformation.PlayerStatus;
  */
 public class HUDPlayerScoreAndHealth extends HUDPlayerValue {
 	private Text myPlayerHealth = new Text("");
-<<<<<<< HEAD
 
-=======
->>>>>>> fa1c625696a7d5e5f2ae8cfcdc2ede42b167cd52
 	private Color myValueColor;
 
 	@Override
@@ -45,17 +42,10 @@ public class HUDPlayerScoreAndHealth extends HUDPlayerValue {
 		myPlayerNameText.setText(newStatus.getPlayerName());
 		myPlayerValue.setText("Score: " + newStatus.getScore());
 		myPlayerHealth.setText("Health: " + newStatus.getHealth().getHealth());
-<<<<<<< HEAD
 
 		HUDPlayerValueColor valueColor = new HUDPlayerValueColor();
 		myValueColor = valueColor.setValueColor(100, newStatus.getHealth()
-				.getHealth(), Color.green, Color.red);
-		;
-=======
-		
-		HUDPlayerValueColor valueColor = new HUDPlayerValueColor();
-		myValueColor = valueColor.setValueColor(100, newStatus.getHealth().getHealth(), Color.green, Color.red);
->>>>>>> fa1c625696a7d5e5f2ae8cfcdc2ede42b167cd52
+				.getHealth(), Color.green, Color.red);		
 	}
 
 	@Override

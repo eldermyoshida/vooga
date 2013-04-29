@@ -17,7 +17,7 @@ public class JousterGameManager extends GameManager {
 	/**
 	 * The one method NEEDED to be overwritten by game developer
 	 */
-	@Override
+	
 	protected void setup(){
 		setFilePathway(PATHWAY);
 		setCanvas(new Canvas(SIZE));
