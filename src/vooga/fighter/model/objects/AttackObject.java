@@ -58,7 +58,6 @@ public class AttackObject extends GameObject {
         this.myEffects = other.myEffects;
         this.myOwner = other.myOwner;
         this.myCounter = new Counter(getProperty(ModelConstants.ATTACK_PROPERTY_DURATION));
-        System.out.println(getProperty(ModelConstants.ATTACK_PROPERTY_DURATION) + " " + myCounter.getCount());
         setLocation(center);
         copyStates(other);
         setCurrentState(other.getCurrentStateKey());
