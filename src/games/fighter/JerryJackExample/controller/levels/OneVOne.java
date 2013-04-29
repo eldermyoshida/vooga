@@ -139,33 +139,6 @@ public class OneVOne extends OneVOneController {
 	        super.removeListener();
 	        getInput().removeListener(this);
 	    }
-	    
-	    @Override
-		public void checkConditions(){
-	            if(winCondition.checkCondition(getMode())) getManager().notifyEndCondition(SCORESCREEN);
-	    }
-	    
-	    /**
-	     * Anonymous Class that is fed into the winConditions via setupConditions
-	     */
-	    ModeCondition winCondition = new ModeCondition() {
-			public boolean checkCondition(Mode mode) {
-	    		LevelMode levelmode = (LevelMode) mode;
-	    		boolean change = false;
-	    		    for (int i = 0; i < levelmode.getCharacterObjects().size(); i++) {
-					if(levelmode.getCharacterObjects().get(i).getLocation().getY()>GameManager.SIZE.getHeight()) {
-						change = true;
-						for(int j = 0; j < levelmode.getCharacterObjects().size(); j++){
-							if(j!=i) getGameInfo().addWinners(j);
-							getGameInfo().addScore(levelmode.getCharacterObjects().get(j).getHealth().getHealth());
-							getGameInfo().addTotalScore(j, getGameInfo().getScore(j));
-						}
-						break;
-					}
-				}
-	    		    return change;
-			}
-	    };
 
 
 }
