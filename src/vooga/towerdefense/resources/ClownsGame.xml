@@ -67,9 +67,9 @@
 	</map>
 	<player>
 		<attributes>
-			<Health>10000.0</Health>
+			<Health>50.0</Health>
 			<Score>0.0</Score>
-			<Money>1000.0</Money>
+			<Money>10000.0</Money>
 		</attributes>
 	</player>
 	<gameelements>
@@ -78,7 +78,7 @@
 			<image>clowns/clown1.gif</image>
 			<type>Unit</type>
 			<attributes>
-				<HEALTH>10</HEALTH>
+				<Health>100</Health>
 				<MOVE_SPEED>50</MOVE_SPEED>
 				<DIRECTION>0</DIRECTION>
 			</attributes>
@@ -89,6 +89,7 @@
 					<parameter>MOVE_SPEED</parameter>
 					<parameter>DIRECTION</parameter>
 				</Move>
+				<DeathPackage/>
 			</actions>			
 		</Clown1>
 		<Clown2>
@@ -96,7 +97,7 @@
 			<image>clowns/clown2.gif</image>
 			<type>Unit</type>
 			<attributes>
-				<HEALTH>15</HEALTH>
+				<Health>150</Health>
 				<MOVE_SPEED>50</MOVE_SPEED>
 				<DIRECTION>0</DIRECTION>
 			</attributes>
@@ -107,6 +108,7 @@
 					<parameter>MOVE_SPEED</parameter>
 					<parameter>DIRECTION</parameter>
 				</Move>
+				<DeathPackage/>
 			</actions>			
 		</Clown2>
 		<Clown3>
@@ -114,7 +116,7 @@
 			<image>clowns/clown3.gif</image>
 			<type>Unit</type>
 			<attributes>
-				<HEALTH>21</HEALTH>
+				<Health>210</Health>
 				<MOVE_SPEED>50</MOVE_SPEED>
 				<DIRECTION>0</DIRECTION>
 			</attributes>
@@ -125,6 +127,7 @@
 					<parameter>MOVE_SPEED</parameter>
 					<parameter>DIRECTION</parameter>
 				</Move>
+				<DeathPackage/>
 			</actions>			
 		</Clown3>
 		<Clown4>
@@ -132,7 +135,7 @@
 			<image>clowns/clown4.gif</image>
 			<type>Unit</type>
 			<attributes>
-				<HEALTH>15</HEALTH>
+				<Health>150</Health>
 				<MOVE_SPEED>100</MOVE_SPEED>
 				<DIRECTION>0</DIRECTION>
 			</attributes>
@@ -143,6 +146,7 @@
 					<parameter>MOVE_SPEED</parameter>
 					<parameter>DIRECTION</parameter>
 				</Move>
+				<DeathPackage/>
 			</actions>			
 		</Clown4>
 		<Clown5>
@@ -150,7 +154,7 @@
 			<image>clowns/clown5.gif</image>
 			<type>Unit</type>
 			<attributes>
-				<HEALTH>37</HEALTH>
+				<Health>370</Health>
 				<MOVE_SPEED>50</MOVE_SPEED>
 				<DIRECTION>0</DIRECTION>
 			</attributes>
@@ -161,6 +165,7 @@
 					<parameter>MOVE_SPEED</parameter>
 					<parameter>DIRECTION</parameter>
 				</Move>
+				<DeathPackage/>
 			</actions>			
 		</Clown5>
 		<Clown6>
@@ -168,7 +173,7 @@
 			<image>clowns/clown6.gif</image>
 			<type>Unit</type>
 			<attributes>
-				<HEALTH>47</HEALTH>
+				<Health>470</Health>
 				<MOVE_SPEED>50</MOVE_SPEED>
 				<DIRECTION>0</DIRECTION>
 			</attributes>
@@ -179,6 +184,7 @@
 					<parameter>MOVE_SPEED</parameter>
 					<parameter>DIRECTION</parameter>
 				</Move>
+				<DeathPackage/>
 			</actions>			
 		</Clown6>
 		<Clown7>
@@ -186,7 +192,7 @@
 			<image>clowns/clown7.gif</image>
 			<type>Unit</type>
 			<attributes>
-				<HEALTH>58</HEALTH>
+				<Health>580</Health>
 				<MOVE_SPEED>50</MOVE_SPEED>
 				<DIRECTION>0</DIRECTION>
 			</attributes>
@@ -197,6 +203,7 @@
 					<parameter>MOVE_SPEED</parameter>
 					<parameter>DIRECTION</parameter>
 				</Move>
+				<DeathPackage/>
 			</actions>			
 		</Clown7>
 		<Clown8>
@@ -204,7 +211,7 @@
 			<image>clowns/clown8.gif</image>
 			<type>Unit</type>
 			<attributes>
-				<HEALTH>30</HEALTH>
+				<Health>300</Health>
 				<MOVE_SPEED>50</MOVE_SPEED>
 				<DIRECTION>0</DIRECTION>
 			</attributes>
@@ -215,6 +222,7 @@
 					<parameter>MOVE_SPEED</parameter>
 					<parameter>DIRECTION</parameter>
 				</Move>
+				<DeathPackage/>
 			</actions>			
 		</Clown8>
 		<Clown9>
@@ -222,7 +230,7 @@
 			<image>clowns/clown9.gif</image>
 			<type>Unit</type>
 			<attributes>
-				<HEALTH>93</HEALTH>
+				<Health>930</Health>
 				<MOVE_SPEED>50</MOVE_SPEED>
 				<DIRECTION>0</DIRECTION>
 			</attributes>
@@ -233,14 +241,15 @@
 					<parameter>MOVE_SPEED</parameter>
 					<parameter>DIRECTION</parameter>
 				</Move>
+				<DeathPackage/>
 			</actions>			
 		</Clown9>
 		<Clown10>
 			<dimension>60, 60</dimension>
-			<image>clowns/clown10.gif</image>
+			<image>dancing_elephant.gif</image>
 			<type>Unit</type>
 			<attributes>
-				<HEALTH>107</HEALTH>
+				<Health>1070</Health>
 				<MOVE_SPEED>50</MOVE_SPEED>
 				<DIRECTION>0</DIRECTION>
 			</attributes>
@@ -251,15 +260,16 @@
 					<parameter>MOVE_SPEED</parameter>
 					<parameter>DIRECTION</parameter>
 				</Move>
+				<DeathPackage/>
 			</actions>			
 		</Clown10>
 		<ClownBoss>
-			<dimension>200, 200</dimension>
+			<dimension>100, 100</dimension>
 			<image>clowns/clownBoss.gif</image>
 			<type>Unit</type>
 			<attributes>
-				<HEALTH>1500</HEALTH>
-				<MOVE_SPEED>15</MOVE_SPEED>
+				<Health>15000</Health>
+				<MOVE_SPEED>35</MOVE_SPEED>
 				<DIRECTION>0</DIRECTION>
 			</attributes>
 			<actions>
@@ -269,23 +279,24 @@
 					<parameter>MOVE_SPEED</parameter>
 					<parameter>DIRECTION</parameter>
 				</Move>
+				<DeathPackage/>
 			</actions>			
 		</ClownBoss>
-		<TestTower>
-			<dimension>40, 40</dimension>
-			<image>tower.gif</image>
+		<PieTower>
+			<dimension>39, 39</dimension>
+			<image>clowns/pie.gif</image>
 			<type>Tower</type>
 			<attributes>
 				<MOVE_SPEED>50</MOVE_SPEED>
 			</attributes>
 			<attributes>
-				<Health>100</Health>
-				<Cost>10</Cost>
+				<Health>1000</Health>
+				<Cost>200</Cost>
 				<MOVE_SPEED>50</MOVE_SPEED>
 				<FLY_SPEED>300</FLY_SPEED>
 				<RADIUS>100</RADIUS>
 				<AttackType>1.2</AttackType>
-				<Slow>-5</Slow>
+				<Slow>-.5</Slow>
 				<DIRECTION>0</DIRECTION>
 			</attributes>
 			<actions>
@@ -297,33 +308,20 @@
 					</ApplyAttributeBuff>
 			    </FindTargets>
 			</actions>			
-		</TestTower>
-		<VerticalWall>
-			<dimension>20, 80</dimension>
-			<image>tower.gif</image>
+		</PieTower>
+		<Tent>
+			<dimension>40, 40</dimension>
+			<image>clowns/tent.png</image>
 			<type>Tower</type>
 			<attributes>
 			</attributes>
 			<attributes>
-				<Health>100</Health>
-				<Cost>10</Cost>
+				<Health>1000</Health>
+				<Cost>25</Cost>
 			</attributes>
 			<actions>
 			</actions>			
-		</VerticalWall>
-		<HorizontalWall>
-			<dimension>80, 20</dimension>
-			<image>tower.gif</image>
-			<type>Tower</type>
-			<attributes>
-			</attributes>
-			<attributes>
-				<Health>100</Health>
-				<Cost>10</Cost>
-			</attributes>
-			<actions>
-			</actions>			
-		</HorizontalWall>
+		</Tent>
 	</gameelements>
 	<rules>
 		<EnemyReachedEndRule/>
@@ -336,7 +334,7 @@
 			</rules>
 			<actions>
 				<LevelTimerAction>
-					<parameter>15000</parameter>
+					<parameter>45000</parameter>
 				</LevelTimerAction>
 			</actions>
 		</Level0>
@@ -487,12 +485,12 @@
 				<WaveAction>
 					<parameter>1</parameter>
 					<parameter>1000</parameter>
-					
+					<parameter>ClownBoss</parameter>
 				</WaveAction>
 				<LevelTimerAction>
-					<parameter>60000</parameter>
+					<parameter>90000</parameter>
 				</LevelTimerAction>
-				</actions><parameter>ClownBoss</parameter>
+				</actions>
 			</Level11>
 	</levels>
 </Game>
