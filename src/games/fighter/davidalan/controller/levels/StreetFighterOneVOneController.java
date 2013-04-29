@@ -10,6 +10,7 @@ import vooga.fighter.controller.interfaces.ControllerDelegate;
 
 import vooga.fighter.model.objects.AttackObject;
 import vooga.fighter.model.objects.CharacterObject;
+import vooga.fighter.model.objects.EnvironmentObject;
 import vooga.fighter.model.objects.GameObject;
 import vooga.fighter.view.Canvas;
 import vooga.fighter.view.FourPlayerMatchGameLayout;
@@ -49,9 +50,11 @@ public class StreetFighterOneVOneController extends OneVOneController{
     public void playerOneJumpInput (AlertObject alObj)  {
     	CharacterObject myChar=getInputObjects().get(0); 
     	for (GameObject object: getMode().getMyObjects()){
-    		if (myDetector.hitTop(myChar.getCurrentState().getCurrentRectangle(), object.getCurrentState().getCurrentRectangle())){
-    		        getInputObjects().get(0).jump();
-    		        }
+    		if (object instanceof EnvironmentObject){
+	    		if (myDetector.hitTop(myChar.getCurrentState().getCurrentRectangle(), object.getCurrentState().getCurrentRectangle())){
+	    		       	myChar.jump();
+	    		}
+    		}
     	}
     }
 
@@ -60,13 +63,13 @@ public class StreetFighterOneVOneController extends OneVOneController{
     public void playerTwoJumpInput (AlertObject alObj)  {
     	CharacterObject myChar=getInputObjects().get(1); 
     	for (GameObject object: getMode().getMyObjects()){
-    		if (myDetector.hitTop(myChar.getCurrentState().getCurrentRectangle(), object.getCurrentState().getCurrentRectangle())){
-    		        getInputObjects().get(1).jump();
-    		        }
+    		if (object instanceof EnvironmentObject){
+	    		if (myDetector.hitTop(myChar.getCurrentState().getCurrentRectangle(), object.getCurrentState().getCurrentRectangle())){
+	    		        myChar.jump();
+	    		 }
+    		}
     	}
     }
-
-
 
     @InputMethodTarget(name = "player1_attack")
     public void playerOneAttackInput(AlertObject alObj) {
