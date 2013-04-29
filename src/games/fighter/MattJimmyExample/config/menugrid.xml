@@ -15,8 +15,8 @@
     <menumode menuname="CharacterSelectMenu" >
         <menuobject menuobjectname="Ryu" xCoord = "250" yCoord = "150" xSize = "150" ySize = "150" nextState ="MapSelectMenu" gridnum = "1" up="3" down="3" left="2" right="2" />
         <menuobject menuobjectname="Ryu" xCoord = "550" yCoord = "150" xSize = "150" ySize = "150" nextState ="MapSelectMenu" gridnum = "2" up="4" down="4" left="1" right="1" />
-        <menuobject menuobjectname="Ryu" xCoord = "250" yCoord = "450" xSize = "150" ySize = "150" nextState ="MapSelectMenu" gridnum = "3" up="1" down="1" left="4" right="4" />
-        <menuobject menuobjectname="Ryu" xCoord = "550" yCoord = "450" xSize = "150" ySize = "150" nextState ="MapSelectMenu" gridnum = "4" up="2" down="2" left="3" right="3" />                        
+        <menuobject menuobjectname="Ken" xCoord = "250" yCoord = "450" xSize = "150" ySize = "150" nextState ="MapSelectMenu" gridnum = "3" up="1" down="1" left="4" right="4" />
+        <menuobject menuobjectname="Ken" xCoord = "550" yCoord = "450" xSize = "150" ySize = "150" nextState ="MapSelectMenu" gridnum = "4" up="2" down="2" left="3" right="3" />                        
     </menumode>
     <menumode menuname="ScoreScreen" >
         <menuobject menuobjectname="MainMenu" xCoord = "250" yCoord = "150" xSize = "150" ySize = "150" nextState ="MainMenu" gridnum = "1" up="3" down="3" left="2" right="2" />
