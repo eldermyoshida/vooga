@@ -631,12 +631,24 @@ public abstract class InteractiveEntity extends GameEntity implements
 		updateTasks(elapsedTime);
 		updateQueueableTasks(elapsedTime);
 		updateAttack(elapsedTime);
+		//updateOccupy(elapsedTime);
 		getEntityState().update(elapsedTime);
 		getGatherStrategy().update(elapsedTime);
 		setChanged();
 		notifyObservers();
 	}
-
+	
+	private void updateOccupy(double elapsedTime) {
+		List<InteractiveEntity> shelters = findShelters();
+		if (!shelters.isEmpty()) {
+			
+		}
+	}
+	
+	private List<InteractiveEntity> findShelters() {
+		return null;
+	}
+	
 	private void updateAttack(double elapsedTime) {
 		if (myAttackStrategy.hasWeapon()) {
 			Weapon weapon = myAttackStrategy.getCurrentWeapon();
