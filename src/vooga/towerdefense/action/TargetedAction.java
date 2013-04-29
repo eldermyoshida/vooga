@@ -63,6 +63,11 @@ public abstract class TargetedAction extends Action {
 	public List<GameElement> getTargets() {
 		return myTargets;
 	}
+	
+	public GameElement getFirstTarget() {
+		return myTargets.get(0);
+	}
+
 
 	/**
 	 * Updates all targeted follow up action accordingly; adds all targets to
