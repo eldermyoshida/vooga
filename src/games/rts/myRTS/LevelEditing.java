@@ -10,7 +10,7 @@ import vooga.rts.resourcemanager.ResourceManager;
  *
  */
 public class LevelEditing {
-	private static final String RESOURCE_LOCATION = "/vooga/rts/leveleditor/resource/";
+	private static final String RESOURCE_LOCATION = "/vooga/rts/leveleditor/";
 
     public static void main(String[] args) {
     	ImageLoader il = new ImageLoader();
