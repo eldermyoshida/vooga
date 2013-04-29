@@ -13,11 +13,11 @@ import vooga.scroller.view.GameView;
  * @author Ellango, David Liu
  *
  */
-public class Main {
+public class LevelEditor {
 
     public static void main (String[] args) {
 
-        String backgroundPath = "/games/scroller/letteradventure/images/backgrounds";
+        String backgroundPath = "/games/scroller/letteradventure/images/backgrounds/";
         String[] filenames = {"background.png"};
         ScrollingManager sm = new OmniScrollingManager();
         GameView display = new GameView(PlatformerConstants.DEFAULT_WINDOW_SIZE, sm);
