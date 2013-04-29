@@ -12,6 +12,7 @@ import vooga.scroller.sprites.Sprite;
 import vooga.scroller.sprites.animation.state_movement.MoveLeftState;
 import vooga.scroller.sprites.animation.state_movement.MoveRightState;
 import vooga.scroller.sprites.superclasses.Player;
+import vooga.scroller.statistics.Statistic;
 import vooga.scroller.util.Pixmap;
 import vooga.scroller.util.physics.Force;
 import vooga.scroller.util.physics.Gravity;
@@ -34,14 +35,18 @@ public class EPlayer extends Player implements IInputListener{
     private static final String INPUT_LOCATION = "games/scroller/letteradventure/LetterMapping";
     private static final Vector JUMP_VELOCITY = new Vector(Sprite.UP_DIRECTION, 100);
     private static final double MAX_JUMP_VELOCITY = 0.5;
-    
-    private int myScore = 10;
+    private static final int INITIAL_SCORE = 10;
+    private static final int SCORE_LOSS = 1;
+
     private Force myGravity;
+    private Statistic myScore;
     
     public EPlayer(GameView gameView, ScrollingManager sm) {
         super(E_VIEW, SpriteLibrary.DEFAULT_SIZE, gameView, sm, HEALTH, DAMAGE);
         myGravity = new Gravity(this);
         intializeStates();
+        myScore = new Score(INITIAL_SCORE);
+        
     }
     
     /**
@@ -72,9 +77,7 @@ public class EPlayer extends Player implements IInputListener{
     public void handleDeath (Level level) {
         this.setCenter(level.getStartPoint().getX(), level.getStartPoint().getY());
         this.setHealth(HEALTH);
-        if (myScore > 0) {
-            myScore--;
-        }
+        myScore.removeValue(SCORE_LOSS);
     }
     
     
@@ -111,12 +114,12 @@ public class EPlayer extends Player implements IInputListener{
         this.getLevel().addSprite(new Projectile());
     }
     
-    /**
-     * Returns the score of the player after the end of the game.
-     * @return
-     */
-    public int getScore() {
-        return myScore;
-    }
+//    /**
+//     * Returns the score of the player after the end of the game.
+//     * @return
+//     */
+//    public int getScore() {
+//        return myScore;
+//    }
 
 }
