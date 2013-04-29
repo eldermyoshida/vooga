@@ -79,19 +79,16 @@ public class CanProduce implements ProductionStrategy {
     public void createProductionActions (final InteractiveEntity producer) {
         for (final InteractiveEntity producable : myProducables) {
             String commandName = "make " + producable.getInfo().getName();
-            final IndividualResourceManager playerResources =
-                    GameState.getPlayers().getPlayer(producer.getPlayerID()).getResources();
             final Map<String, Integer> costMap = producable.getInfo().getCost();
-            System.out.println("COST " + costMap);
-            System.out.println("HAVE " + playerResources.getResources());
             producer.addAction(commandName, new InteractiveAction(producer) {
-
                 @Override
                 public void update (Command command) {
                 }
 
                 @Override
                 public void apply () {
+                    IndividualResourceManager playerResources =
+                            GameState.getPlayers().getPlayer(producer.getPlayerID()).getResources();
                     if (playerResources.has(costMap)) {
                         playerResources.charge(costMap);
                         System.out.println("HAVE " + playerResources.getResources());
