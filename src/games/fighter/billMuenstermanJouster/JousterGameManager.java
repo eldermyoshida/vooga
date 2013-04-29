@@ -1,11 +1,10 @@
 package games.fighter.billMuenstermanJouster;
 
 import arcade.games.ArcadeInteraction;
+import vooga.fighter.controller.GameManager;
 import vooga.fighter.controller.gameinformation.GameInfo;
 import vooga.fighter.model.loaders.MapLoader;
 import vooga.fighter.view.Canvas;
-import games.fighter.billMuenstermanJouster.controller.GameManager;
-import games.fighter.billMuenstermanJouster.controller.GameManagerRunAlone;
 
 public class JousterGameManager extends GameManager {
 	
@@ -18,6 +17,7 @@ public class JousterGameManager extends GameManager {
 	/**
 	 * The one method NEEDED to be overwritten by game developer
 	 */
+	@Override
 	protected void setup(){
 		setFilePathway(PATHWAY);
 		setCanvas(new Canvas(SIZE));
