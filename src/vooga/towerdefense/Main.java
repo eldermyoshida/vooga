@@ -11,11 +11,7 @@ public class Main {
     }
     
     public static void main(String[] args) throws IllegalArgumentException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException {
-<<<<<<< HEAD
         new Controller("English", "/src/vooga/towerdefense/resources/ClownsGame.xml");
-=======
-        new Controller("English", "/src/vooga/towerdefense/resources/PokemonSwarm.xml");
->>>>>>> 27723a754e12161c2bf059aafb17ec8adc496bff
     }
 }
 

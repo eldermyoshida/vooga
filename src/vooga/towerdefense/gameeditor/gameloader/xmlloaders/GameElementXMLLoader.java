@@ -92,7 +92,6 @@ public class GameElementXMLLoader {
     
     private Pixmap loadElementImage (Element imageElement) {
         String imageName = myXMLTool.getContent(imageElement);
-        System.out.println(IMAGE_PATH + imageName);
         return new Pixmap(IMAGE_PATH + imageName);
     }
     
