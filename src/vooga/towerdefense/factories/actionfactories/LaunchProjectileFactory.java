@@ -1,8 +1,11 @@
 package vooga.towerdefense.factories.actionfactories;
 
+import java.util.Map;
+
 import vooga.towerdefense.action.Action;
 import vooga.towerdefense.action.attack.LaunchProjectile;
 import vooga.towerdefense.factories.ActionAnnotation;
+import vooga.towerdefense.factories.elementfactories.GameElementFactory;
 import vooga.towerdefense.gameelements.GameElement;
 
 /**
@@ -14,7 +17,13 @@ import vooga.towerdefense.gameelements.GameElement;
 
 public class LaunchProjectileFactory extends ActionFactory {
 
-	private String myFactoryName;
+	/*
+	 * private String myFactoryName; private String myNumProjectile; private
+	 * String myCoolDownReference;
+	 */
+	private int myNumUnits;
+	private int myCooldown;
+	private String myFactory;
 
 	/**
 	 * constructor
@@ -22,9 +31,16 @@ public class LaunchProjectileFactory extends ActionFactory {
 	 * @param factory
 	 */
 	public LaunchProjectileFactory(
-			@ActionAnnotation(name = "projectile", value = "name") String factory) {
+			@ActionAnnotation(name = "projectile", value = "name") String factory,
+			@ActionAnnotation(name = "num_of_projectile", value = "attribute") String numUnits,
+			@ActionAnnotation(name = "cooldown", value = "attribute") String cooldown) {
 		super();
-		myFactoryName = factory;
+		myNumUnits = Integer.parseInt(numUnits);
+		myCooldown = Integer.parseInt(cooldown);
+		myFactory = factory;
+		// myFactoryName = factory;
+		// myNumProjectile = numProjectile;
+		// myCoolDownReference = coolDownReference;
 	}
 
 	/**
@@ -33,8 +49,15 @@ public class LaunchProjectileFactory extends ActionFactory {
 	 */
 	@Override
 	protected Action buildAction(GameElement e) {
-		return new LaunchProjectile(getMap(), e.getCenter(), e
-				.getAttributeManager().getGameElementFactory(myFactoryName));
+		// return new
+		// LaunchProjectile(e.getAttributeManager().getAttribute(myCoolDownReference),
+		// e.getAttributeManager().getAttribute(myNumProjectile), e.getCenter(),
+		// e
+		// .getAttributeManager().getGameElementFactory(myFactoryName),
+		// getMap());
+		return new LaunchProjectile( myCooldown, myNumUnits,e.getCenter(), e
+				.getAttributeManager().getGameElementFactory(myFactory),
+				getMap());
 	}
 
 }

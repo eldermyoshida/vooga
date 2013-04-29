@@ -6,7 +6,7 @@ import java.awt.Rectangle;
 import java.awt.geom.Point2D;
 
 import util.Location;
-import vooga.towerdefense.util.Pixmap;
+import util.Pixmap;
 import util.Vector;
 
 

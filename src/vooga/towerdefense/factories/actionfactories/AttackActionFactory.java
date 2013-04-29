@@ -53,7 +53,7 @@ public class AttackActionFactory extends ActionFactory {
         myFinder = new FindTargetsFactory(myRadius);
         myFilter = new FilterTargetsFactory(myTargets, myNumberOfTargets);
         mySpeed = new PeriodicActionFactory(myAttackSpeed);
-        myProjectiles = new LaunchProjectileFactory(myProjectileType);
+       // myProjectiles = new LaunchProjectileFactory(myProjectileType);
     }
 
     /**

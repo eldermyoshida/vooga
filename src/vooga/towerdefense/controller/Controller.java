@@ -14,7 +14,7 @@ import java.util.ResourceBundle;
 import java.util.Set;
 
 import util.Location;
-import vooga.towerdefense.util.Pixmap;
+import util.Pixmap;
 import vooga.towerdefense.attributes.AttributeConstantsEnum;
 import vooga.towerdefense.controller.modes.BuildMode;
 import vooga.towerdefense.controller.modes.ControlMode;

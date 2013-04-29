@@ -9,7 +9,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import util.Location;
-import vooga.towerdefense.util.Pixmap;
+import util.Pixmap;
 import vooga.rts.util.Vector;
 import vooga.towerdefense.action.Action;
 import vooga.towerdefense.action.movement.FollowPath;
@@ -308,6 +308,10 @@ public class GameMap {
 			if (gameElement != null) {
 				if (Vector.distanceBetween(source, gameElement.getCenter()) <= radius) {
 					elementsWithinRadius.add(gameElement);
+				}
+				if (gameElement.getCenter() == source){
+					elementsWithinRadius.remove(gameElement);
+				
 				}
 			}
 		}

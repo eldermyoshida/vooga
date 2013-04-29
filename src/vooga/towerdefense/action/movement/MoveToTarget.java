@@ -22,6 +22,7 @@ public class MoveToTarget extends TargetedAction {
 
 	public MoveToTarget(Location start, Location destination,
 			Attribute movespeed) {
+		super();
 		mySpeed = movespeed;
 		myCenter = start;
 		myDestination = destination;
@@ -29,20 +30,13 @@ public class MoveToTarget extends TargetedAction {
 
 	@Override
 	public void executeAction(double elapsedTime) {
-		if (myDestination == null) {
-			myDestination = getTargets().get(0).getCenter();
-		}
-		myHeading = new Vector(Vector.angleBetween(myCenter, myDestination),
+		myDestination = getTargets().get(0).getCenter();		
+		myHeading = new Vector(Vector.angleBetween(myDestination,myCenter),
 				mySpeed.getValue());
 		Vector v = new Vector(myHeading.getDirection(), mySpeed.getValue());
 		v.scale(elapsedTime / 1000);
 		myCenter.translate(v);
-		if (myCenter.distance(myDestination) < myHeading.getMagnitude()) {
-			setEnabled(false);
-			myCenter.setLocation(myDestination);
-		} else {
-			myCenter.translate(myHeading);
-		}
+		updateTargetedFollowUpActions(getTargets());
 	}
 
 }

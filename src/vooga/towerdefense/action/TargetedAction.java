@@ -48,6 +48,12 @@ public abstract class TargetedAction extends Action {
 	public void setTargets(List<GameElement> newTargets) {
 		myTargets = newTargets;
 	}
+	
+	public void setTarget(GameElement newTarget){
+		List<GameElement> target = new ArrayList<GameElement>();
+		target.add(newTarget);
+		setTargets(target);
+	}
 
 	/**
 	 * Returns current targets list
@@ -67,7 +73,8 @@ public abstract class TargetedAction extends Action {
 	 */
 	public void updateTargetedFollowUpActions(List<GameElement> targets) {
 		for (TargetedAction a : getTargetedFollowUpActions()) {
-			a.addTargets(targets);
+			a.setTargets(targets);
+			System.out.printf("update targets size to be %s\n", targets.size());
 		}
 	}
 }

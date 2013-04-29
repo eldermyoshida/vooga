@@ -8,7 +8,7 @@ import vooga.towerdefense.action.Action;
 import vooga.towerdefense.action.TargetedAction;
 import vooga.towerdefense.attributes.AttributeManager;
 import util.Location;
-import vooga.towerdefense.util.Pixmap;
+import util.Pixmap;
 import vooga.towerdefense.util.Sprite;
 
 /**
@@ -81,7 +81,7 @@ public class GameElement extends Sprite {
 	 */
 	public List<TargetedAction> getTargetedActions() {
 		List<TargetedAction> actions = new ArrayList<TargetedAction>();
-		for (Action a : actions) {
+		for (Action a : myActions) {
 			if (a.isTargetTracking()) {
 				actions.add((TargetedAction) a);
 			}

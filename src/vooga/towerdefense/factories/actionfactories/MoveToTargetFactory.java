@@ -2,6 +2,7 @@ package vooga.towerdefense.factories.actionfactories;
 
 import vooga.towerdefense.action.Action;
 import vooga.towerdefense.action.movement.MoveToTarget;
+import vooga.towerdefense.factories.ActionAnnotation;
 import vooga.towerdefense.gameelements.GameElement;
 
 /**
@@ -13,24 +14,33 @@ import vooga.towerdefense.gameelements.GameElement;
  * 
  */
 public class MoveToTargetFactory extends ActionFactory {
-	private String myMovespeedReference;
+	private String myMoveSpeedReference;
 
-	public MoveToTargetFactory(String movespeedReference) {
+	public MoveToTargetFactory(
+			@ActionAnnotation(name = "move speed", value = "attribute") String moveSpeedReference) {
 		super();
-		myMovespeedReference = movespeedReference;
+		myMoveSpeedReference = moveSpeedReference;
 
 	}
 
-	@Override
+	/*@Override
 	public Action buildTargetedAction(GameElement element, GameElement target) {
 		return new MoveToTarget(element.getCenter(), target.getCenter(),
 				element.getAttributeManager()
 						.getAttribute(myMovespeedReference));
-	}
+	}*/
 
 	@Override
 	protected Action buildAction(GameElement e) {
-		return null;
+		System.out.println("building move to target action\n\n\n\n");
+		return new MoveToTarget(e.getCenter(), e.getCenter(),
+				e.getAttributeManager()
+						.getAttribute(myMoveSpeedReference));
+		/*Action action = new Move(e.getCenter(), e
+				.getAttributeManager().getAttribute(myMoveSpeedReference),
+				e
+				.getAttributeManager().getAttribute(AttributeConstantsEnum.DIRECTION.name()));
+		return action;*/
 	}
 
 }
