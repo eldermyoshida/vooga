@@ -29,6 +29,74 @@
 					<resourceAmount>30</resourceAmount>
 				</upgradeNode>
 			</type>
+			<type>
+				<name>Attack</name>
+				<upgradeNode>
+					<parent>Attack</parent>
+					<nodeName>RangeBoost1</nodeName>
+					<object>Range</object>
+					<value>100</value>
+					<resourceCostType>Resource</resourceCostType>
+					<resourceAmount>30</resourceAmount>
+				</upgradeNode>
+				<upgradeNode>
+					<parent>RangeBoost1</parent>
+					<nodeName>DamageBoost1</nodeName>
+					<object>Damage</object>
+					<value>100</value>
+					<resourceCostType>Resource</resourceCostType>
+					<resourceAmount>30</resourceAmount>
+				</upgradeNode>
+			</type>
+		</tree>
+		<tree>
+			<treeName>RegularUpgrade</treeName>
+			<type>
+				<name>Health</name>
+				<upgradeNode>
+					<parent>Health</parent>
+					<nodeName>Boost1</nodeName>
+					<object>Health</object>
+					<value>50</value>
+					<resourceCostType>Resource</resourceCostType>
+					<resourceAmount>30</resourceAmount>
+				</upgradeNode>
+				<upgradeNode>
+					<parent>Boost1</parent>
+					<nodeName>Boost2</nodeName>
+					<object>Health</object>
+					<value>100</value>
+					<resourceCostType>Resource</resourceCostType>
+					<resourceAmount>30</resourceAmount>
+				</upgradeNode>
+			</type>
+			<type>
+				<name>Attack</name>
+				<upgradeNode>
+					<parent>Attack</parent>
+					<nodeName>CanAttack</nodeName>
+					<object>AttackStrategy</object>
+					<value>0</value>
+					<resourceCostType>Resource</resourceCostType>
+					<resourceAmount>30</resourceAmount>
+				</upgradeNode>
+				<upgradeNode>
+					<parent>Attack</parent>
+					<nodeName>RangeBoost1</nodeName>
+					<object>Range</object>
+					<value>100</value>
+					<resourceCostType>Resource</resourceCostType>
+					<resourceAmount>30</resourceAmount>
+				</upgradeNode>
+				<upgradeNode>
+					<parent>Attack</parent>
+					<nodeName>DamageBoost1</nodeName>
+					<object>Damage</object>
+					<value>100</value>
+					<resourceCostType>Resource</resourceCostType>
+					<resourceAmount>30</resourceAmount>
+				</upgradeNode>
+			</type>
 		</tree>
 	</upgrade>
 	<resources src = "vooga.rts.gamedesign.sprite.gamesprites.Resource">
@@ -70,7 +138,7 @@
 			<buildtime>5</buildtime>
 			<occupy>cannotbeoccupied</occupy>
 			<upgrade>canupgrade</upgrade>
-			<upgradeTreeName>SoldierUpgrade</upgradeTreeName>
+			<upgradeTreeName>RegularUpgrade</upgradeTreeName>
 			<produce>Marine</produce>
 			<myweapons></myweapons>
 			<information>
@@ -89,8 +157,8 @@
 			<health>1000</health>
 			<buildtime>5</buildtime>
 			<occupy>canbeoccupied</occupy>
-			<upgrade>canupgrade</upgrade>
-			<upgradeTreeName>SoldierUpgrade</upgradeTreeName>
+			<upgrade>cannotupgrade</upgrade>
+			<upgradeTreeName></upgradeTreeName>
 			<produce>Marine</produce>
 			<myweapons></myweapons>
 			<information>
@@ -139,7 +207,7 @@
 			<gather>cangather</gather>
 			<occupy>cannotbeoccupied</occupy>
 			<upgrade>canupgrade</upgrade>
-			<upgradeTreeName>SoldierUpgrade</upgradeTreeName>
+			<upgradeTreeName>RegularUpgrade</upgradeTreeName>
 			<produce></produce>
 			<myweapons></myweapons>
 			<information>
@@ -151,9 +219,6 @@
 				</cost>
 			</information>			
 		</unit>
-		<customunit src = "vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Soldier">
-			<name>soldier</name>
-		</customunit>
 	</units>
 	<weapons src = "vooga.rts.gamedesign.weapon.Weapon">
 			<weapon>
