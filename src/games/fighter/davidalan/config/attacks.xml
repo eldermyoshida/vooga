@@ -66,10 +66,10 @@
 </attack>
 <attack attackName="hadouken" damage="100" duration="2000" movespeed="100" default="default">
     <state stateName="default">
-        <frame image = "fighter/images/hadouken1.gif">
+        <frame image = "games/fighter/davidalan/images/hadouken1.gif">
             <hitbox cornerX="0" cornerY="0" width="40" height="40"/>
         </frame>
-        <frame image = "fighter/images/hadouken2.gif">
+        <frame image = "games/fighter/davidalan/images/hadouken2.gif">
             <hitbox cornerX="0" cornerY="0" width="40" height="40"/>
         </frame>
     </state>
