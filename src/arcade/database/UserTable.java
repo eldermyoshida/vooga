@@ -9,6 +9,7 @@ import java.util.List;
 /**
  * Creates and updates user table
  * @author Natalia Carvalho
+ * @editor Joshua Waldman
  */
 public class UserTable extends Table {
 
