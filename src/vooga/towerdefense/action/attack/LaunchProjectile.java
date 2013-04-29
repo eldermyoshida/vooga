@@ -1,9 +1,5 @@
 package vooga.towerdefense.action.attack;
-
-import java.util.List;
-
 import vooga.towerdefense.action.TargetedAction;
-import vooga.towerdefense.action.waveactions.WaveAction;
 import vooga.towerdefense.attributes.Attribute;
 import vooga.towerdefense.factories.elementfactories.GameElementFactory;
 import vooga.towerdefense.gameelements.GameElement;
@@ -11,69 +7,76 @@ import vooga.towerdefense.model.GameMap;
 import util.Location;
 
 /**
- * Creates a projectile aimed at a target, target needs to be predefined by FindTarget action.
- * Projectile created continues the follow up actions.
+ * Creates projectiles aimed at a target. Targets info pass on to projectiles created.
+ * Projectiles created gave its own follow up action predfined by XML.
  * 
- * @author Matthew Roy
- * @author Zhen Gou
  * @author Xu Rui
  */
 public class LaunchProjectile extends TargetedAction {
 
-	private int myUnitsRemaining;
-	private int myCooldown;
-	private int myClock;
+	private Attribute myUnitsRemaining;
+	private Attribute myCooldown;
 	private GameElementFactory myProjectileFactory;
-	private Location myStart;
+	
+	private Location mySource;
 	private GameMap myMap;
-	//private List<GameElement> myTargets;
+	private double myTimer;
+	private boolean targetDetectionOn; //true if fire only upon target detection
 
-    public LaunchProjectile (int cooldown, int numProjectiles, Location startLocation, GameElementFactory projectileFactory, GameMap map) {
-    	//super((int)cooldown.getValue(), (int) numProjectiles.getValue(), projectileFactory, map);
+	public LaunchProjectile(Attribute cooldown, Attribute numProjectiles,
+			Location startLocation, GameElementFactory projectileFactory,
+			GameMap map, boolean targetdetection) {
 		super();
-		myUnitsRemaining = numProjectiles;
 		myCooldown = cooldown;
-		myClock = 0;
+		myUnitsRemaining = numProjectiles;
+		mySource = startLocation;
 		myProjectileFactory = projectileFactory;
-    	myStart = startLocation;
-    	myMap = map;
-    }
+		myMap = map;
+		myTimer = 0;
+		targetDetectionOn = targetdetection;
+	}
 
-    /**
-     * Creates a projectile with action of shooting at targets. 
-     * 
-     * @param elapsedTime 
-     */
-    public void spawnUnit() {
-    	System.out.println("spawning unit");
-    	//myTargets = getTargets();
-        GameElement projectile = myProjectileFactory.createElement(myStart);
-        //System.out.printf("projectile targeted actions size %d\n", projectile.getTargetedActions().size());
-        for (TargetedAction a: projectile.getTargetedActions()){
-        	a.setTarget(getTargets().remove(0));
-        	System.out.printf("passed on to projectile targets size %d\n", getTargets().size());
-        }
-        myMap.addGameElement(projectile);
-        myUnitsRemaining--;
-    }
-    
-    @Override
-    public void update(double elapsedTime){
-    	setEnabled(true);
-    	executeAction(elapsedTime);
-    }
+	@Override
+	public void update(double elapsedTime) {
+		setEnabled(checkLaunchCondition());
+		if (isEnabled()){
+			executeAction(elapsedTime);
+		}
+	}
+
 	@Override
 	public void executeAction(double elapsedTime) {
-		System.out.printf("launchprojectile targets are %d\n\n", getTargets().size());
-		if (myUnitsRemaining == 0 || getTargets().isEmpty()) {
-			setEnabled(false);
-		} else if (myClock > myCooldown) {
-			spawnUnit();
-			myClock = 0;
+		if (myTimer > myCooldown.getValue()) {
+			spawnProjectile();
+			myTimer = 0;
 		}
-		myClock += elapsedTime;
-		
-		if(myUnitsRemaining <= 0) {
-			setEnabled(false);
-		}	}
+		myTimer += elapsedTime;
+	}
+	
+	/**
+	 * Returns true only if remaining projectiles >0 and there are targets.
+	 * 
+	 * @return
+	 */
+	public boolean checkLaunchCondition(){
+		boolean checker = !(myUnitsRemaining.getValue()<=0);
+		if (targetDetectionOn){
+			checker = checker && !getTargets().isEmpty();
+		}
+		return checker;
+	}
+	
+	/**
+	 * Creates a projectile with action of shooting at targets.
+	 * 
+	 * @param elapsedTime
+	 */
+	public void spawnProjectile() {
+		GameElement projectile = myProjectileFactory.createElement(mySource);
+		for (TargetedAction a : projectile.getTargetedActions()) {
+			a.setSingleTarget(getSingleTarget());
+		}
+		myMap.addGameElement(projectile);
+		myUnitsRemaining.modifyValue(-1);
+	}
 }

@@ -7,40 +7,31 @@ import vooga.towerdefense.gameelements.GameElement;
 
 /**
  * Factory that creates a MoveToTarget action, constructor needs a String
- * referencing which attribute to be used as move speed. Also call
- * buildTargetedAction to create the action INSTEAD OF buildAction.
+ * referencing which attribute to be used as move speed. 
+ * Also set boolean to indicate whether projectile should follow target upon hit,
+ * or just move in a straight line in general direction.
  * 
- * @author Zhen Gou
+ * @author Xu Rui
  * 
  */
 public class MoveToTargetFactory extends ActionFactory {
 	private String myMoveSpeedReference;
+	private int isTargetTracking;
 
 	public MoveToTargetFactory(
-			@ActionAnnotation(name = "move speed", value = "attribute") String moveSpeedReference) {
+			@ActionAnnotation(name = "move speed", value = "attribute") String moveSpeedReference,
+			@ActionAnnotation(name = "move speed", value = "attribute") String targetTracking) {
 		super();
 		myMoveSpeedReference = moveSpeedReference;
+		isTargetTracking = Integer.parseInt(targetTracking);
 
 	}
 
-	/*@Override
-	public Action buildTargetedAction(GameElement element, GameElement target) {
-		return new MoveToTarget(element.getCenter(), target.getCenter(),
-				element.getAttributeManager()
-						.getAttribute(myMovespeedReference));
-	}*/
-
 	@Override
 	protected Action buildAction(GameElement e) {
-		System.out.println("building move to target action\n\n\n\n");
-		return new MoveToTarget(e.getCenter(), e.getCenter(),
-				e.getAttributeManager()
-						.getAttribute(myMoveSpeedReference));
-		/*Action action = new Move(e.getCenter(), e
+		return new MoveToTarget(e.getCenter(), e.getCenter(), e
 				.getAttributeManager().getAttribute(myMoveSpeedReference),
-				e
-				.getAttributeManager().getAttribute(AttributeConstantsEnum.DIRECTION.name()));
-		return action;*/
+				(isTargetTracking == 1));
 	}
 
 }

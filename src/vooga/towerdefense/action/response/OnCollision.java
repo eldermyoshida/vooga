@@ -22,6 +22,7 @@ public class OnCollision extends TargetedAction {
 
 	public OnCollision(GameMap map, GameElement initiator,
 			Attribute targetAffiliation) {
+		super();
 		myInitiator = initiator;
 		myTargetAffiliationID = targetAffiliation;
 		myMap = map;
@@ -37,10 +38,8 @@ public class OnCollision extends TargetedAction {
 
 	@Override
 	public void executeAction(double elapsedTime) {
-		System.out.printf("on collision targets are %d\n", getTargets().size());
-		// updateTargetedFollowUpActions(getTargets());
-		//myMap.removeGameElement(getTargets().get(0));
-		//myMap.removeGameElement(myInitiator);
+		this.setEnabled(false);
+		updateTargetedFollowUpActions(getTargets());
 	}
 
 	/**
@@ -49,12 +48,9 @@ public class OnCollision extends TargetedAction {
 	 * @return
 	 */
 	public boolean collisionDetected() {
-		System.out.printf("collision detected found %d targets\n", getTargets()
-				.size());
 		for (GameElement target : getTargets()) {
-			System.out.println(myInitiator.intersects(target));
-			if (myInitiator.intersects(target) || checkTargetMatch(target)) {
-				System.out.println("COLLISION DETECTED!!!!!!");
+			if (myInitiator.intersects(target) && checkTargetMatch(target)) {
+				myMap.removeGameElement(target);
 				return true;
 			}
 		}
@@ -69,8 +65,6 @@ public class OnCollision extends TargetedAction {
 	 * @return
 	 */
 	private boolean checkTargetMatch(GameElement target) {
-		// System.out.println(myTargetAffiliationID.getValue());
-		// System.out.println(target.getAttributeManager().getAttribute(AttributeConstantsEnum.AFFILIATION.getStatusCode()).getValue());
 		return (target
 				.getAttributeManager()
 				.getAttribute(

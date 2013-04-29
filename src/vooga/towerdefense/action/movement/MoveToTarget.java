@@ -7,9 +7,9 @@ import util.Vector;
 
 /**
  * Action to move from one location to another location, or to a target. If
- * location is undefined, move to target.
+ * followTarget is true, projectile follows target, else it moves in straight line 
+ * in target's direction. 
  * 
- * @author Matthew Roy
  * @author Xu Rui
  * 
  */
@@ -18,22 +18,25 @@ public class MoveToTarget extends TargetedAction {
 	private Vector myHeading;
 	private Location myCenter;
 	private Location myDestination;
+
 	private Attribute mySpeed;
+	private boolean isTargetTracking;
 	private boolean headingSet;
 
 	public MoveToTarget(Location start, Location destination,
-			Attribute movespeed) {
+			Attribute movespeed, boolean followTarget) {
 		super();
 		mySpeed = movespeed;
 		myCenter = start;
 		myDestination = destination;
+		isTargetTracking = followTarget;
 		headingSet = false;
 	}
 
 	@Override
 	public void executeAction(double elapsedTime) {
-		myDestination = getFirstTarget().getCenter();
-		setFollowTarget(false);
+		myDestination = getSingleTarget().getCenter();
+		setFollowTarget(isTargetTracking);
 		Vector v = new Vector(myHeading.getDirection(), mySpeed.getValue());
 		v.scale(elapsedTime / 1000);
 		myCenter.translate(v);

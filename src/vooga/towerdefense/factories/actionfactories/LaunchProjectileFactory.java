@@ -1,11 +1,9 @@
 package vooga.towerdefense.factories.actionfactories;
 
-import java.util.Map;
 
 import vooga.towerdefense.action.Action;
 import vooga.towerdefense.action.attack.LaunchProjectile;
 import vooga.towerdefense.factories.ActionAnnotation;
-import vooga.towerdefense.factories.elementfactories.GameElementFactory;
 import vooga.towerdefense.gameelements.GameElement;
 
 /**
@@ -16,14 +14,10 @@ import vooga.towerdefense.gameelements.GameElement;
  */
 
 public class LaunchProjectileFactory extends ActionFactory {
-
-	/*
-	 * private String myFactoryName; private String myNumProjectile; private
-	 * String myCoolDownReference;
-	 */
-	private int myNumUnits;
-	private int myCooldown;
+	private String myNumProjectiles;
+	private String myCooldown;
 	private String myFactory;
+	private int targetDetectionOn;
 
 	/**
 	 * constructor
@@ -33,14 +27,14 @@ public class LaunchProjectileFactory extends ActionFactory {
 	public LaunchProjectileFactory(
 			@ActionAnnotation(name = "projectile", value = "name") String factory,
 			@ActionAnnotation(name = "num_of_projectile", value = "attribute") String numUnits,
-			@ActionAnnotation(name = "cooldown", value = "attribute") String cooldown) {
+			@ActionAnnotation(name = "cooldown", value = "attribute") String cooldown,
+			@ActionAnnotation(name = "targetDetection", value = "attribute") String targetDetection) {
 		super();
-		myNumUnits = Integer.parseInt(numUnits);
-		myCooldown = Integer.parseInt(cooldown);
+		myNumProjectiles = numUnits;
+		myCooldown = cooldown;
 		myFactory = factory;
-		// myFactoryName = factory;
-		// myNumProjectile = numProjectile;
-		// myCoolDownReference = coolDownReference;
+		targetDetectionOn = Integer.parseInt(targetDetection);
+		
 	}
 
 	/**
@@ -49,15 +43,8 @@ public class LaunchProjectileFactory extends ActionFactory {
 	 */
 	@Override
 	protected Action buildAction(GameElement e) {
-		// return new
-		// LaunchProjectile(e.getAttributeManager().getAttribute(myCoolDownReference),
-		// e.getAttributeManager().getAttribute(myNumProjectile), e.getCenter(),
-		// e
-		// .getAttributeManager().getGameElementFactory(myFactoryName),
-		// getMap());
-		return new LaunchProjectile( myCooldown, myNumUnits,e.getCenter(), e
-				.getAttributeManager().getGameElementFactory(myFactory),
-				getMap());
+		return new LaunchProjectile( e.getAttribute(myCooldown),e.getAttribute(myNumProjectiles),e.getCenter(), e.getGameElementFactory(myFactory),
+				getMap(), targetDetectionOn==1);
 	}
 
 }
