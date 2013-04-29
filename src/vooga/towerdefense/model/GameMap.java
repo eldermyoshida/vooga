@@ -15,7 +15,7 @@ import vooga.towerdefense.action.Action;
 import vooga.towerdefense.action.movement.FollowPath;
 import vooga.towerdefense.attributes.AttributeConstantsEnum;
 import vooga.towerdefense.attributes.AttributeManager;
-import vooga.towerdefense.gameelements2.GameElement;
+import vooga.towerdefense.gameelements.GameElement;
 
 /**
  * The GameMap holds all of the state corresponding to an entire game at a given

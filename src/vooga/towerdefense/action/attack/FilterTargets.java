@@ -6,7 +6,7 @@ import java.util.List;
 import vooga.towerdefense.action.TargetedAction;
 import vooga.towerdefense.attributes.Attribute;
 import vooga.towerdefense.attributes.AttributeConstantsEnum;
-import vooga.towerdefense.gameelements2.GameElement;
+import vooga.towerdefense.gameelements.GameElement;
 
 /**
  * Filters targets using an affiliation system; only retain targets with

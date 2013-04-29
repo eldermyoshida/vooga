@@ -1,4 +1,4 @@
-package vooga.towerdefense.gameelements2;
+package vooga.towerdefense.gameelements;
 
 import java.awt.Dimension;
 import java.awt.Graphics2D;

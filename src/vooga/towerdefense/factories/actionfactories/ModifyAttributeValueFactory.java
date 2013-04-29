@@ -4,7 +4,7 @@ import vooga.towerdefense.action.Action;
 import vooga.towerdefense.action.attack.ModifyAttributeValue;
 import vooga.towerdefense.attributes.Attribute;
 import vooga.towerdefense.factories.ActionAnnotation;
-import vooga.towerdefense.gameelements2.GameElement;
+import vooga.towerdefense.gameelements.GameElement;
 
 /**
  * This action factory builds a ModifyAttributeValue action.

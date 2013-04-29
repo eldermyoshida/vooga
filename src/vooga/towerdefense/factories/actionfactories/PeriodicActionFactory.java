@@ -3,7 +3,7 @@ package vooga.towerdefense.factories.actionfactories;
 import vooga.towerdefense.action.Action;
 import vooga.towerdefense.action.actionlist.PeriodicAction;
 import vooga.towerdefense.factories.ActionAnnotation;
-import vooga.towerdefense.gameelements2.GameElement;
+import vooga.towerdefense.gameelements.GameElement;
 
 /**
  * Factory that creates periodicAction, the String in constructor is the desired

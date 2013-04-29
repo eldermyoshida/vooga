@@ -1,7 +1,7 @@
 package vooga.towerdefense.action.actionlist;
 
 import vooga.towerdefense.action.Action;
-import vooga.towerdefense.gameelements2.GameElement;
+import vooga.towerdefense.gameelements.GameElement;
 import vooga.towerdefense.model.GameMap;
 
 /**

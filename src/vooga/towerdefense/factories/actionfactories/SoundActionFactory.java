@@ -4,7 +4,7 @@ import util.Sound;
 import vooga.towerdefense.action.Action;
 import vooga.towerdefense.action.actionlist.SoundAction;
 import vooga.towerdefense.factories.ActionAnnotation;
-import vooga.towerdefense.gameelements2.GameElement;
+import vooga.towerdefense.gameelements.GameElement;
 
 /**
  * Factory that creates a sound action.

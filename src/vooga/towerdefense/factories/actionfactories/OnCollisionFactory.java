@@ -3,7 +3,7 @@ package vooga.towerdefense.factories.actionfactories;
 import vooga.towerdefense.action.Action;
 import vooga.towerdefense.action.response.OnCollision;
 import vooga.towerdefense.factories.ActionAnnotation;
-import vooga.towerdefense.gameelements2.GameElement;
+import vooga.towerdefense.gameelements.GameElement;
 
 /**
  * Factory that creates onCollision action.
