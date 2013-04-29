@@ -55,7 +55,6 @@ public class AttackObject extends GameObject {
                     other.getProperty(ModelConstants.ATTACK_PROPERTY_DAMAGE));
         addProperty(ModelConstants.ATTACK_PROPERTY_DURATION, 
                     other.getProperty(ModelConstants.ATTACK_PROPERTY_DURATION));
-        System.out.println(getProperty(ModelConstants.ATTACK_PROPERTY_DIRECTION));
         this.myEffects = other.myEffects;
         this.myOwner = other.myOwner;
         this.myCounter = new Counter(getProperty(ModelConstants.ATTACK_PROPERTY_DURATION));   
@@ -100,6 +99,12 @@ public class AttackObject extends GameObject {
     	myCounter.decrementCounter();
     }
     
+    /**
+     * No functionality for update state as of now
+     */
+    public void updateState(){
+    	
+    }
     /**
      * Adds the initial acceleration of the attack object to the location's list
      * of accelerations.

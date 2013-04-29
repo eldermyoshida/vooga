@@ -103,5 +103,9 @@
             </frame>
         </state>
         <attack attackName = "weakPunch" />
+        <attack attackName = "medPunch" />
+        <attack attackName = "weakKick" />
+        <attack attackName = "medKick" />
+        <attack attackName = "hadouken" />
     </character>
 </characters>
