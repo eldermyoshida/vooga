@@ -65,6 +65,8 @@ public class OneVOne extends OneVOneController {
 	    		GameInfo gameinfo, String filepath) {
 	    	super(name, frame, manager, gameinfo, filepath);
 	    	myCollisionDetector = new CollisionDetector();
+	        myPlayerOneTicker = 0;
+	        myPlayerTwoTicker = 0;
 	    }
 
 	    /**
@@ -74,8 +76,6 @@ public class OneVOne extends OneVOneController {
 		public Controller getController(String name, Canvas frame, ControllerDelegate manager, GameInfo gameinfo,
 	                                    String filepath) {
 	        Controller controller = new OneVOne(name, frame, manager, gameinfo, filepath);
-	        myPlayerOneTicker = 0;
-	        myPlayerTwoTicker = 0;
 	        return controller;
 	    }
 
@@ -107,7 +107,7 @@ public class OneVOne extends OneVOneController {
 	    	}
 	    }
 	    @Override
-	    @InputMethodTarget(name = "player1_attack")
+	    @InputMethodTarget(name = "player1_punch")
 	    public void playerOneAttackInput (AlertObject alObj)  {
 	    		if(myPlayerOneTicker>10){
 	    			AttackObject attack = getInputObjects().get(0).attack("weakPunch");
@@ -116,13 +116,31 @@ public class OneVOne extends OneVOneController {
 	    		}
 	    }
 	    @Override
-	    @InputMethodTarget(name = "player2_attack")
+	    @InputMethodTarget(name = "player2_punch")
 	    public void playerTwoAttackInput (AlertObject alObj)  {
     		if(myPlayerTwoTicker>10){
     			AttackObject attack = getInputObjects().get(1).attack("weakPunch");
     			getMode().addObject(attack);
     			myPlayerTwoTicker=0;
     		}
+	    }
+	    
+	    @InputMethodTarget(name = "player1_kick")
+	    public void playerOneKicknput(AlertObject alObj) {
+	    	if(myPlayerOneTicker>10){
+	        AttackObject newAttack = getInputObjects().get(0).attack("kick");
+	        getMode().addObject(newAttack);
+	        myPlayerTwoTicker=0;
+	    	}
+	    }
+	    
+	    @InputMethodTarget(name = "player2_kick")
+	    public void playerTwoKickInput(AlertObject alObj) {
+	    	if(myPlayerTwoTicker>10){
+	        AttackObject newAttack = getInputObjects().get(1).attack("kick");
+	        getMode().addObject(newAttack);
+	        myPlayerTwoTicker=0;
+	    	}
 	    }
 	    
 	    @Override
