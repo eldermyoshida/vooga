@@ -348,7 +348,7 @@
 					<parameter>Clown1</parameter>
 				</WaveAction>
 				<LevelTimerAction>
-					<parameter>60000</parameter>
+					<parameter>30000</parameter>
 				</LevelTimerAction>
 			</actions>
 		</Level1>
@@ -362,7 +362,7 @@
 					<parameter>Clown2</parameter>
 				</WaveAction>
 				<LevelTimerAction>
-					<parameter>60000</parameter>
+					<parameter>30000</parameter>
 				</LevelTimerAction>
 				</actions>
 			</Level2>
@@ -376,7 +376,7 @@
 					<parameter>Clown3</parameter>
 				</WaveAction>
 				<LevelTimerAction>
-					<parameter>60000</parameter>
+					<parameter>30000</parameter>
 				</LevelTimerAction>
 				</actions>
 			</Level3>
@@ -390,7 +390,7 @@
 					<parameter>Clown4</parameter>
 				</WaveAction>
 				<LevelTimerAction>
-					<parameter>60000</parameter>
+					<parameter>30000</parameter>
 				</LevelTimerAction>
 				</actions>
 			</Level4>
@@ -404,7 +404,7 @@
 					<parameter>Clown5</parameter>
 				</WaveAction>
 				<LevelTimerAction>
-					<parameter>60000</parameter>
+					<parameter>30000</parameter>
 				</LevelTimerAction>
 				</actions>
 			</Level5>
@@ -418,7 +418,7 @@
 					<parameter>Clown6</parameter>
 				</WaveAction>
 				<LevelTimerAction>
-					<parameter>60000</parameter>
+					<parameter>30000</parameter>
 				</LevelTimerAction>
 				</actions>
 			</Level6>
@@ -432,7 +432,7 @@
 					<parameter>Clown7</parameter>
 				</WaveAction>
 				<LevelTimerAction>
-					<parameter>60000</parameter>
+					<parameter>30000</parameter>
 				</LevelTimerAction>
 				</actions>
 			</Level7>
@@ -446,7 +446,7 @@
 					<parameter>Clown8</parameter>
 				</WaveAction>
 				<LevelTimerAction>
-					<parameter>60000</parameter>
+					<parameter>30000</parameter>
 				</LevelTimerAction>
 				</actions>
 			</Level8>
@@ -460,7 +460,7 @@
 					<parameter>Clown9</parameter>
 				</WaveAction>
 				<LevelTimerAction>
-					<parameter>60000</parameter>
+					<parameter>30000</parameter>
 				</LevelTimerAction>
 				</actions>
 			</Level9>
@@ -474,7 +474,7 @@
 					<parameter>Clown10</parameter>
 				</WaveAction>
 				<LevelTimerAction>
-					<parameter>60000</parameter>
+					<parameter>30000</parameter>
 				</LevelTimerAction>
 				</actions>
 			</Level10>
