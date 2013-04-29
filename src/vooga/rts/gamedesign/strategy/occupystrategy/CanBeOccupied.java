@@ -122,7 +122,7 @@ public class CanBeOccupied implements OccupyStrategy {
         return myMaxOccupiers;
     }
 
-	public void affect(InteractiveEntity entity) {
+	public void copyStrategy(InteractiveEntity entity) {
 		OccupyStrategy newOccupy = new CanBeOccupied();
 		newOccupy.createOccupyActions(entity);
 		entity.setOccupyStrategy(newOccupy);
