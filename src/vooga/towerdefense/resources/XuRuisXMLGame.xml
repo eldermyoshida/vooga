@@ -1,6 +1,6 @@
 <Game>
 	<view>
-		<dimension>1100, 800</dimension>
+		<dimension>1000, 825</dimension>
 		<MapScreen>
 			<dimension>800, 600</dimension>
 			<location>Center</location>
@@ -30,29 +30,137 @@
 			</GameElementInformationScreen>
 		</MultipleScreenPanel>
 	</view>
+	<tileType>
+		<ID3>
+			<name>bottom</name>
+			<image>B.gif</image>
+			<walkable>yes</walkable>
+			<buildable>no</buildable>
+		</ID3>
+		<ID4>
+			<name>left</name>
+			<image>L.gif</image>
+			<walkable>yes</walkable>
+			<buildable>no</buildable>
+		</ID4>
+		<ID5>
+			<name>top</name>
+			<image>T.gif</image>
+			<walkable>yes</walkable>
+			<buildable>no</buildable>
+		</ID5>
+		<ID6>
+			<name>right</name>
+			<image>R.gif</image>
+			<walkable>yes</walkable>
+			<buildable>no</buildable>
+		</ID6>
+		<ID7>
+			<name>topBottom</name>
+			<image>TB.gif</image>
+			<walkable>yes</walkable>
+			<buildable>no</buildable>
+		</ID7>
+		<ID8>
+			<name>topBottomLeft</name>
+			<image>TBL.gif</image>
+			<walkable>yes</walkable>
+			<buildable>no</buildable>
+		</ID8>
+		<ID9>
+			<name>topBottomLeftRight</name>
+			<image>TBLR.gif</image>
+			<walkable>no</walkable>
+			<buildable>no</buildable>
+		</ID9>
+		<ID10>
+			<name>topBottomRight</name>
+			<image>TBR.gif</image>
+			<walkable>yes</walkable>
+			<buildable>no</buildable>
+		</ID10>
+		<ID11>
+			<name>TopLeft</name>
+			<image>TL.gif</image>
+			<walkable>yes</walkable>
+			<buildable>no</buildable>
+        </ID11>
+		<ID12>
+			<name>topLeftRight</name>
+			<image>TLR.gif</image>
+			<walkable>yes</walkable>
+			<buildable>no</buildable>
+        </ID12>
+		<ID13>
+			<name>topRight</name>
+			<image>TR.gif</image>
+			<walkable>yes</walkable>
+			<buildable>no</buildable>
+        </ID13>
+		<ID14>
+			<name>bottomLeft</name>
+			<image>BL.gif</image>
+			<walkable>yes</walkable>
+			<buildable>no</buildable>
+        </ID14>
+		<ID15>
+			<name>bottomLeftRight</name>
+			<image>BLR.gif</image>
+			<walkable>yes</walkable>
+			<buildable>no</buildable>
+        </ID15>
+		<ID16>
+			<name>ladder</name>
+			<image>ladder.gif</image>
+			<walkable>yes</walkable>
+			<buildable>no</buildable>
+        </ID16>
+        <ID17>
+			<name>emptyWalkable</name>
+			<image>blank_tile.png</image>
+			<walkable>yes</walkable>
+			<buildable>no</buildable>
+        </ID17>
+        <ID17>
+			<name>emptyWalkable</name>
+			<image>blank_tile.png</image>
+			<walkable>no</walkable>
+			<buildable>yes</buildable>
+        </ID17>
+        <ID18>
+			<name>bottomRight</name>
+			<image>BR.gif</image>
+			<walkable>yes</walkable>
+			<buildable>no</buildable>
+        </ID18>
+    </tileType>
 	<map>
-		<Map1>
-			<image>grass_tile.gif</image>
+	    <Map1>
+			<image>dog.jpg</image>
 			<tile_size>50</tile_size>
 			<dimension>
-				<width>500</width>
-				<height>500</height>
+				<width>800</width>
+				<height>600</height>
 			</dimension>
-			<grid>1 1 1 1 1 1 1 1 1 1
-			1 1 1 1 1 1 1 1 1 1
-			s 2 2 1 1 1 1 1 1 1
-			1 1 2 1 1 1 1 1 1 1
-			1 1 2 1 1 1 1 1 1 1
-			1 1 2 1 1 1 1 1 1 1
-			1 1 2 1 1 1 1 1 1 1
-			1 1 2 1 1 1 1 1 1 1
-			1 1 2 2 2 2 2 2 2 d
-			1 1 1 1 1 1 1 1 1 1</grid>
+			<grid>
+				17 17 17 17 17 17 17 17 17 17 17 17 17 17 17 17 
+				17 17 17 17 17 17 11  7  7  7  7  7  7 13 17 17 
+				s  7  13 17 17 17 16 17 17 17 17 17 17 16 17 17 
+				17 17 16 17 17 17 16 17 17 17 17 17 17 16 17 17 
+				17 17 16 17 17 17 16 17 17 11  7  7  7 18 17 17 
+				17 17 16 17 17 17 16 17 17 16 17 17 17 17 17 17 
+				17 17 16 17 17 17 16 17 17 16 17 17 17 17 17 17 
+				17 17 16 17 17 17 16 17 17 16 17 17 17 17 17 17 
+				17 17 16 17 17 17 16 17 17 16 17 17 17 17 17 17 
+				17 17 14  7  7  7 18 17 17 16 17 17 17 17 17 17
+				17 17 17 17 17 17 17 17 17 14  7  7  7  7  7 d  
+				17 17 17 17 17 17 17 17 17 17 17 17 17 17 17 17  
+			</grid>
 		</Map1>
 	</map>
 	<player>
 		<attributes>
-			<Health>10.0</Health>
+			<Health>1000.0</Health>
 			<Score>0.0</Score>
 			<Money>1000.0</Money>
 		</attributes>
@@ -74,24 +182,26 @@
 					<parameter>MOVE_SPEED</parameter>
 					<parameter>DIRECTION</parameter>
 				</Move>
-			</actions>			
+			</actions>
 		</Dog>
-		<Fireball>
-			<dimension>80, 80</dimension>
-			<image>fireball.gif</image>
-			<type>Projectile</type>
+		<Bear>
+			<dimension>50, 50</dimension>
+			<image>bear.gif</image>
+			<type>Unit</type>
 			<attributes>
 				<HEALTH>100</HEALTH>
 				<MOVE_SPEED>50</MOVE_SPEED>
 				<DIRECTION>0</DIRECTION>
 			</attributes>
 			<actions>
+		        <FollowPath>
+				</FollowPath>
 				<Move>
 					<parameter>MOVE_SPEED</parameter>
 					<parameter>DIRECTION</parameter>
 				</Move>
-			</actions>			
-		</Fireball>
+			</actions>
+		</Bear>
 		<Elephant>
 			<dimension>80, 80</dimension>
 			<image>dancing_elephant.gif</image>
@@ -108,12 +218,12 @@
 				<Move>
 					<parameter>MOVE_SPEED</parameter>
 					<parameter>DIRECTION</parameter>
-						<Move>
-							<parameter>MOVE_SPEED</parameter>
-							<parameter>DIRECTION</parameter>
-						</Move>
+					<Move>
+						<parameter>FLY_SPEED</parameter>
+						<parameter>DIRECTION</parameter>
+					</Move>
 				</Move>
-			</actions>			
+			</actions>
 		</Elephant>
 		<TestTower>
 			<dimension>50, 50</dimension>
@@ -124,22 +234,18 @@
 				<Cost>10</Cost>
 				<MOVE_SPEED>50</MOVE_SPEED>
 				<DIRECTION>0</DIRECTION>
-				<ATTACK_RADIUS>100</ATTACK_RADIUS>
 			</attributes>
 			<actions>
-				<FindTargets>
-					<parameter>ATTACK_RADIUS</parameter>
-					<LaunchProjectile>
-						<parameter>Fireball</parameter>					
-					</LaunchProjectile>	
-				</FindTargets>
-			</actions>			
+				<LaunchProjectile>
+					<parameter>Bear</parameter>
+				</LaunchProjectile>
+			</actions>
 		</TestTower>
 	</gameelements>
 	<rules>
-		<EnemyReachedEndRule/>
-		<NextLevelRule/>
-		<LoseAtZeroHealthRule/>
+		<EnemyReachedEndRule />
+		<NextLevelRule />
+		<LoseAtZeroHealthRule />
 	</rules>
 	<levels>
 		<Level0>
@@ -166,9 +272,9 @@
 			</actions>
 		</Level1>
 		<Level2>
-				<rules>
-				</rules>
-				<actions>
+			<rules>
+			</rules>
+			<actions>
 				<WaveAction>
 					<parameter>10</parameter>
 					<parameter>1000</parameter>
@@ -177,7 +283,7 @@
 				<LevelTimerAction>
 					<parameter>60000</parameter>
 				</LevelTimerAction>
-				</actions>
-			</Level2>
+			</actions>
+		</Level2>
 	</levels>
 </Game>
