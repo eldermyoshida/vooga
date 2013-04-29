@@ -122,25 +122,20 @@ public class GameState extends SubState implements Controller, Observer {
 
     public void setupGame () {
         getPlayers().addPlayer(1);        
-        //getPlayers().getPlayer(0).setBase(getMap().getPlayerLocations().get(0));
-        getPlayers().getPlayer(0).setBase(new Location3D(200, 200, 0));
-        
+        getPlayers().getPlayer(0).setBase(getMap().getPlayerLocations().get(0));        
         getPlayers().getPlayer(0).getResources().setInitialValues(RTSGame.getFactory().getStarterPack());
-        
-        Location3D playerOneBase = getPlayers().getHuman().getBase();
-        generateInitialSprites(0, playerOneBase);
+        generateInitialSprites(0);
 
         getPlayers().addPlayer(2);
-        
-        Location3D playerEnemyBase = getPlayers().getPlayer(1).getEnemyBase();
-        //getPlayers().getPlayer(1).setBase(getMap().getPlayerLocations().get(1));
-        getPlayers().getPlayer(1).setBase(new Location3D(800, 800, 0));
-        generateInitialSprites(1, playerEnemyBase);
+        getPlayers().getPlayer(1).setBase(getMap().getPlayerLocations().get(1));
+        getPlayers().getPlayer(1).getResources().setInitialValues(RTSGame.getFactory().getStarterPack());
+        generateInitialSprites(1);
 
         generateResources();
     }
 
-    private void generateInitialSprites (int playerID, Location3D baseLocation) {
+    private void generateInitialSprites (int playerID) {
+        Location3D baseLocation = getPlayers().getPlayer(playerID).getBase();
         Unit worker = (Unit) RTSGame.getFactory().getEntitiesMap().get("worker").copy();
         worker =
 
@@ -223,7 +218,7 @@ public class GameState extends SubState implements Controller, Observer {
         }
         catch (Exception e1) {
         }
-        if (ml.getMyMap().getPlayerLocations().size() >= 2) {
+        if (ml.getMyMap().getPlayerLocations().size() < 2) {
             return;
         }
         setMap(ml.getMyMap());
