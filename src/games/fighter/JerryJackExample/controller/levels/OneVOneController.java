@@ -136,15 +136,28 @@ public class OneVOneController extends LevelController {
     }
 
 
-    @InputMethodTarget(name = "player1_attack")
-    public void playerOneAttackInput(AlertObject alObj) {
+    @InputMethodTarget(name = "player1_punch")
+    public void playerOnePunchInput(AlertObject alObj) {
         AttackObject newAttack = getInputObjects().get(0).attack("weakPunch");
         getMode().addObject(newAttack);
     }
 
-    @InputMethodTarget(name = "player2_attack")
-    public void playerTwoAttacknput(AlertObject alObj) {
-        getInputObjects().get(1).attack("weakPunch");
+    @InputMethodTarget(name = "player2_punch")
+    public void playerTwoPunchknput(AlertObject alObj) {
+        AttackObject newAttack = getInputObjects().get(1).attack("weakPunch");
+        getMode().addObject(newAttack);
+    }
+    
+    @InputMethodTarget(name = "player1_kick")
+    public void playerOneKicknput(AlertObject alObj) {
+        AttackObject newAttack = getInputObjects().get(0).attack("kick");
+        getMode().addObject(newAttack);
+    }
+    
+    @InputMethodTarget(name = "player2_kick")
+    public void playerTwoKickInput(AlertObject alObj) {
+        AttackObject newAttack = getInputObjects().get(1).attack("kick");
+        getMode().addObject(newAttack);
     }
 
     @InputMethodTarget(name = "continue")
