@@ -112,7 +112,7 @@ public class OneVOne extends OneVOneController {
 	    }
 	    @Override
 	    @InputMethodTarget(name = "player1_punch")
-	    public void playerOneAttackInput (AlertObject alObj)  {
+	    public void playerOneWeakPunchInput (AlertObject alObj)  {
 	    		if(myPlayerOneTicker>10){
 	    			AttackObject attack = getInputObjects().get(0).attack("weakPunch");
 	    			getMode().addObject(attack);
@@ -121,7 +121,7 @@ public class OneVOne extends OneVOneController {
 	    }
 	    @Override
 	    @InputMethodTarget(name = "player2_punch")
-	    public void playerTwoAttackInput (AlertObject alObj)  {
+	    public void playerTwoAttacInput (AlertObject alObj)  {
     		if(myPlayerTwoTicker>10){
     			AttackObject attack = getInputObjects().get(1).attack("weakPunch");
     			getMode().addObject(attack);
