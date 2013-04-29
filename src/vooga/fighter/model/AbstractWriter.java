@@ -1,13 +1,16 @@
 package vooga.fighter.model;
 
-import java.util.List;
+import java.util.List; 
 
 import org.w3c.dom.Element;
 
 import util.XMLTool;
 
 /**
- * 
+ * Abstract class for an xml filewriter. This class uses an XMLTool to write to files,
+ * and gives flexibility in how xml data is written to files 
+ * (write to file function must be implemented in subclasses).
+ * Also contains a utility function for writing xml lines with attributes.
  * @author matthewparides
  *
  */
@@ -15,6 +18,16 @@ public abstract class AbstractWriter {
 	
 	private String myFilePath;
 	private XMLTool myXMLWriter;
+	
+	
+	/**
+	 * Constructor
+	 * @param filePath
+	 */
+	public AbstractWriter(String filePath, XMLTool tool) {
+		myFilePath = filePath;
+		myXMLWriter = tool;
+	}
 	
 	/**
 	 * writes data to a predetermined filepath (usually myFilePath)
@@ -26,18 +39,10 @@ public abstract class AbstractWriter {
 	 * @param filepath
 	 */
 	public abstract void writeData(String filepath);
-	
-	/**
-	 * Constructor
-	 * @param filePath
-	 */
-	public AbstractWriter(String filePath, XMLTool tool) {
-		myFilePath = filePath;
-	}
-	
 	/**
 	 * @return the myFilePath
 	 */
+	
 	public String getFilePath() {
 		return myFilePath;
 	}

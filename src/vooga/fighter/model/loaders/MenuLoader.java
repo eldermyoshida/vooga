@@ -38,23 +38,24 @@ public class MenuLoader extends ObjectLoader {
 	 * @param menuObjectName Name tag of the menu object to be loaded in the xml file
 	 * @param pathHierarchy The path to the folder containing the game's resources
 	 */
-    protected void load (String menuObjectName, String pathHiearchy) {
+    @Override
+	protected void load (String menuObjectName, String pathHiearchy) {
         Document doc = getDocument();
-        NodeList menuNodes = doc.getElementsByTagName(getResourceBundle().getString("MenuObject"));
+        NodeList menuNodes = doc.getElementsByTagName(ModelConstants.MENUOBJECT_PROPERTY);
         for (int i = 0; i < menuNodes.getLength(); i++) {
             Element node = (Element) menuNodes.item(i);
-            String name = getAttributeValue(node, getResourceBundle().getString("MenuObjectName"));
+            String name = getAttributeValue(node, ModelConstants.MENUOBJECTNAME_PROPERTY);
             if (name.equals(menuObjectName)) {
                 myMenuObject.setValue(name);
-                NodeList states = node.getElementsByTagName(getResourceBundle().getString("State"));
+                NodeList states = node.getElementsByTagName(ModelConstants.STATE_PROPERTY);
                 for (int j = 0; j < states.getLength(); j++) {
                     Element state = (Element) states.item(j);
-                    String stateName = getAttributeValue(state, getResourceBundle().getString("Name"));
-                    NodeList frames = state.getElementsByTagName(getResourceBundle().getString("Frame"));
+                    String stateName = getAttributeValue(state, ModelConstants.NAME_PROPERTY);
+                    NodeList frames = state.getElementsByTagName(ModelConstants.FRAME_PROPERTY);
                     State newState = new State(myMenuObject, frames.getLength());
                     for (int k = 0; k < frames.getLength(); k++) {
                         Element node1 = (Element) frames.item(k);
-                        String imagepathway = getAttributeValue(node1, getResourceBundle().getString("Image"));
+                        String imagepathway = getAttributeValue(node1, ModelConstants.IMAGE_PROPERTY);
                         Pixmap image = new Pixmap(imagepathway);
                         newState.populateImage(image, k);
                     }

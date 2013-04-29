@@ -4,10 +4,35 @@
         <startingPos xCoord="140" yCoord="300"/>
         <startingPos xCoord="200" yCoord="300"/>
         <state stateName = "background">
-            <frame image = "fighter/images/BlueBackground.jpeg" />
+            <frame image = "" />
         </state>
+<<<<<<< HEAD
         <environmentObject objectName="platform" xCoord="200" yCoord="350" />
         <environmentObject objectName="platform" xCoord="300" yCoord="550" />
+=======
+        <environmentObject objectName="platform" xCoord="250" yCoord="150" />
+        <environmentObject objectName="platform" xCoord="400" yCoord="350" />
+        <environmentObject objectName="platform" xCoord="550" yCoord="150" />
+        <environmentObject objectName="platform" xCoord="100" yCoord="450" />
+        <environmentObject objectName="platform" xCoord="700" yCoord="450" />
+        
+        <environmentObject objectName="platform" xCoord="100" yCoord="0" />
+        <environmentObject objectName="platform" xCoord="200" yCoord="0" />
+        <environmentObject objectName="platform" xCoord="300" yCoord="0" />
+        <environmentObject objectName="platform" xCoord="400" yCoord="0" />
+        <environmentObject objectName="platform" xCoord="500" yCoord="0" />
+        <environmentObject objectName="platform" xCoord="600" yCoord="0" />
+        <environmentObject objectName="platform" xCoord="700" yCoord="0" />
+        
+        <environmentObject objectName="platform" xCoord="100" yCoord="600" />
+        <environmentObject objectName="platform" xCoord="200" yCoord="600" />
+        <environmentObject objectName="platform" xCoord="300" yCoord="600" />
+        <environmentObject objectName="platform" xCoord="400" yCoord="600" />
+        <environmentObject objectName="platform" xCoord="500" yCoord="600" />
+        <environmentObject objectName="platform" xCoord="600" yCoord="600" />
+        <environmentObject objectName="platform" xCoord="700" yCoord="600" />
+        
+>>>>>>> fa1c625696a7d5e5f2ae8cfcdc2ede42b167cd52
     </map>
     <map mapName="RainbowBackground" xSize="1024" ySize="871">
         <startingPos xCoord="140" yCoord="300"/>

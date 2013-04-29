@@ -1,11 +1,8 @@
 
 package vooga.scroller.view;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,12 +14,12 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Set;
 import java.util.TreeSet;
-import javax.swing.ImageIcon;
 import javax.swing.JComponent;
 import javax.swing.Timer;
-import vooga.scroller.scrollingmanager.OmniScrollingManager;
 import vooga.scroller.scrollingmanager.ScrollingManager;
-import vooga.scroller.sprites.superclasses.Player;
+import vooga.scroller.util.Renderable;
+import vooga.scroller.util.Renderer;
+import vooga.scroller.util.mvc.Gaming;
 import vooga.scroller.model.Model;
 
 
@@ -30,7 +27,7 @@ import vooga.scroller.model.Model;
  *
  * @author Ross Cahoon
  */
-public class GameView extends JComponent {
+public class GameView extends JComponent implements Renderer<Gaming>{
     // default serialization ID
     private static final long serialVersionUID = 1L;
     // animate 25 times per second if possible
@@ -50,10 +47,7 @@ public class GameView extends JComponent {
     private Point myLastMousePosition;
     // MULTIPLE KEY SUPPORT
     private Set<Integer> myKeys;
-    // Player
-    private Player myPlayer;
     private ScrollingManager myScrollManager;
-    private boolean win = false;
 
 
     /**
@@ -130,9 +124,6 @@ public class GameView extends JComponent {
             }
         });
         // start animation
-        if (myGame==null) {
-//            setModel(new Model(this, myScrollManager));//TODO - make a default model?
-        }
         myScrollManager.initModel(myGame);
         timer.start();
     }
@@ -177,6 +168,22 @@ public class GameView extends JComponent {
                 myLastMousePosition = e.getPoint();
             }
         });
+    }
+
+    @Override
+    public void render (Renderable<Gaming> renderable) {
+        setModel((Model) renderable);
+    }
+
+
+    @Override
+    public Renderable<Gaming> getRenderable () {
+        return myGame;
+    }
+
+    @Override
+    public void setRenderable (Renderable<Gaming> renderable) {
+        setModel((Model) renderable);        
     }
 
 }

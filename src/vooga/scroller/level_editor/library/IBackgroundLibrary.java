@@ -1,10 +1,22 @@
 package vooga.scroller.level_editor.library;
 
-import java.awt.Image;
 import java.util.Map;
-import javax.swing.Icon;
+import vooga.scroller.util.IBackgroundView;
 
+
+/**
+ * Interface for all Background Libraries. contains functionality to get
+ * a map of Integer to IBackgrounView images.
+ * 
+ * @author Danny Goodman
+ * 
+ */
 public interface IBackgroundLibrary {
 
-    public Map<Integer, Image> getBackgrounds();
+    /**
+     * Get the Map of backgrounds for this Background Library.
+     * 
+     * @return map of backgrounds
+     */
+    public Map<Integer, IBackgroundView> getBackgrounds ();
 }

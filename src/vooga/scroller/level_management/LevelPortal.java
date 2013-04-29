@@ -1,53 +1,60 @@
 package vooga.scroller.level_management;
 
 import java.awt.Dimension;
+import java.awt.Image;
 import util.Location;
-import vooga.scroller.level_editor.Level;
-import vooga.scroller.sprites.superclasses.Player;
+import vooga.scroller.sprites.Sprite;
+import vooga.scroller.sprites.interfaces.IDoor;
+import vooga.scroller.util.IGameComponent;
+import vooga.scroller.util.ISpriteView;
 import vooga.scroller.util.Pixmap;
-import vooga.scroller.util.Sprite;
-import vooga.scroller.sprites.interfaces.ILevelPortal;;
+
 
 /**
- * Acts as a portal between different levels and differnent positions. This can be used to change
- * player position inside of a level or take the player to a whole different level.
+ * LevelPortal extends Sprite and implements IDoor. Used for advancing to
+ * the next Level in LevelManager.
  * 
- * @author Scott Valentine
- *
+ * @author Danny Goodman, Scott Valentine
  */
-public class LevelPortal extends Sprite implements ILevelPortal, IDoor {
-
+public abstract class LevelPortal extends Sprite implements IDoor {
+    private static final String DEFAULT_FILENAME = "portal.png";
+    private static final String DEFAULT_PATH = "/vooga/scroller/images/";
     private static final Dimension DEFAULT_SIZE = new Dimension(50, 50);
-    private static final Location DEFAULT_LOCATION = new Location (0,0);
-    private static Pixmap DEFAULT_IMG = new Pixmap("portal.png");
-    private Level myNextLevel;
+    private static final Pixmap DEFAULT_IMG = new Pixmap(DEFAULT_PATH, DEFAULT_FILENAME);
+    private IGameComponent myNextLevel;
     private LevelManager myLevelManager;
-    
-    public LevelPortal () {
-        this(DEFAULT_LOCATION);
-    }
-    
-    public LevelPortal (Location center) {
-        super(DEFAULT_IMG, center, DEFAULT_SIZE, new Integer(1), new Integer(0));
-    }
 
+    /**
+     * Default constructor. Creates LevelPortal and initializes the image.
+     */
+    protected LevelPortal () {
+        super(DEFAULT_IMG, DEFAULT_SIZE);
+        setView(initView());
+        setDefaultImg(initView());
+        setSize(initSize().width, initSize().height);
+    }
 
     @Override
-    public void goToNextLevel (Player player) {      
-        // TODO: this can be where animations or cutscreens are played?
-        // This could also be done in the level manager.
-        
+    public Image getDefaultImg () {
+        return initView().getImage();
+    }
+
+    public abstract ISpriteView initView ();
+
+    public abstract Dimension initSize ();
+
+    @Override
+    public void goToNextLevel () {
         myLevelManager.setCurrentLevel(myNextLevel);
-        myLevelManager.getCurrentLevel().addPlayer(player);     
     }
 
     @Override
-    public void setNextLevel (Level level) {
+    public void setNextLevel (IGameComponent level) {
         myNextLevel = level;
     }
 
     @Override
-    public Level getNextLevel () {
+    public IGameComponent getNextLevel () {
         return myNextLevel;
     }
 
@@ -55,5 +62,4 @@ public class LevelPortal extends Sprite implements ILevelPortal, IDoor {
     public void setManager (LevelManager lm) {
         myLevelManager = lm;
     }
-
 }

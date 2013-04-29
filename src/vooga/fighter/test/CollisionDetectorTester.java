@@ -3,17 +3,12 @@ package vooga.fighter.test;
 import static org.junit.Assert.*;
 
 import java.awt.Rectangle;
-import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
-import java.awt.geom.Point2D;
-import java.awt.geom.Rectangle2D;
-
 import org.junit.Test;
 
 import util.Location;
 import util.Vector;
 import vooga.fighter.util.CollisionDetector;
-import vooga.fighter.util.ShapeMeasurements;
 
 public class CollisionDetectorTester {
 	CollisionDetector myDetector;

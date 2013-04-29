@@ -52,10 +52,10 @@ public class EnvironmentObjectLoader extends ObjectLoader {
 	public List<EnvironmentObject> getEnvironmentObjects(String pathHierarchy) {
 		Document doc = getDocument();
 		List<EnvironmentObject> allEnviroObjects = new ArrayList<EnvironmentObject>();
-		NodeList enviroObjectNodes = doc.getElementsByTagName(getResourceBundle().getString("EnvironmentObject"));
+		NodeList enviroObjectNodes = doc.getElementsByTagName(ModelConstants.ENVIRONMENTOBJECT_PROPERTY);
 		for (int i = 0; i < enviroObjectNodes.getLength(); i++) {
 			Node enviroObjectNode = enviroObjectNodes.item(i);
-			String name = getAttributeValue(enviroObjectNode, getResourceBundle().getString("EnvironmentObjectName"));
+			String name = getAttributeValue(enviroObjectNode, ModelConstants.ENVIRONMENTOBJECTNAME_PROPERTY);
 			EnvironmentObject newEnvironmentObject= new EnvironmentObject(name, pathHierarchy);
 			allEnviroObjects.add(newEnvironmentObject);
 		}
@@ -67,12 +67,13 @@ public class EnvironmentObjectLoader extends ObjectLoader {
 	 * @param enviroObjectName The environment object name tag to be matched in the xml
  	 * @param pathHierarchy The path to the folder containing the game's resources
 	 */
+	@Override
 	protected void load(String enviroObjectName, String pathHierarchy) {
 		Document doc = getDocument();
-		NodeList enviroObjectNodes = doc.getElementsByTagName(getResourceBundle().getString("EnvironmentObject"));
+		NodeList enviroObjectNodes = doc.getElementsByTagName(ModelConstants.ENVIRONMENTOBJECT_PROPERTY);
 		for (int i = 0; i < enviroObjectNodes.getLength(); i++) {
 			Node enviroObjectNode = enviroObjectNodes.item(i);
-			String name = getAttributeValue(enviroObjectNode, getResourceBundle().getString("EnvironmentObjectName"));
+			String name = getAttributeValue(enviroObjectNode, ModelConstants.ENVIRONMENTOBJECTNAME_PROPERTY);
 			if (enviroObjectName.equals(name)) {
 				NodeList stateNodes = ((Element) enviroObjectNode).getElementsByTagName(getResourceBundle().getString("State"));
 				addStates(stateNodes, myEnvironmentObject);

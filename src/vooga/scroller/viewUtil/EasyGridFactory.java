@@ -6,9 +6,7 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.GridLayout;
 import java.awt.LayoutManager;
-import javax.swing.BoxLayout;
 import javax.swing.JComponent;
 
 /**
@@ -76,7 +74,6 @@ public class EasyGridFactory {
     }
     
     public static void layout (Container parent, JComponent ... children) {
-        LayoutManager l = new BoxLayout(parent, BoxLayout.LINE_AXIS);
         parent.setLayout(new FlowLayout());
         int size = children.length;
         for (int i = 0; i < size; i++) {
