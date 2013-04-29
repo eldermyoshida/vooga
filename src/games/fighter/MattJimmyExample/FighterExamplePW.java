@@ -12,9 +12,10 @@ public class FighterExamplePW extends GameManager {
     
     public FighterExamplePW(ArcadeInteraction arcade) {
         super(arcade);
+        setup();
     }
     
-    /**
+     /**
      * Overrides superclass setup() method to use the correct file path.
      */
     @Override

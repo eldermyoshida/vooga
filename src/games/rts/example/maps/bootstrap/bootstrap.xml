@@ -4,8 +4,8 @@
 <Name/>
 <Desc/>
 <Players number="2">
-<Player ID="1" X="4037" Y="261"/>
-<Player ID="2" X="4090" Y="3618"/>
+<Player ID="1" X="250" Y="261"/>
+<Player ID="2" X="2500" Y="2500"/>
 </Players>
 </MapInfo>
 <Resourceinfo>

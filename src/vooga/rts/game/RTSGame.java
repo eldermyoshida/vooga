@@ -31,8 +31,7 @@ public abstract class RTSGame extends Game {
         myFactory = new Factory();
         myFactory.loadXMLFile(gameDefinition);
         
-        myState = new MainState();
-        
+        myState = new MainState();        
     }
 
     @Override
