@@ -15,6 +15,7 @@ import vooga.fighter.view.Canvas;
 import vooga.fighter.view.FourPlayerMatchGameLayout;
 import vooga.fighter.controller.levels.OneVOneController;
 
+@InputClassTarget
 public class StreetFighterOneVOneController extends OneVOneController{
     
 	private CollisionDetector myDetector; 
@@ -68,9 +69,33 @@ public class StreetFighterOneVOneController extends OneVOneController{
 
 
 
-    @InputMethodTarget(name = "player1_attack")
-    public void playerOneAttackInput(AlertObject alObj) {
+    @InputMethodTarget(name = "player1_weakPunch")
+    public void playerOneWeakPunchInput(AlertObject alObj) {
         AttackObject newAttack = getInputObjects().get(0).attack("weakPunch");
+        getMode().addObject(newAttack);
+    }
+    
+    @InputMethodTarget(name = "player1_medPunch")
+    public void playerOneMedPunchInput(AlertObject alObj) {
+        AttackObject newAttack = getInputObjects().get(0).attack("medPunch");
+        getMode().addObject(newAttack);
+    }
+    
+    @InputMethodTarget(name = "player1_weakKick")
+    public void playerOneWeakKickInput(AlertObject alObj) {
+        AttackObject newAttack = getInputObjects().get(0).attack("weakKick");
+        getMode().addObject(newAttack);
+    }
+    
+    @InputMethodTarget(name = "player1_medKick")
+    public void playerOneMedKickInput(AlertObject alObj) {
+        AttackObject newAttack = getInputObjects().get(0).attack("medKick");
+        getMode().addObject(newAttack);
+    }
+    
+    @InputMethodTarget(name = "player1_hadouken")
+    public void playerOneHadoukenInput(AlertObject alObj) {
+        AttackObject newAttack = getInputObjects().get(0).attack("hadouken");
         getMode().addObject(newAttack);
     }
 
@@ -79,6 +104,4 @@ public class StreetFighterOneVOneController extends OneVOneController{
     	   AttackObject newAttack = getInputObjects().get(1).attack("weakPunch");
            getMode().addObject(newAttack);
     }
-
-
 }
