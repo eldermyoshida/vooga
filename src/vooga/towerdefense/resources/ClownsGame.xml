@@ -58,9 +58,9 @@
 		</attributes>
 	</player>
 	<gameelements>
-		<Dog>
+		<Clown1>
 			<dimension>50, 50</dimension>
-			<image>dog.gif</image>
+			<image>clowns/clown1.gif</image>
 			<type>Unit</type>
 			<attributes>
 				<HEALTH>10</HEALTH>
@@ -75,13 +75,13 @@
 					<parameter>DIRECTION</parameter>
 				</Move>
 			</actions>			
-		</Dog>
-		<Bear>
+		</Clown1>
+		<Clown2>
 			<dimension>50, 50</dimension>
-			<image>bear.gif</image>
+			<image>clowns/clown2.gif</image>
 			<type>Unit</type>
 			<attributes>
-				<HEALTH>100</HEALTH>
+				<HEALTH>15</HEALTH>
 				<MOVE_SPEED>50</MOVE_SPEED>
 				<DIRECTION>0</DIRECTION>
 			</attributes>
@@ -93,13 +93,13 @@
 					<parameter>DIRECTION</parameter>
 				</Move>
 			</actions>			
-		</Bear>
-		<Elephant>
+		</Clown2>
+		<Clown3>
 			<dimension>50, 50</dimension>
-			<image>dancing_elephant.gif</image>
+			<image>clowns/clown3.gif</image>
 			<type>Unit</type>
 			<attributes>
-				<HEALTH>100</HEALTH>
+				<HEALTH>21</HEALTH>
 				<MOVE_SPEED>50</MOVE_SPEED>
 				<DIRECTION>0</DIRECTION>
 			</attributes>
@@ -111,16 +111,68 @@
 					<parameter>DIRECTION</parameter>
 				</Move>
 			</actions>			
-		</Elephant>
+		</Clown3>
+		<Clown4>
+			<dimension>50, 50</dimension>
+			<image>clowns/clown4.gif</image>
+			<type>Unit</type>
+			<attributes>
+				<HEALTH>28</HEALTH>
+				<MOVE_SPEED>50</MOVE_SPEED>
+				<DIRECTION>0</DIRECTION>
+			</attributes>
+			<actions>
+				<FollowPath>
+				</FollowPath>
+				<Move>
+					<parameter>MOVE_SPEED</parameter>
+					<parameter>DIRECTION</parameter>
+				</Move>
+			</actions>			
+		</Clown4>
+		<Clown5>
+			<dimension>50, 50</dimension>
+			<image>clowns/clown5.gif</image>
+			<type>Unit</type>
+			<attributes>
+				<HEALTH>37</HEALTH>
+				<MOVE_SPEED>50</MOVE_SPEED>
+				<DIRECTION>0</DIRECTION>
+			</attributes>
+			<actions>
+				<FollowPath>
+				</FollowPath>
+				<Move>
+					<parameter>MOVE_SPEED</parameter>
+					<parameter>DIRECTION</parameter>
+				</Move>
+			</actions>			
+		</Clown5>
 		<TestTower>
 			<dimension>50, 50</dimension>
 			<image>tower.gif</image>
 			<type>Tower</type>
 			<attributes>
+				<MOVE_SPEED>50</MOVE_SPEED>
+			</attributes>
+			<attributes>
 				<Health>100</Health>
-				<Cost>100</Cost>
+				<Cost>10</Cost>
+				<MOVE_SPEED>50</MOVE_SPEED>
+				<FLY_SPEED>300</FLY_SPEED>
+				<RADIUS>100</RADIUS>
+				<AttackType>1.2</AttackType>
+				<Slow>-5</Slow>
+				<DIRECTION>0</DIRECTION>
 			</attributes>
 			<actions>
+			    <FindTargets>
+					<parameter>RADIUS</parameter>
+					<ApplyAttributeBuff>
+						<parameter>Slow</parameter>
+					    <parameter>Health</parameter>
+					</ApplyAttributeBuff>
+			    </FindTargets>
 			</actions>			
 		</TestTower>
 	</gameelements>
@@ -146,7 +198,7 @@
 				<WaveAction>
 					<parameter>10</parameter>
 					<parameter>1000</parameter>
-					<parameter>Elephant</parameter>
+					<parameter>Clown1</parameter>
 				</WaveAction>
 				<LevelTimerAction>
 					<parameter>60000</parameter>
@@ -160,12 +212,68 @@
 				<WaveAction>
 					<parameter>10</parameter>
 					<parameter>1000</parameter>
-					<parameter>Bear</parameter>
+					<parameter>Clown2</parameter>
 				</WaveAction>
 				<LevelTimerAction>
 					<parameter>60000</parameter>
 				</LevelTimerAction>
 				</actions>
 			</Level2>
+			<Level3>
+				<rules>
+				</rules>
+				<actions>
+				<WaveAction>
+					<parameter>10</parameter>
+					<parameter>1000</parameter>
+					<parameter>Clown3</parameter>
+				</WaveAction>
+				<LevelTimerAction>
+					<parameter>60000</parameter>
+				</LevelTimerAction>
+				</actions>
+			</Level3>
+			<Level4>
+				<rules>
+				</rules>
+				<actions>
+				<WaveAction>
+					<parameter>10</parameter>
+					<parameter>1000</parameter>
+					<parameter>Clown4</parameter>
+				</WaveAction>
+				<LevelTimerAction>
+					<parameter>60000</parameter>
+				</LevelTimerAction>
+				</actions>
+			</Level4>
+			<Level5>
+				<rules>
+				</rules>
+				<actions>
+				<WaveAction>
+					<parameter>10</parameter>
+					<parameter>1000</parameter>
+					<parameter>Clown5</parameter>
+				</WaveAction>
+				<LevelTimerAction>
+					<parameter>60000</parameter>
+				</LevelTimerAction>
+				</actions>
+			</Level5>
+			<Level6>
+				<rules>
+				</rules>
+				<actions>
+				<WaveAction>
+					<parameter>10</parameter>
+					<parameter>1000</parameter>
+					<parameter>Clown6</parameter>
+				</WaveAction>
+				<LevelTimerAction>
+					<parameter>60000</parameter>
+				</LevelTimerAction>
+				</actions>
+			</Level6>
 	</levels>
 </Game>
