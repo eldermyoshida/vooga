@@ -46,7 +46,7 @@ public class UserTable extends Table {
 
         }
         catch (SQLException e) {
-            writeErrorMessage("Error authenticating in UserTable.java @ Line 58");
+            writeErrorMessage("Error authenticating in UserTable.java");
         }
 
         return false;
@@ -66,7 +66,7 @@ public class UserTable extends Table {
             }
         }
         catch (SQLException e) {
-            writeErrorMessage("Error determining if username exists in UserTable.java @ Line 81");
+            writeErrorMessage("Error determining if username exists in UserTable.java");
         }
         return false;
     }
@@ -96,7 +96,7 @@ public class UserTable extends Table {
             myPreparedStatement.executeUpdate();
         }
         catch (SQLException e) {
-            writeErrorMessage("Error creating user in UserTable.java @ Line 109");
+            writeErrorMessage("Error creating user in UserTable.java");
         }
         return true;
     }
@@ -183,7 +183,7 @@ public class UserTable extends Table {
             }
         }
         catch (SQLException e) {
-            writeErrorMessage("Error retrieving usernames in UserTable.java @ Line 197");
+            writeErrorMessage("Error retrieving usernames in UserTable.java");
         }
         return myUsernames; 
     }
@@ -211,7 +211,7 @@ public class UserTable extends Table {
             }
         }
         catch (SQLException e) {
-            writeErrorMessage("Error printing entire table in UserTable.java @ Line 216");
+            writeErrorMessage("Error printing entire table in UserTable.java");
         }
     }
 
