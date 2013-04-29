@@ -36,8 +36,7 @@ import vooga.fighter.view.FourPlayerMatchGameLayout;
  */
 @InputClassTarget
 public class OneVOne extends OneVOneController {
-	    private static final String INPUT_PATHWAY = "config.leveldefault";
-	    private static final String SCORESCREEN = "ScoreScreen";
+	    private static final String INPUT_PATHWAY = "config.threedefault";
 	    private String myInputPathway;
 	    private String myScorePathway;
 	    private List<Force> myForces;
@@ -45,6 +44,8 @@ public class OneVOne extends OneVOneController {
 	    private CollisionDetector myCollisionDetector;
 	    private int myPlayerOneTicker;
 	    private int myPlayerTwoTicker;
+	    private int myPlayerThreeTicker;
+	    private boolean myThreeplayer;
 
 	    /**
 	     * Initial constructor
@@ -67,6 +68,9 @@ public class OneVOne extends OneVOneController {
 	    	myCollisionDetector = new CollisionDetector();
 	        myPlayerOneTicker = 0;
 	        myPlayerTwoTicker = 0;
+	        myPlayerThreeTicker = 0;
+	        if(getGameInfo().getNumCharacters()>2) getInput().replaceMappingResourcePath(
+	        		getHardFilePath() + INPUT_PATHWAY );
 	    }
 
 	    /**
@@ -143,10 +147,53 @@ public class OneVOne extends OneVOneController {
 	    	}
 	    }
 	    
+	    @InputMethodTarget(name = "player3_jump")
+	    public void playerThreeJumpInput (AlertObject alObj)  {
+	    	for(GameObject object : getMode().getMyObjects()){
+	    		if(object instanceof EnvironmentObject && 
+	    				myCollisionDetector.hitTop(object.getCurrentState().getCurrentRectangle(),
+	    						getInputObjects().get(2).getCurrentState().getCurrentRectangle() )){
+	    						getInputObjects().get(2).jump();
+	    						break;
+	    		}
+	    	}
+	    }
+	    
+	    @InputMethodTarget(name = "player3_punch")
+	    public void playerThreeAttackInput (AlertObject alObj)  {
+	    		if(myPlayerThreeTicker>10){
+	    			AttackObject attack = getInputObjects().get(2).attack("weakPunch");
+	    			getMode().addObject(attack);
+	    			myPlayerThreeTicker=0;
+	    		}
+	    }
+	    
+	    @InputMethodTarget(name = "player3_kick")
+	    public void playerThreeKicknput(AlertObject alObj) {
+	    	if(myPlayerThreeTicker>10){
+	        AttackObject newAttack = getInputObjects().get(2).attack("kick");
+	        getMode().addObject(newAttack);
+	        myPlayerThreeTicker=0;
+	    	}
+	    }
+	    
+	    @InputMethodTarget(name = "player3_left")
+	    public void playerThreeLeftInput (AlertObject alObj) {
+	        getInputObjects().get(2).move(180);
+
+	    }
+
+	    @InputMethodTarget(name = "player3_right")
+	    public void playerThreeRightInput(AlertObject alObj) {
+	        getInputObjects().get(2).move(0);
+
+	    }
+	    
 	    @Override
 	    protected void developerUpdate(){
 	    	myPlayerOneTicker++;
 	    	myPlayerTwoTicker++;
+	    	myPlayerThreeTicker++;
 	    }
 
 	    /**

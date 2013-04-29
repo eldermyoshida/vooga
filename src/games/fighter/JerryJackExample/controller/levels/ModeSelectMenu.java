@@ -23,4 +23,42 @@ import java.util.ResourceBundle;
 
 public class ModeSelectMenu extends ModeSelectMenuController {
 
+    public ModeSelectMenu() {
+        super();
+
+    }
+
+    /**
+     * COncrete constructor
+     * @param name      controller name 
+     * @param frame     canvas
+     * @param manager   controllermanager
+     * @param gameinfo  gameinfo
+     * @param pathway   filepath
+     */
+    public ModeSelectMenu(String name, Canvas frame, ControllerDelegate manager, 
+                                    GameInfo gameinfo, String pathway) {
+        super(name, frame, manager, gameinfo, pathway);
+    }
+
+    /**
+     * Return concrete controller
+     */
+    @Override
+	public Controller getController(String name, Canvas frame, ControllerDelegate manager, GameInfo gameinfo,
+                                    String pathway) {
+        Controller controller = new ModeSelectMenu(name, frame, manager, gameinfo, pathway);
+        return controller;
+    }
+    /**
+     * Checks this controller's end conditions
+     */
+    @Override
+	public void notifyEndCondition(String choice) {
+        removeListener();
+        getMode().resetChoice();
+        getGameInfo().setGameMode(choice);	
+        getManager().notifyEndCondition(getMode().getMenusNext(choice));
+
+    }
 }

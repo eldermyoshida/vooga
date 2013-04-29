@@ -60,9 +60,7 @@ import vooga.fighter.view.Canvas;
 			    @Override
 				public Controller getController(String name, Canvas frame, ControllerDelegate manager, GameInfo gameinfo,
 			                                    String filepath) {
-			        Controller controller = new OneVOne(name, frame, manager, gameinfo, filepath);
-			        myPlayerOneTicker = 0;
-			        myPlayerTwoTicker = 0;
+			        Controller controller = new OutOfBounds(name, frame, manager, gameinfo, filepath);
 			        return controller;
 			    }
 
@@ -87,7 +85,7 @@ import vooga.fighter.view.Canvas;
 			    		LevelMode levelmode = (LevelMode) mode;
 			    		boolean change = false;
 			    		    for (int i = 0; i < levelmode.getCharacterObjects().size(); i++) {
-							if(levelmode.getCharacterObjects().get(i).getLocation().getY()>GameManager.SIZE.getHeight()+100) {
+							if(levelmode.getCharacterObjects().get(i).getLocation().getX()>GameManager.SIZE.getWidth()+100) {
 								change = true;
 								for(int j = 0; j < levelmode.getCharacterObjects().size(); j++){
 									if(j!=i) getGameInfo().addWinners(j);

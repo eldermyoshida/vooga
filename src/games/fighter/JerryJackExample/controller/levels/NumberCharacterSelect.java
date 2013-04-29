@@ -1,26 +1,28 @@
 package games.fighter.JerryJackExample.controller.levels;
 
+import games.fighter.JerryJackExample.AdvancedGameInfo;
 import vooga.fighter.controller.Controller;
 import vooga.fighter.controller.gameinformation.GameInfo;
 import vooga.fighter.controller.interfaces.ControllerDelegate;
 import vooga.fighter.controller.interfaces.ModeCondition;
-import vooga.fighter.controller.levels.MapSelectController;
+import vooga.fighter.controller.levels.CharacterSelectController;
 import vooga.fighter.view.Canvas;
 
 
 
 /**
- * Details a map select controller, where you can select maps
- * 
- * 
- * @author Jack Matteucci 
+ * A Controller that handles choosing the character
  * @author Jerry Li
+ * @author Jack Matteucci
  */
 
 
-public class MapSelect extends MapSelectController {
- 
-    public MapSelect () {
+public class NumberCharacterSelect extends MenuController {
+
+    /**
+     * Initial constructor
+     */
+    public NumberCharacterSelect() {
         super();
     }
 
@@ -31,7 +33,7 @@ public class MapSelect extends MapSelectController {
      * @param manager   ControllerManager
      * @param gameinfo  GameInfo
      */
-    public MapSelect(String name, Canvas frame, ControllerDelegate manager, 
+    public NumberCharacterSelect(String name, Canvas frame, ControllerDelegate manager, 
                                GameInfo gameinfo, String pathway) {
         super(name, frame, manager, gameinfo, pathway);
     }
@@ -42,7 +44,7 @@ public class MapSelect extends MapSelectController {
     @Override
 	public Controller getController(String name, Canvas frame, ControllerDelegate manager, GameInfo gameinfo,
                                     String pathway) {
-        return new MapSelect(name, frame, manager, gameinfo, pathway);
+        return new NumberCharacterSelect(name, frame, manager, gameinfo, pathway);
     }
 
     /**
@@ -52,8 +54,26 @@ public class MapSelect extends MapSelectController {
 	public void notifyEndCondition(String choice) {
         removeListener();
         getMode().resetChoice();
-        getGameInfo().setMapName(choice);
-        getManager().notifyEndCondition(getGameInfo().getGameMode());
+        getGameInfo().setNumCharacters(Integer.parseInt(choice));
+        getManager().notifyEndCondition(getMode().getMenusNext(choice));
     }
-}
 
+    /**
+     * Removes input
+     */
+    @Override
+	public void removeListener(){
+        super.removeListener();
+        getInput().removeListener(this);
+    }
+
+    /**
+     * Checks conditions
+     */
+    @Override
+	public void checkConditions(){
+        for(ModeCondition condition: getConditions())
+            if(condition.checkCondition(getMode())) notifyEndCondition(getMode().peekChoice());
+    }
+
+}

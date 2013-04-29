@@ -57,6 +57,8 @@ public class StockSelect extends MenuController {
         removeListener();
         getMode().resetChoice();
         getGameInfo().setMaxLives(Integer.parseInt(choice));
+        System.out.println(Integer.parseInt(choice));
+        System.out.println(getMode().getMenusNext(choice));
         getManager().notifyEndCondition(getMode().getMenusNext(choice));
     }
 

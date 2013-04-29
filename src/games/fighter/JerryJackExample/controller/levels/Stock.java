@@ -28,13 +28,8 @@ import vooga.fighter.view.Canvas;
 		public class Stock extends OneVOne {
 			    private static final String STOCK_PATHWAY = "config.stock";
 			    private static final String SCORESCREEN = "ScoreScreen";
+			    private static final int DEFAULT_HEALTH = 100;
 			    private String myStockPathway;
-			    private String myScorePathway;
-			    private List<Force> myForces;
-			    private ResourceBundle myResources;
-			    private CollisionDetector myCollisionDetector;
-			    private int myPlayerOneTicker;
-			    private int myPlayerTwoTicker;
 			    private List<Integer> myCharacterLives;
 
 			    /**
@@ -55,11 +50,9 @@ import vooga.fighter.view.Canvas;
 			    public Stock(String name, Canvas frame, ControllerDelegate manager, 
 			    		GameInfo gameinfo, String filepath) {
 			    	super(name, frame, manager, gameinfo, filepath);
-			    	myStockPathway = getHardFilePath() + STOCK_PATHWAY;
-			    	myCollisionDetector = new CollisionDetector();
 			    	myCharacterLives = new ArrayList<Integer>();
 			    	for(int i = 0; i< getGameInfo().getNumCharacters(); i ++){
-			    		myCharacterLives.add(getGameInfo().getMaxLives());
+			    		myCharacterLives.add(getAdvancedGameInfo().getMaxLives());
 			    	}
 			    }
 
@@ -70,8 +63,6 @@ import vooga.fighter.view.Canvas;
 				public Controller getController(String name, Canvas frame, ControllerDelegate manager, GameInfo gameinfo,
 			                                    String filepath) {
 			        Controller controller = new Stock(name, frame, manager, gameinfo, filepath);
-			        myPlayerOneTicker = 0;
-			        myPlayerTwoTicker = 0;
 			        return controller;
 			    }
 
@@ -105,15 +96,17 @@ import vooga.fighter.view.Canvas;
 								}
 								break;
 			    		    	}
-			    		    if(levelmode.getCharacterObjects().get(i).getHealth().hasHealthRemaining()) 
+			    		    if(!levelmode.getCharacterObjects().get(i).getHealth().hasHealthRemaining()){ 
 			    		    	myCharacterLives.set(i,myCharacterLives.get(i) -1);
+			    		    	levelmode.getCharacterObjects().get(i).getHealth().setHealth(DEFAULT_HEALTH);
+			    		    }		    		    	
 			    		    }
 			    		    return change;
 			    }
 			    };
 			    
-			    public AdvancedGameInfo getGameInfo(){
-			    	return (AdvancedGameInfo) getGameInfo();
+			    public AdvancedGameInfo getAdvancedGameInfo(){
+			    	return (AdvancedGameInfo) super.getGameInfo();
 			    }
 
 	}

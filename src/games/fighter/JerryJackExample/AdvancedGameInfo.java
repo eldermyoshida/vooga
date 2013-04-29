@@ -6,7 +6,7 @@ import vooga.fighter.controller.gameinformation.GameInfo;
 
 public class AdvancedGameInfo extends GameInfo {
 	
-	int myMaxLives;
+	private int myMaxLives;
 
 	public AdvancedGameInfo(List<String> mapNames) {
 		super(mapNames);
