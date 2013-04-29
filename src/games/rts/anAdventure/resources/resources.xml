@@ -11,6 +11,7 @@
 <tileamount X="80" Y="80"/>
 </SizeInfo>
 <tileindex>
+
 <tiletype ID="2" image="tile2.png" name="Gold"/>
 <tiletype ID="5" image="tile5.png" name="Snow"/>
 <tiletype ID="1" image="tile1.png" name="Mud"/>
