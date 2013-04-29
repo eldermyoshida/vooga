@@ -1,5 +1,6 @@
 package games.fighter.JerryJackExample;
 
+
 import java.awt.Dimension;
 import vooga.fighter.controller.GameManagerRunAlone;
 import vooga.fighter.controller.gameinformation.GameInfo;
