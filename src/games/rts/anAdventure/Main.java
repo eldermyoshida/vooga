@@ -8,7 +8,7 @@ public class Main extends RTSGame {
 
 	public Main (ArcadeInteraction arcade) {
 		super(arcade, "/games/rts/anAdventure/resources/Factory.xml");    
-		setMap("/games/rts/anAdventure/resources/resources.xml");
+		setMap("/games/rts/example/maps/peter/peter.xml");
 	}
 
 	public static void main (String[] args) {
