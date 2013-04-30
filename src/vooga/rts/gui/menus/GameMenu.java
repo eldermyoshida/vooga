@@ -25,6 +25,7 @@ import vooga.rts.gui.menus.gamesubmenus.ResourcesMenu;
 import vooga.rts.gui.menus.gamesubmenus.SubMenu;
 import vooga.rts.manager.IndividualResourceManager;
 import vooga.rts.manager.Manager;
+import vooga.rts.state.GameOver;
 
 
 public class GameMenu extends Menu {
@@ -151,7 +152,7 @@ public class GameMenu extends Menu {
 
         if (o.equals(myExitButton)) {
             setChanged();
-            notifyObservers();
+            notifyObservers(GameOver.QUIT);
         }
     }
 

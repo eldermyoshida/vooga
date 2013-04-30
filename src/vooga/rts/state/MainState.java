@@ -54,8 +54,6 @@ public class MainState implements State, Observer {
         myStates.put(loader, menu);
         myGame = new GameState(this);
         myStates.put(menu, myGame);
-        myStates.put(myGame, new GameOverState(this));
-        
 
         Input input = new Input(DEFAULT_INPUT_LOCATION, myWindow.getCanvas());
         myController = new InputController(this);
@@ -84,6 +82,9 @@ public class MainState implements State, Observer {
         if (o instanceof SubState) {
             if (myStates.containsKey(o)) {
                 setActiveState(myStates.get(o));
+            }
+            if (arg instanceof GameOver) {
+                setActiveState(new GameOverState(this, (GameOver) arg));
             }
         }
     }

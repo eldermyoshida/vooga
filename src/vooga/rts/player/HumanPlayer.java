@@ -127,7 +127,7 @@ public class HumanPlayer extends Player implements Observer {
             getManager().receiveCommand(i);
         } else {
             setChanged();
-            notifyObservers();
+            notifyObservers(a);
         }
         
        

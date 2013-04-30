@@ -67,20 +67,15 @@ public class GameState extends SubState implements Controller, Observer {
     private boolean isGameOver;
 
     public GameState (Observer observer) {
-        super(observer);        
+        super(observer);
         myFrames = new FrameCounter(FPS_SCREEN_LOC);
         myTasks = new ArrayList<DelayedTask>();
         myPlayers.addObserver(this);
-        isGameOver = false;        
+        isGameOver = false;
     }
 
     @Override
     public void update (double elapsedTime) {
-        if (isGameOver) {
-            System.out.println("games over");
-            setChanged();
-            notifyObservers();
-        }
         myMap.update(elapsedTime);
         getPlayers().update(elapsedTime);
 
@@ -95,7 +90,7 @@ public class GameState extends SubState implements Controller, Observer {
         Scale.unscalePen(pen);
         pen.setBackground(Color.BLACK);
         myMap.paint(pen);
-        
+
         // myMiniMap.paint(pen);
 
         if (myDrag != null) {
@@ -130,10 +125,11 @@ public class GameState extends SubState implements Controller, Observer {
         getPlayers().addPlayer(1);
         // Add player to team 2
         getPlayers().addPlayer(2);
-        
+
         for (int i = 0; i < 2; i++) {
-            getPlayers().getPlayer(i).setBase(getMap().getPlayerLocations().get(i));        
-            getPlayers().getPlayer(i).getResources().setInitialValues(RTSGame.getFactory().getStarterPack());
+            getPlayers().getPlayer(i).setBase(getMap().getPlayerLocations().get(i));
+            getPlayers().getPlayer(i).getResources()
+                    .setInitialValues(RTSGame.getFactory().getStarterPack());
             generateInitialSprites(i);
         }
         generateResources();
@@ -202,8 +198,11 @@ public class GameState extends SubState implements Controller, Observer {
 
     @Override
     public void update (Observable arg0, Object arg1) {
-        System.out.println("update game over");
-        setGameOver();
+        if (arg1 instanceof GameOver) {
+            setGameOver();
+            setChanged();
+            notifyObservers(arg1);    
+        }
     }
 
     public static void setMap (GameMap map) {
