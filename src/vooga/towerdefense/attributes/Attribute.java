@@ -128,7 +128,7 @@ public class Attribute {
         pen.setColor(Color.RED);
         pen.fillRect((int) where.getX() - size.width / 2, (int) where.getY() - size.height / 2,
                      (int) (size.getWidth() * (getValue() /
-                     getOriginalValue())), (int) 10);
+                     getOriginalValue())), (int) 7);
     }
 
     /**

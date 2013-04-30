@@ -14,7 +14,7 @@ import vooga.towerdefense.factories.elementfactories.GameElementFactory;
  * sprite and a factory corresponding to what item it is.
  * 
  * @author Erick Gonzalez
- * @author Leonard Ng'ono
+ * @author Leonard Ng'eno
  * @author JLongley
  * 
  */
