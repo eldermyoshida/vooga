@@ -96,6 +96,7 @@
 		<produce>worker</produce>
 		<myweapons></myweapons>
 		<information>
+			<name>LSRC</name>
 			<description>Fear me for I am a Bunny Rabbit</description>
 			<button>/games/rts/battleForMiddleDuke/resources/buttons/fortress-button.png</button>
 			<cost>
