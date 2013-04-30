@@ -297,7 +297,7 @@
 		<occupy>cannotbeoccupied</occupy>
 		<upgrade>canupgrade</upgrade>
 		<upgradeTreeName>SoldierUpgrade</upgradeTreeName>
-		<produce>worker</produce>
+		<produce>worker barracks</produce>
 		<myweapons></myweapons>
 		<information>
 			<description>No booleans!</description>
