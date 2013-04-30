@@ -57,6 +57,7 @@ public class GameElement extends Sprite {
 	@Override
 	public void paint(Graphics2D pen) {
 		super.paint(pen);
+		myAttributeManager.paintHealth(pen, getCenter(), getSize());
 	}
 
 	public void addAction(Action a) {

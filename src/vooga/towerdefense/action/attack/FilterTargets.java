@@ -53,7 +53,7 @@ public class FilterTargets extends TargetedAction {
 			Attribute affiliation = e.getAttributeManager().getAttribute(
 					AttributeConstantsEnum.AFFILIATION.getStatusCode());
 			if (affiliation != null
-					&& affiliation.getValue() == myTargetAffiliation.getValue()) {
+					&& affiliation.getValue() <= myTargetAffiliation.getValue()) {
 				System.out.printf("my target affiliation is %s\n", myTargetAffiliation.getValue());
 				filteredTargets.add(e);
 			if (myNumTargets != null
