@@ -24,7 +24,6 @@ import java.util.Map;
 public class CanProduce implements ProductionStrategy {
 
 	private List<InteractiveEntity> myProducables;
-	private Location3D myRallyPoint;
 	private ProducingState myProduceState;
 
 	/**
@@ -35,25 +34,7 @@ public class CanProduce implements ProductionStrategy {
 	 */
 	public CanProduce(InteractiveEntity entity) {
 		myProducables = new ArrayList<InteractiveEntity>();
-		myRallyPoint = new Location3D();
 		myProduceState = ProducingState.NOT_PRODUCING;
-		setRallyPoint(entity);
-	}
-
-	/**
-	 * Sets the rally point of the entity that can produce so that units will
-	 * move to that point after they are created by the entity.
-	 * 
-	 * @param rallyPoint
-	 *            is the location where the units will go when they are created
-	 */
-	public void setRallyPoint(Location3D rallyPoint) {
-		myRallyPoint = rallyPoint;
-	}
-
-	public void setRallyPoint(InteractiveEntity entity) {
-		myRallyPoint = new Location3D(entity.getWorldLocation().getX(), entity
-				.getWorldLocation().getY() + entity.getHeight(), 0);
 	}
 
 	/**
@@ -102,7 +83,7 @@ public class CanProduce implements ProductionStrategy {
 										producer.notifyObservers(f);
 
 										myProduceState = ProducingState.NOT_PRODUCING;
-										f.move(myRallyPoint);
+										f.move(producer.getRallyPoint());
 
 									}
 								});
