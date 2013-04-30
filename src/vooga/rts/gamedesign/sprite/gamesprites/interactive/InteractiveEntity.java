@@ -689,7 +689,7 @@ public abstract class InteractiveEntity extends GameEntity implements
     private List<InteractiveEntity> findShelters () {
     	List<InteractiveEntity> possibleShelters =
     			GameState.getMap().<InteractiveEntity>getInArea(getWorldLocation(),
-    			10, InteractiveEntity.class, GameState.getPlayers()
+    			50, InteractiveEntity.class, GameState.getPlayers()
     			.getTeamID(getPlayerID()), true);
     	List<InteractiveEntity> actualShelters = new ArrayList<InteractiveEntity>();
     	for (InteractiveEntity shelter: possibleShelters) {
