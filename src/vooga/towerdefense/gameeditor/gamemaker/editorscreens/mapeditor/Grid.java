@@ -6,13 +6,8 @@ import java.awt.Dimension;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.Rectangle;
-<<<<<<< HEAD
-=======
-import javax.swing.ImageIcon;
 import util.Pixmap;
->>>>>>> f9f889efa28ac2054a7d795f3399aa312c6187b7
 import vooga.towerdefense.model.tiles.factories.TileFactory;
-import vooga.towerdefense.util.Pixmap;
 
 
 /**
