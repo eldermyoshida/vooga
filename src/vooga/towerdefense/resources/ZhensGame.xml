@@ -38,17 +38,17 @@
 				<width>800</width>
 				<height>600</height>
 			</dimension>
-			<grid>0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-			0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-			0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-			0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-			0 0 0 2 2 2 0 2 2 2 2 0 0 0 0 0
-			d 2 0 2 0 2 0 2 0 0 2 0 0 0 0 0
-			0 2 0 2 0 2 0 2 0 0 2 2 2 2 0 0 
-			0 2 0 2 0 2 0 2 0 0 0 0 0 2 0 0
-			0 2 2 2 0 2 0 2 0 0 0 0 0 2 0 0 
-			0 0 0 0 0 2 2 2 0 0 0 0 0 2 2 s
-			0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+			<grid>1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+			1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+			1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+			1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+			1 1 1 2 2 2 1 2 2 2 2 1 1 1 1 1
+			d 2 1 2 1 2 1 2 1 1 2 1 1 1 1 1
+			1 2 1 2 1 2 1 2 1 1 2 2 2 2 1 1  
+			1 2 1 2 1 2 1 2 1 1 1 1 1 2 1 1
+			1 2 2 2 1 2 1 2 1 1 1 1 1 2 1 1
+			1 1 1 1 1 2 2 2 1 1 1 1 1 2 2 s
+			1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
 			0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0</grid>
 		</Map1>
 	</map>
@@ -65,7 +65,7 @@
 			<image>Troll_Sprite.png</image>
 			<type>Unit</type>
 			<attributes>
-				<Health>10</Health>
+				<Health>150</Health>
 				<MOVE_SPEED>135</MOVE_SPEED>
 				<DIRECTION>0</DIRECTION>
 			</attributes>
@@ -85,7 +85,7 @@
 			<image>bossB.gif</image>
 			<type>Unit</type>
 			<attributes>
-				<Health>100</Health>
+				<Health>200</Health>
 				<MOVE_SPEED>160</MOVE_SPEED>
 				<DIRECTION>0</DIRECTION>
 			</attributes>
@@ -127,11 +127,10 @@
 			<image>fireball.gif</image>
 			<type>Projectile</type>
 			<attributes>
-				<Health>10</Health>
 				<MOVE_SPEEDB>200</MOVE_SPEEDB>
 				<RADIUS>30</RADIUS>
 				<DIRECTIONB>0</DIRECTIONB>
-				<AttackDamage>-3</AttackDamage>
+				<AttackDamage>-8</AttackDamage>
 				<AttackInterval>1250</AttackInterval>
 				<ANGULAR_SPEED>-0.7</ANGULAR_SPEED>
 				<ANGULAR_INTERVAL>15</ANGULAR_INTERVAL>
@@ -144,57 +143,77 @@
 				</Move>
 				<FindTargets>
 					<parameter>RADIUS</parameter>
-					<ModifyAttributeValue>
-						<parameter>AttackDamage</parameter>
-						<parameter>Health</parameter>
-					</ModifyAttributeValue>
 			    </FindTargets>
 			    <PeriodicAction>
 					<parameter>ANGULAR_INTERVAL</parameter>
 					<FindTargets>
 						<parameter>RADIUS</parameter>
 						<ModifyAttributeValue>
-							<parameter>ANGULAR_SPEED</parameter>
-							<parameter>DIRECTIONB</parameter>
-						</ModifyAttributeValue>
-						<ModifyAttributeValue>
-							<parameter>ACCELERATION</parameter>
-							<parameter>MOVE_SPEEDB</parameter>
+							<parameter>AttackDamage</parameter>
+							<parameter>Health</parameter>
 						</ModifyAttributeValue>
 				    </FindTargets>
 			    </PeriodicAction>
 			</actions>			
 		</smartball>
+		<smartball2>
+			<dimension>40, 40</dimension>
+			<image>fireball.gif</image>
+			<type>Projectile</type>
+			<attributes>
+				<MOVE_SPEEDB>200</MOVE_SPEEDB>
+				<RADIUS>30</RADIUS>
+				<DIRECTIONB>90</DIRECTIONB>
+				<AttackDamage>-8</AttackDamage>
+				<AttackInterval>1250</AttackInterval>
+				<ANGULAR_SPEED>-0.7</ANGULAR_SPEED>
+				<ANGULAR_INTERVAL>15</ANGULAR_INTERVAL>
+				<ACCELERATION>1.5</ACCELERATION>
+			</attributes>
+			<actions>
+				<Move>
+					<parameter>MOVE_SPEEDB</parameter>
+					<parameter>DIRECTIONB</parameter>
+				</Move>
+				<FindTargets>
+					<parameter>RADIUS</parameter>
+			    </FindTargets>
+			    <PeriodicAction>
+					<parameter>ANGULAR_INTERVAL</parameter>
+					<FindTargets>
+						<parameter>RADIUS</parameter>
+						<ModifyAttributeValue>
+							<parameter>AttackDamage</parameter>
+							<parameter>Health</parameter>
+						</ModifyAttributeValue>
+				    </FindTargets>
+			    </PeriodicAction>
+			</actions>			
+		</smartball2>
 		<aTower>
 			<dimension>50, 50</dimension>
 			<image>defenseTower.png</image>
 			<type>Tower</type>
 			<attributes>
-				<Health>10</Health>
 				<Cost>600</Cost>
 				<MOVE_SPEED>50</MOVE_SPEED>
 				<FLY_SPEED>300</FLY_SPEED>
-				<RADIUS>200</RADIUS>
-				<Slow>-5</Slow>
+				<RADIUS>100</RADIUS>
+				<Slow>-30</Slow>
 				<DIRECTION>0</DIRECTION>
-				<AttackInterval>1000</AttackInterval>
+				<AttackInterval>2000</AttackInterval>
 				<AttackType>1.6</AttackType>
 				<NumTargets>2</NumTargets>
 			</attributes>
 			<actions>
-			    <FindTargets>
-					<parameter>RADIUS</parameter>
-					<ApplyAttributeBuff>
-						<parameter>Slow</parameter>
-					    <parameter>MOVE_SPEED</parameter>
-					</ApplyAttributeBuff>
-			    </FindTargets>
 			    <PeriodicAction>
 			    	<parameter>AttackInterval</parameter>
 				    <FindTargets>
 						<parameter>RADIUS</parameter>
-		            	<RemoveElement>
-			            </RemoveElement>
+		            	<ModifyAttributeValue>
+							<parameter>Slow</parameter>
+						    <parameter>MOVE_SPEED</parameter>
+						</ModifyAttributeValue>
 			         </FindTargets>
 				</PeriodicAction>
 			</actions>			
@@ -210,18 +229,42 @@
 				<Cost>600</Cost>
 				<MOVE_SPEED>50</MOVE_SPEED>
 				<RADIUS>100</RADIUS>
-				<AttackInterval>5000</AttackInterval>
+				<AttackInterval>1000</AttackInterval>
 				<DIRECTION>0</DIRECTION>
 			</attributes>
 			<actions>
 				<PeriodicAction>
 					<parameter>AttackInterval</parameter>
-					    <CreateElement>
-					    	<parameter>smartball</parameter>
-					    </CreateElement>
+				    <CreateElement>
+				    	<parameter>smartball</parameter>
+				    </CreateElement>    
 				</PeriodicAction>
 			</actions>			
 		</bTower>
+		<cTower>
+			<dimension>50, 50</dimension>
+			<image>fireTower.png</image>
+			<type>Tower</type>
+			<attributes>
+				<MOVE_SPEED>50</MOVE_SPEED>
+			</attributes>
+			<attributes>
+				<Cost>600</Cost>
+				<MOVE_SPEED>50</MOVE_SPEED>
+				<RADIUS>100</RADIUS>
+				<AttackInterval>1000</AttackInterval>
+				<DIRECTION>0</DIRECTION>
+			</attributes>
+			<actions>
+				<PeriodicAction>
+					<parameter>AttackInterval</parameter>
+				    <CreateElement>
+				    	<parameter>smartball2</parameter>
+				    </CreateElement>    
+				</PeriodicAction>
+			</actions>			
+		</cTower>
+		
 	</gameelements>
 	<rules>
 		<EnemyReachedEndRule/>
