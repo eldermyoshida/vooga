@@ -1,5 +1,6 @@
 package vooga.rts.gamedesign.upgrades;
 
+import vooga.rts.game.RTSGame;
 import vooga.rts.gamedesign.sprite.gamesprites.Projectile;
 import vooga.rts.gamedesign.sprite.gamesprites.interactive.InteractiveEntity;
 import vooga.rts.gamedesign.strategy.attackstrategy.CanAttack;
@@ -32,7 +33,9 @@ public class AttackUpgradeNode extends UpgradeNode {
     	ReflectionHelper.setValue("myAttackStrategy", requester,
     			new CanAttack(requester.getWorldLocation(),
     					requester.getPlayerID()));
-    	Weapon defaultWeapon =
+    	Weapon w = RTSGame.getFactory().getWeapon(getUpgradeValue());    	
+    	if (w == null) {
+    	    w =
                 new Weapon(new Projectile(Projectile.DEFAULT_PIC,
                 		requester.getWorldLocation(),
                         Projectile.DEFAULT_DIMENSION, requester.getPlayerID(),
@@ -40,7 +43,11 @@ public class AttackUpgradeNode extends UpgradeNode {
                         Projectile.DEFAULT_HEALTH,800),Weapon.DEFAULT_RANGE,
                         requester.getWorldLocation(),
                         Weapon.DEFAULT_COOLDOWN_TIME);
-        requester.addWeapon(defaultWeapon);
+    	}
+    	else {
+    	    w = w.copy();
+    	}
+        requester.addWeapon(w);
     }
 
 }
