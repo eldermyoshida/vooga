@@ -1,4 +1,4 @@
-/**
+
 package util.input;
 
 import java.io.File;
@@ -27,7 +27,7 @@ import edu.cmu.sphinx.util.props.ConfigurationManager;
  * Voice Input listens for a specific word from a set of commands to be sopoken before notifying Input
  * @author Ying Chen
  */
-/**
+
 public class VoiceInput extends InputDevice implements Runnable {
 
     private static final String DEVICE = "Voice";
@@ -41,13 +41,13 @@ public class VoiceInput extends InputDevice implements Runnable {
     private String dictFilePath = DefaultDictionaryFilePath;
     private String dictFileName = DefaultDictionaryFileName;
     private boolean configFileUpdated = false;
-**/
+
     /**
      * Constructs a Voice Input object which listens for specific voice commands and notifies input.
      * @param component
      * @param input
      */
-    /**
+    
     public VoiceInput(JComponent component, Input input) {
         super(DEVICE, input);
 
@@ -55,11 +55,11 @@ public class VoiceInput extends InputDevice implements Runnable {
         //this.changeDictionary("input/newDict.gram");
         new Thread(this).start();
     }
-**/
+
     /**
      * Load the config file and set up the environment for speech recognition
      */
-    /**
+    
     private void setVoiceManager() {
         voiceManager = new ConfigurationManager(
                 VoiceInput.class.getResource(configFilePath));
@@ -73,22 +73,22 @@ public class VoiceInput extends InputDevice implements Runnable {
             System.exit(1);
         }
     }
-**/
+
     /**
      * Generates an Alert Object for game behaviors to get the event time.
      * @return
      */
-    /**
+    
     private AlertObject generateAlertObject() {
         long currentTimeStamp = System.currentTimeMillis();
         return new AlertObject(currentTimeStamp);
     }
-    **/
+    
 
     /**
      * Starts listening to the user.
      */
-    /**
+   
     @Override
     public void run() {
         while (true) {
@@ -103,7 +103,7 @@ public class VoiceInput extends InputDevice implements Runnable {
             }
         }
     }
-    **/
+   
 
     /**
      * Change the dictionary file Need to duplicate the default config file and
@@ -112,7 +112,7 @@ public class VoiceInput extends InputDevice implements Runnable {
      * 
      * @param filePath
      */
-    /**
+   
     public void changeDictionary(String filePath) {
         updateDictFile(filePath);
 
@@ -164,14 +164,14 @@ public class VoiceInput extends InputDevice implements Runnable {
         }
 
     }
-    **/
+   
 
     /**
      * Update the dictFile path and name Hard coded
      * 
      * @param filePath
      */
-    /**
+    
     private void updateDictFile(String filePath) {
         System.out.println(filePath);
         int pos = filePath.lastIndexOf(File.separator);
@@ -185,7 +185,7 @@ public class VoiceInput extends InputDevice implements Runnable {
 //        System.out.println(dictFilePath);
 //        System.out.println(dictFileName);
     }
-    **/
+    
 
     /**
      * Duplicate the default config file The new file's name is
@@ -194,7 +194,7 @@ public class VoiceInput extends InputDevice implements Runnable {
      * @throws IOException
      */
     
-    /**
+    
     private void duplicateConfigFile() throws IOException {
         InputStream in = new FileInputStream("src/util/input/" + configFilePath);
         configFilePath = "newDict.config.xml";
@@ -209,4 +209,3 @@ public class VoiceInput extends InputDevice implements Runnable {
         out.close();
     }
 }
-**/
