@@ -50,6 +50,7 @@ public class TrackTarget extends TargetedAction {
 		Vector v = new Vector(myHeading.getDirection(), mySpeed.getValue());
 		v.scale(elapsedTime / 1000);
 		myCenter.translate(v);
+		updateTargetedFollowUpActions(getTargets());
     }
 
     /**

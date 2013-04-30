@@ -257,7 +257,7 @@
 				<Score>10</Score>
 			</attributes>
 			<actions>
-				<MoveToTarget>
+				<TrackTarget>
 					<parameter>MOVE_SPEED</parameter>	
 					<parameter>1</parameter>			
 					<OnCollision>
@@ -267,7 +267,7 @@
 								<parameter>Money</parameter>
 							</ModifyPlayerAttribute>
 					</OnCollision>
-				</MoveToTarget>
+				</TrackTarget>
 				<SelfDestruct>
 					<parameter>LIFESPAN</parameter>
 				</SelfDestruct>	
@@ -287,7 +287,7 @@
 				<Score>10</Score>
 			</attributes>
 			<actions>
-				<MoveToTarget>
+				<TrackTarget>
 					<parameter>MOVE_SPEED</parameter>	
 					<parameter>0</parameter>			
 					<OnCollision>
@@ -297,7 +297,7 @@
 								<parameter>Money</parameter>
 							</ModifyPlayerAttribute>
 					</OnCollision>
-				</MoveToTarget>
+				</TrackTarget>
 			</actions>	
 		</Bullet>
 		<Canon>
@@ -325,7 +325,7 @@
 						</RemoveGameElement>
 					</FilterTargets>
 				</FindTargets>
-				<MoveToTarget>
+				<TrackTarget>
 					<parameter>MOVE_SPEED</parameter>	
 					<parameter>1</parameter>			
 					<OnCollision>
@@ -335,7 +335,7 @@
 								<parameter>Money</parameter>
 							</ModifyPlayerAttribute>
 					</OnCollision>
-				</MoveToTarget>
+				</TrackTarget>
 				<SelfDestruct>
 					<parameter>LIFESPAN</parameter>
 				</SelfDestruct>	
