@@ -192,7 +192,6 @@
 	<player>
 		<attributes>
 			<Health>30.0</Health>
-			<Score>0.0</Score>
 			<Money>1000.0</Money>
 		</attributes>
 	</player>
@@ -208,6 +207,7 @@
 				<HEALTH>10</HEALTH>
 				<MOVE_SPEED>150</MOVE_SPEED>
 				<DIRECTION>0</DIRECTION>
+				<AFFILIATION>1.2</AFFILIATION>
 			</attributes>
 			<actions>
 				<FollowPath>
@@ -218,6 +218,7 @@
 				</Move>
 			</actions>
 		</ForeverAlone>
+		
 		<TrollFace>
 			<dimension>80, 80</dimension>
 			<image>TrollFaceDancing.gif</image>
@@ -241,7 +242,7 @@
 <!--PROJECTILES-->
 		
 		<Fireball>
-			<dimension>30, 30</dimension>
+			<dimension>40, 40</dimension>
 			<image>fireball.gif</image>
 			<type>Projectile</type>
 			<attributes>
@@ -250,264 +251,254 @@
 				<DIRECTION>180</DIRECTION>
 				<AFFILIATION>0.3</AFFILIATION>
 				<TARGET_AFFILIATION>1.2</TARGET_AFFILIATION>
+				<LIFESPAN>500</LIFESPAN>
 				<Score>10</Score>
 			</attributes>
 			<actions>
 				<MoveToTarget>
-					<parameter>MOVE_SPEED</parameter>
+					<parameter>MOVE_SPEED</parameter>	
+					<parameter>1</parameter>			
 					<OnCollision>
 						<parameter>TARGET_AFFILIATION</parameter>
-						<ModifyPlayerAttribute>
-							<parameter>Score</parameter>
-							<parameter>Money</parameter>
-						</ModifyPlayerAttribute>
+							<ModifyPlayerAttribute>
+								<parameter>Score</parameter>
+								<parameter>Money</parameter>
+							</ModifyPlayerAttribute>
 					</OnCollision>
 				</MoveToTarget>
-			</actions>
+				<SelfDestruct>
+					<parameter>LIFESPAN</parameter>
+				</SelfDestruct>	
+			</actions>	
 		</Fireball>
-
+		
+		<Bullet>
+			<dimension>30, 30</dimension>
+			<image>bullet.png</image>
+			<type>Projectile</type>
+			<attributes>
+				<HEALTH>100</HEALTH>
+				<MOVE_SPEED>200</MOVE_SPEED>
+				<DIRECTION>180</DIRECTION>
+				<AFFILIATION>0.3</AFFILIATION>
+				<TARGET_AFFILIATION>1.2</TARGET_AFFILIATION>
+				<Score>10</Score>
+			</attributes>
+			<actions>
+				<MoveToTarget>
+					<parameter>MOVE_SPEED</parameter>	
+					<parameter>0</parameter>			
+					<OnCollision>
+						<parameter>TARGET_AFFILIATION</parameter>
+							<ModifyPlayerAttribute>
+								<parameter>Score</parameter>
+								<parameter>Money</parameter>
+							</ModifyPlayerAttribute>
+					</OnCollision>
+				</MoveToTarget>
+			</actions>	
+		</Bullet>
+		<Canon>
+			<dimension>80, 80</dimension>
+			<image>Flame.gif</image>
+			<type>Projectile</type>
+			<attributes>
+				<HEALTH>100</HEALTH>
+				<MOVE_SPEED>400</MOVE_SPEED>
+				<ATTACK_RADIUS>200</ATTACK_RADIUS>
+				<DIRECTION>180</DIRECTION>
+				<AFFILIATION>0.3</AFFILIATION>
+				<TARGET_AFFILIATION>1.2</TARGET_AFFILIATION>
+				<LIFESPAN>500</LIFESPAN>
+				<NUM_OF_TARGETS>5</NUM_OF_TARGETS>
+				<Score>10</Score>
+			</attributes>
+			<actions>
+				<FindTargets>
+					<parameter>ATTACK_RADIUS</parameter>
+					<FilterTargets>
+						<parameter>TARGET_AFFILIATION</parameter>
+						<parameter>NUM_OF_TARGETS</parameter>
+						<RemoveGameElement>
+						</RemoveGameElement>
+					</FilterTargets>
+				</FindTargets>
+				<MoveToTarget>
+					<parameter>MOVE_SPEED</parameter>	
+					<parameter>1</parameter>			
+					<OnCollision>
+						<parameter>TARGET_AFFILIATION</parameter>
+							<ModifyPlayerAttribute>
+								<parameter>Score</parameter>
+								<parameter>Money</parameter>
+							</ModifyPlayerAttribute>
+					</OnCollision>
+				</MoveToTarget>
+				<SelfDestruct>
+					<parameter>LIFESPAN</parameter>
+				</SelfDestruct>	
+			</actions>	
+		</Canon>
+		
 <!--TOWERS-->
 
-		<TestTower>
-			<dimension>50, 50</dimension>
-			<image>Duvall.jpg</image>
-			<type>Tower</type>
-			<attributes>
-				<HEALTH>100</HEALTH>
-				<Cost>10</Cost>
-				<MOVE_SPEED>50</MOVE_SPEED>
-				<DIRECTION>0</DIRECTION>
-				<ATTACK_RADIUS>100</ATTACK_RADIUS>
-				<COOL_DOWN>100</COOL_DOWN>
-				<NUM_OF_PROJECTILES>100</NUM_OF_PROJECTILES>
-				<NUM_OF_TARGETS>10</NUM_OF_TARGETS>
-				<AFFILIATION>1.2</AFFILIATION>
-			</attributes>
-			<actions>
-				<FindTargets>
-					<parameter>ATTACK_RADIUS</parameter>
-					<FilterTargets>
-						<parameter>AFFILIATION</parameter>
-						<parameter>NUM_OF_TARGETS</parameter>
-						<LaunchProjectile>
-							<parameter>Fireball</parameter>
-							<parameter>100</parameter>
-							<parameter>2000</parameter>
-						</LaunchProjectile>
-					</FilterTargets>
-				</FindTargets>
-			</actions>
-		</TestTower>
-
-		<TestTower2>
-			<dimension>50, 50</dimension>
-			<image>Sword1.gif</image>
-			<type>Tower</type>
-			<attributes>
-				<HEALTH>100</HEALTH>
-				<Cost>100</Cost>
-				<MOVE_SPEED>50</MOVE_SPEED>
-				<DIRECTION>0</DIRECTION>
-				<ATTACK_RADIUS>200</ATTACK_RADIUS>
-				<COOL_DOWN>1000</COOL_DOWN>
-				<NUM_OF_PROJECTILES>100</NUM_OF_PROJECTILES>
-				<NUM_OF_TARGETS>10</NUM_OF_TARGETS>
-				<AFFILIATION>1.2</AFFILIATION>
-			</attributes>
-			<actions>
-				<FindTargets>
-					<parameter>ATTACK_RADIUS</parameter>
-					<FilterTargets>
-						<parameter>AFFILIATION</parameter>
-						<parameter>NUM_OF_TARGETS</parameter>
-						<LaunchProjectile>
-							<parameter>Fireball</parameter>
-							<parameter>100</parameter>
-							<parameter>2000</parameter>
-						</LaunchProjectile>
-					</FilterTargets>
-				</FindTargets>
-			</actions>
-		</TestTower2>
-
-		<TestTower3>
-			<dimension>50, 50</dimension>
+		<SlowTower>
+			<dimension>60, 60</dimension>
 			<image>Sword2.gif</image>
 			<type>Tower</type>
 			<attributes>
-				<HEALTH>100</HEALTH>
-				<Cost>10</Cost>
-				<MOVE_SPEED>50</MOVE_SPEED>
-				<DIRECTION>0</DIRECTION>
-				<ATTACK_RADIUS>100</ATTACK_RADIUS>
-				<COOL_DOWN>100</COOL_DOWN>
-				<NUM_OF_PROJECTILES>100</NUM_OF_PROJECTILES>
-				<NUM_OF_TARGETS>10</NUM_OF_TARGETS>
-				<AFFILIATION>1.2</AFFILIATION>
-				<SLOW>-50</SLOW>
-			</attributes>
-			<actions>
-				<FindTargets>
-					<parameter>ATTACK_RADIUS</parameter>
-					<FilterTargets>
-						<parameter>AFFILIATION</parameter>
-						<parameter>NUM_OF_TARGETS</parameter>
-						<ApplyAttributeBuff>
-							<parameter>SLOW</parameter>
-							<parameter>MOVE_SPEED</parameter>
-						</ApplyAttributeBuff>
-					</FilterTargets>
-				</FindTargets>
-			</actions>
-		</TestTower3>
-		<TestTower4>
-			<dimension>50, 50</dimension>
-			<image>Sword4.gif</image>
-			<type>Tower</type>
-			<attributes>
-				<HEALTH>100</HEALTH>
-				<Cost>10</Cost>
-				<MOVE_SPEED>50</MOVE_SPEED>
-				<DIRECTION>0</DIRECTION>
-				<ATTACK_RADIUS>100</ATTACK_RADIUS>
-				<COOL_DOWN>100</COOL_DOWN>
-				<NUM_OF_PROJECTILES>100</NUM_OF_PROJECTILES>
-				<NUM_OF_TARGETS>10</NUM_OF_TARGETS>
-				<AFFILIATION>1.2</AFFILIATION>
-				<Bonus>100</Bonus>
-				<SLOW>-50</SLOW>
-			</attributes>
-			<actions>
-				<RemoveGameElement>
-					<ModifyPlayerAttribute>
-						<parameter>Bonus</parameter>
-						<parameter>Score</parameter>
-					</ModifyPlayerAttribute>
-				</RemoveGameElement>
-			</actions>
-		</TestTower4>
-
-		<TestTower5>
-			<dimension>50, 50</dimension>
-			<image>Pistol1.gif</image>
-			<type>Tower</type>
-			<attributes>
-				<HEALTH>100</HEALTH>
+				<HEALTH>50</HEALTH>
 				<Cost>100</Cost>
 				<MOVE_SPEED>50</MOVE_SPEED>
 				<DIRECTION>0</DIRECTION>
-				<ATTACK_RADIUS>200</ATTACK_RADIUS>
-				<COOL_DOWN>1000</COOL_DOWN>
+				<ATTACK_RADIUS>100</ATTACK_RADIUS>
+				<COOL_DOWN>100</COOL_DOWN>
 				<NUM_OF_PROJECTILES>100</NUM_OF_PROJECTILES>
 				<NUM_OF_TARGETS>10</NUM_OF_TARGETS>
-				<AFFILIATION>1.2</AFFILIATION>
+				<AFFILIATION>0.1</AFFILIATION>
+				<TARGET_AFFILIATION>1.2</TARGET_AFFILIATION>
+				<SLOW>-50</SLOW>
 			</attributes>
 			<actions>
 				<FindTargets>
 					<parameter>ATTACK_RADIUS</parameter>
-					<FilterTargets>
-						<parameter>AFFILIATION</parameter>
-						<parameter>NUM_OF_TARGETS</parameter>
-						<LaunchProjectile>
-							<parameter>Fireball</parameter>
-							<parameter>100</parameter>
-							<parameter>2000</parameter>
-						</LaunchProjectile>
-					</FilterTargets>
+						<FilterTargets>
+							<parameter>TARGET_AFFILIATION</parameter>
+							<parameter>NUM_OF_TARGETS</parameter>
+							<ApplyAttributeBuff>
+								<parameter>SLOW</parameter>
+								<parameter>MOVE_SPEED</parameter>
+							</ApplyAttributeBuff>
+						</FilterTargets>
 				</FindTargets>
-			</actions>
-		</TestTower5>
+			</actions>	
+		</SlowTower>
 		
-		<TestTower6>
-			<dimension>50, 50</dimension>
+		<DeathTower>
+			<dimension>80, 80</dimension>
 			<image>Pistol2.gif</image>
 			<type>Tower</type>
 			<attributes>
 				<HEALTH>100</HEALTH>
 				<Cost>100</Cost>
-				<MOVE_SPEED>50</MOVE_SPEED>
-				<DIRECTION>0</DIRECTION>
-				<ATTACK_RADIUS>200</ATTACK_RADIUS>
-				<COOL_DOWN>1000</COOL_DOWN>
-				<NUM_OF_PROJECTILES>100</NUM_OF_PROJECTILES>
+				<ATTACK_RADIUS>80</ATTACK_RADIUS>
 				<NUM_OF_TARGETS>10</NUM_OF_TARGETS>
-				<AFFILIATION>1.2</AFFILIATION>
+				<TARGET_AFFILIATION>1.2</TARGET_AFFILIATION>
+				<LIFESPAN>3000</LIFESPAN>
+				<SLOW>-50</SLOW>
 			</attributes>
 			<actions>
 				<FindTargets>
 					<parameter>ATTACK_RADIUS</parameter>
 					<FilterTargets>
-						<parameter>AFFILIATION</parameter>
+						<parameter>TARGET_AFFILIATION</parameter>
 						<parameter>NUM_OF_TARGETS</parameter>
-						<LaunchProjectile>
-							<parameter>Fireball</parameter>
-							<parameter>100</parameter>
-							<parameter>2000</parameter>
-						</LaunchProjectile>
+						<RemoveGameElement>
+						</RemoveGameElement>
 					</FilterTargets>
 				</FindTargets>
+				<SelfDestruct>
+					<parameter>LIFESPAN</parameter>
+				</SelfDestruct>
 			</actions>
-		</TestTower6>
-		<TestTower7>
-			<dimension>50, 50</dimension>
-			<image>Rifle1.gif</image>
+		</DeathTower>
+		
+				
+		<Tank>
+			<dimension>100, 100</dimension>
+			<image>tank.gif</image>
 			<type>Tower</type>
 			<attributes>
-				<HEALTH>100</HEALTH>
 				<Cost>100</Cost>
-				<MOVE_SPEED>50</MOVE_SPEED>
-				<DIRECTION>0</DIRECTION>
 				<ATTACK_RADIUS>200</ATTACK_RADIUS>
-				<COOL_DOWN>1000</COOL_DOWN>
+				<COOL_DOWN>2000</COOL_DOWN>
 				<NUM_OF_PROJECTILES>100</NUM_OF_PROJECTILES>
 				<NUM_OF_TARGETS>10</NUM_OF_TARGETS>
-				<AFFILIATION>1.2</AFFILIATION>
+				<NUM_OF_SHOTS>1</NUM_OF_SHOTS>
+				<TARGET_AFFILIATION>1.2</TARGET_AFFILIATION>
 			</attributes>
 			<actions>
 				<FindTargets>
 					<parameter>ATTACK_RADIUS</parameter>
-					<FilterTargets>
-						<parameter>AFFILIATION</parameter>
-						<parameter>NUM_OF_TARGETS</parameter>
-						<LaunchProjectile>
-							<parameter>Fireball</parameter>
-							<parameter>100</parameter>
-							<parameter>2000</parameter>
-						</LaunchProjectile>
-					</FilterTargets>
+						<FilterTargets>
+							<parameter>TARGET_AFFILIATION</parameter>
+							<parameter>NUM_OF_TARGETS</parameter>
+								<LaunchProjectile>
+									<parameter>Fireball</parameter>
+									<parameter>NUM_OF_PROJECTILES</parameter>
+									<parameter>NUM_OF_SHOTS</parameter>
+									<parameter>COOL_DOWN</parameter>
+									<parameter>1</parameter>								
+								</LaunchProjectile>	
+						</FilterTargets>
 				</FindTargets>
-			</actions>
-		</TestTower7>
-		<TestTower8>
-			<dimension>50, 50</dimension>
+			</actions>	
+		</Tank>
+		
+		<BulletTower>
+			<dimension>80, 80</dimension>
 			<image>Rifle3.gif</image>
 			<type>Tower</type>
 			<attributes>
-				<HEALTH>100</HEALTH>
-				<Cost>100</Cost>
-				<MOVE_SPEED>50</MOVE_SPEED>
-				<DIRECTION>0</DIRECTION>
-				<ATTACK_RADIUS>200</ATTACK_RADIUS>
-				<COOL_DOWN>1000</COOL_DOWN>
+				<Cost>50</Cost>
+				<ATTACK_RADIUS>100</ATTACK_RADIUS>
+				<COOL_DOWN>2000</COOL_DOWN>
 				<NUM_OF_PROJECTILES>100</NUM_OF_PROJECTILES>
 				<NUM_OF_TARGETS>10</NUM_OF_TARGETS>
+				<NUM_OF_SHOTS>3</NUM_OF_SHOTS>
 				<AFFILIATION>1.2</AFFILIATION>
 			</attributes>
 			<actions>
 				<FindTargets>
 					<parameter>ATTACK_RADIUS</parameter>
-					<FilterTargets>
-						<parameter>AFFILIATION</parameter>
-						<parameter>NUM_OF_TARGETS</parameter>
-						<LaunchProjectile>
-							<parameter>Fireball</parameter>
-							<parameter>100</parameter>
-							<parameter>2000</parameter>
-						</LaunchProjectile>
-					</FilterTargets>
+						<FilterTargets>
+							<parameter>AFFILIATION</parameter>
+							<parameter>NUM_OF_TARGETS</parameter>
+								<LaunchProjectile>
+									<parameter>Bullet</parameter>
+									<parameter>NUM_OF_PROJECTILES</parameter>
+									<parameter>NUM_OF_SHOTS</parameter>
+									<parameter>COOL_DOWN</parameter>
+									<parameter>1</parameter>								
+								</LaunchProjectile>	
+						</FilterTargets>
 				</FindTargets>
-			</actions>
-		</TestTower8>
+			</actions>	
+		</BulletTower>
+		
+		<DuvallTower>
+			<dimension>50, 50</dimension>
+			<image>Duvall.jpg</image>
+			<type>Tower</type>
+			<attributes>
+				<HEALTH>100</HEALTH>
+				<Cost>100</Cost>
+				<ATTACK_RADIUS>200</ATTACK_RADIUS>
+				<COOL_DOWN>1000</COOL_DOWN>
+				<NUM_OF_PROJECTILES>100</NUM_OF_PROJECTILES>
+				<NUM_OF_TARGETS>10</NUM_OF_TARGETS>
+				<NUM_OF_SHOTS>3</NUM_OF_SHOTS>
+				<TARGET_AFFILIATION>1.2</TARGET_AFFILIATION>
+			</attributes>
+			<actions>
+				<FindTargets>
+					<parameter>ATTACK_RADIUS</parameter>
+						<FilterTargets>
+							<parameter>TARGET_AFFILIATION</parameter>
+							<parameter>NUM_OF_TARGETS</parameter>
+								<LaunchProjectile>
+									<parameter>Canon</parameter>
+									<parameter>NUM_OF_PROJECTILES</parameter>
+									<parameter>NUM_OF_SHOTS</parameter>
+									<parameter>COOL_DOWN</parameter>
+									<parameter>1</parameter>								
+								</LaunchProjectile>	
+						</FilterTargets>
+				</FindTargets>
+			</actions>	
+		</DuvallTower>
+	</gameelements>
+	
 	
 <!--RULES-->
 	
@@ -534,7 +525,7 @@
 			</rules>
 			<actions>
 				<WaveAction>
-					<parameter>20</parameter>
+					<parameter>15</parameter>
 					<parameter>1000</parameter>
 					<parameter>TrollFace</parameter>
 				</WaveAction>
@@ -548,7 +539,7 @@
 			</rules>
 			<actions>
 				<WaveAction>
-					<parameter>30</parameter>
+					<parameter>15</parameter>
 					<parameter>1000</parameter>
 					<parameter>ForeverAlone</parameter>
 				</WaveAction>
@@ -562,9 +553,9 @@
 			</rules>
 			<actions>
 				<WaveAction>
-					<parameter>10</parameter>
+					<parameter>20</parameter>
 					<parameter>1000</parameter>
-					<parameter>ForeverAlone</parameter>
+					<parameter>TrollFace</parameter>
 				</WaveAction>
 				<LevelTimerAction>
 					<parameter>20000</parameter>
@@ -576,7 +567,7 @@
 			</rules>
 			<actions>
 				<WaveAction>
-					<parameter>10</parameter>
+					<parameter>20</parameter>
 					<parameter>1000</parameter>
 					<parameter>ForeverAlone</parameter>
 				</WaveAction>
