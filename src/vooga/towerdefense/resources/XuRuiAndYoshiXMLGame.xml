@@ -1,3 +1,5 @@
+<!--This game was created by Xu Rui and Yoshi-->	
+<!--Date: April 28, 2013-->	
 <Game>
 	<view>
 		<dimension>1100, 800</dimension>
@@ -423,13 +425,13 @@
 						<FilterTargets>
 							<parameter>TARGET_AFFILIATION</parameter>
 							<parameter>NUM_OF_TARGETS</parameter>
-								<LaunchProjectile>
+								<ShootProjectile>
 									<parameter>Fireball</parameter>
 									<parameter>NUM_OF_PROJECTILES</parameter>
 									<parameter>NUM_OF_SHOTS</parameter>
 									<parameter>COOL_DOWN</parameter>
 									<parameter>1</parameter>								
-								</LaunchProjectile>	
+								</ShootProjectile>	
 						</FilterTargets>
 				</FindTargets>
 			</actions>	
@@ -454,13 +456,13 @@
 						<FilterTargets>
 							<parameter>AFFILIATION</parameter>
 							<parameter>NUM_OF_TARGETS</parameter>
-								<LaunchProjectile>
+								<ShootProjectile>
 									<parameter>Bullet</parameter>
 									<parameter>NUM_OF_PROJECTILES</parameter>
 									<parameter>NUM_OF_SHOTS</parameter>
 									<parameter>COOL_DOWN</parameter>
 									<parameter>1</parameter>								
-								</LaunchProjectile>	
+								</ShootProjectile>	
 						</FilterTargets>
 				</FindTargets>
 			</actions>	
@@ -486,13 +488,13 @@
 						<FilterTargets>
 							<parameter>TARGET_AFFILIATION</parameter>
 							<parameter>NUM_OF_TARGETS</parameter>
-								<LaunchProjectile>
+								<ShootProjectile>
 									<parameter>Canon</parameter>
 									<parameter>NUM_OF_PROJECTILES</parameter>
 									<parameter>NUM_OF_SHOTS</parameter>
 									<parameter>COOL_DOWN</parameter>
 									<parameter>1</parameter>								
-								</LaunchProjectile>	
+								</ShootProjectile>	
 						</FilterTargets>
 				</FindTargets>
 			</actions>	

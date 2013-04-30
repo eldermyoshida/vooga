@@ -23,7 +23,7 @@ public class AttackActionFactory extends ActionFactory {
     private FindTargetsFactory myFinder;
     private FilterTargetsFactory myFilter;
     private PeriodicActionFactory mySpeed;
-    private LaunchProjectileFactory myProjectiles;
+    private ShootProjectileFactory myProjectiles;
     
     
     public AttackActionFactory(@ActionAnnotation(name = "attack radius", value = "attribute") String attackRadius,

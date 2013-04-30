@@ -214,13 +214,15 @@ public class MapXMLLoader {
                 // null behavior on purpose, don't initialize tile factory
             }
         }
-        
-        List<Element> tileElements = myXMLTool.getChildrenList(myXMLTool.getElement(TILE_TAG));
-        for (Element e : tileElements) {
-            String tag = myXMLTool.getTagName(e);
-            tileIdMap.put(tag.substring(2), (TileFactory) new XMLTileFactory(myXMLTool, e, tag));
+        Element parentElement = myXMLTool.getElement(TILE_TAG);
+        if (parentElement != null) {
+            List<Element> tileElements = myXMLTool.getChildrenList(parentElement);
+            for (Element e : tileElements) {
+                String tag = myXMLTool.getTagName(e);
+                tileIdMap
+                        .put(tag.substring(2), (TileFactory) new XMLTileFactory(myXMLTool, e, tag));
+            }
         }
-        
         return tileIdMap;
     }
 }

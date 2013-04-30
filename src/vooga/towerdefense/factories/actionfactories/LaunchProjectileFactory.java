@@ -13,11 +13,8 @@ import vooga.towerdefense.gameelements.GameElement;
  */
 
 public class LaunchProjectileFactory extends ActionFactory {
-	private String myNumProjectiles;
-	private String myNumShots;
-	private String myCooldown;
-	private String myFactory;
-	private int targetDetectionOn;
+
+	private String myFactoryName;
 
 	/**
 	 * constructor
@@ -25,18 +22,9 @@ public class LaunchProjectileFactory extends ActionFactory {
 	 * @param factory
 	 */
 	public LaunchProjectileFactory(
-			@ActionAnnotation(name = "projectile", value = "name") String factory,
-			@ActionAnnotation(name = "num_of_projectile", value = "attribute") String numUnits,
-			@ActionAnnotation(name = "num_of_shots", value = "attribute") String numShots,
-			@ActionAnnotation(name = "cooldown", value = "attribute") String cooldown,
-			@ActionAnnotation(name = "targetDetection", value = "attribute") String targetDetection) {
+			@ActionAnnotation(name = "projectile", value = "name") String factory) {
 		super();
-		myNumProjectiles = numUnits;
-		myNumShots = numShots;
-		myCooldown = cooldown;
-		myFactory = factory;
-		targetDetectionOn = Integer.parseInt(targetDetection);
-
+		myFactoryName = factory;
 	}
 
 	/**
@@ -45,10 +33,8 @@ public class LaunchProjectileFactory extends ActionFactory {
 	 */
 	@Override
 	protected Action buildAction(GameElement e) {
-		return new LaunchProjectile(e.getAttribute(myCooldown),
-				e.getAttribute(myNumProjectiles), e.getAttribute(myNumShots),
-				e.getCenter(), e.getGameElementFactory(myFactory), getMap(),
-				targetDetectionOn == 1);
+		return new LaunchProjectile(getMap(), e.getCenter(), e
+				.getAttributeManager().getGameElementFactory(myFactoryName));
 	}
 
 }
