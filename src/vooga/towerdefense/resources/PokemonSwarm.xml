@@ -54,7 +54,7 @@
 		<attributes>
 			<Health>5.0</Health>
 			<Score>0.0</Score>
-			<Money>100.0</Money>
+			<Money>300.0</Money>
 		</attributes>
 	</player>
 	<gameelements>
@@ -123,7 +123,9 @@
 				    <CreateGameElement>
 				        <parameter>Grimer</parameter>
 				    </CreateGameElement>
-				    <RemoveGameElement></RemoveGameElement>
+					<SelfDestruct>
+					    <parameter>DIRECTION</parameter>
+					</SelfDestruct>
 				</OnDeath>
 			</actions>			
 		</Muk>
@@ -355,7 +357,7 @@
 					<parameter>Muk</parameter>
 				</WaveAction>
 				<LevelTimerAction>
-					<parameter>30000</parameter>
+					<parameter>50000</parameter>
 				</LevelTimerAction>
 			</actions>
 		</Level3>
