@@ -16,9 +16,9 @@ import java.awt.image.BufferedImage;
  */
 public class FilterImageColor {
 	public static int COLOR_POSITION_OFFSET = 4;
-	private static Color[] myPlayerColors = { new Color(128, 255, 128, 150),
+	private static Color[] myPlayerColors = { new Color(0, 0, 255, 200),
 			new Color(255, 0, 0, 150), new Color(255, 255, 0, 200),
-			new Color(0, 0, 255, 200), new Color(0, 255, 0, 200),
+			new Color(0, 255, 0, 200), new Color(128, 255, 128, 150),
 			new Color(255, 128, 0, 200), new Color(255, 0, 255, 150),
 			new Color(0, 128, 255, 150) };
 
