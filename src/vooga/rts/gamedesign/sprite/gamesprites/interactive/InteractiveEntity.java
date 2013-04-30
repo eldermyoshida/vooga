@@ -74,6 +74,7 @@ public abstract class InteractiveEntity extends GameEntity implements
 	private static int DEFAULT_INTERACTIVEENTITY_SPEED = 150;
 	public static final double DEFAULT_BUILD_TIME = 5;
 	public static final int DEFAULT_ARMOR = 10;
+	public static final int MAX_HEALTHBAR_SIZE = 500;
 	private boolean isSelected;
 	private Sound mySound;
 	private AttackStrategy myAttackStrategy;
@@ -131,7 +132,7 @@ public abstract class InteractiveEntity extends GameEntity implements
 		myTargetEntity = this;
 		myArmor = DEFAULT_ARMOR;
 		setSpeed(DEFAULT_INTERACTIVEENTITY_SPEED);
-		myRallyPoint = new Location3D(0,0,0);
+		myRallyPoint = new Location3D(0, 0, 0);
 	}
 
 	public void changeImageColor() {
@@ -555,13 +556,18 @@ public abstract class InteractiveEntity extends GameEntity implements
 	}
 
 	private void paintHealthBar(Graphics2D pen, Point2D selectLocation) {
-		pen.drawRect((int) selectLocation.getX() - LOCATION_OFFSET,
-				(int) (selectLocation.getY() - 5 * LOCATION_OFFSET), 50, 5);
+		int healthbarSize = (getMaxHealth() > MAX_HEALTHBAR_SIZE) ? MAX_HEALTHBAR_SIZE
+				: getMaxHealth();
+		pen.drawRect((int) (selectLocation.getX() - getSize().width
+				* Camera.ISO_HEIGHT), (int) (selectLocation.getY()
+				- getSize().height * Camera.ISO_HEIGHT - LOCATION_OFFSET),
+				healthbarSize, 5);
 		Rectangle2D healthBar = new Rectangle2D.Double(
-				(int) selectLocation.getX() - LOCATION_OFFSET,
-				(int) (selectLocation.getY() - 5 * LOCATION_OFFSET), 50
-						* getHealth() / getMaxHealth(), 5);
-		float width = calculateHealthBarWidth(healthBar);
+				(int) (selectLocation.getX() - getSize().width
+						* Camera.ISO_HEIGHT),
+				(int) (selectLocation.getY() - getSize().height
+						* Camera.ISO_HEIGHT - LOCATION_OFFSET), getHealth(), 5);
+		float width = calculateHealthBarGradient(healthBar);
 		pen.setPaint(new GradientPaint((float) healthBar.getX() - width,
 				(float) healthBar.getMaxY(), Color.RED, (float) healthBar
 						.getMaxX(), (float) healthBar.getMaxY(), Color.GREEN));
@@ -569,7 +575,7 @@ public abstract class InteractiveEntity extends GameEntity implements
 		pen.setColor(Color.black);
 	}
 
-	private float calculateHealthBarWidth(Rectangle2D healthBar) {
+	private float calculateHealthBarGradient(Rectangle2D healthBar) {
 		float width = (float) (healthBar.getWidth() * (getHealth() / getMaxHealth()));
 		return width;
 	}
@@ -819,7 +825,7 @@ public abstract class InteractiveEntity extends GameEntity implements
 		myPath = GameState.getMap().getPath(myFinder, getWorldLocation(),
 				destination);
 		if (myPath != null) {
-			setRallyPoint();
+			setRallyPoint(destination);
 		}
 	}
 
