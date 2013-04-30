@@ -4,6 +4,14 @@ import java.lang.reflect.InvocationTargetException;
 
 import vooga.towerdefense.controller.Controller;
 
+/**
+ * Start the towerdefense game. The second parameter taken 
+ * by the Controller instance should be the path of the xml file which 
+ * contains the towerdefense game you plan on starting.
+ * 
+ * @author Leonard K. Ng'eno
+ *
+ */
 public class Main {
     
     private Main() {

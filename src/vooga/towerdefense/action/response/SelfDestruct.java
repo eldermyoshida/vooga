@@ -14,7 +14,7 @@ public class SelfDestruct extends Action {
 
 	private GameMap myMap;
 	private GameElement myElement;
-	private double myClock = 0;
+	private double myClock;
 	private double myLifespan;
 
 	public SelfDestruct(GameMap map, GameElement element,
@@ -23,6 +23,7 @@ public class SelfDestruct extends Action {
 		myMap = map;
 		myElement = element;
 		myLifespan = lifespan.getValue();
+		myClock = 0;
 	}
 
 	@Override

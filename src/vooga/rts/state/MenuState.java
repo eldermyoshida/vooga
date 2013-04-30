@@ -20,7 +20,8 @@ import vooga.rts.networking.communications.ExpandedLobbyInfo;
 /**
  * The menu state. Still hasn't been subject to refactor.
  * 
- * @author Challen Herzberg-Brovold, Jonno Schmidt
+ * @author Challen Herzberg-Brovold
+ * @author Jonathan Schmidt
  * 
  */
 public class MenuState extends SubState implements Observer {
@@ -64,7 +65,6 @@ public class MenuState extends SubState implements Observer {
             getCurrentMenu().handleMouseMovement((int) move.getPosition().x,
                                                  (int) move.getPosition().y);
         }
-        // At some point, will need a menu controller and use actions to clean this up
     }
 
     @Override
