@@ -19,7 +19,8 @@ import vooga.rts.util.Location3D;
 /**
  * 
  * This class implements OccupyStrategy and is used as an instance in
- * InteractiveEntity for objects that can be occupied by types of Units specified.
+ * InteractiveEntity for objects that can be occupied by types of Units
+ * specified.
  * 
  * @author Wenshun Liu
  * 
@@ -27,16 +28,17 @@ import vooga.rts.util.Location3D;
 public class CanBeOccupied implements OccupyStrategy {
     public static final int DEFAULT_MAX_OCCUPIERS = 10;
 
-    //TODO: another way to verify different types of Units? Probably names in xml?
+    // TODO: another way to verify different types of Units? Probably names in
+    // xml?
     private List<Integer> myOccupierHashCodes;
     private int myMaxOccupiers;
     private int myOccupierID;
 
     /**
      * Creates a new occupy strategy that represents an entity that can be
-     * occupied. It is created with a list of what entities can occupy it,
-     * what entities are occupying it, and the max number of entities that can
-     * occupy it.
+     * occupied. It is created with a list of what entities can occupy it, what
+     * entities are occupying it, and the max number of entities that can occupy
+     * it.
      */
     public CanBeOccupied () {
         myOccupierHashCodes = new ArrayList<Integer>();
@@ -45,6 +47,9 @@ public class CanBeOccupied implements OccupyStrategy {
     }
 
     public void getOccupied (InteractiveEntity entity, Unit u) {
+        if (myOccupierHashCodes.contains(u.hashCode())) {
+            return;
+        }
         if (myOccupierHashCodes.size() < myMaxOccupiers) {
             if (myOccupierID == 0) {
                 myOccupierID = u.getPlayerID();
@@ -65,17 +70,15 @@ public class CanBeOccupied implements OccupyStrategy {
     }
 
     /**
-     * Creates and adds the action, in which the occupied entity will remove
-     * and return all its occupiers back to the original player.
+     * Creates and adds the action, in which the occupied entity will remove and
+     * return all its occupiers back to the original player.
      * 
-     * @param entity the object that is occupied.
+     * @param entity
+     *        the object that is occupied.
      */
     private void addDeoccupyAction (final InteractiveEntity entity) {
-    	String commandName = "deoccupy";
+        String commandName = "deoccupy";
         entity.addAction(commandName, new InteractiveAction(entity) {
-            @Override
-            public void update (Command command) {
-            }
 
             @Override
             public void apply () {
@@ -87,9 +90,11 @@ public class CanBeOccupied implements OccupyStrategy {
                     entity.notifyObservers(hashCode);
                     it.remove();
                 }
+
             }
         });
-        entity.addActionInfo(commandName, new Information(commandName, "this deoccupies errboday","buttons/unload.gif",null));
+        entity.addActionInfo(commandName, new Information(commandName, "this deoccupies errboday",
+                                                          "buttons/unload.gif", null));
     }
 
     /**
@@ -122,9 +127,9 @@ public class CanBeOccupied implements OccupyStrategy {
         return myMaxOccupiers;
     }
 
-	public void affect(InteractiveEntity entity) {
-		OccupyStrategy newOccupy = new CanBeOccupied();
-		newOccupy.createOccupyActions(entity);
-		entity.setOccupyStrategy(newOccupy);
-	}
+    public void copyStrategy (InteractiveEntity entity) {
+        OccupyStrategy newOccupy = new CanBeOccupied();
+        newOccupy.createOccupyActions(entity);
+        entity.setOccupyStrategy(newOccupy);
+    }
 }

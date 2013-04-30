@@ -275,7 +275,7 @@ public class Controller {
 		ShopItem itemToBuy = myModel.getShopItem(p);
 
 		// no item clicked
-		if (itemToBuy == null)
+		if (itemToBuy == null && myModel.getPlayer().getAttributeManager().getAttribute(AttributeConstantsEnum.MONEY.getStatusCode()).getValue() > 0)
 			return;
 
 		BuildMode myNewMode = new BuildMode();
@@ -376,8 +376,8 @@ public class Controller {
 	 * paints the shop.
 	 * @param pen
 	 */
-	public void paintShop(Graphics pen) {
-		myModel.paintShop((Graphics2D) pen);
+	public void paintShop(Graphics2D pen) {
+		myModel.paintShop(pen);
 	}
 
 	/**
