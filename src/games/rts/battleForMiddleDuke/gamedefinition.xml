@@ -96,7 +96,7 @@
 		<myweapons></myweapons>
 		<information>
 			<description>Fear me for I am a Bunny Rabbit</description>
-			<button>buttons/NEED</button>
+			<button>/games/rts/battleForMiddleDuke/resources/buttons/fortress-button.png</button>
 			<cost>
 				<gold>100</gold>
 			</cost>				
@@ -115,7 +115,7 @@
 		<myweapons></myweapons>
 		<information>
 			<description>I make goblins</description>
-			<button>buttons/NEED</button>
+			<button>/games/rts/battleForMiddleDuke/resources/buttons/fortress-button.png</button>
 			<cost>
 				<gold>100</gold>
 			</cost>				
@@ -134,7 +134,7 @@
 		<myweapons></myweapons>
 		<information>
 			<description>I am a garrison</description>
-			<button>buttons/marine.png</button>
+			<button>/games/rts/battleForMiddleDuke/resources/buttons/garrison-button.png</button>
 			<cost>
 				<gold>20</gold>
 			</cost>				
@@ -153,7 +153,7 @@
 		<myweapons></myweapons>
 		<information>
 			<description>I am a barracks</description>
-			<button>buttons/marine.png</button>
+			<button>/games/rts/battleForMiddleDuke/resources/buttons/barracks-button.png</button>
 			<cost>
 				<gold>50</gold>
 			</cost>				
@@ -172,7 +172,7 @@
 		<myweapons></myweapons>
 		<information>
 			<description>I am a goblin cave</description>
-			<button>buttons/marine.png</button>
+			<button>/games/rts/battleForMiddleDuke/resources/buttons/barracks-button.png</button>
 			<cost>
 				<gold>50</gold>
 			</cost>				
@@ -194,8 +194,8 @@
 		<produce></produce>
 		<myweapons>gun</myweapons>
 		<information>
-			<description>NEED</description>
-			<button>buttons/marine.png</button>
+			<description>I am a marine</description>
+			<button>/games/rts/battleForMiddleDuke/resources/buttons/marine-button.png</button>
 			<cost>
 				<gold>15</gold>
 			</cost>				
@@ -216,7 +216,7 @@
 		<myweapons>gun</myweapons>
 		<information>
 			<description>I'm just a friendly dragon</description>
-			<button>buttons/marine.png</button>
+			<button>/games/rts/battleForMiddleDuke/resources/buttons/dragon-button.png</button>
 			<cost>
 				<gold>230</gold>
 			</cost>				
@@ -237,7 +237,7 @@
 		<myweapons>gun</myweapons>
 		<information>
 			<description>I'm albi</description>
-			<button>buttons/marine.png</button>
+			<button>/games/rts/battleForMiddleDuke/resources/buttons/dragon-button.png</button>
 			<cost>
 				<gold>200</gold>
 			</cost>				
@@ -258,7 +258,7 @@
 		<myweapons>gun</myweapons>
 		<information>
 			<description>I'm gonna troll you</description>
-			<button>buttons/marine.png</button>
+			<button>/games/rts/battleForMiddleDuke/resources/buttons/troll-button.png</button>
 			<cost>
 				<gold>15</gold>
 			</cost>				
@@ -278,8 +278,8 @@
 		<produce></produce>
 		<myweapons></myweapons>
 		<information>
-			<description>I wanna gather</description>
-			<button>images/scv.png</button>
+			<description>I wanna gather some hobbits</description>
+			<button>/games/rts/battleForMiddleDuke/resources/buttons/goblinworker-button.png</button>
 			<cost>
 				<gold>12</gold>
 			</cost>
@@ -300,7 +300,7 @@
 		<myweapons></myweapons>
 		<information>
 			<description>No booleans!</description>
-			<button>images/scv.png</button>
+			<button>/games/rts/battleForMiddleDuke/resources/buttons/programmer-button.png</button>
 			<cost>
 				<gold>15</gold>
 			</cost>
@@ -321,7 +321,7 @@
 		<myweapons>club</myweapons>
 		<information>
 			<description>I am a minotaur/description>
-			<button>images/scv.png</button>
+			<button>/games/rts/battleForMiddleDuke/resources/buttons/minotaur-button.png</button>
 			<cost>
 				<gold>35</gold>
 			</cost>
@@ -342,7 +342,7 @@
 		<myweapons>wand</myweapons>
 		<information>
 			<description>You Shall Not Pass!</description>
-			<button>images/scv.png</button>
+			<button>/games/rts/battleForMiddleDuke/resources/buttons/wizard-button.png</button>
 			<cost>
 				<gold>35</gold>
 			</cost>
