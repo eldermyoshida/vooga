@@ -92,6 +92,7 @@ public abstract class InteractiveEntity extends GameEntity implements
 	private Queue<DelayedTask> myQueueableTasks;
 	private DelayedTask myCurQueueTask;
 	private GameEntity myTargetEntity;
+	private Location3D myRallyPoint;
 
 	/**
 	 * Creates a new interactive entity.
@@ -130,6 +131,7 @@ public abstract class InteractiveEntity extends GameEntity implements
 		myTargetEntity = this;
 		myArmor = DEFAULT_ARMOR;
 		setSpeed(DEFAULT_INTERACTIVEENTITY_SPEED);
+		myRallyPoint = new Location3D(0,0,0);
 	}
 
 	public void changeImageColor() {
@@ -817,7 +819,7 @@ public abstract class InteractiveEntity extends GameEntity implements
 		myPath = GameState.getMap().getPath(myFinder, getWorldLocation(),
 				destination);
 		if (myPath != null) {
-			myProductionStrategy.setRallyPoint(this);
+			setRallyPoint();
 		}
 	}
 
@@ -868,6 +870,39 @@ public abstract class InteractiveEntity extends GameEntity implements
 	 */
 	public void setArmor(int armor) {
 		myArmor = armor;
+	}
+
+	/**
+	 * Returns the rally point of the production building. Will be used to move
+	 * the newly created units to
+	 * 
+	 * @return myRallyPoint, the rally point of the production building
+	 */
+	public Location3D getRallyPoint() {
+		return myRallyPoint;
+	}
+
+	/**
+	 * Sets the rally point of the production building
+	 * 
+	 * @param rallyPoint
+	 *            the location of the new rally point
+	 */
+	public void setRallyPoint(Location3D rallyPoint) {
+		myRallyPoint = rallyPoint;
+	}
+
+	/**
+	 * Sets the rally point of the entity that can produce so that units will
+	 * move to that point after they are created by the entity.
+	 * 
+	 * @param rallyPoint
+	 *            is the location where the units will go when they are created
+	 */
+
+	public void setRallyPoint() {
+		myRallyPoint = new Location3D(getWorldLocation().getX(),
+				getWorldLocation().getY() + getHeight(), 0);
 	}
 
 }
