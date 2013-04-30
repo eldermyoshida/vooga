@@ -141,8 +141,7 @@ public class ResourceManager {
     /**
      * Starts loading the resources that have been queued.
      */
-    public void load () {
-        System.out.println("Starting Load");        
+    public void load () {             
         if (!isLoading()) {
             myLoadThread = new Thread(new Runnable() {
                 @Override
@@ -216,7 +215,7 @@ public class ResourceManager {
             return null;
         }
 
-        Object loadedFile = myResourceStorage.get(file);
+        Object loadedFile = myResourceStorage.get(file);        
         if (resourceType.isAssignableFrom(loadedFile.getClass())) {
             return resourceType.cast(loadedFile);
         }
