@@ -19,8 +19,9 @@ public class GameOverMenu extends Menu {
         pen.setFont(new Font("Helvetica", Font.BOLD, 100));
         pen.setColor(Color.red);
         pen.drawString("Game Over...", 150, 300);
-        pen.setFont(new Font("Helvetica", Font.PLAIN, 72));
+        pen.setFont(new Font("Helvetica", Font.PLAIN, 60));
         if (myState == GameOver.WIN) {
+            pen.setColor(Color.green);
             pen.drawString("You Win!", 150, 375);
         }
         else
