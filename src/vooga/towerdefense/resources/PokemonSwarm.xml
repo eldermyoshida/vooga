@@ -32,7 +32,7 @@
 	</view>
 	<map>
 		<Map1>
-			<image>Pokemon\pkmnbackground.png</image>
+			<image>Pokemon/pkmnbackground.png</image>
 			<tile_size>50</tile_size>
 			<dimension>
 				<width>500</width>
@@ -123,7 +123,7 @@
 				    <CreateElement>
 				        <parameter>Grimer</parameter>
 				    </CreateElement>
-				    <RemoveElement></RemoveElement>
+				    <RemoveGameElement></RemoveGameElement>
 				</OnDeath>
 			</actions>			
 		</Muk>
@@ -165,7 +165,7 @@
 			<actions>
 			    <PeriodicAction>
 			        <parameter>Lifespan</parameter>
-			        <RemoveElement></RemoveElement>
+			        <RemoveGameElement></RemoveGameElement>
 			    </PeriodicAction>
 			    <FindTargets>
 					<parameter>RADIUS</parameter>
@@ -234,8 +234,8 @@
 					    <parameter>Health</parameter>
 					</ModifyAttributeValue>					
 					</FindTargets>
-					<RemoveElement>
-					</RemoveElement>
+					<RemoveGameElement>
+					</RemoveGameElement>
 			    </PeriodicAction>
 			</actions>
 		</Electrode>

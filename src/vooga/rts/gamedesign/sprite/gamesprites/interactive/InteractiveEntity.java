@@ -577,6 +577,11 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
         pen.setColor(Color.black);
     }
 
+    private float calculateHealthBarGradient (Rectangle2D healthBar) {
+        float width = (float) (healthBar.getWidth() * (getHealth() / getMaxHealth()));
+        return width;
+    }
+
     private float calculateHealthBarWidth (Rectangle2D healthBar) {
         float width = (float) (healthBar.getWidth() * (getHealth() / getMaxHealth()));
         return width;
@@ -694,7 +699,7 @@ public abstract class InteractiveEntity extends GameEntity implements IAttackabl
             else {
                 List<InteractiveEntity> enemies = findEnemies(weapon);
                 if (!enemies.isEmpty()) {
-                    enemies.get(0).getAttacked(this);                    
+                    enemies.get(0).getAttacked(this);
                 }
 
                 weapon.update(elapsedTime);

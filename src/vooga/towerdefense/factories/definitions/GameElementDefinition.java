@@ -7,8 +7,7 @@ import java.util.List;
 import vooga.towerdefense.factories.actionfactories.ActionFactory;
 import vooga.towerdefense.factories.attributefactories.AttributeManagerFactory;
 import util.Location;
-import vooga.towerdefense.util.Pixmap;
-
+import util.Pixmap;
 
 
 /**
