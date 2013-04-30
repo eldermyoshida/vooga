@@ -7,7 +7,6 @@ import vooga.rts.gamedesign.state.ProducingState;
 import vooga.rts.manager.IndividualResourceManager;
 import vooga.rts.state.GameState;
 import vooga.rts.util.DelayedTask;
-import vooga.rts.util.Location3D;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -66,9 +65,6 @@ public class CanProduce implements ProductionStrategy {
 							.getResources();
 					if (playerResources.has(costMap)) {
 						playerResources.charge(costMap);
-						System.out.println("HAVE "
-								+ playerResources.getResources());
-
 						final InteractiveEntity unit = producable;
 
 						myProduceState = ProducingState.PRODUCING;
