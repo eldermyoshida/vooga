@@ -1,6 +1,5 @@
 package vooga.towerdefense.attributes;
 
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics2D;
 import util.Location;
@@ -130,6 +129,10 @@ public class Attribute {
                      getOriginalValue())), (int) 10);
     }
 
+    /**
+     * Returns the original value of this attribute
+     * @return 
+     */
     public double getOriginalValue () {
         return myOriginalValue;
     }
@@ -146,7 +149,6 @@ public class Attribute {
     /**
      * reset current value to original value;
      */
-
     public void reset () {
         myCurrentValue = myOriginalValue;
         resetBuffValue();
