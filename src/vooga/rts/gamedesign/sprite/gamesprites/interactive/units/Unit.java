@@ -117,13 +117,8 @@ public class Unit extends InteractiveEntity {
                 new Unit(getImage(), getWorldLocation(), getSize(), getSound(), getPlayerID(),
                          getHealth(), getBuildTime(), getSpeed());
         transmitProperties(copyUnit);
+        setRallyPoint();
         return copyUnit;
-    }
-
-    @Override
-    public void updateAction (Command command) {
-        // TODO Auto-generated method stub
-
     }
 
     @Override
