@@ -170,9 +170,9 @@
 				</cost>				
 			</information>			
 		</building>
-		<custombuilding src = "vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.Tower">
+		<building src = "vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.Tower">
 			<name>tower</name>
-		</custombuilding>
+		</building>
 	</buildings>
 	<units src = "vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit">
 		<unit>
