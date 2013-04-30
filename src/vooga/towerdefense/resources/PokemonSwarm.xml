@@ -271,7 +271,7 @@
 			<attributes>
 				<Cost>150</Cost>
 				<NumTargets>100</NumTargets>
-				<RADIUS>100</RADIUS>
+				<RADIUS>300</RADIUS>
 				<AttackType>1.2</AttackType>
 				<FastEffect>50.0</FastEffect>
 				<MoneyIncrease>55</MoneyIncrease>
