@@ -37,7 +37,7 @@ public class ProjectileDecoder extends Decoder {
 		for(int i = 0 ; i < nodeLst.getLength() ; i++){
 			Element pElement = (Element) nodeLst.item(i);
 			String name = getElement(pElement, NAME_TAG);
-			String image = getElement(pElement, IMAGE_TAG);
+			String image = getElement(pElement, IMAGE_TAG);			
 			int damage = Integer.parseInt(getElement(pElement, DAMAGE_TAG));
 			int lifespan = Integer.parseInt(getElement(pElement, LIFESPAN_TAG));
 			int speed = Integer.parseInt(getElement(pElement, SPEED_TAG));
