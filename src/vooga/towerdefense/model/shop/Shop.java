@@ -21,7 +21,6 @@ import vooga.towerdefense.model.GameMap;
  */
 public class Shop {
 	public static final int SHOP_SEPARATOR_WIDTH = 10;
-	//public static final int NUM_SHOP_ITEMS = 5;
 
 	private List<ShopItem> myShopItems;
 
@@ -36,9 +35,6 @@ public class Shop {
 		int yC = 10;
 		for (int i = 0; i < factories.size(); ++i) {
 		    // TODO: replace this with parsed file input
-		    //GameElementFactory factory = new GameElementFactory(DefinitionConstants.DEFAULT_TOWER_NAME, 
-		    //		DefinitionConstants.DEFAULT_TOWER_IMAGE);
-		    //factory.initialize(map);
 		    
 		    if (factories.get(i).getType().equals("Tower")) {
 		        
