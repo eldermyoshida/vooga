@@ -1,10 +1,13 @@
 package vooga.towerdefense.attributes;
 
+import java.awt.Dimension;
+import java.awt.Graphics2D;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 
+import util.Location;
 import vooga.towerdefense.factories.elementfactories.GameElementFactory;
 
 /**
@@ -180,4 +183,17 @@ public class AttributeManager {
 	public GameElementFactory getGameElementFactory(String name) {
 		return myGameElementFactories.get(name);
 	}
+	
+	/**
+	 * Paint health bars
+	 * @param pen
+	 * @param where
+	 * @param size
+	 */
+	public void paintHealth(Graphics2D pen, Location where, Dimension size) {
+	          Attribute Health = getAttribute(AttributeConstantsEnum.HEALTH.getStatusCode());
+	          if (Health != null) {
+	              Health.paintBar(pen, where, size);
+	          }
+	      }
 }
