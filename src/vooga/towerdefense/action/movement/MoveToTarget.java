@@ -57,6 +57,7 @@ public class MoveToTarget extends TargetedAction {
         else {
             myCenter.translate(myHeading);
         }
+
     }
 
     /**
