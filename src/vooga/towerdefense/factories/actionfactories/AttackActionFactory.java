@@ -23,7 +23,7 @@ public class AttackActionFactory extends ActionFactory {
     private FindTargetsFactory myFinder;
     private FilterTargetsFactory myFilter;
     private PeriodicActionFactory mySpeed;
-    private ShootProjectileFactory myProjectiles;
+    private LaunchProjectileFactory myProjectiles;
     
     
     public AttackActionFactory(@ActionAnnotation(name = "attack radius", value = "attribute") String attackRadius,
@@ -53,7 +53,10 @@ public class AttackActionFactory extends ActionFactory {
         myFinder = new FindTargetsFactory(myRadius);
         myFilter = new FilterTargetsFactory(myTargets, myNumberOfTargets);
         mySpeed = new PeriodicActionFactory(myAttackSpeed);
-       // myProjectiles = new LaunchProjectileFactory(myProjectileType);
+        myProjectiles = new LaunchProjectileFactory(myProjectileType);
+        myFilter.addFollowUpActionsFactories(myProjectiles);
+       myFinder.addFollowUpActionsFactories(myFilter);
+       mySpeed.addFollowUpActionsFactories(myFinder);
     }
 
     /**
@@ -63,14 +66,8 @@ public class AttackActionFactory extends ActionFactory {
      */
     @Override
     protected Action buildAction (GameElement e) {
-        Action attack = myFinder.buildAction(e);
-        Action filter = myFilter.createAction(e);
         Action speed = mySpeed.createAction(e);
-        Action projectile = myProjectiles.createAction(e);
-        attack.addFollowUpAction(filter);
-        filter.addFollowUpAction(speed);
-        speed.addFollowUpAction(projectile);
-        return attack;
+        return speed;
     }
 
 }
