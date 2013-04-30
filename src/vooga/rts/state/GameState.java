@@ -131,8 +131,7 @@ public class GameState extends SubState implements Controller, Observer {
             getPlayers().getPlayer(i).getResources()
                     .setInitialValues(RTSGame.getFactory().getStarterPack());
             generateInitialSprites(i);
-        }
-        generateResources();
+        }        
     }
 
     private void generateInitialSprites (int playerID) {
@@ -175,14 +174,6 @@ public class GameState extends SubState implements Controller, Observer {
                                                 base.getZ() + reference.getZ()));
         subject.move(subject.getWorldLocation());
         return subject;
-    }
-
-    private void generateResources () {
-        for (int j = 0; j < 10; j++) {
-            getMap().getResources().add(new Resource(new Pixmap("images/mineral.gif"),
-                                                     new Location3D(600 + j * 30, 600 - j * 20, 0),
-                                                     new Dimension(50, 50), 0, 200, "gold"));
-        }
     }
 
     public void setGameOver () {

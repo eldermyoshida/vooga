@@ -54,7 +54,7 @@ public class CanUpgrade implements UpgradeStrategy {
             });
             entity.addActionInfo(commandName, new Information(commandName,
             		"This upgrades " + upgrade.getUpgradeName(),
-            		"buttons/unload.gif",null));  
+            		"buttons/potion.png",null));  
         }
     }
 

@@ -14,15 +14,15 @@
 			<name>Health</name>
 			<upgradeNode>
 				<parent>Health</parent>
-				<nodeName>Boost1</nodeName>
+				<nodeName>Health1</nodeName>
 				<object>Health</object>
 				<value>50</value>
 				<resourceCostType>Resource</resourceCostType>
 				<resourceAmount>30</resourceAmount>
 			</upgradeNode>
 			<upgradeNode>
-				<parent>Boost1</parent>
-				<nodeName>Boost2</nodeName>
+				<parent>Health1</parent>
+				<nodeName>Health2</nodeName>
 				<object>Health</object>
 				<value>100</value>
 				<resourceCostType>Resource</resourceCostType>
@@ -96,14 +96,15 @@
 		<produce>worker</produce>
 		<myweapons></myweapons>
 		<information>
-			<description>Fear me for I am a Bunny Rabbit</description>
+			<name>LSRC</name>
+			<description>The Levine Science Research Center</description>
 			<button>/games/rts/battleForMiddleDuke/resources/buttons/fortress-button.png</button>
 			<cost>
 				<gold>100</gold>
 			</cost>				
 		</information>			
 	</building>
-		<building>
+		<building>  
 		<name>Goblin Maker</name>
 		<img>/games/rts/battleForMiddleDuke/resources/goblinmaker.png</img>
 		<sound>pikachu.wav</sound>
@@ -138,7 +139,8 @@
 			<button>/games/rts/battleForMiddleDuke/resources/buttons/garrison-button.png</button>
 			<cost>
 				<gold>20</gold>
-			</cost>				
+			</cost>
+			<name>Garrison</name>
 		</information>			
 	</building>
 		<building>
@@ -157,7 +159,8 @@
 			<button>/games/rts/battleForMiddleDuke/resources/buttons/barracks-button.png</button>
 			<cost>
 				<gold>50</gold>
-			</cost>				
+			</cost>
+			<name>Barracks</name>
 		</information>			
 	</building>
 		<building>
@@ -176,9 +179,30 @@
 			<button>/games/rts/battleForMiddleDuke/resources/buttons/barracks-button.png</button>
 			<cost>
 				<gold>50</gold>
-			</cost>				
+			</cost>
+			<name>Goblin Cave</name>
 		</information>			
 	</building>
+	<building src = "vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.Tower">
+			<name>Tower</name>
+			<img>/games/rts/battleForMiddleDuke/resources/garrison.png</img>
+		<sound>pikachu.wav</sound>
+		<health>1000</health>
+		<buildtime>1</buildtime>
+		<occupy>canbeoccupied</occupy>
+		<upgrade>cannotupgrade</upgrade>
+		<upgradeTreeName></upgradeTreeName>
+		<produce></produce>
+		<myweapons></myweapons>
+		<information>
+			<description>I am a tower</description>
+			<button>/games/rts/battleForMiddleDuke/resources/buttons/garrison-button.png</button>
+			<cost>
+				<gold>20</gold>
+			</cost>				
+		</information>	
+		</building>
+	
 </buildings>
 <units src = "vooga.rts.gamedesign.sprite.gamesprites.interactive.units.Unit">
 	<unit>
@@ -192,14 +216,15 @@
 		<occupy>cannotbeoccupied</occupy>
 		<upgrade>canupgrade</upgrade>
 		<upgradeTreeName>SoldierUpgrade</upgradeTreeName>
-		<produce></produce>
+		<produce>Tower</produce>
 		<myweapons>gun</myweapons>
 		<information>
 			<description>I am a marine</description>
 			<button>/games/rts/battleForMiddleDuke/resources/buttons/marine-button.png</button>
 			<cost>
 				<gold>15</gold>
-			</cost>				
+			</cost>
+			<name>Marine</name>
 		</information>
 	</unit>
 	<unit>
@@ -220,7 +245,8 @@
 			<button>/games/rts/battleForMiddleDuke/resources/buttons/dragon-button.png</button>
 			<cost>
 				<gold>230</gold>
-			</cost>				
+			</cost>
+			<name>Albi the Racist Dragon</name>
 		</information>
 	</unit>
 	<unit>
@@ -237,11 +263,12 @@
 		<produce></produce>
 		<myweapons>gun</myweapons>
 		<information>
-			<description>I'm albi</description>
+			<description>The Racist Dragon</description>
 			<button>/games/rts/battleForMiddleDuke/resources/buttons/dragon-button.png</button>
 			<cost>
 				<gold>200</gold>
-			</cost>				
+			</cost>
+			<name>Albi</name>
 		</information>
 	</unit>
 	<unit>
@@ -262,7 +289,8 @@
 			<button>/games/rts/battleForMiddleDuke/resources/buttons/troll-button.png</button>
 			<cost>
 				<gold>15</gold>
-			</cost>				
+			</cost>
+			<name>Ryan</name>
 		</information>
 	</unit>
 	<unit>
@@ -284,6 +312,7 @@
 			<cost>
 				<gold>12</gold>
 			</cost>
+			<name>Your Malevolence</name>
 		</information>			
 	</unit>
 	<unit>
@@ -297,7 +326,7 @@
 		<occupy>cannotbeoccupied</occupy>
 		<upgrade>canupgrade</upgrade>
 		<upgradeTreeName>SoldierUpgrade</upgradeTreeName>
-		<produce>worker</produce>
+		<produce>worker barracks</produce>
 		<myweapons></myweapons>
 		<information>
 			<description>No booleans!</description>
@@ -305,6 +334,7 @@
 			<cost>
 				<gold>15</gold>
 			</cost>
+			<name>Prof. Duvall</name>
 		</information>			
 	</unit>
 	<unit>
@@ -326,6 +356,7 @@
 			<cost>
 				<gold>35</gold>
 			</cost>
+			<name>Minotaur</name>
 		</information>			
 	</unit>
 	<unit>
@@ -347,6 +378,7 @@
 			<cost>
 				<gold>35</gold>
 			</cost>
+			<name>Gandalf</name>
 		</information>			
 	</unit>
 </units>
