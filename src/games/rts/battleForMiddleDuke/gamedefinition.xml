@@ -97,7 +97,7 @@
 		<myweapons></myweapons>
 		<information>
 			<name>LSRC</name>
-			<description>Fear me for I am a Bunny Rabbit</description>
+			<description>The Levine Science Research Center</description>
 			<button>/games/rts/battleForMiddleDuke/resources/buttons/fortress-button.png</button>
 			<cost>
 				<gold>100</gold>
@@ -139,7 +139,8 @@
 			<button>/games/rts/battleForMiddleDuke/resources/buttons/garrison-button.png</button>
 			<cost>
 				<gold>20</gold>
-			</cost>				
+			</cost>
+			<name>Garrison</name>
 		</information>			
 	</building>
 		<building>
@@ -158,7 +159,8 @@
 			<button>/games/rts/battleForMiddleDuke/resources/buttons/barracks-button.png</button>
 			<cost>
 				<gold>50</gold>
-			</cost>				
+			</cost>
+			<name>Barracks</name>
 		</information>			
 	</building>
 		<building>
@@ -177,7 +179,8 @@
 			<button>/games/rts/battleForMiddleDuke/resources/buttons/barracks-button.png</button>
 			<cost>
 				<gold>50</gold>
-			</cost>				
+			</cost>
+			<name>Goblin Cave</name>
 		</information>			
 	</building>
 </buildings>
@@ -200,7 +203,8 @@
 			<button>/games/rts/battleForMiddleDuke/resources/buttons/marine-button.png</button>
 			<cost>
 				<gold>15</gold>
-			</cost>				
+			</cost>
+			<name>Marine</name>
 		</information>
 	</unit>
 	<unit>
@@ -221,7 +225,8 @@
 			<button>/games/rts/battleForMiddleDuke/resources/buttons/dragon-button.png</button>
 			<cost>
 				<gold>230</gold>
-			</cost>				
+			</cost>
+			<name>Albi the Racist Dragon</name>
 		</information>
 	</unit>
 	<unit>
@@ -238,11 +243,12 @@
 		<produce></produce>
 		<myweapons>gun</myweapons>
 		<information>
-			<description>I'm albi</description>
+			<description>The Racist Dragon</description>
 			<button>/games/rts/battleForMiddleDuke/resources/buttons/dragon-button.png</button>
 			<cost>
 				<gold>200</gold>
-			</cost>				
+			</cost>
+			<name>Albi</name>
 		</information>
 	</unit>
 	<unit>
@@ -263,7 +269,8 @@
 			<button>/games/rts/battleForMiddleDuke/resources/buttons/troll-button.png</button>
 			<cost>
 				<gold>15</gold>
-			</cost>				
+			</cost>
+			<name>Ryan</name>
 		</information>
 	</unit>
 	<unit>
@@ -285,6 +292,7 @@
 			<cost>
 				<gold>12</gold>
 			</cost>
+			<name>Your Malevolence</name>
 		</information>			
 	</unit>
 	<unit>
@@ -306,6 +314,7 @@
 			<cost>
 				<gold>15</gold>
 			</cost>
+			<name>Prof. Duvall</name>
 		</information>			
 	</unit>
 	<unit>
@@ -327,6 +336,7 @@
 			<cost>
 				<gold>35</gold>
 			</cost>
+			<name>Minotaur</name>
 		</information>			
 	</unit>
 	<unit>
@@ -348,6 +358,7 @@
 			<cost>
 				<gold>35</gold>
 			</cost>
+			<name>Gandalf</name>
 		</information>			
 	</unit>
 </units>
