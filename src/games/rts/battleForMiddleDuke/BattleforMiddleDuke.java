@@ -4,16 +4,16 @@ import vooga.rts.game.RTSGame;
 import arcade.games.ArcadeInteraction;
 
 
-public class StartGUI extends RTSGame
+public class BattleforMiddleDuke extends RTSGame
 {    
 
-    public StartGUI (ArcadeInteraction arcade) {
+    public BattleforMiddleDuke (ArcadeInteraction arcade) {
         super(arcade, "/games/rts/battleForMiddleDuke/GameDefinition.xml");    
         setMap("/games/rts/battleForMiddleDuke/resources/maps/peter/peter.xml");
     }
 
     public static void main (String[] args) {
-        StartGUI f = new StartGUI(null);
+        BattleforMiddleDuke f = new BattleforMiddleDuke(null);
         f.run();
     }
 }

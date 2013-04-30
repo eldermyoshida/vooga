@@ -64,6 +64,7 @@
 		<img>/games/rts/battleForMiddleDuke/resources/gold.png</img>
 		<health>500</health>
 	</resource>
+</resources>
 <strategies>
 	<attacks>
 		<canattack src = "vooga.rts.gamedesign.strategy.attackstrategy.CanAttack"/>
@@ -84,7 +85,7 @@
 </strategies>
 <buildings src = "vooga.rts.gamedesign.sprite.gamesprites.interactive.buildings.Building">
 	<building>
-		<name>LSRC</name>
+		<name>home</name>
 		<img>/games/rts/battleForMiddleDuke/resources/lsrc.png</img>
 		<sound>pikachu.wav</sound>
 		<health>3000</health>
@@ -92,7 +93,7 @@
 		<occupy>cannotbeoccupied</occupy>
 		<upgrade>cannotupgrade</upgrade>
 		<upgradeTreeName></upgradeTreeName>
-		<produce>Worker</produce>
+		<produce>worker</produce>
 		<myweapons></myweapons>
 		<information>
 			<description>Fear me for I am a Bunny Rabbit</description>
@@ -286,7 +287,7 @@
 		</information>			
 	</unit>
 	<unit>
-		<name>programmer</name>
+		<name>worker</name>
 		<img>/games/rts/battleForMiddleDuke/resources/programmer.png</img>
 		<sound>pikachu.wav</sound>
 		<health>80</health>
@@ -296,7 +297,7 @@
 		<occupy>cannotbeoccupied</occupy>
 		<upgrade>canupgrade</upgrade>
 		<upgradeTreeName>SoldierUpgrade</upgradeTreeName>
-		<produce>programmer</produce>
+		<produce>worker</produce>
 		<myweapons></myweapons>
 		<information>
 			<description>No booleans!</description>
@@ -320,7 +321,7 @@
 		<produce></produce>
 		<myweapons>club</myweapons>
 		<information>
-			<description>I am a minotaur/description>
+			<description>I am a minotaur</description>
 			<button>/games/rts/battleForMiddleDuke/resources/buttons/minotaur-button.png</button>
 			<cost>
 				<gold>35</gold>

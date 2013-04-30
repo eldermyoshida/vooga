@@ -157,6 +157,7 @@ public class GameState extends SubState implements Controller, Observer {
                 (Building) setLocation(startProduction, baseLocation,
                                        DEFAULT_PRODUCTION_RELATIVE_LOCATION);
         getPlayers().getPlayer(playerID).add(startProduction);
+        
 
         Building startOccupy =
                 (Building) RTSGame.getFactory().getEntitiesMap().get("garrison").copy();
