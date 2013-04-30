@@ -1,4 +1,4 @@
-package vooga.rts.gamedesign.sprite.gamesprites.interactive;
+ package vooga.rts.gamedesign.sprite.gamesprites.interactive;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -46,7 +46,6 @@ import vooga.rts.gamedesign.strategy.upgradestrategy.CannotUpgrade;
 import vooga.rts.gamedesign.strategy.upgradestrategy.UpgradeStrategy;
 import vooga.rts.gamedesign.upgrades.UpgradeTree;
 import vooga.rts.gamedesign.weapon.Weapon;
-import vooga.rts.player.Team;
 import vooga.rts.state.GameState;
 import vooga.rts.util.Camera;
 import vooga.rts.util.DelayedTask;
@@ -55,7 +54,6 @@ import vooga.rts.util.Information;
 import vooga.rts.util.Location3D;
 import vooga.rts.util.Pixmap;
 import vooga.rts.util.Sound;
-
 
 /**
  * This class is the extension of GameEntity. It contains the strategies for
@@ -77,6 +75,7 @@ public abstract class InteractiveEntity extends GameEntity implements
     private static int DEFAULT_INTERACTIVEENTITY_SPEED = 150;
     public static final double DEFAULT_BUILD_TIME = 5;
     public static final int DEFAULT_ARMOR = 10;
+	public static final int MAX_HEALTHBAR_SIZE = 80;
     private boolean isSelected;
     private Sound mySound;
     private AttackStrategy myAttackStrategy;
@@ -305,12 +304,6 @@ public abstract class InteractiveEntity extends GameEntity implements
                 getEntityState().attack();
             }
             if (getEntityState().canAttack()) {
-                if (getPlayerID() == 1) {
-                    System.out.println(distance);
-                    if (distance < 200) {
-                        System.out.println("Attacking");
-                    }
-                }
                 myAttackStrategy.attack(attackable, distance);
             }
         }
@@ -564,27 +557,28 @@ public abstract class InteractiveEntity extends GameEntity implements
         }
     }
 
-    private void paintHealthBar (Graphics2D pen, Point2D selectLocation) {
-        pen.drawRect((int) selectLocation.getX() - LOCATION_OFFSET,
-                     (int) (selectLocation.getY() - 5 * LOCATION_OFFSET), 50, 5);
-        Rectangle2D healthBar =
-                new Rectangle2D.Double((int) selectLocation.getX() - LOCATION_OFFSET,
-                                       (int) (selectLocation.getY() - 5 * LOCATION_OFFSET),
-                                       50 * getHealth() / getMaxHealth(), 5);
-        float width = calculateHealthBarWidth(healthBar);
-        pen.setPaint(new GradientPaint((float) healthBar.getX() - width, (float) healthBar
-                .getMaxY(), Color.RED, (float) healthBar.getMaxX(), (float) healthBar.getMaxY(),
-                                       Color.GREEN));
-        pen.fill(healthBar);
-        pen.setColor(Color.black);
-    }
+	private void paintHealthBar(Graphics2D pen, Point2D selectLocation) {
+		int healthbarSize = (getMaxHealth() / 5 > MAX_HEALTHBAR_SIZE) ? MAX_HEALTHBAR_SIZE
+				: getMaxHealth() / 5;
+		pen.drawRect((int) (selectLocation.getX() - getSize().width
+				* Camera.ISO_HEIGHT), (int) (selectLocation.getY()
+				- getSize().height * Camera.ISO_HEIGHT - LOCATION_OFFSET),
+				healthbarSize, 5);
+		Rectangle2D healthBar = new Rectangle2D.Double(
+				(int) selectLocation.getX() - getSize().width
+						* Camera.ISO_HEIGHT,
+				(int) (selectLocation.getY() - getSize().height
+						* Camera.ISO_HEIGHT - LOCATION_OFFSET), healthbarSize
+						* getHealth() / getMaxHealth(), 5);
+		float width = calculateHealthBarGradient(healthBar);
+		pen.setPaint(new GradientPaint((float) healthBar.getX() - width,
+				(float) healthBar.getMaxY(), Color.RED, (float) healthBar
+						.getMaxX(), (float) healthBar.getMaxY(), Color.GREEN));
+		pen.fill(healthBar);
+		pen.setColor(Color.black);
+	}
 
     private float calculateHealthBarGradient (Rectangle2D healthBar) {
-        float width = (float) (healthBar.getWidth() * (getHealth() / getMaxHealth()));
-        return width;
-    }
-
-    private float calculateHealthBarWidth (Rectangle2D healthBar) {
         float width = (float) (healthBar.getWidth() * (getHealth() / getMaxHealth()));
         return width;
     }

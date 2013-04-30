@@ -120,9 +120,9 @@
 				        <parameter>Money</parameter>
 				        <parameter>Money</parameter>
 				    </ModifyPlayerAttribute>
-				    <CreateElement>
+				    <CreateGameElement>
 				        <parameter>Grimer</parameter>
-				    </CreateElement>
+				    </CreateGameElement>
 				    <RemoveGameElement></RemoveGameElement>
 				</OnDeath>
 			</actions>			
@@ -152,21 +152,20 @@
 			<image>Pokemon/BlobPurple.gif</image>
 			<type>Projectile</type>
 			<attributes>
-				<Move_Speed>-5</Move_Speed>
-				<MOVE_SPEED>-5</MOVE_SPEED>
+				<Move_Speed>5</Move_Speed>
+				<MOVE_SPEED>5</MOVE_SPEED>
 				<DIRECTION>0</DIRECTION>
 				<NumTargets>1</NumTargets>
 				<RADIUS>50</RADIUS>
 				<AttackType>1.2</AttackType>
-				<Lifespan>1200</Lifespan>
+				<Lifespan>1000</Lifespan>
 				<AttackSpeed>1.3</AttackSpeed>
-				<Damage>-5</Damage>
+				<Damage>-0.1</Damage>
 			</attributes>
 			<actions>
-			    <PeriodicAction>
+			    <SelfDestruct>
 			        <parameter>Lifespan</parameter>
-			        <RemoveGameElement></RemoveGameElement>
-			    </PeriodicAction>
+			    </SelfDestruct>
 			    <FindTargets>
 					<parameter>RADIUS</parameter>
 					<ModifyAttributeValue>
@@ -181,8 +180,8 @@
 			<image>Pokemon/pokeball.png</image>
 			<type>Projectile</type>
 			<attributes>
-				<Move_Speed>-5</Move_Speed>
-				<MOVE_SPEED>-5</MOVE_SPEED>
+				<Move_Speed>5</Move_Speed>
+				<MOVE_SPEED>5</MOVE_SPEED>
 				<DIRECTION>0</DIRECTION>
 				<NumTargets>4</NumTargets>
 				<RADIUS>10</RADIUS>
@@ -192,10 +191,9 @@
 				<Damage>-20</Damage>
 			</attributes>
 			<actions>
-			    <PeriodicAction>
+			    <SelfDestruct>
 			        <parameter>Lifespan</parameter>
-			        <RemoveGameElement></RemoveGameElement>
-			    </PeriodicAction>
+			    </SelfDestruct>
 			    <FindTargets>
 					<parameter>RADIUS</parameter>
 					<ModifyAttributeValue>
@@ -213,12 +211,11 @@
 				<MOVE_SPEED>-20</MOVE_SPEED>
 				<DIRECTION>0</DIRECTION>
 				<Cost>200</Cost>
-				<NumTargets>1</NumTargets>
+				<NumTargets>4</NumTargets>
 				<RADIUS>200</RADIUS>
 				<RADIUS2>300</RADIUS2>
 				<AttackType>1.2</AttackType>
-				<AttackSpeed>2000</AttackSpeed>
-				<Damage>-5</Damage>
+				<AttackSpeed>1000</AttackSpeed>
 			</attributes>
 			<actions>
 			    <PeriodicAction>
@@ -249,22 +246,20 @@
 				<RADIUS>100</RADIUS>
 				<RADIUS2>300</RADIUS2>
 				<AttackType>1.2</AttackType>
-				<DetonationSpeed>1000</DetonationSpeed>
+				<DetonationSpeed>200</DetonationSpeed>
 				<Damage>-5000</Damage>
 			</attributes>
 			<actions>
-			    <PeriodicAction>
-			        <parameter>DetonationSpeed</parameter>
-			        <FindTargets>
-					<parameter>RADIUS</parameter>
+				<FindTargets>
+				<parameter>RADIUS</parameter>
 					<ModifyAttributeValue>
 					    <parameter>Damage</parameter>
 					    <parameter>Health</parameter>
 					</ModifyAttributeValue>					
-					</FindTargets>
-					<RemoveGameElement>
-					</RemoveGameElement>
-			    </PeriodicAction>
+				</FindTargets>
+			    <SelfDestruct>
+			        <parameter>DetonationSpeed</parameter>
+			    </SelfDestruct>
 			</actions>
 		</Electrode>
 		<Sudowoodo>
