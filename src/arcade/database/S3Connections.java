@@ -36,6 +36,7 @@ import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
+
 /**
  * This sample demonstrates how to make basic requests to Amazon S3 using
  * the AWS SDK for Java.
@@ -55,7 +56,7 @@ public class S3Connections {
     private static final String USER_DIR = System.getProperty("user.dir");
     private static final String SRC = "/src";
     private static final String FILENAME = "/filename";
-    private static final String TEMPORARY_PNG = "/temporary.png";
+    private static final String TEMPORARY_PNG = "/temporary";
     private static final String GAMEDATA = "gamedata";
     private static final String USERGAMEDATA = "usergamedata";
     private static final String AVATAR = "avatar";
@@ -63,6 +64,9 @@ public class S3Connections {
     private static final String ADSCREEN = "adscreen";
     private static final String BUCKET_NAME = "mycs308database";  
     private static final String RELATIVE_PATH = "/arcade/amazondownloads";
+
+
+
 
 
 
@@ -205,6 +209,7 @@ public class S3Connections {
         return buffer;
     }
 
+
     /**
      * Creates file from byte array
      * @param bytes is array of bytes
@@ -294,7 +299,7 @@ public class S3Connections {
      * @param key (name) of file
      */
     public String downloadObjectToFile(String key) {
-        String pathOfImage = SRC + RELATIVE_PATH + TEMPORARY_PNG;
+        String pathOfImage = SRC + RELATIVE_PATH + TEMPORARY_PNG + key + ".png";
         File tempFile = new File(USER_DIR + pathOfImage);
         @SuppressWarnings("unused")
         ObjectMetadata object = myS3Instance.getObject(
@@ -310,3 +315,4 @@ public class S3Connections {
         myS3Instance.deleteObject(BUCKET_NAME, key);
     }
 }
+
