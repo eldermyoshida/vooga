@@ -124,10 +124,17 @@ public class Attribute {
     /**
      * paints a bar representing this attribute
      */
-    public void paint (Graphics2D pen, Location where, Dimension size) {
-        pen.setColor(Color.red);
+    public void paintBar (Graphics2D pen, Location where, Dimension size) {
+        pen.setColor(Color.RED);
+        pen.fillRect((int) where.getX() - size.width / 2, (int) where.getY() - size.height / 2,
+                     (int) (size.getWidth() * (getValue() /
+                     getOriginalValue())), (int) 7);
     }
 
+    /**
+     * Returns the original value of this attribute
+     * @return 
+     */
     public double getOriginalValue () {
         return myOriginalValue;
     }
@@ -144,7 +151,6 @@ public class Attribute {
     /**
      * reset current value to original value;
      */
-
     public void reset () {
         myCurrentValue = myOriginalValue;
         resetBuffValue();

@@ -31,9 +31,9 @@ public class InfoSubMenu extends SubMenu {
                     pen.setColor(Color.GRAY);
                     pen.drawString(mySelectedEntity.getInfo().getDescription(), (int) 280,
                                    (int) Window.D_Y - 65);
-                    if (mySelectedEntity.getInfo().getButtonImage() != null) {
+                    if (mySelectedEntity.getInfo().getButtonImage() != null) {                        
                         pen.drawImage(mySelectedEntity.getInfo().getButtonImage(), (int) 220,
-                                      (int) Window.D_Y - 90, null);
+                                      (int) Window.D_Y - 90, 50, 50, null);
                     }
                 }
             }

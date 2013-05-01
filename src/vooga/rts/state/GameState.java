@@ -42,6 +42,8 @@ import vooga.rts.util.TimeIt;
  * 
  */
 public class GameState extends SubState implements Controller, Observer {
+    private static final Location FPS_SCREEN_LOC = new Location(50, 15);
+
     private static final Location3D DEFAULT_SOLDIER_ONE_RELATIVE_LOCATION = new Location3D(100,
                                                                                            100, 0);
 
@@ -65,18 +67,15 @@ public class GameState extends SubState implements Controller, Observer {
     private boolean isGameOver;
 
     public GameState (Observer observer) {
-        super(observer);        
-        myFrames = new FrameCounter(new Location(100, 20));
+        super(observer);
+        myFrames = new FrameCounter(FPS_SCREEN_LOC);
         myTasks = new ArrayList<DelayedTask>();
-        isGameOver = false;        
+        myPlayers.addObserver(this);
+        isGameOver = false;
     }
 
     @Override
     public void update (double elapsedTime) {
-        if (isGameOver) {
-            setChanged();
-            notifyObservers();
-        }
         myMap.update(elapsedTime);
         getPlayers().update(elapsedTime);
 
@@ -91,6 +90,7 @@ public class GameState extends SubState implements Controller, Observer {
         Scale.unscalePen(pen);
         pen.setBackground(Color.BLACK);
         myMap.paint(pen);
+
         // myMiniMap.paint(pen);
 
         if (myDrag != null) {
@@ -121,26 +121,21 @@ public class GameState extends SubState implements Controller, Observer {
     }
 
     public void setupGame () {
-        getPlayers().addPlayer(1);        
-        //getPlayers().getPlayer(0).setBase(getMap().getPlayerLocations().get(0));
-        getPlayers().getPlayer(0).setBase(new Location3D(200, 200, 0));
-        
-        getPlayers().getPlayer(0).getResources().setInitialValues(RTSGame.getFactory().getStarterPack());
-        
-        Location3D playerOneBase = getPlayers().getHuman().getBase();
-        generateInitialSprites(0, playerOneBase);
-
+        // Add player to team 1
+        getPlayers().addPlayer(1);
+        // Add player to team 2
         getPlayers().addPlayer(2);
-        
-        Location3D playerEnemyBase = getPlayers().getPlayer(1).getEnemyBase();
-        //getPlayers().getPlayer(1).setBase(getMap().getPlayerLocations().get(1));
-        getPlayers().getPlayer(1).setBase(new Location3D(800, 800, 0));
-        generateInitialSprites(1, playerEnemyBase);
 
-        generateResources();
+        for (int i = 0; i < 2; i++) {
+            getPlayers().getPlayer(i).setBase(getMap().getPlayerLocations().get(i));
+            getPlayers().getPlayer(i).getResources()
+                    .setInitialValues(RTSGame.getFactory().getStarterPack());
+            generateInitialSprites(i);
+        }        
     }
 
-    private void generateInitialSprites (int playerID, Location3D baseLocation) {
+    private void generateInitialSprites (int playerID) {
+        Location3D baseLocation = getPlayers().getPlayer(playerID).getBase();
         Unit worker = (Unit) RTSGame.getFactory().getEntitiesMap().get("worker").copy();
         worker =
 
@@ -161,6 +156,7 @@ public class GameState extends SubState implements Controller, Observer {
                 (Building) setLocation(startProduction, baseLocation,
                                        DEFAULT_PRODUCTION_RELATIVE_LOCATION);
         getPlayers().getPlayer(playerID).add(startProduction);
+        
 
         Building startOccupy =
                 (Building) RTSGame.getFactory().getEntitiesMap().get("garrison").copy();
@@ -180,15 +176,7 @@ public class GameState extends SubState implements Controller, Observer {
         return subject;
     }
 
-    private void generateResources () {
-        for (int j = 0; j < 10; j++) {
-            getMap().getResources().add(new Resource(new Pixmap("images/mineral.gif"),
-                                                     new Location3D(600 + j * 30, 600 - j * 20, 0),
-                                                     new Dimension(50, 50), 0, 200, "mineral"));
-        }
-    }
-
-    public void initializeGameOver () {
+    public void setGameOver () {
         isGameOver = true;
     }
 
@@ -202,7 +190,11 @@ public class GameState extends SubState implements Controller, Observer {
 
     @Override
     public void update (Observable arg0, Object arg1) {
-        initializeGameOver();
+        if (arg1 instanceof GameOver) {
+            setGameOver();
+            setChanged();
+            notifyObservers(arg1);    
+        }
     }
 
     public static void setMap (GameMap map) {
@@ -223,7 +215,7 @@ public class GameState extends SubState implements Controller, Observer {
         }
         catch (Exception e1) {
         }
-        if (ml.getMyMap().getPlayerLocations().size() >= 2) {
+        if (ml.getMyMap().getPlayerLocations().size() < 2) {
             return;
         }
         setMap(ml.getMyMap());

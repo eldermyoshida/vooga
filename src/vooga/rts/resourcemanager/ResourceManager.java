@@ -142,8 +142,6 @@ public class ResourceManager {
      * Starts loading the resources that have been queued.
      */
     public void load () {
-        System.out.println("Starting Load");
-        myTime = new TimeIt();
         if (!isLoading()) {
             myLoadThread = new Thread(new Runnable() {
                 @Override
@@ -164,8 +162,6 @@ public class ResourceManager {
                 URL nextFile = myLoadQueue.poll();
                 loadFile(nextFile);
             }
-            System.out.println("Loaded!");
-            myTime.printTime();
         }
     }
 
@@ -219,7 +215,7 @@ public class ResourceManager {
             return null;
         }
 
-        Object loadedFile = myResourceStorage.get(file);
+        Object loadedFile = myResourceStorage.get(file);        
         if (resourceType.isAssignableFrom(loadedFile.getClass())) {
             return resourceType.cast(loadedFile);
         }
@@ -241,12 +237,13 @@ public class ResourceManager {
     private URL getFileName (String filename) throws FileNotFoundException {
         URL f = getClass().getResource(myResourceBase + filename);
         if (f == null) {
-            File file = new File(filename);
-            try {
-                return new URL(file.getPath());
+            
+            f = getClass().getResource(filename);
+            if (f != null) {
+                return f;
             }
-            catch (MalformedURLException e) {
-                file = new File(myResourceBase + filename);
+            else {
+                File file = new File(filename);
                 try {
                     return new URL(file.getPath());
                 }

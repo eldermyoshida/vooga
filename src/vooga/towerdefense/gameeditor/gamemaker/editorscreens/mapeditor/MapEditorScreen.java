@@ -8,9 +8,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.File;
-import java.lang.reflect.Constructor;
-import java.lang.reflect.InvocationTargetException;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JButton;
@@ -20,11 +17,11 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import vooga.towerdefense.util.Pixmap;
-import vooga.towerdefense.model.tiles.factories.TileFactory;
 import vooga.towerdefense.gameeditor.controller.GameEditorController;
 import vooga.towerdefense.gameeditor.gamemaker.editorscreens.GameEditorScreen;
-import vooga.towerdefense.gameeditor.gamemaker.editorscreens.mapeditor.MapEditorScreen;
+import vooga.towerdefense.model.tiles.factories.TileFactory;
+import vooga.towerdefense.util.Pixmap;
+
 
 /**
  * The MapEditorScreen is responsible for helping
@@ -41,15 +38,15 @@ public class MapEditorScreen extends GameEditorScreen {
     private static final long serialVersionUID = 1L;
     private static final String NEXT_SCREEN_NAME = "PlayerEditorScreen";
     private static final String TITLE_NAME = "MAP ";
-    private static final String TILE_PACKAGE_PATH = "vooga.towerdefense.model.tiles.factories";
     private static final String TILE_IMAGES_CLASS_PATH = "vooga/towerdefense/images/map";
-    private static final Dimension TILE_PANEL_SIZE = new Dimension(400, 100);
+    private static final String TILE_PACKAGE_PATH = "vooga.towerdefense.model.tiles.factories";
+    private static final Dimension TILE_PANEL_SIZE = new Dimension(500, 100);
     private static final String USER_DIR = "user.dir";
     private static final String DEFAULT_TILE_SIZE = "50";
 
     private MapMakerScreen myMapMakerBox;
     private Dimension myMapMakerSize;
-    private JTextField myTextField;
+    private JTextField myTileSizeTextField;
     private JTextField myMapNameTextField;
     private final int FIELD_SIZE = 10;
     private ActionListener myActionListener;
@@ -64,51 +61,56 @@ public class MapEditorScreen extends GameEditorScreen {
     private JButton myBackgroundImageButton;
     private JFileChooser myChooser;
     private JButton myMapNameButton;
+    private TileFactoryLoader myLoader;
 
     /**
      * Constructor.
      * 
-     * @param size
-     * @param controller
+     * @param size size of the map editor screen
+     * @param controller the game editor controller
      */
     public MapEditorScreen (Dimension size, GameEditorController controller) {
-        super(size, controller, TITLE_NAME, NEXT_SCREEN_NAME);  
+        super(size, controller, TITLE_NAME, NEXT_SCREEN_NAME);
         makeListeners();
         initVariables();
         addComponentsToScreen();
         addMouseListener(myMouseListener);
         myBackgroundImageButton.addMouseListener(myMouseListener);
-        myMapNameButton.addMouseListener(myMouseListener);        
+        myMapNameButton.addMouseListener(myMouseListener);
         setVisible(true);
     }
 
     /**
      * initialize variables used
      */
-    private void initVariables(){
+    private void initVariables () {
         myTileSize = 50;
         myMapMakerSize = getController().getMapSize();
         myBackgroundImages = new ArrayList<String>();
-        myBackgroundImageButton = new JButton("CHOOSE IMAGE");
+        myBackgroundImageButton = new JButton("BACKGROUND IMAGE");
         myMapNameButton = new JButton("ENTER NAME");
         myChooser = new JFileChooser(System.getProperties().getProperty(USER_DIR));
+        myLoader = new TileFactoryLoader(getController());
     }
-    
+
     /**
-     * adds various components to screen and align them
+     * adds various components to screen and aligns them
      */
-    private void addComponentsToScreen() {
+    private void addComponentsToScreen () {
         add(makeMapBox(myMapMakerSize), BorderLayout.CENTER);
-        add(makeLabelText("TILE SIZE"), BorderLayout.EAST);
-        add(makeTextField(), BorderLayout.EAST);
+        add(makeLabelText("TILE SIZE"), BorderLayout.WEST);
+        add(makeTileTextField(), BorderLayout.WEST);
         add(myMapNameButton, BorderLayout.EAST);
         add(makeMapNameTextField(), BorderLayout.WEST);
-        add(makeLabelText("MAP TILES"), BorderLayout.SOUTH);
         add(makePathTilePainter(), BorderLayout.SOUTH);
-        add(makeLabelText("BACKGROUND IMAGE"));
         add(myBackgroundImageButton, BorderLayout.SOUTH);
     }
-    
+
+    /**
+     * Creates a text field for inputting the name of the game
+     * 
+     * @return JTextField
+     */
     private JComponent makeMapNameTextField () {
         myMapNameTextField = new JTextField(FIELD_SIZE);
         myMapNameTextField.addActionListener(myActionListener);
@@ -117,18 +119,29 @@ public class MapEditorScreen extends GameEditorScreen {
         return myMapNameTextField;
     }
 
+    /**
+     * Creates a JPanel where the map is built
+     * 
+     * @param size size of the map
+     * @return JPanel that the map is built on
+     */
     private JPanel makeMapBox (Dimension size) {
         myMapMakerBox = new MapMakerScreen(size);
         return myMapMakerBox;
     }
 
-    private JTextField makeTextField () {
-        myTextField = new JTextField(FIELD_SIZE);
-        myTextField.setText(DEFAULT_TILE_SIZE);
-        myTextField.addActionListener(myActionListener);
-        myTextField.setVisible(true);
+    /**
+     * Creates a JTextField for changing the tile size
+     * 
+     * @return text field area
+     */
+    private JTextField makeTileTextField () {
+        myTileSizeTextField = new JTextField(FIELD_SIZE);
+        myTileSizeTextField.setText(DEFAULT_TILE_SIZE);
+        myTileSizeTextField.addActionListener(myActionListener);
+        myTileSizeTextField.setVisible(true);
 
-        return myTextField;
+        return myTileSizeTextField;
     }
 
     private void makeListeners () {
@@ -138,8 +151,8 @@ public class MapEditorScreen extends GameEditorScreen {
                 if (e.getSource().equals(myMapNameTextField)) {
                     setMapName();
                 }
-                else if (e.getSource().equals(myTextField)){
-                    repaintGrids();
+                else if (e.getSource().equals(myTileSizeTextField)) {
+                    resetTileSize();
                 }
             }
         };
@@ -165,7 +178,7 @@ public class MapEditorScreen extends GameEditorScreen {
     private void setMapName () {
         myMapName = myMapNameTextField.getText();
         if (myMapName.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "NAME MUST BE AT LEAST 1 LETTER!!");
+            JOptionPane.showMessageDialog(null, "NAME MUST BE AT LEAST ONE CHARACTER!");
         }
         else {
             myMapNameTextField.setText("");
@@ -176,10 +189,10 @@ public class MapEditorScreen extends GameEditorScreen {
         return new JLabel(text);
     }
 
-    private void repaintGrids () {
-        myTileSize = Integer.parseInt(myTextField.getText());
+    private void resetTileSize () {
+        myTileSize = Integer.parseInt(myTileSizeTextField.getText());
         myMapMakerBox.setTileSizes(myTileSize);
-        myTextField.setText("");
+        myTileSizeTextField.setText("");
     }
 
     /**
@@ -201,10 +214,10 @@ public class MapEditorScreen extends GameEditorScreen {
     }
 
     private JPanel makePathTilePainter () {
-        File[] images = getImages(TILE_IMAGES_CLASS_PATH);
+        File[] images = myLoader.getImages(TILE_IMAGES_CLASS_PATH);
         List<Pixmap> myImages = new ArrayList<Pixmap>();
         myImages = makeTileImages(images);
-        initTileFactories();
+        myTileFactories = myLoader.initTileFactories(TILE_PACKAGE_PATH);
         myTilePainter = new TilePanel(TILE_PANEL_SIZE, myImages, this);
         return myTilePainter;
     }
@@ -216,11 +229,11 @@ public class MapEditorScreen extends GameEditorScreen {
      * @param s string representing the tile that the developer clicked on.
      */
     public void makeTileInstances (String s) {
-        
-        for (TileFactory tile: myTileFactories) {
-           if (tile.getName().equals(s)){
-               myTileFactoryToBuild = tile;
-           }
+
+        for (TileFactory tile : myTileFactories) {
+            if (tile.getName().equals(s)) {
+                myTileFactoryToBuild = tile;
+            }
         }
         myMapMakerBox.setTile(myTileFactoryToBuild);
     }
@@ -234,58 +247,8 @@ public class MapEditorScreen extends GameEditorScreen {
         return images;
     }
 
-    private File[] getImages (String packageName) {
-        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
-        URL resource = classLoader.getResource(packageName);
-        File directory = new File(resource.getFile());
-        if (directory.exists()) {
-            File[] files = directory.listFiles();
-            return files;
-        }
-        return null;
-    }
-
-    @SuppressWarnings({ "rawtypes", "static-access" })
-    private void initTileFactories() {
-        List<Class> classes = new ArrayList<Class>();
-        myTileFactories = new ArrayList<TileFactory>();
-        classes = getController().getClassesInPackage(TILE_PACKAGE_PATH);
-        for (Class myClass : classes) {
-             try {
-                if (myClass != vooga.towerdefense.model.tiles.factories.TileFactory.class){
-                    try {
-                        @SuppressWarnings("unchecked")
-                        Constructor ctor = myClass.getConstructor();
-                        try {
-                            myTileFactories.add((TileFactory) ctor.newInstance());
-                        }
-                        catch (IllegalArgumentException e) {
-                            e.printStackTrace();
-                        }
-                        catch (InvocationTargetException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                    catch (NoSuchMethodException e) {
-                        e.printStackTrace();
-                    }
-                    catch (SecurityException e) {
-                        e.printStackTrace();
-                    } 
-                }
-            }
-            catch (InstantiationException e) {
-                e.printStackTrace();
-            }
-            catch (IllegalAccessException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-    
     @Override
     public void addAdditionalMouseBehavior (MouseEvent e) {
-        // TODO Auto-generated method stub
     }
 
     /**
@@ -303,7 +266,7 @@ public class MapEditorScreen extends GameEditorScreen {
      * @return string representing the path of the background image
      */
     public String getBackgroundImagePath () {
-        return myBackgroundImageName;
+        return myMapMakerBox.getBackgroundImageName();
     }
 
     /**

@@ -45,7 +45,7 @@ public abstract class Decoder {
     protected static final String CAN_UPGRADE = "canupgrade";
     protected static final String MYWEAPONS_TAG = "myweapons";
     protected static final String CANNOT_GATHER = "cannotgather";
-    protected static final String INFORMATION_TAG = "information";
+    protected static final String INFORMATION_TAG = "information";    
     protected static final String DESCRIPTION_TAG = "description";
     protected static final String BUTTON_TAG = "button";
     protected static final String START_TAG = "start";
@@ -58,7 +58,10 @@ public abstract class Decoder {
      * @return String that is the correct content
      */
     protected String getElement (Element element, String tag) {
-        return element.getElementsByTagName(tag).item(0).getTextContent();
+        if (element.getElementsByTagName(tag).item(0) != null) {
+            return element.getElementsByTagName(tag).item(0).getTextContent();
+        }
+        return null;
     }
 
     /**
@@ -73,6 +76,10 @@ public abstract class Decoder {
     protected Information getInformation (String name, Element info) {
         Element infoElement =
                 (Element) info.getElementsByTagName(INFORMATION_TAG).item(0).getChildNodes();
+        String thename = getElement(infoElement, NAME_TAG);
+        if (thename == null) {
+            thename = name;
+        }
         String description = getElement(infoElement, DESCRIPTION_TAG);
         String button = getElement(infoElement, BUTTON_TAG);
         Element costElement =
@@ -87,7 +94,7 @@ public abstract class Decoder {
                 costMap.put(rName, cost);
             }
         }
-        return new Information(name, description, button, costMap);
+        return new Information(thename, description, button, costMap);
     }
 
     
