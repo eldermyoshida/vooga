@@ -48,62 +48,71 @@ public class UpgradeDecoder extends Decoder {
 	}
 
 	/**
-	 * Creates the UpgradeTree by receiving Document passed in from
-	 * the Factory, containing necessary information related to the
-	 * UpgradeTree
+	 * Creates the UpgradeTrees and puts them into map in Factory by receiving
+	 * Document passed in from the Factory, containing necessary information
+	 * related to the UpgradeTree
 	 * 
 	 * @param doc the Document passed in from Factory
 	 * @throws NumberFormatException 
 	 * 
 	 */
 	public void create(Document doc, String type) throws NumberFormatException {
-		UpgradeTree upgradeTree = new UpgradeTree();
-		
-		NodeList treeLst = doc.getElementsByTagName(TREE_TAG);
+		NodeList treeLst = doc.getElementsByTagName(TREE_TAG);		
 		for (int i = 0; i < treeLst.getLength(); i++) {
 			Element treeElmnt = (Element) treeLst.item(i);
 			Element treeNameElmnt = (Element) treeElmnt.getElementsByTagName(TREE_NAME_TAG).item(0);
 			NodeList treeName = treeNameElmnt.getChildNodes();
-			createSingleTree(((Node) treeName.item(0)).getNodeValue(), treeElmnt, upgradeTree);
+			createSingleTree(((Node) treeName.item(0)).getNodeValue(), treeElmnt);
 		}
 	}
 	
-	private void createSingleTree(String treeName, Element treeElmnt, UpgradeTree upgradeTree) {
+	/**
+	 * Creates a single upgrade tree based on information loaded from the input
+	 * xml file.
+	 * 
+	 * @param treeName
+	 * @param treeElmnt
+	 */
+	private void createSingleTree(String treeName, Element treeElmnt) {
+		UpgradeTree upgradeTree = new UpgradeTree();
 		NodeList nodeLst = treeElmnt.getElementsByTagName(UPGRADE_CATEGORY_TAG);
 
 		for (int i = 0; i < nodeLst.getLength(); i++) {
 
 			Element typeElmnt = (Element) nodeLst.item(i);
-			Element nameElmnt = (Element) typeElmnt.getElementsByTagName(CATEGORY_NAME_TAG).item(0);
+			Element nameElmnt = (Element) typeElmnt.
+					getElementsByTagName(CATEGORY_NAME_TAG).item(0);
 			NodeList name = nameElmnt.getChildNodes();
 			upgradeTree.addBranch(((Node) name.item(0)).getNodeValue());
 
-			NodeList upgradeNodeList = typeElmnt.getElementsByTagName(INDIVIDUAL_UPGRADE_TAG);
+			NodeList upgradeNodeList = typeElmnt.
+					getElementsByTagName(INDIVIDUAL_UPGRADE_TAG);
 			for (int j=0; j<upgradeNodeList.getLength(); ++j) {
 				Element upgradeNodeElement = (Element) upgradeNodeList.item(j);
 
-				String parent = loadSingleLine(upgradeNodeElement, PARENT_UPGRADE_TAG);
-				String nodeName = loadSingleLine(upgradeNodeElement, TITLE_TAG);
-				String object = loadSingleLine(upgradeNodeElement, AFFECTING_OBJECT_TAG);
-				String value = loadSingleLine(upgradeNodeElement, AFFECTING_VALUE_TAG);
-				String costedResource = loadSingleLine(upgradeNodeElement, COSTING_RESOURCE_TYPE_TAG);
-				String costedResourceAmount = loadSingleLine(upgradeNodeElement, COSTING_RESOURCE_AMOUNT_TAG);
+				String parent = getElement(upgradeNodeElement,
+						PARENT_UPGRADE_TAG);
+				String nodeName = getElement(upgradeNodeElement,
+						TITLE_TAG);
+				String object = getElement(upgradeNodeElement,
+						AFFECTING_OBJECT_TAG);
+				String value = getElement(upgradeNodeElement,
+						AFFECTING_VALUE_TAG);
+				String costedResource = getElement(upgradeNodeElement,
+						COSTING_RESOURCE_TYPE_TAG);
+				String costedResourceAmount = getElement(upgradeNodeElement,
+						COSTING_RESOURCE_AMOUNT_TAG);
 
-				UpgradeNode newUpgrade = (UpgradeNode) ReflectionHelper.makeInstance(myUpgradeNodeType.get(object), upgradeTree, nodeName, Integer.parseInt(value), Integer.parseInt(costedResourceAmount));
+				UpgradeNode newUpgrade = (UpgradeNode) ReflectionHelper.
+						makeInstance(myUpgradeNodeType.get(object),
+								upgradeTree, nodeName, Integer.parseInt(value),
+								Integer.parseInt(costedResourceAmount));
 				UpgradeNode current = upgradeTree.findNode(parent);
 				current.addChild(newUpgrade);
 			}
 		}
-		upgradeTree.updateTreeStatus();
-		System.out.println(treeName);
+		upgradeTree.updateTreeStatus();		
 		myFactory.put(treeName, upgradeTree);
-	}
-	
-	private String loadSingleLine(Element element, String tag) {
-		NodeList nodeElmntLst = element.getElementsByTagName(tag);
-		Element nodeElmnt = (Element) nodeElmntLst.item(0);
-		String result = ((Node)nodeElmnt.getChildNodes().item(0)).getNodeValue();
-		return result;
 	}
 	
 	/**

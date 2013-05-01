@@ -8,6 +8,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import javax.xml.parsers.DocumentBuilder;
@@ -413,6 +414,7 @@ public class Factory {
             mySprites.get(key).setUpgradeStrategy(upgrade);
             if (upgrade instanceof CanUpgrade) {
                 UpgradeTree relatedUpgradeTree = myUpgradeTrees.get(strategies[4]);
+                System.out.println("RELATED UPGRADE: " + strategies[4]);
                 mySprites.get(key).setUpgradeTree(relatedUpgradeTree);
             }
         }
@@ -449,6 +451,19 @@ public class Factory {
             holder.setProjectile(toAdd);
         }
 
+    }
+    
+    public Weapon getWeapon(int index) {
+        Iterator<Weapon> it = myWeapons.values().iterator();
+        int i = 0;
+        while (it.hasNext()) {
+            Weapon w = it.next();
+            if (i == index) {
+                return w;
+            }
+            i++;
+        }
+        return null;
     }
 
 }

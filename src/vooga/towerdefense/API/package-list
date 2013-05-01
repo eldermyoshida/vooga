@@ -1,7 +1,9 @@
 vooga.towerdefense
 vooga.towerdefense.action
 vooga.towerdefense.action.actionlist
-vooga.towerdefense.action.tobetested
+vooga.towerdefense.action.attack
+vooga.towerdefense.action.movement
+vooga.towerdefense.action.response
 vooga.towerdefense.action.waveactions
 vooga.towerdefense.arcadeinteraction
 vooga.towerdefense.attributes
@@ -10,9 +12,7 @@ vooga.towerdefense.controller.modes
 vooga.towerdefense.factories
 vooga.towerdefense.factories.actionfactories
 vooga.towerdefense.factories.attributefactories
-vooga.towerdefense.factories.definitions
 vooga.towerdefense.factories.elementfactories
-vooga.towerdefense.factories.examplesfactories
 vooga.towerdefense.factories.rulefactories
 vooga.towerdefense.factories.waveactionfactories
 vooga.towerdefense.gameeditor

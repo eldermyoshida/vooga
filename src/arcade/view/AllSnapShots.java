@@ -115,7 +115,7 @@ public class AllSnapShots extends JPanel implements Scrollable {
 
     @Override
     public boolean getScrollableTracksViewportWidth () {
-        return false;
+        return true;
     }
 
     @Override

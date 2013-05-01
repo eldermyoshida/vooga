@@ -123,9 +123,10 @@ public class GameElementFactory {
 	 * 
 	 * @param spawn
 	 * @param target
+	 * @param tracking TODO
 	 * @return
 	 */
-	public GameElement createElement(Location spawn, GameElement target) {
+	public GameElement createElement(Location spawn, GameElement target, boolean tracking) {
 		GameElement projectile = new GameElement(myImage, spawn, mySize,
 				myAttributeManagerFactory.makeAttributeManager());
 		projectile.addActions(createActions(projectile));
@@ -135,7 +136,7 @@ public class GameElementFactory {
 				target.getCenter(), projectile.getAttributeManager()
 						.getAttribute(
 								AttributeConstantsEnum.MOVE_SPEED
-										.getStatusCode())));
+										.getStatusCode()),true));
 		projectile.addActions(actions);
 		return projectile;
 	}

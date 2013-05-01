@@ -28,6 +28,7 @@ public class MapMakerScreen extends JPanel {
     private static final DefaultTileFactory DEFAULT_TILE_FACTORY = new DefaultTileFactory();
     private static final int MINIMUM_TILE_SIZE = 10;
     private static final String RESOURCE_LOCATION = "/vooga/towerdefense/images/background/";
+    private static final String BACKGROUNDIMAGE = "bg1.jpg";
     private Dimension mySize;
     private Integer myTileSize;
     private MouseAdapter myMouseListener;
@@ -36,11 +37,17 @@ public class MapMakerScreen extends JPanel {
     private TileFactory myTileToBuild;
     private String myMapString;
     private java.awt.Image myBackgroundImage;
+    private String myBackground;
 
+    /**
+     * Class constructor. Sets the size, background image a
+     * 
+     * @param size the size of the map
+     */
     public MapMakerScreen (Dimension size) {
         setSize(size);
         setPreferredSize(size);
-        setBackgroundImage("bg1.jpg");
+        setBackgroundImage(BACKGROUNDIMAGE);
         mySize = size;
         myTileSize = 50;
         myGrids = new ArrayList<Grid>();
@@ -51,18 +58,34 @@ public class MapMakerScreen extends JPanel {
         addMouseListener(myMouseListener);
     }
 
+    /**
+     * 
+     * @param fileName name of the background image
+     */
     public void setBackgroundImage (String fileName) {
         myBackgroundImage =
                 new ImageIcon(getClass().getResource(RESOURCE_LOCATION + fileName)).getImage();
+        myBackground = fileName;
     }
 
+    /**
+     * get the path of the background image
+     * 
+     * @return string representing the path of the background image
+     */
+    public String getBackgroundImageName(){
+        return myBackground;
+    }
+    
+    /**
+     * Enables custom painting on the screen. Grid lines and Tiles can be painted.
+     */
     @Override
     public void paintComponent (Graphics pen) {
         super.paintComponent(pen);
         pen.drawImage(myBackgroundImage, 0, 0, getWidth(), getHeight(), null);
         setBackground(Color.CYAN);
-        paintGridLines(pen);
-        paintTilesOnGrid(pen);
+        paintGridLinesAndCreateGrids(pen);
     }
 
     private void paintTilesOnGrid (Graphics pen) {
@@ -84,17 +107,18 @@ public class MapMakerScreen extends JPanel {
         repaint();
     }
 
-    private void paintGridLines (Graphics pen) {
+    private void paintGridLinesAndCreateGrids (Graphics pen) {
+
         if (myTileSize > MINIMUM_TILE_SIZE) {
             myGrids.removeAll(myGrids);
-            myMap = new String[mySize.width / myTileSize][mySize.height / myTileSize];
-            for (int i = 0; i < mySize.width; i += myTileSize) {
-                for (int j = 0; j < mySize.height; j += myTileSize) {
+            myMap = new String[(mySize.width / myTileSize) + 1][(mySize.height / myTileSize) + 1];
+            for (int i = 1; i < mySize.width; i += myTileSize) {
+                for (int j = 1; j < mySize.height; j += myTileSize) {
                     pen.drawLine(i, 0, i, mySize.height);
                     pen.drawLine(0, j, mySize.width, j);
                     Grid rect = new Grid(i, j, myTileSize, myTileSize, DEFAULT_TILE_FACTORY);
                     myGrids.add(rect);
-                    myMap[i / myTileSize][j / myTileSize] = DEFAULT_TILE_FACTORY.getTileId() + " ";
+                    myMap[i / myTileSize][j / myTileSize] = DEFAULT_TILE_FACTORY.getTileId();
                 }
             }
         }
@@ -114,7 +138,7 @@ public class MapMakerScreen extends JPanel {
         for (Grid tile : myGrids) {
             if (tile.contains(point)) {
                 tile.setTile(myTileToBuild);
-                myMap[tile.x / myTileSize][tile.y / myTileSize] = myTileToBuild.getTileId() + " ";
+                myMap[tile.x / myTileSize][tile.y / myTileSize] = myTileToBuild.getTileId();
                 paintTilesOnGrid(getGraphics());
             }
         }
@@ -136,9 +160,9 @@ public class MapMakerScreen extends JPanel {
      */
     public String getMapString () {
         myMapString = "";
-        for (int j = 0; j < myMap.length; j++) {
-            for (String[] element : myMap) {
-                myMapString += element[j]; 
+        for (int j = 0; j < (mySize.height / myTileSize); j++) {
+            for (int k = 0; k < (mySize.width / myTileSize); k++) {
+                myMapString += myMap[k][j] + " ";
             }
         }
         return myMapString;
